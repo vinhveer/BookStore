@@ -90,14 +90,14 @@
 <body>
     <div class="container-fluid">
         <!--sidebar-->
-        <div class="sidebar">
+        <div class="sidebar close">
             <div class="logo">
               <img src="logo/image.png" alt="">
             </div>
             <div class="sidebar-menu">
               <ul>
                   <li><a href="#"><i class="bi bi-person"></i>User</a></li>
-                  <li class="active"><a href="employee.php"><i class="bi bi-shop"></i>Sell</a></li>
+                  <li class="active"><a href="#"><i class="bi bi-shop"></i>Sell</a></li>
                   <li><a href="#"><i class="bi bi-bell"></i>Notification</a></li>
                   <li><a href="#"><i class="bi bi-gear"></i>Settings</a></li>
                   <li><a href="#"><i class="bi bi-headset"></i>Support</a></li>
@@ -124,7 +124,7 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="employee_orders_turn.html"><i class="bi bi-list"></i></a>
+                    <a class="nav-link active" aria-current="page" href="index.php"><i class="bi bi-list"></i></a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#"><i class="bi bi-file-text"></i>Orders</a>
@@ -203,4 +203,3 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLE
-</body>
