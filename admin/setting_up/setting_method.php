@@ -46,8 +46,8 @@ include_once ('layout.php')
                                         <td>Không có phí</td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-warning mb-3 me-2"><i class="fas fa-edit"></i> Sửa</button>
-                                                <button class="btn btn-danger mb-3"><i class="fas fa-trash-alt"></i> Xóa</button>
+                                            <button class="btn btn-warning mb-3 me-2 btn-edit"><i class="fas fa-edit"></i> Sửa</button>
+                                                <button class="btn btn-danger mb-3 btn-delete"><i class="fas fa-trash-alt"></i> Xóa</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -59,8 +59,8 @@ include_once ('layout.php')
                                         <td>1.5% phí giao dịch</td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-warning mb-3 me-2"><i class="fas fa-edit"></i> Sửa</button>
-                                                <button class="btn btn-danger mb-3"><i class="fas fa-trash-alt"></i> Xóa</button>
+                                            <button class="btn btn-warning mb-3 me-2 btn-edit"><i class="fas fa-edit"></i> Sửa</button>
+                                                <button class="btn btn-danger mb-3 btn-delete"><i class="fas fa-trash-alt"></i> Xóa</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -72,8 +72,8 @@ include_once ('layout.php')
                                         <td>1.5% phí giao dịch</td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <button class="btn btn-warning mb-3 me-2"><i class="fas fa-edit"></i> Sửa</button>
-                                                <button class="btn btn-danger mb-3"><i class="fas fa-trash-alt"></i> Xóa</button>
+                                            <button class="btn btn-warning mb-3 me-2 btn-edit"><i class="fas fa-edit"></i> Sửa</button>
+                                                <button class="btn btn-danger mb-3 btn-delete"><i class="fas fa-trash-alt"></i> Xóa</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -125,6 +125,59 @@ include_once ('layout.php')
                     </div>
                 </div>
                 </div>
+                <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmDeleteModalLabel">Xác nhận xóa</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Bạn có chắc chắn muốn xóa phương thức thanh toán này không?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="button" class="btn btn-danger" id="confirmDeleteButton">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="modal fade" id="editPaymentMethodModal" tabindex="-1" aria-labelledby="editPaymentMethodModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editPaymentMethodModalLabel">Sửa phương thức thanh toán</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <input type="hidden" id="editPaymentMethodIndex">
+                                <div class="mb-3">
+                                    <label for="editPaymentMethodName" class="form-label">Tên phương thức:</label>
+                                    <input type="text" class="form-control" id="editPaymentMethodName">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editPaymentMethodDescription" class="form-label">Mô tả:</label>
+                                    <textarea class="form-control" id="editPaymentMethodDescription" rows="3"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editPaymentMethodFee" class="form-label">Phí:</label>
+                                    <input type="text" class="form-control" id="editPaymentMethodFee">
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="editPaymentMethodStatus">
+                                    <label class="form-check-label" for="editPaymentMethodStatus">Kích hoạt</label>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-primary" id="saveEditedPaymentMethod">Lưu</button>
+                        </div>
+                    </div>
+                </div>
+</div>
+
             </div>
         </div>
     </div>
@@ -163,6 +216,61 @@ include_once ('layout.php')
         row.cells[0].textContent = index + 1;
         });
     }
+
+    document.querySelectorAll(".btn-delete").forEach(function(button) {
+        button.addEventListener("click", function() {
+            var modal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+            var row = this.closest("tr");
+            var deleteButton = document.getElementById("confirmDeleteButton");
+
+            deleteButton.onclick = function() {
+                // Thực hiện hành động xóa ở đây, ví dụ:
+                // row.remove();
+                modal.hide();
+            };
+
+            modal.show();
+        });
+    });
+
+    document.querySelectorAll(".btn-edit").forEach(function(button) {
+        button.addEventListener("click", function() {
+            var modal = new bootstrap.Modal(document.getElementById('editPaymentMethodModal'));
+            var row = this.closest("tr");
+            var cells = row.cells;
+            var index = parseInt(cells[0].textContent) - 1; // Lấy chỉ số của hàng
+            var name = cells[1].textContent;
+            var status = cells[2].querySelector("span").textContent.includes("Hoạt động");
+            var description = cells[3].textContent;
+            var fee = cells[4].textContent;
+
+            document.getElementById("editPaymentMethodIndex").value = index;
+            document.getElementById("editPaymentMethodName").value = name;
+            document.getElementById("editPaymentMethodDescription").value = description;
+            document.getElementById("editPaymentMethodFee").value = fee;
+            document.getElementById("editPaymentMethodStatus").checked = status;
+
+            modal.show();
+        });
+    });
+
+    // Lưu thông tin phương thức thanh toán đã sửa
+    document.getElementById("saveEditedPaymentMethod").addEventListener("click", function() {
+        var index = parseInt(document.getElementById("editPaymentMethodIndex").value);
+        var name = document.getElementById("editPaymentMethodName").value;
+        var description = document.getElementById("editPaymentMethodDescription").value;
+        var fee = document.getElementById("editPaymentMethodFee").value;
+        var status = document.getElementById("editPaymentMethodStatus").checked ? '<span class="badge bg-success">Hoạt động</span>' : '<span class="badge bg-danger">Không hoạt động</span>';
+
+        var row = document.querySelectorAll("table tbody tr")[index];
+        row.cells[1].textContent = name;
+        row.cells[2].innerHTML = status;
+        row.cells[3].textContent = description;
+        row.cells[4].textContent = fee;
+
+        var modal = new bootstrap.Modal(document.getElementById('editPaymentMethodModal'));
+        modal.hide();
+    });
     </script>
 
 </body>

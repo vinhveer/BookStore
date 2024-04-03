@@ -22,7 +22,7 @@ include_once ('layout.php')
                         Thông tin hệ thống
                     </div>
                     <div class="card-body">
-                        <p class="d-flex justify-content-between">Version: 1.0.0<a href="">Xem chi tiết</a></p>
+                        <p class="d-flex justify-content-between">Version: 1.0.0<a href="setting_detail_info.php">Xem chi tiết</a></p>
                         <p>Developed by: Your Company Name</p>
                         <p>Email: info@company.com</p>
                     </div>
@@ -36,7 +36,7 @@ include_once ('layout.php')
                     <div class="card-body">
                         <p>Phiên bản mới nhất: 1.1.0</p>
                         <p>Ngày cập nhật: 01/01/2024</p>
-                        <p><a href="#">Xem chi tiết cập nhật</a></p>
+                        <p><a href="setting_detail_update.php">Xem chi tiết cập nhật</a></p>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@ include_once ('layout.php')
                         Liên hệ
                     </div>
                     <div class="card-body">
-                        <p class="d-flex justify-content-between">Thông tin liên hệ<a href="">Xem chi tiết</a></p>
+                        <p class="d-flex justify-content-between">Thông tin liên hệ<a href="setting_detail_contact.php">Xem chi tiết</a></p>
                         <p>Điện thoại: 0123 456 789</p>
                         <p>Email: contact@company.com</p>
                     </div>
