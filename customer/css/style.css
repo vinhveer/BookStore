@@ -41,3 +41,36 @@ html::-webkit-scrollbar-track {
 html::-webkit-scrollbar-thumb {
     background: var(--black);
 }
+
+.header .header_1 {
+    background: #FFF;
+    padding: 1.5rem 9%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header .header_1 .logo {
+    font-size: 2.5rem;
+    font-weight: bolder;
+    color: var(--black);
+}
+
+.header .header_1 .logo i {
+    color: var(--green);
+}
+
+.header .header_1 .search_form {
+    width: 50rem;
+    height: 5rem;
+    border: var(--border);
+    overflow: hidden;
+    background: #FFF;
+    display: flex;
+    align-items: center;
+    border-radius: 5rem;
+}
+
+.header .header_1 .search_form input {
+    font-size: 1.6rem;
+}
