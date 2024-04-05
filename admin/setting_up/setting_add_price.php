@@ -11,8 +11,8 @@ include_once 'layout.php'
 </head>
 <body>
 
-<div class="container mt-3">
-    <h2 class="mb-4">Xây dựng chính sách giá</h2>
+<div class="container mt-2">
+    <h2 class="mb-4 text-center">Xây dựng chính sách giá</h2>
 
     <div class="row">
         <div class="col-lg-12">
@@ -67,9 +67,8 @@ include_once 'layout.php'
                         </div>
                     </div>
                 </div>
-
-                <div class = "card mt-3">
-                <h3 class="text-center mt-2">Thiết lập giá bán</h3>
+                <div class = "card mt-3 mb-4">
+                <h4 class="text-center mt-2">Thiết lập giá bán</h4>
                 <hr>
                     <div class="card-body">
                         <div class="table-responsive">

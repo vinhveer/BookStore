@@ -23,14 +23,14 @@ include_once ('layout.php')
                     <div class="card-body">
                         <h6 class="card-title">Thiết lập thông báo</h6>
                         <p class="card-text">Thiết lập cách hệ thống thông báo với người dùng.</p>
-                        <button class="btn btn-primary"><i class="fas fa-cog me-1"></i>Cài đặt</button>
+                        <a href="setting_establish_nofi.php" class="btn btn-primary"><i class="fas fa-cog me-1"></i>Cài đặt</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-body">
                         <h6 class="card-title">Thông báo mới nhất</h6>
                         <p class="card-text">Xem danh sách các thông báo mới nhất từ hệ thống.</p>
-                        <button class="btn btn-primary"><i class="fas fa-bell me-1"></i>Xem danh sách</button>
+                        <a href="setting_new_nofi.php" class="btn btn-primary"><i class="fas fa-bell me-1"></i>Xem danh sách</a>
                     </div>
                 </div>
             </div>
@@ -39,14 +39,14 @@ include_once ('layout.php')
                     <div class="card-body">
                         <h6 class="card-title">Gửi thông báo</h6>
                         <p class="card-text">Gửi thông báo mới đến người dùng.</p>
-                        <button class="btn btn-primary"><i class="fas fa-envelope me-1"></i>Gửi thông báo</button>
+                        <a href="setting_send_nofi.php" class="btn btn-primary"><i class="fas fa-envelope me-1"></i>Gửi thông báo</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-body">
                         <h6 class="card-title">Quản lý thông báo</h6>
                         <p class="card-text">Xem, chỉnh sửa hoặc xóa các thông báo đã gửi.</p>
-                        <button class="btn btn-primary"><i class="fas fa-list-alt me-1"></i>Quản lý thông báo</button>
+                        <a href="setting_manage_nofi.php" class="btn btn-primary"><i class="fas fa-list-alt me-1"></i>Quản lý thông báo</a>
                     </div>
                 </div>
             </div>
