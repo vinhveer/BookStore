@@ -7,6 +7,7 @@
     <title>Home</title>
 
     <?php include '../import/libary.php'; ?>
+    <?php include 'sql_command.php' ?>
 
     <style>
     a {
@@ -163,47 +164,31 @@
         </div>
     </div>
 
+    <?php
+    include '../import/connect.php';
+
+    // $sql = "SELECT TOP 5 bo.product_id, bo.book_name, pr.product_image, pr.product_price FROM books bo
+    // INNER JOIN products pr ON pr.product_id = bo.product_id;";
+
+    $result = sqlsrv_query($conn, $sql_index);
+    ?>
+
     <div class="container mt-4 d-flex">
+        <?php
+        while ($row = sqlsrv_fetch_array($result))
+        {
+        ?>
         <div class="card me-2" style="width: 18rem;">
-            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="...">
+            <img src="<?php echo $row['product_image'] ?>" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">$18</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <h5 class="card-title"><?php echo $row['book_name'] ?></h5>
+                <p class="card-text"> <?php echo $row['product_price'] ?></p>
+                <a href="#" class="btn btn-primary">Buy now</a>
             </div>
         </div>
-        <div class="card me-2" style="width: 18rem;">
-            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">$18</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card me-2" style="width: 18rem;">
-            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">$18</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card me-2" style="width: 18rem;">
-            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">$18</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card" style="width: 18rem;">
-            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">$18</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
+        <?php
+        }
+        ?>
     </div>
 
     <footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiary">
