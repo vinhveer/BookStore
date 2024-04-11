@@ -17,7 +17,7 @@
             <div class="logo-name"><span>A</span>Employee</div>
         </a>
         <ul class="side-menu">
-            <li class="active"><a href="#"><i class='bx bx-store-alt' ></i>Sell</a></li>
+            <li class="active"><a href="index.php"><i class='bx bx-store-alt' ></i>Sell</a></li>
             <li><a href="#"><i class='bx bx-headphone' ></i>Support</a></li>
             <li><a href="#"><i class='bx bx-group'></i>User</a></li>
             <li><a href="#"><i class='bx bx-message-dots' ></i></i>Chat</a></li>
@@ -59,8 +59,15 @@
             <div class="header">
                 <div class="left">
                     <h1>Sell</h1>
-                    
+                    <ul class="breadcrumb">
+                        <li><a href="#">
+                                Sell
+                            </a></li>
+                        /
+                        <li><a href="#" class="active">Transport</a></li>
+                    </ul>
                 </div>
+                
                 <a href="#" class="report">
                     <i class='bx bx-cloud-download'></i>
                     <span>Download CSV</span>
@@ -69,7 +76,7 @@
 
             <!-- Insights -->
             <ul class="insights">
-                <li>
+            <li>
                     <i class='bx bx-calendar-check'></i>
                     <span class="info">
                         <h3>
@@ -103,82 +110,36 @@
                     </span>
                 </li>
             </ul>
-            <div class="bottom-data">
-                <div class="orders">
-                    <div class="header">
-                        <i class='bx bx-receipt'></i>
-                        <h3>Recent Orders</h3>
-                        <i class='bx bx-filter'></i>
-                        <i class='bx bx-search'></i>
-                    </div>
-                    <table>
+            <div class="table-content">
+                <h2>Orders</h2>
+                   <table>
                         <thead>
                             <tr>
-                                <th>User</th>
-                                <th>Order Date</th>
-                                <th>Status</th>
+                                <th>Order ID</th>
+                                <th>Transporter Name</th>
+                                <th>State</th>
+                                <th>Date</th>
+                                <th>Detail</th>
                             </tr>
                         </thead>
-                        <tbody>
+                    <tbody>
                             <tr>
-                                <td>
-                                    <img src="images/profile_1.jpg">
-                                    <p>Vinh Veer</p>
-                                </td>
-                                <td>01-04-2024</td>
-                                <td><span class="status completed">Completed</span></td>
+                                <td>001</td>
+                                <td>John Doe</td>
+                                <td>Completed</td>
+                                <td>6-4-1004</td>
+                                <td><a href="transport.php">click to see</a></td>
                             </tr>
                             <tr>
-                                <td>
-                                    <img src="images/profile_1.jpg">
-                                    <p>Vinh Veer</p>
-                                </td>
-                                <td>01-04-2024</td>
-                                <td><span class="status pending">Pending</span></td>
+                                <td>002</td>
+                                <td>Jane Smith</td>
+                                <td>Completed</td>
+                                <td>6-4-2004</td>
+                                <td><a href="transport.php">click to see</a></td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <img src="images/profile_1.jpg">
-                                    <p>Vinh Veer</p>
-                                </td>
-                                <td>01-04-2024</td>
-                                <td><span class="status process">Canceled</span></td>
-                            </tr>
-                        </tbody>
+                    <!-- Add more rows as needed -->
+                    </tbody>
                     </table>
-                </div>
-                <!-- Reminders -->
-                <div class="reminders">
-                    <div class="header">
-                        <i class='bx bx-note'></i>
-                        <h3>Remiders</h3>
-                        <i class='bx bx-filter'></i>
-                        <i class='bx bx-plus'></i>
-                    </div>
-                    <ul class="task-list">
-                        <li class="completed">
-                            <div class="task-title">
-                                <i class='bx bx-check-circle'></i>
-                                <p>Start Our Meeting</p>
-                            </div>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
-                        <li class="completed">
-                            <div class="task-title">
-                                <i class='bx bx-check-circle'></i>
-                                <p>Analyse Our Site</p>
-                            </div>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
-                        <li class="not-completed">
-                            <div class="task-title">
-                                <i class='bx bx-x-circle'></i>
-                                <p>Play Footbal</p>
-                            </div>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </main>
     </div>
