@@ -126,7 +126,7 @@
 
                 <ul class="navbar-nav mb-2 mb-lg-0 align-items-center">
                     <li class="nav-item">
-                        <a class="nav-link active btn mx-2" aria-current="page" href="#">
+                        <a class="nav-link active btn mx-2" aria-current="page" href="cart.php">
                             <i class="bi bi-cart-dash"></i>
                             Cart
                         </a>
