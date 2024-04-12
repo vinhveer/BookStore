@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
 
-    <?php include '../import/libary.php'; ?>
+    <?php 
+    include '../import/libary.php'; 
+    include '../import/connect.php';
+    ?>
 
     <style>
     a {
@@ -88,10 +91,10 @@
                         <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="book.php">Book</a>
+                        <a class="nav-link" href="book/book.php">Book</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="stationery.php">Stationery</a>
+                        <a class="nav-link" href="stationery/stationery.php">Stationery</a>
                     </li>
                 </ul>
                 <form class="d-flex me-auto search align-items-center" role="search">
@@ -152,6 +155,66 @@
         </button>
     </div>
 
+    <?php
+    $sql_items = "SELECT * FROM list_item";
+    $result_items = sqlsrv_query($conn, $sql_items);
+
+    while ($row = sqlsrv_fetch_array($result_items, SQLSRV_FETCH_ASSOC))
+    {
+        if ($row['type_item'] == 'b')
+        {
+        ?>
+    <div class="container mt-4">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-10">
+                <h4 style="margin-bottom: 0">
+                    <?php echo $row['title']; ?>
+                </h4>
+            </div>
+            <div class="col-md-2">
+                <a href="#" class="btn float-end" style="background-color: #ffe100;">See more</a>
+            </div>
+        </div>
+    </div>
+    <?php   
+            $sql_item_book = $row['cmd_top5'];
+            $result_item_book = sqlsrv_query($conn, $sql_item_book);
+            ?>
+    <div class="container mt-4 d-flex">
+        <?php
+                while ($row_book = sqlsrv_fetch_array($result_item_book, SQLSRV_FETCH_ASSOC))
+                {
+                ?>
+        <div class="card me-2" style="width: 18rem;">
+            <img src="<?php echo $row_book['product_image']; ?>" class="card-img-top" alt="<?php echo $row['title']; ?>"
+                style="max-height: 260px">
+            <div class="card-body">
+                <p class="card-text"><?php echo $row_book['book_publication_year']; ?></p>
+                <h6 class="card-title">
+                    <?php echo $row_book['book_name']; ?>
+                </h6>
+
+            </div>
+            <div class="card-footer">
+                <p class="card-text">
+                    <strong>
+                        <?php echo $row_book['product_price']; ?>đ
+                    </strong>
+                </p>
+
+                <a href="#" class="btn btn-success">Buy now</a>
+                <a href="#" class="btn btn-danger float-end"><i class="bi bi-cart-dash"></i></a>
+            </div>
+        </div>
+        <?php
+                }
+                ?>
+    </div>
+    <?php  
+        }
+        else
+        {
+        ?>
     <div class="container mt-4">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-10">
@@ -163,44 +226,27 @@
         </div>
     </div>
 
-    <?php
-    include '../import/connect.php';
-
-    $sql = "SELECT TOP 5 bo.product_id, bo.book_name, pr.product_image, pr.product_price FROM books bo
-    INNER JOIN products pr ON pr.product_id = bo.product_id;";
-
-    $result = sqlsrv_query($conn, $sql);
-    ?>
-
     <div class="container mt-4 d-flex">
-        <?php
-        while ($row = sqlsrv_fetch_array($result))
-        {
-        ?>
         <div class="card me-2" style="width: 18rem;">
-            <img src="<?php echo $row['product_image'] ?>" class="card-img-top" alt="..." style="max-height: 250px">
+            <img src="<?php echo $row['image_url']; ?>" class="card-img-top" alt="<?php echo $row['title']; ?>"
+                style="max-height: 250px">
             <div class="card-body">
                 <h6 class="card-title">
-                    <?php 
-                        $book_name = $row['book_name'];
-                        if(strlen($book_name) > 50) {
-                            echo substr($book_name, 0, 50) . '...';
-                        } else {
-                            echo $book_name;
-                        }
-                    ?>
+                    <?php echo $row['title']; ?>
                 </h6>
             </div>
             <div class="card-footer">
-                <p class="card-text"> <?php echo $row['product_price'] ?></p>
+                <p class="card-text"><?php echo $row['description']; ?></p>
                 <a href="#" class="btn btn-success">Buy now</a>
                 <a href="#" class="btn btn-danger float-end"><i class="bi bi-cart-dash"></i></a>
             </div>
         </div>
-        <?php
-        }
-        ?>
     </div>
+    <?php
+        }
+    }
+    ?>
+
 
     <footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiary">
         <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
@@ -225,14 +271,14 @@
                     <h5>Product Categories</h5>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="/">Home</a></li>
-                        
+
                     </ul>
                 </div>
                 <div class="col-8 col-lg-3 mb-3">
                     <h5>Site Maps</h5>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="/docs/5.3/getting-started/">Getting started</a></li>
-                        
+
                     </ul>
                 </div>
                 <div class="col-8 col-lg-2 mb-3">
@@ -240,7 +286,7 @@
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="https://github.com/twbs/bootstrap" target="_blank"
                                 rel="noopener">Bootstrap 5</a></li>
-                        
+
                     </ul>
                 </div>
             </div>
