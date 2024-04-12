@@ -7,7 +7,6 @@
     <title>Home</title>
 
     <?php include '../import/libary.php'; ?>
-    <?php include 'sql_command.php' ?>
 
     <style>
     a {
@@ -167,10 +166,10 @@
     <?php
     include '../import/connect.php';
 
-    // $sql = "SELECT TOP 5 bo.product_id, bo.book_name, pr.product_image, pr.product_price FROM books bo
-    // INNER JOIN products pr ON pr.product_id = bo.product_id;";
+    $sql = "SELECT TOP 5 bo.product_id, bo.book_name, pr.product_image, pr.product_price FROM books bo
+    INNER JOIN products pr ON pr.product_id = bo.product_id;";
 
-    $result = sqlsrv_query($conn, $sql_index);
+    $result = sqlsrv_query($conn, $sql);
     ?>
 
     <div class="container mt-4 d-flex">
@@ -222,57 +221,26 @@
                         <li class="mb-2">Currently v5.3.3.</li>
                     </ul>
                 </div>
-                <div class="col-6 col-lg-2 offset-lg-1 mb-3">
-                    <h5>Links</h5>
+                <div class="col-8 col-lg-3 offset-lg-1 mb-3">
+                    <h5>Product Categories</h5>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="/">Home</a></li>
-                        <li class="mb-2"><a href="/docs/5.3/">Docs</a></li>
-                        <li class="mb-2"><a href="/docs/5.3/examples/">Examples</a></li>
-                        <li class="mb-2"><a href="https://icons.getbootstrap.com/">Icons</a></li>
-                        <li class="mb-2"><a href="https://themes.getbootstrap.com/">Themes</a></li>
-                        <li class="mb-2"><a href="https://blog.getbootstrap.com/">Blog</a></li>
-                        <li class="mb-2"><a href="https://cottonbureau.com/people/bootstrap" target="_blank"
-                                rel="noopener">Swag Store</a></li>
+                        
                     </ul>
                 </div>
-                <div class="col-6 col-lg-2 mb-3">
-                    <h5>Guides</h5>
+                <div class="col-8 col-lg-3 mb-3">
+                    <h5>Site Maps</h5>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="/docs/5.3/getting-started/">Getting started</a></li>
-                        <li class="mb-2"><a href="/docs/5.3/examples/starter-template/">Starter template</a></li>
-                        <li class="mb-2"><a href="/docs/5.3/getting-started/webpack/">Webpack</a></li>
-                        <li class="mb-2"><a href="/docs/5.3/getting-started/parcel/">Parcel</a></li>
-                        <li class="mb-2"><a href="/docs/5.3/getting-started/vite/">Vite</a></li>
+                        
                     </ul>
                 </div>
-                <div class="col-6 col-lg-2 mb-3">
-                    <h5>Projects</h5>
+                <div class="col-8 col-lg-2 mb-3">
+                    <h5>Role</h5>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="https://github.com/twbs/bootstrap" target="_blank"
                                 rel="noopener">Bootstrap 5</a></li>
-                        <li class="mb-2"><a href="https://github.com/twbs/bootstrap/tree/v4-dev" target="_blank"
-                                rel="noopener">Bootstrap 4</a></li>
-                        <li class="mb-2"><a href="https://github.com/twbs/icons" target="_blank"
-                                rel="noopener">Icons</a></li>
-                        <li class="mb-2"><a href="https://github.com/twbs/rfs" target="_blank" rel="noopener">RFS</a>
-                        </li>
-                        <li class="mb-2"><a href="https://github.com/twbs/examples/" target="_blank"
-                                rel="noopener">Examples repo</a></li>
-                    </ul>
-                </div>
-                <div class="col-6 col-lg-2 mb-3">
-                    <h5>Community</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="https://github.com/twbs/bootstrap/issues" target="_blank"
-                                rel="noopener">Issues</a></li>
-                        <li class="mb-2"><a href="https://github.com/twbs/bootstrap/discussions" target="_blank"
-                                rel="noopener">Discussions</a></li>
-                        <li class="mb-2"><a href="https://github.com/sponsors/twbs" target="_blank"
-                                rel="noopener">Corporate sponsors</a></li>
-                        <li class="mb-2"><a href="https://opencollective.com/bootstrap" target="_blank"
-                                rel="noopener">Open Collective</a></li>
-                        <li class="mb-2"><a href="https://stackoverflow.com/questions/tagged/bootstrap-5"
-                                target="_blank" rel="noopener">Stack Overflow</a></li>
+                        
                     </ul>
                 </div>
             </div>
