@@ -5,5 +5,3 @@ $serverName = "VinhVeer\VINHVEER"; //serverName\instanceName
 // The connection will be attempted using Windows Authentication.
 $connectionInfo = array( "Database"=>"BookStore");
 $conn = sqlsrv_connect( $serverName, $connectionInfo);
-
-?>

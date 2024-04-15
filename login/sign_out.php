@@ -14,23 +14,23 @@
     <?php include '../import/libary.php'; ?>
 
     <style>
-    html,
-    body {
-        height: 100%;
-    }
+        html,
+        body {
+            height: 100%;
+        }
 
-    .form-signin {
-        width: 500px;
-        padding: 1rem;
-    }
+        .form-signin {
+            width: 500px;
+            padding: 1rem;
+        }
 
-    .btn {
-        background-color: #ffe100;
-    }
+        .btn {
+            background-color: #ffe100;
+        }
 
-    .btn:hover {
-        background-color: #f7ca00;
-    }
+        .btn:hover {
+            background-color: #f7ca00;
+        }
     </style>
 
 </head>

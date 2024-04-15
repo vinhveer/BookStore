@@ -216,48 +216,48 @@
     ?>
 
 
-    <footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiary">
-        <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
-            <div class="row">
-                <div class="col-lg-3 mb-3">
-                    <a class="d-inline-flex align-items-center mb-2 text-body-emphasis text-decoration-none" href="/"
-                        aria-label="Amazon">
-                        <img src="..\assets\images\logo\light_theme_logo.png" alt="" srcset="" class="logo">
-                    </a>
-                    <ul class="list-unstyled small">
-                        <li class="mb-2">
-
-                        </li>
-                        <li class="mb-2">Code licensed <a href="https://github.com/twbs/bootstrap/blob/main/LICENSE"
-                                target="_blank" rel="license noopener">MIT</a>, docs <a
-                                href="https://creativecommons.org/licenses/by/3.0/" target="_blank"
-                                rel="license noopener">CC BY 3.0</a>.</li>
-                        <li class="mb-2">Currently v5.3.3.</li>
-                    </ul>
-                </div>
-                <div class="col-8 col-lg-3 offset-lg-1 mb-3">
-                    <h5>Product Categories</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="/">Home</a></li>
-
-                    </ul>
-                </div>
-                <div class="col-8 col-lg-3 mb-3">
-                    <h5>Site Maps</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="/docs/5.3/getting-started/">Getting started</a></li>
-
-                    </ul>
-                </div>
-                <div class="col-8 col-lg-2 mb-3">
-                    <h5>Role</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="https://github.com/twbs/bootstrap" target="_blank"
-                                rel="noopener">Bootstrap 5</a></li>
-
-                    </ul>
-                </div>
+    <footer class="py-5 container mt-4">
+        <div class="row">
+            <div class="col-6 col-md-3 mb-3">
+                <h5>Thông tin liên hệ</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+                </ul>
             </div>
+
+            <div class="col-6 col-md-3 mb-3">
+                <h5>Các nền tảng mạng xã hội</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+                </ul>
+            </div>
+            
+            <div class="col-md-5 offset-md-1 mb-3">
+                <form>
+                    <h5>Bạn chưa đăng nhập</h5>
+                    <p>Hãy đăng nhập để trải nghiệm đầy đủ tính năng.</p>
+                    <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                        <label for="newsletter1" class="visually-hidden">Email address</label>
+                        <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+                        <button class="btn btn-primary" type="button">Subscribe</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+            <p>© 2024 Company, Inc. All rights reserved.</p>
+            <ul class="list-unstyled d-flex">
+                <img src="..\assets\images\logo\light_theme_logo.png" class="logo">
+            </ul>
         </div>
     </footer>
 </body>
