@@ -6,34 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
 
+    <!-- import CSS -->
+    <link rel="stylesheet" href="index.css">
+
     <!-- import libary -->
     <?php include 'import/libary.php'; ?>
-
-    <style>
-    * {
-        font-family: "Open Sans", sans-serif;
-    }
-
-    .navbar-dark {
-        background-color: #131921;
-    }
-
-    .nav {
-        background-color: #232f3e;
-    }
-
-    .navbar-brand img {
-        width: 75px;
-    }
-
-    .active {
-        font-weight: bold;
-    }
-    </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark align-items-center">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark align-items-center">
         <div class="container">
             <a class="navbar-brand" href="#">
                 <img src="assets\images\logo\image.png">
@@ -46,11 +27,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">
-                            Trang chủ
-                        </a>
+                        <a class="nav-link active" aria-current="page" href="#">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Sách</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Văn phòng phẩm</a>
                     </li>
                 </ul>
+                <form class="d-flex me-auto" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
                 <div class="security">
                     <a href="login.php" class="btn btn-primary">Đăng nhập</a>
                     <a href="register.php" class="btn btn-primary">Đăng ký</a>
@@ -59,26 +48,14 @@
         </div>
     </nav>
 
-    <nav class="nav navbar-expand-lg navbar-dark align-items-center">
-        <div class="container">
-            <div class="navbar">
-                <div class="d-flex me-auto">
-                    <a class="nav-link text-white" aria-current="page" href="#">Sách</a>
-                    <a class="nav-link text-white" href="#">Văn phòng phẩm</a>
-                    <a class="nav-link text-white" href="#">Khuyến mãi</a>
-                    <a class="nav-link text-white" aria-disabled="true">Khác</a>
-                </div>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
+    <nav class="nav mt-1 align-items-center justify-content-center">
+        <a class="nav-link" aria-current="page" href="#">Cỏ mỹ</a>
+        <a class="nav-link" href="#">Bút</a>
+        <a class="nav-link" href="#">Kẹo đồng</a>
+        <a class="nav-link disabled" aria-disabled="true">Vở</a>
     </nav>
 
-    <div id="carouselExampleAutoplaying" class="carousel slide container mt-2" data-bs-ride="carousel">
+    <div id="carouselExampleAutoplaying" class="carousel slide container" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="assets\images\slide\image.png" class="d-block w-100" alt="...">
@@ -102,7 +79,7 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-6">
-                <h4>Sách mới</h4>
+                <h3>Sách mới</h3>
             </div>
             <div class="col-md-6">
                 <a href="#" class="btn btn-primary float-end">Xem thêm</a>
