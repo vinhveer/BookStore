@@ -790,3 +790,13 @@ body{
     color: var(--light);
     margin-right: 40px;
 }
+
+.fb{
+    background-color: var(--primary);
+    color: var(--light);
+    margin-right: 40px;
+}
+
+.update h2{
+    color: var(--dark);
+}

@@ -17,11 +17,11 @@
             <div class="logo-name"><span>A</span>Employee</div>
         </a>
         <ul class="side-menu">
-            <li class="active"><a href="index.php"><i class='bx bx-store-alt' ></i>Sell</a></li>
-            <li><a href="#"><i class='bx bx-headphone' ></i>Support</a></li>
+            <li class="active"><a href="index.php"><i class='bx bx-store-alt' ></i>Home</a></li>
             <li><a href="#"><i class='bx bx-group'></i>User</a></li>
             <li><a href="#"><i class='bx bx-message-dots' ></i></i>Chat</a></li>
             <li><a href="#"><i class='bx bx-cog'></i>Settings</a></li>
+            <li><a href="#"><i class='bx bx-headphone' ></i>Support</a></li>
         </ul>
         <ul class="side-menu">
             <li>
@@ -58,10 +58,10 @@
         <main>
             <div class="header">
                 <div class="left">
-                    <h1>Sell</h1>
+                    <h1>Bookstore</h1>
                     <ul class="breadcrumb">
                         <li><a href="#">
-                                Sell
+                                Home
                             </a>
                         </li>
                         /
@@ -131,10 +131,11 @@
                         <h4>
                             Average rating:
                         </h4>
-                        <h4><a href="#">Feedback</a></h4>
+                        <span class="status fb">Feedback</span>
                     </span>
                 </li>
             </ul>
+            </div>
             <div class="update">
                 <h2>Rating: </h2>
                 <span class="status fivestars"><i class='bx bx-star' ></i><i class='bx bx-star' ></i><i class='bx bx-star' ></i><i class='bx bx-star' ></i><i class='bx bx-star' ></i></span>
@@ -142,7 +143,6 @@
                 <span class="status threestars"><i class='bx bx-star' ></i><i class='bx bx-star' ></i><i class='bx bx-star' ></i></span>
                 <span class="status twostars"><i class='bx bx-star' ></i><i class='bx bx-star' ></i></span>
                 <span class="status onestars"><i class='bx bx-star' ></i></span>
-            </div>
             </div>
             </div>
             </div>
