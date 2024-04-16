@@ -15,6 +15,6 @@ $connect = sqlsrv_connect($servername, $connection);
 if (!$connect) {
     die(print_r(sqlsrv_errors(), true));
 } else {
-    echo "Kết nối thành công";
+    echo "";
 }
 ?>

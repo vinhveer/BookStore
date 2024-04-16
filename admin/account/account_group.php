@@ -23,7 +23,7 @@
     </style>
 </head>
 
-<body>
+<body data-bs-theme="light">
     <!-- Sidebar -->
     <div class="sidebar">
         <a href="#" class="logo">
@@ -78,15 +78,7 @@
             <div class="col-md-3">
                 <h3>Nhóm Tài khoản</h3>
             </div>
-            <div class="col-md-5">
-                <form class="d-flex" action="" method="POST">
-                    <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm" name="tukhoa" value="">
-                    <button class="btn btn-outline-primary" type="submit" name="timkiem" value="find">Tìm</button>
-                </form>
-            </div>
-            <div class="col-md-4 text-right">
-                <a  href ="account_add.php" class="btn btn-primary float-end">Thêm tài khoản mới</a>
-            </div>
+
         </div>
         <!-- <div class="card"> -->
             <ul class="nav nav-tabs">
@@ -108,6 +100,18 @@
             </ul>
 
             <div class="tab-content mt-4">
+            <div class="row mb-3">
+                <div class="col-md-6 ">
+                    <form class="d-flex" action="" method="POST">
+                        <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm" name="tukhoa" value="">
+                        <button class="btn btn-outline-primary" type="submit" name="timkiem" value="find">Tìm</button>
+                    </form>
+                </div>
+
+                <div class="col-md-6 text-right">
+                    <a  href ="account_add.php" class="btn btn-primary float-end">Thêm tài khoản mới</a>
+                </div>
+            </div>
                 <div class="tab-pane fade show active" id="khachhang">
                     <?php $sql_account_customer = "EXEC GetUserInformation_customer";
                         $result_account_customer = sqlsrv_query($connect, $sql_account_customer);?>
