@@ -216,7 +216,7 @@
                                     <input type="password" class="form-control" id="password" value="123456Q">
                                     <div class="form-group">
                                         <label for="homeDescription">Thông tin truy cập website</label>
-                                        <textarea class="form-control" id="homeDescription" rows="3">Website của ShopMen đang trong quá trình chỉnh sửa.<br>Xin quý khách vui lòng quay lại vào 2 ngày tới!</textarea>
+                                        <textarea class="form-control" id="homeDescription" rows="3">Website của ShopMen đang trong quá trình chỉnh sửa.Xin quý khách vui lòng quay lại vào 2 ngày tới!</textarea>
                                     </div>
                                 </div>
                             </div>
