@@ -114,7 +114,7 @@
                             <label for="feedback">Nội dung phản hồi:</label>
                             <textarea class="form-control" id="feedback" rows="3"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Gửi</button>
+                        <button type="submit" class="btn btn-primary mt-4">Gửi</button>
                     </form>
                 </div>
             </div>

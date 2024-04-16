@@ -15,7 +15,7 @@
             display: flex;
             align-items: center;
         }
-        h3{
+        h3,hr{
             color: var(--dark);
         }
     </style>

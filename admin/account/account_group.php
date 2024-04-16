@@ -107,178 +107,197 @@
                         <button class="btn btn-outline-primary" type="submit" name="timkiem" value="find">Tìm</button>
                     </form>
                 </div>
-
                 <div class="col-md-6 text-right">
                     <a  href ="account_add.php" class="btn btn-primary float-end">Thêm tài khoản mới</a>
                 </div>
             </div>
                 <div class="tab-pane fade show active" id="khachhang">
-                    <?php $sql_account_customer = "EXEC GetUserInformation_customer";
-                        $result_account_customer = sqlsrv_query($connect, $sql_account_customer);?>
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Tên tài khoản</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Password</th>
-                                <th scope="col">Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $i = 0;
-                        while ($row_account_customer = sqlsrv_fetch_array($result_account_customer)) {?>
-                            <tr>
-                                <td scope="row"><?php $i++; echo $i ?></td>
-                                <td><?php echo $row_account_customer['full_name'] ?></td>
-                                <td><?php echo $row_account_customer['email'] ?></td>
-                                <td><?php echo $row_account_customer['password'] ?></td>
-                                <td>
-                                <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
-                                    <button class="btn btn-sm btn-danger">Delete</button>
-                                    <a href ="show.php?user_id=<?php echo $row_account_customer['user_id']; ?>&role_id=1" class="btn btn-sm btn-info">Show</a>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                        </tbody>
-                    </table>
+                        <?php $sql_account_customer = "EXEC GetUserInformation_customer";
+                            $result_account_customer = sqlsrv_query($connect, $sql_account_customer);?>
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">STT</th>
+                                            <th scope="col">Tên tài khoản</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Password</th>
+                                            <th scope="col">Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    $i = 0;
+                                    while ($row_account_customer = sqlsrv_fetch_array($result_account_customer)) {?>
+                                        <tr>
+                                            <td scope="row"><?php $i++; echo $i ?></td>
+                                            <td><?php echo $row_account_customer['full_name'] ?></td>
+                                            <td><?php echo $row_account_customer['email'] ?></td>
+                                            <td><?php echo $row_account_customer['password'] ?></td>
+                                            <td>
+                                            <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
+                                                <button class="btn btn-sm btn-danger">Delete</button>
+                                                <a href ="show.php?user_id=<?php echo $row_account_customer['user_id']; ?>&role_id=1" class="btn btn-sm btn-info">Show</a>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                 </div>
 
                 <!-- Quản trị hệ thống -->
                 <div class="tab-pane fade" id="qtrihethong">
                 <?php $sql_account_admin = "EXEC GetUserInformation_admin";
                         $result_account_admin = sqlsrv_query($connect, $sql_account_admin);?>
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Tên tài khoản</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Password</th>
-                                <th scope="col">Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $i = 0;
-                        while ($row_account_admin = sqlsrv_fetch_array($result_account_admin)) {?>
-                            <tr>
-                                <td scope="row"><?php $i++; echo $i ?></td>
-                                <td><?php echo $row_account_admin['full_name'] ?></td>
-                                <td><?php echo $row_account_admin['email'] ?></td>
-                                <td><?php echo $row_account_admin['password'] ?></td>
-                                <td>
-                                <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
-                                    <button class="btn btn-sm btn-danger">Delete</button>
-                                    <a href ="show.php?user_id=<?php echo $row_account_admin['user_id']; ?>&role_id=2" class="btn btn-sm btn-info">Show</a>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                        </tbody>
-                    </table>
+                   <div class="card">
+                        <div class="card-body">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Tên tài khoản</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Password</th>
+                                        <th scope="col">Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $i = 0;
+                                while ($row_account_admin = sqlsrv_fetch_array($result_account_admin)) {?>
+                                    <tr>
+                                        <td scope="row"><?php $i++; echo $i ?></td>
+                                        <td><?php echo $row_account_admin['full_name'] ?></td>
+                                        <td><?php echo $row_account_admin['email'] ?></td>
+                                        <td><?php echo $row_account_admin['password'] ?></td>
+                                        <td>
+                                        <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
+                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                            <a href ="show.php?user_id=<?php echo $row_account_admin['user_id']; ?>&role_id=2" class="btn btn-sm btn-info">Show</a>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                   </div>
                 </div>
 
                 <!-- Nhân viên quản lí -->
                 <div class="tab-pane fade" id="nhanvienquanli">
                 <?php $sql_account_manager = "EXEC GetUserInformation_manager";
                         $result_account_manager = sqlsrv_query($connect, $sql_account_manager);?>
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Tên tài khoản</th>
-                                <th scope="col">Email</th>
-                                <th scope="col"></th>
-                                <th scope="col">Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $i = 0;
-                        while ($row_account_manager = sqlsrv_fetch_array($result_account_manager)) {?>
-                            <tr>
-                                <td scope="row"><?php $i++; echo $i ?></td>
-                                <td><?php echo $row_account_manager['full_name'] ?></td>
-                                <td><?php echo $row_account_manager['email'] ?></td>
-                                <td><?php echo $row_account_manager['password'] ?></td>
-                                <td>
-                                <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
-                                    <button class="btn btn-sm btn-danger">Delete</button>
-                                    <a href ="show.php?user_id=<?php echo $row_account_manager['user_id']; ?>&role_id=5" class="btn btn-sm btn-info">Show</a>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                        </tbody>
-                    </table>
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Tên tài khoản</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col"></th>
+                                        <th scope="col">Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $i = 0;
+                                while ($row_account_manager = sqlsrv_fetch_array($result_account_manager)) {?>
+                                    <tr>
+                                        <td scope="row"><?php $i++; echo $i ?></td>
+                                        <td><?php echo $row_account_manager['full_name'] ?></td>
+                                        <td><?php echo $row_account_manager['email'] ?></td>
+                                        <td><?php echo $row_account_manager['password'] ?></td>
+                                        <td>
+                                        <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
+                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                            <a href ="show.php?user_id=<?php echo $row_account_manager['user_id']; ?>&role_id=5" class="btn btn-sm btn-info">Show</a>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Nhân viên tiếp tân -->
                 <div class="tab-pane fade" id="nhanvientieptan">
                 <?php $sql_account_employee = "EXEC GetUserInformation_employee";
                         $result_account_employee = sqlsrv_query($connect, $sql_account_employee);?>
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Tên tài khoản</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Password</th>
-                                <th scope="col">Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $i = 0;
-                        while ($row_account_employee = sqlsrv_fetch_array($result_account_employee)) {?>
-                            <tr>
-                                <td scope="row"><?php $i++; echo $i ?></td>
-                                <td><?php echo $row_account_employee['full_name'] ?></td>
-                                <td><?php echo $row_account_employee['email'] ?></td>
-                                <td><?php echo $row_account_employee['password'] ?></td>
-                                <td>
-                                <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
-                                    <button class="btn btn-sm btn-danger">Delete</button>
-                                    <a href ="show.php?user_id=<?php echo $row_account_employee['user_id']; ?>&role_id=4" class="btn btn-sm btn-info">Show</a>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                        </tbody>
-                    </table>
+                   <div class ="card">
+                        <div class="card-body">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Tên tài khoản</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Password</th>
+                                        <th scope="col">Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $i = 0;
+                                while ($row_account_employee = sqlsrv_fetch_array($result_account_employee)) {?>
+                                    <tr>
+                                        <td scope="row"><?php $i++; echo $i ?></td>
+                                        <td><?php echo $row_account_employee['full_name'] ?></td>
+                                        <td><?php echo $row_account_employee['email'] ?></td>
+                                        <td><?php echo $row_account_employee['password'] ?></td>
+                                        <td>
+                                        <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
+                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                            <a href ="show.php?user_id=<?php echo $row_account_employee['user_id']; ?>&role_id=4" class="btn btn-sm btn-info">Show</a>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                   </div>
                 </div>
 
                 <!-- Quản lí kho -->
                 <div class="tab-pane fade" id="quanlikho">
                 <?php $sql_account_warehouse = "EXEC GetUserInformation_warehouse";
                         $result_account_warehouse = sqlsrv_query($connect, $sql_account_warehouse);?>
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Tên tài khoản</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Password</th>
-                                <th scope="col">Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $i = 0;
-                        while ($row_account_warehouse = sqlsrv_fetch_array($result_account_warehouse)) {?>
-                            <tr>
-                                <td scope="row"><?php $i++; echo $i ?></td>
-                                <td><?php echo $row_account_warehouse['full_name'] ?></td>
-                                <td><?php echo $row_account_warehouse['email'] ?></td>
-                                <td><?php echo $row_account_warehouse['password'] ?></td>
-                                <td>
-                                <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
-                                    <button class="btn btn-sm btn-danger">Delete</button>
-                                    <a href ="show.php?user_id=<?php echo $row_account_warehouse['user_id']; ?>&role_id=4" class="btn btn-sm btn-info">Show</a>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                        </tbody>
-                    </table>
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Tên tài khoản</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Password</th>
+                                        <th scope="col">Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $i = 0;
+                                while ($row_account_warehouse = sqlsrv_fetch_array($result_account_warehouse)) {?>
+                                    <tr>
+                                        <td scope="row"><?php $i++; echo $i ?></td>
+                                        <td><?php echo $row_account_warehouse['full_name'] ?></td>
+                                        <td><?php echo $row_account_warehouse['email'] ?></td>
+                                        <td><?php echo $row_account_warehouse['password'] ?></td>
+                                        <td>
+                                        <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
+                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                            <a href ="show.php?user_id=<?php echo $row_account_warehouse['user_id']; ?>&role_id=4" class="btn btn-sm btn-info">Show</a>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
     </div>

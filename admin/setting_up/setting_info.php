@@ -15,7 +15,7 @@
             display: flex;
             align-items: center;
         }
-        h3{
+        h3,hr{
             color: var(--dark);
         }
     </style>
@@ -140,7 +140,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 mb-4">
                     <div class="card">
                         <div class="card-header">
                             Thông tin khách hàng

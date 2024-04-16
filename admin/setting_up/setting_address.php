@@ -15,7 +15,7 @@
             display: flex;
             align-items: center;
         }
-        h4,#cod{
+        h4,#cod,hr{
             color: var(--dark);
         }
     </style>

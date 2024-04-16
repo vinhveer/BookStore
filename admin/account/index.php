@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="style.css">
     <title>Home Admin</title>
     <style>
-        .action-buttons .btn.btn-info  {
+        .action-buttons .btn-info,.action-buttons .btn-warning,.action-buttons .btn-danger  {
             display: flex;
             align-items: center;
         }
@@ -35,7 +35,6 @@
 </head>
 
 <body>
-    <!-- Sidebar -->
     <div class="sidebar">
         <a href="#" class="logo">
             <i class='bx bxl-amazon'></i>
@@ -110,37 +109,41 @@
             </div>
         </div>
         <div class="container-fluid mt-5">
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col">STT</th>
-                        <th scope="col">Tên tài khoản</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Vai trò</th>
-                        <th scope="col">Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                        $i = 0;
-                        while ($row_account = sqlsrv_fetch_array($result_account)) {?>
-                        <tr>
-                            <td scope="row"><?php $i++; echo $i ?></td>
-                            <td><?php echo $row_account['full_name'] ?></td>
-                            <td><?php echo $row_account['email'] ?></td>
-                            <td><?php echo $row_account['role_name'] ?></td>
-                            <td>
-                                <div class="action-buttons d-flex justify-content-start">
-                                    <a href="account_edit.php" class="btn btn-warning me-1">Edit</a>
-                                    <button class="btn btn-danger me-1">Delete</button>
-                                    <a href="show.php?user_id=<?php echo $row_account['user_id']; ?>&role_id=<?php echo $row_account['role_id'];?>" class="btn btn-info">
-                                    <i class='bx bx-show-alt me-1'></i>View</a>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Tên tài khoản</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Vai trò</th>
+                                <th scope="col">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                $i = 0;
+                                while ($row_account = sqlsrv_fetch_array($result_account)) {?>
+                                <tr>
+                                    <td scope="row"><?php $i++; echo $i ?></td>
+                                    <td><?php echo $row_account['full_name'] ?></td>
+                                    <td><?php echo $row_account['email'] ?></td>
+                                    <td><?php echo $row_account['role_name'] ?></td>
+                                    <td>
+                                        <div class="action-buttons d-flex justify-content-start">
+                                            <a href="account_edit.php" class="btn btn-sm btn-warning me-1"><i class='bx bx-sm bx-edit-alt me-1'></i>Edit</a>
+                                            <button class="btn btn-sm btn-danger me-1"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
+                                            <a href="show.php?user_id=<?php echo $row_account['user_id']; ?>&role_id=<?php echo $row_account['role_id'];?>" class="btn btn-info">
+                                            <i class='bx bx-sm bx-show-alt me-1'></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </main>
     </div>

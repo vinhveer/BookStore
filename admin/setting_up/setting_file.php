@@ -73,7 +73,7 @@
         <div class="container-fluid">
         <div class="row mt-5">
             <div class="col-md-6">
-                <h3>File</h3>
+                <h3 class="m-lg-2">Quản lý File</h3>
             </div>
             <div class="col-md-6">
                 <button class="btn btn-success float-end">Thêm file</button>
@@ -83,15 +83,18 @@
             <div class="card mt-3">
                 <div class="card-body">
                     <div class="table">
+                        <h5>Tất cả file</h5><hr>
                         <div class="row">
-                            <h5 class="col-md-6">Tất cả file</h5><hr>
-                            <div class="col-md-9 d-flex align-items-center justify-content-start">
+                            <div class="col-md-12 d-flex align-items-center justify-content-start">
                                 <div class="col-sm-2">
                                     <select class="form-select ">
                                         <option selected>Lọc file</option>
-                                        <option value="1">Option 1</option>
-                                        <option value="2">Option 2</option>
-                                        <option value="3">Option 3</option>
+                                        <option value="1">.pdf</option>
+                                        <option value="2">.dox</option>
+                                        <option value="3">.png</option>
+                                        <option value="4">.jpg</option>
+                                        <option value="5">.mp3</option>
+                                        <option value="6">.txt</option>
                                     </select>
                                 </div>
                                 <div class="col-sm-7">

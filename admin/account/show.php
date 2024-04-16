@@ -141,44 +141,23 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="phanquyen">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class ="card-body">
-                                        <h4>Quyền hiện tại:</h4>
-                                        <hr>
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Quyền</th>
-                                                        <th>Hoạt động</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="boxx">
-                                                    <!-- Dữ liệu về quyền và hoạt động sẽ được hiển thị ở đây -->
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-8 mb-3">
+                            <div class="col-md-12 mb-3">
                                 <div class="card">
                                     <form >
                                         <div class="card-body">
-                                            <h3 class="card-title">Phân quyền</h3>
-                                            <div class="mb-3">
-                                                <div class="col-sm-4">
-                                                    <select class="form-select" id="selectRole">
-                                                        <option selected>Chọn vai trò</option>
-                                                        <option value="1">Quản trị viên</option>
-                                                        <option value="2">Khách hàng</option>
-                                                        <option value="2">Nhân viên</option>
-                                                        <option value="2">Quản lý nhân viên</option>
-                                                        <option value="2">Quản lý kho</option>
-                                                    </select>
+                                            <div class="d-flex">
+                                                <h4 class="card-title me-5">Quyền tài khoản</h4>
+                                                <div class="mb-3">
+                                                    <div class="">
+                                                        <select class="form-select" id="selectRole">
+                                                            <option selected>Chọn vai trò</option>
+                                                            <option value="1">Quản trị viên</option>
+                                                            <option value="2">Khách hàng</option>
+                                                            <option value="2">Nhân viên</option>
+                                                            <option value="2">Quản lý nhân viên</option>
+                                                            <option value="2">Quản lý kho</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class = "row">
@@ -187,43 +166,28 @@
                                                         <label class="form-check-label"><b>Cửa hàng của bạn:</b></label>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value=""
-                                                                id="permission1">
+                                                                id="permission1" checked disabled>
                                                             <label class="form-check-label" for="permission1">Trang chủ</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value=""
-                                                                id="permission2">
+                                                                id="permission2" checked disabled>
                                                             <label class="form-check-label" for="permission2">Sản phẩm, danh mục</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value=""
-                                                                id="permission2">
-                                                            <label class="form-check-label" for="permission2">Kho hàng</label>
+                                                                id="permission3" checked disabled>
+                                                            <label class="form-check-label" for="permission3">Đơn hàng</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value=""
-                                                                id="permission2">
-                                                            <label class="form-check-label" for="permission2">Đơn hàng</label>
+                                                                id="permission4" checked disabled>
+                                                            <label class="form-check-label" for="permission4">Khuyến mãi</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value=""
-                                                                id="permission2">
-                                                            <label class="form-check-label" for="permission2">Đơn nhập hàng, xuất hàng</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value=""
-                                                                id="permission2">
-                                                            <label class="form-check-label" for="permission2">Khách hàng</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value=""
-                                                                id="permission2">
-                                                            <label class="form-check-label" for="permission2">Khuyến mãi</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value=""
-                                                                id="permission2">
-                                                            <label class="form-check-label" for="permission2">Báo cáo</label>
+                                                                id="permission5" checked disabled>
+                                                            <label class="form-check-label" for="permission5">Thông báo</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -232,36 +196,27 @@
                                                         <label class="form-check-label"><b>Nội dung:</b></label>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value=""
-                                                                id="permission1">
-                                                            <label class="form-check-label" for="permission1">Blog và trang nội dung</label>
+                                                                id="permission6" checked disabled>
+                                                            <label class="form-check-label" for="permission6">Blog và trang nội dung</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value=""
-                                                                id="permission2">
-                                                            <label class="form-check-label" for="permission2">Menu</label>
+                                                                id="permission7" checked disabled>
+                                                            <label class="form-check-label" for="permission7">Menu</label>
                                                         </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value=""
-                                                                id="permission2">
-                                                            <label class="form-check-label" for="permission2">Giao diện</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value=""
-                                                                id="permission2">
-                                                            <label class="form-check-label" for="permission2">Thông báo</label>
-                                                        </div>
+
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-check-label"><b>Cấu hình: </b></label>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value=""
-                                                                id="permission1">
-                                                            <label class="form-check-label" for="permission1">Thiết lập tài khoản</label>
+                                                                id="permission8" checked disabled>
+                                                            <label class="form-check-label" for="permission8">Thiết lập tài khoản</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value=""
-                                                                id="permission2">
-                                                            <label class="form-check-label" for="permission2">Cấu hình hệ thống</label>
+                                                                id="permission9" checked disabled>
+                                                            <label class="form-check-label" for="permission9" checked disabled>Cấu hình hệ thống</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -272,8 +227,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -284,22 +237,5 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-       $(document).ready(function(){
-    $('input[type="checkbox"].form-check-input').change(function(){ // chỉ lấy các checkbox có class "form-check-input"
-        var checkedPermissions = $('input[type="checkbox"].form-check-input:checked').map(function(){ // chỉ lấy các checkbox được chọn có class "form-check-input"
-            return $(this).siblings('label').text();
-        }).get();
-
-        var permissionList = '';
-        $.each(checkedPermissions, function(index, value){
-            permissionList += '<tr><td>' + value + '</td><td>Activity</td></tr>'; // Thay Some activity bằng hoạt động thực tế
-        });
-
-        $('.boxx').html(permissionList);
-    });
-});
-
-    </script>
 </body>
 </html>
