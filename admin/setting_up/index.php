@@ -152,18 +152,6 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="row mt-2">
-                            <div class="col-md-4">
-                               <a href="setting_transport.php" class="nav-link">
-                                    <div class="card">
-                                        <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-shipping-fast me-1"></i>Vận chuyển</h5>
-                                            <p>Quản lý phương thức vận chuyển đơn hàng</p>
-                                        </div>
-                                    </div>
-                               </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
