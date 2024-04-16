@@ -154,48 +154,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row mt-4">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            Lịch sử bảo hành
-                        </div>
-                        <div class="card-body">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Ngày bảo hành</th>
-                                        <th scope="col">Mô tả công việc</th>
-                                        <th scope="col">Tình trạng</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>01/04/2024</td>
-                                        <td>Kiểm tra phần mềm</td>
-                                        <td>Hoàn thành</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>02/04/2024</td>
-                                        <td>Sửa lỗi giao diện</td>
-                                        <td>Đang xử lý</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>03/04/2024</td>
-                                        <td>Cập nhật tính năng mới</td>
-                                        <td>Chưa xử lý</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         </main>
         </div>
