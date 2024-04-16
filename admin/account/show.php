@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,7 +79,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="d-flex justify-content-end">
-                            <a class="btn btn-primary" href="index.php">Thoát</a>
+                            <a class="btn btn-primary" href="account_group.php">Thoát</a>
                         </div>
                     </div>
                 </div>
@@ -294,7 +293,7 @@
 
         var permissionList = '';
         $.each(checkedPermissions, function(index, value){
-            permissionList += '<tr><td>' + value + '</td><td>Some activity</td></tr>'; // Thay Some activity bằng hoạt động thực tế
+            permissionList += '<tr><td>' + value + '</td><td>Activity</td></tr>'; // Thay Some activity bằng hoạt động thực tế
         });
 
         $('.boxx').html(permissionList);

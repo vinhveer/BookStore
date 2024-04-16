@@ -131,10 +131,10 @@
                             <td><?php echo $row_account['role_name'] ?></td>
                             <td>
                                 <div class="action-buttons d-flex justify-content-start">
-                                    <a href="account_edit.php" class="btn btn-primary me-1">Edit</a>
+                                    <a href="account_edit.php" class="btn btn-warning me-1">Edit</a>
                                     <button class="btn btn-danger me-1">Delete</button>
-                                    <a href="show.php" class="btn btn-info"><i
-                                            class='bx bx-show-alt me-1'></i>View</a>
+                                    <a href="show.php?user_id=<?php echo $row_account['user_id']; ?>&role_id=<?php echo $row_account['role_id'];?>" class="btn btn-info">
+                                    <i class='bx bx-show-alt me-1'></i>View</a>
                                 </div>
                             </td>
                         </tr>

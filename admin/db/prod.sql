@@ -4,7 +4,9 @@ BEGIN
     SELECT
         CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name) AS full_name,
         u.email,
-        r.role_name
+        r.role_name,
+        r.role_id,
+		u.user_id
     FROM
         users u
     INNER JOIN
@@ -21,7 +23,9 @@ BEGIN
    SELECT
         CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name) AS full_name,
         u.email,
-        r.role_name
+        r.role_name,
+        r.role_id,
+		u.user_id
     FROM
         users u
     INNER JOIN
@@ -42,7 +46,9 @@ BEGIN
     SELECT
         CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name) AS full_name,
         u.email,
-        ua.password
+        ua.password,
+        r.role_id,
+		u.user_id
     FROM
         users u
     INNER JOIN
@@ -62,7 +68,9 @@ BEGIN
     SELECT
         CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name) AS full_name,
         u.email,
-        ua.password
+        ua.password,
+        r.role_id,
+		u.user_id
     FROM
         users u
     INNER JOIN
@@ -82,7 +90,9 @@ BEGIN
     SELECT
         CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name) AS full_name,
         u.email,
-        ua.password
+        ua.password,
+        r.role_id,
+		u.user_id
     FROM
         users u
     INNER JOIN
@@ -101,7 +111,9 @@ BEGIN
     SELECT
         CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name) AS full_name,
         u.email,
-        ua.password
+        ua.password,
+        r.role_id,
+		u.user_id
     FROM
         users u
     INNER JOIN
@@ -121,7 +133,9 @@ BEGIN
     SELECT
         CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name) AS full_name,
         u.email,
-        ua.password
+        ua.password,
+        r.role_id,
+		u.user_id
     FROM
         users u
     INNER JOIN

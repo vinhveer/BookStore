@@ -50,9 +50,7 @@
         </ul>
     </div>
 
-    <!-- content -->
     <div class="content">
-        <!-- Navbar -->
         <nav>
             <i class='bx bx-menu'></i>
             <form action="#">
@@ -65,7 +63,6 @@
             <label for="theme-toggle" class="theme-toggle"></label>
             <a href="#" class="notif">
                 <i class='bx bx-bell'></i>
-                <!-- <span class="count">12</span> -->
             </a>
             <a href="#" class="profile">
                 <img src="images/logo.jpg">
@@ -75,12 +72,15 @@
     <main>
     <div class="container mt-4">
         <div class="row mb-5">
-            <div class="col-md-3">
+            <div class="col-md-6">
                 <h3>Nhóm Tài khoản</h3>
             </div>
-
+            <div class="col-md-6">
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-primary" href="index.php">Thoát</a>
+                </div>
+            </div>
         </div>
-        <!-- <div class="card"> -->
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                     <a class="nav-link active" href="#khachhang" data-toggle="tab">Khách hàng</a>
@@ -135,9 +135,9 @@
                                 <td><?php echo $row_account_customer['email'] ?></td>
                                 <td><?php echo $row_account_customer['password'] ?></td>
                                 <td>
-                                <a href="account_edit.php" class="btn btn-sm btn-info">Edit</a>
+                                <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
                                     <button class="btn btn-sm btn-danger">Delete</button>
-                                    <a href ="show.php" class="btn btn-sm btn-info">Show</a>
+                                    <a href ="show.php?user_id=<?php echo $row_account_customer['user_id']; ?>&role_id=1" class="btn btn-sm btn-info">Show</a>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -169,9 +169,9 @@
                                 <td><?php echo $row_account_admin['email'] ?></td>
                                 <td><?php echo $row_account_admin['password'] ?></td>
                                 <td>
-                                <a href="account_edit.php" class="btn btn-sm btn-info">Edit</a>
+                                <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
                                     <button class="btn btn-sm btn-danger">Delete</button>
-                                    <a href ="show.php" class="btn btn-sm btn-info">Show</a>
+                                    <a href ="show.php?user_id=<?php echo $row_account_admin['user_id']; ?>&role_id=2" class="btn btn-sm btn-info">Show</a>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -203,9 +203,9 @@
                                 <td><?php echo $row_account_manager['email'] ?></td>
                                 <td><?php echo $row_account_manager['password'] ?></td>
                                 <td>
-                                <a href="account_edit.php" class="btn btn-sm btn-info">Edit</a>
+                                <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
                                     <button class="btn btn-sm btn-danger">Delete</button>
-                                    <a href ="show.php" class="btn btn-sm btn-info">Show</a>
+                                    <a href ="show.php?user_id=<?php echo $row_account_manager['user_id']; ?>&role_id=5" class="btn btn-sm btn-info">Show</a>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -237,9 +237,9 @@
                                 <td><?php echo $row_account_employee['email'] ?></td>
                                 <td><?php echo $row_account_employee['password'] ?></td>
                                 <td>
-                                <a href="account_edit.php" class="btn btn-sm btn-info">Edit</a>
+                                <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
                                     <button class="btn btn-sm btn-danger">Delete</button>
-                                    <a href ="show.php" class="btn btn-sm btn-info">Show</a>
+                                    <a href ="show.php?user_id=<?php echo $row_account_employee['user_id']; ?>&role_id=4" class="btn btn-sm btn-info">Show</a>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -271,9 +271,9 @@
                                 <td><?php echo $row_account_warehouse['email'] ?></td>
                                 <td><?php echo $row_account_warehouse['password'] ?></td>
                                 <td>
-                                <a href="account_edit.php" class="btn btn-sm btn-info">Edit</a>
+                                <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
                                     <button class="btn btn-sm btn-danger">Delete</button>
-                                    <a href ="show.php" class="btn btn-sm btn-info">Show</a>
+                                    <a href ="show.php?user_id=<?php echo $row_account_warehouse['user_id']; ?>&role_id=4" class="btn btn-sm btn-info">Show</a>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -281,7 +281,6 @@
                     </table>
                 </div>
             </div>
-        <!-- </div> -->
     </div>
     </main>
     </div>
