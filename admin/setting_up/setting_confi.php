@@ -95,15 +95,25 @@
                         <p class="pet">Thông tin được sử dụng để Bizweb và khách hàng liên hệ đến bạn.</p>
                     </div>
                     <div class="col-md-8">
-                    <div class="card">
+                        <div class="card">
                             <div class="card-body">
                                     <div class="form-group">
                                         <label for="websiteName">Tên website</label>
                                         <input type="text" class="form-control" id="websiteName" value="Coffee Cake">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="homeTitle">Tiêu đề trang chủ</label>
-                                        <input type="text" class="form-control" id="homeTitle" value="Coffee Cake">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="homeTitle">Tiêu đề trang chủ</label>
+                                                <input type="text" class="form-control" id="homeTitle" value="Coffee Cake">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="logoTitle">Logo website</label>
+                                                <input type="file" class="form-control" id="logoTitle">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="homeDescription">Mô tả trang chủ</label>

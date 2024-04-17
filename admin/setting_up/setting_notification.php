@@ -111,7 +111,7 @@
                         <div class="card-body">
                             <h6 class="card-title">Gửi thông báo</h6>
                             <p class="card-text">Gửi thông báo mới đến người dùng.</p>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <form>
                                     <div class="mb-3">
                                         <label for="notificationTitle" class="form-label">Tiêu đề thông báo</label>
