@@ -33,11 +33,11 @@
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
             <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
-            <li class="active"><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
+            <li><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
             <li><a href="#"><i class='bx bx-clipboard'></i>Orders</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Tickets</a></li>
             <li><a href="#"><i class='bx bxs-user-account'></i>Manager</a></li>
-            <li><a href="index.php"><i class='bx bx-group'></i>Users</a></li>
+            <li class="active"><a href="index.php"><i class='bx bx-group'></i>Users</a></li>
             <li><a href="../setting_up/index.php"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
         <ul class="side-menu">

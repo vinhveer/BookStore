@@ -31,12 +31,12 @@
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
             <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
-            <li class="active"><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
+            <li><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
             <li><a href="#"><i class='bx bx-clipboard'></i>Orders</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Tickets</a></li>
             <li><a href="#"><i class='bx bxs-user-account'></i>Manager</a></li>
             <li><a href="../account/index.php"><i class='bx bx-group'></i>Users</a></li>
-            <li><a href="index.php"><i class='bx bx-cog'></i>Settings</a></li>
+            <li class="active"><a href="index.php"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
         <ul class="side-menu">
             <li>
@@ -76,9 +76,6 @@
             <div class="col-md-6">
                 <h3>Cài đặt hệ thống</h3>
             </div>
-            <div class="col-md-6">
-                <button class="btn btn-primary float-end">Cập nhật hệ thống</button>
-            </div>
         </div>
     </div>
     <div class="container mt-5">
@@ -88,8 +85,8 @@
                     <div class="card-body">
                         <h4><i class="fas fa-list me-2"></i>Tính năng</h4>
                         <hr class="info-divider">
-                        <div class="row">
-                            <div class="col-md-4">
+                        <div class="row mt-2">
+                            <div class="col-md-6">
                                 <a href="setting_confi.php" class="nav-link">
                                     <div class="card">
                                         <div class="card-body">
@@ -99,7 +96,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <a href="setting_info.php" class="nav-link">
                                     <div class="card">
                                         <div class="card-body">
@@ -109,7 +106,9 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-md-4">
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6">
                                 <a href="setting_file.php" class="nav-link">
                                     <div class="card">
                                         <div class="card-body">
@@ -119,9 +118,7 @@
                                     </div>
                                 </a>
                             </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <a href="setting_notification.php" class="nav-link">
                                     <div class="card">
                                         <div class="card-body">
@@ -131,7 +128,9 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-md-4">
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6">
                                 <a href="setting_support.php" class="nav-link">
                                     <div class="card">
                                         <div class="card-body">
@@ -141,7 +140,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <a href="setting_address.php" class="nav-link">
                                     <div class="card">
                                         <div class="card-body">

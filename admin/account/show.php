@@ -29,11 +29,11 @@
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
             <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
-            <li class="active"><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
+            <li><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
             <li><a href="#"><i class='bx bx-clipboard'></i>Orders</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Tickets</a></li>
             <li><a href="#"><i class='bx bxs-user-account'></i>Manager</a></li>
-            <li><a href="index.php"><i class='bx bx-group'></i>Users</a></li>
+            <li class="active"><a href="index.php"><i class='bx bx-group'></i>Users</a></li>
             <li><a href="../setting_up/index.php"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
         <ul class="side-menu">
@@ -151,11 +151,11 @@
                                                     <div class="">
                                                         <select class="form-select" id="selectRole">
                                                             <option selected>Chọn vai trò</option>
-                                                            <option value="1">Quản trị viên</option>
-                                                            <option value="2">Khách hàng</option>
-                                                            <option value="2">Nhân viên</option>
-                                                            <option value="2">Quản lý nhân viên</option>
-                                                            <option value="2">Quản lý kho</option>
+                                                            <option value="2">Quản trị viên</option>
+                                                            <option value="1">Khách hàng</option>
+                                                            <option value="3">Nhân viên</option>
+                                                            <option value="5">Quản lý nhân viên</option>
+                                                            <option value="4">Quản lý kho</option>
                                                         </select>
                                                     </div>
                                                 </div>
