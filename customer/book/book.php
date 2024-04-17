@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
 
-    <?php include '../import/libary.php'; ?>
-    <?php include 'sql_command.php' ?>
+    <?php include '../../import/libary.php'; ?>
 
     <style>
     a {
@@ -24,7 +23,7 @@
     }
 
     .search {
-        width: 100%;
+        width: 35%;
         height: 35px;
     }
 
@@ -52,14 +51,38 @@
         margin-top: 90px;
     }
 
-    h6 {
-        padding-left: 20px;
-        font-size: 20px;
-        font-weight: bold;
+    .dropdown-item i {
+        padding-right: 8px;
     }
 
-    .navbar-brand {
-        padding-top: 10px;
+
+    .card-img {
+        width: 100%;
+        height: 100%;
+        object-fix: cover;
+        border-bottom-right-radius: 0;
+    }
+
+    .heading {
+        position: relative;
+        padding: 50px;
+    }
+
+    .heading::before {
+        content: "";
+        /* Thêm nội dung vào pseudo-element */
+        position: absolute;
+        /* Đặt vị trí của pseudo-element là absolute để nó có thể che phủ hoàn toàn phần tử cha */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url(../../assets/images/home/pexels-pixabay-159711.jpg);
+        background-size: cover;
+        opacity: 0.25;
+        /* Điều chỉnh độ mờ của background */
+        z-index: -1;
+        /* Đẩy pseudo-element xuống phía sau để nó không che phủ chữ */
     }
     </style>
 </head>
@@ -67,12 +90,8 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm fixed-top">
         <div class="container">
-            <a class="navbar-brand align-items-center d-flex" href="index.php">
-                <img src="..\assets\images\logo\light_theme_logo.png" class="logo">
-                <h6>
-                    <i class="bi bi-cart-dash"></i>
-                    Cart
-                </h6>
+            <a class="navbar-brand align-items-center" href="index.php">
+                <img src="../../assets/images/logo/light_theme_logo.png" class="logo">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -80,34 +99,39 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse align-items-center" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-5 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="book.php">Book</a>
+                        <a class="nav-link active" href="book.php">Book</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="stationery.php">Stationery</a>
                     </li>
                 </ul>
-
+                <form class="d-flex me-auto search align-items-center" role="search">
+                    <input class="form-control border-secondary rounded-start-pill" type="search" placeholder="Search"
+                        aria-label="Search">
+                    <button class="btn btn-outline-secondary rounded-end-pill" type="submit"><i
+                            class="bi bi-search"></i></button>
+                </form>
 
                 <ul class="navbar-nav mb-2 mb-lg-0 align-items-center">
-                    <form class="d-flex me-auto search align-items-center" role="search">
-                        <input class="form-control border-secondary rounded-start-pill" type="search"
-                            placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-secondary rounded-end-pill" type="submit"><i
-                                class="bi bi-search"></i></button>
-                    </form>
+                    <li class="nav-item">
+                        <a class="nav-link active btn mx-2" aria-current="page" href="cart.php">
+                            <i class="bi bi-cart-dash"></i>
+                            Cart
+                        </a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <img src="..\assets\images\avatar\avatar1.png" alt="" srcset="" class="avatar_navbar">
+                            <img src="../../assets/images/avatar/avatar1.png" alt="" srcset="" class="avatar_navbar">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li class="d-flex p-3">
-                                <img src="..\assets\images\avatar\avatar1.png" alt="" srcset="" class="avatar_dropdown">
+                                <img src="../../assets/images/avatar/avatar1.png" alt="" srcset="" class="avatar_dropdown">
                                 <div class="acc_content px-3">
                                     <h5>Trần Thanh Trí</h5>
                                     <p>tritt13579@gmail.com</p>
@@ -123,19 +147,66 @@
         </div>
     </nav>
 
-    <main class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h3>Giỏ hàng</h3>
-            </div>
-            <div class="col-md-6">
-                <label for="choose_all">Chọn tất cả</label>
-                <input type="checkbox" name="" id="choose_all"> 
-                <a href="index.php" class="btn btn-success float-end">Mua ngay (2)</a>
+    <div class="container heading">
+        <h1>Book</h1>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quos libero culpa, id explicabo sunt, accusantium
+            atque tenetur nulla neque odio distinctio iusto optio laudantium ipsam. Ipsam reprehenderit iste similique
+            excepturi?</p>
+    </div>
 
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-10">
+                <h4>New book</h4>
+            </div>
+            <div class="col-md-2">
+                <a href="#" class=" float-end">See more</a>
             </div>
         </div>
-    </main>
+    </div>
+
+    <div class="container mt-4 d-flex">
+        <div class="card me-2" style="width: 18rem;">
+            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="../...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">$18</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        <div class="card me-2" style="width: 18rem;">
+            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="../...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">$18</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        <div class="card me-2" style="width: 18rem;">
+            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="../...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">$18</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        <div class="card me-2" style="width: 18rem;">
+            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="../...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">$18</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="../...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">$18</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
 
     <footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiary">
         <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
@@ -143,7 +214,7 @@
                 <div class="col-lg-3 mb-3">
                     <a class="d-inline-flex align-items-center mb-2 text-body-emphasis text-decoration-none" href="/"
                         aria-label="Amazon">
-                        <img src="..\assets\images\logo\light_theme_logo.png" alt="" srcset="" class="logo">
+                        <img src="../../assets/images/logo/light_theme_logo.png" alt="" srcset="" class="logo">
                     </a>
                     <ul class="list-unstyled small">
                         <li class="mb-2">

@@ -4,12 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Settings - Account</title>
 
     <?php include '../../import/libary.php'; ?>
 
     <style>
-
     a {
         text-decoration: none;
         color: black;
@@ -112,9 +111,28 @@
         </div>
     </nav>
 
-    <div class="container">
+    <main class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Account Settings</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item list-group-item-action list-group-item-light"><a
+                            href="#personal-info">Thông tin cá nhân</a></li>
+                    <li class="list-group-item list-group-item-action list-group-item-light"><a
+                            href="#shipping-address">Địa chỉ giao hàng</a></li>
+                    <li class="list-group-item list-group-item-action list-group-item-light"><a
+                            href="#version-info">Thông tin phiên bản</a></li>
+                </ul>
+            </div>
+            <div class="col-md-9">
+                <section id="personal-info">
+                    <h2>Thông tin cá nhân</h2>
+                    <!-- Đoạn mã HTML cho thông tin cá nhân ở đây -->
+                </section>
+            </div>
+        </div>
+    </main>
 
-    </div>
 
     <footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiary">
         <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">

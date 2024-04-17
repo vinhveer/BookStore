@@ -6,70 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
 
-    <?php include '../import/libary.php'; ?>
-    <?php include 'sql_command.php' ?>
+    <?php
+    include '../import/libary.php';
+    include '../import/connect.php';
+    ?>
 
-    <style>
-    a {
-        text-decoration: none;
-        color: black;
-    }
-
-    .logo {
-        width: 80px;
-    }
-
-    .nav-link i {
-        font-size: 20px;
-    }
-
-    .search {
-        width: 35%;
-        height: 35px;
-    }
-
-    .avatar_navbar {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-    }
-
-    .avatar_dropdown {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-    }
-
-    .dropdown-menu {
-        width: 350px;
-    }
-
-    .active {
-        font-weight: bold;
-    }
-
-    body {
-        margin-top: 90px;
-    }
-
-    .dropdown-item i {
-        padding-right: 8px;
-    }
-
-    .scroll {
-        overflow-x: auto;
-        /* Hoặc overflow-x: scroll; */
-        white-space: nowrap;
-        /* Ngăn chặn các phần tử bên trong container xuống dòng */
-    }
-
-    .card-img {
-        width: 100%;
-        height: 100%;
-        object-fix: cover;
-        border-bottom-right-radius: 0;
-    }
-    </style>
+    <link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
@@ -89,10 +31,10 @@
                         <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="book.php">Book</a>
+                        <a class="nav-link" href="book/book.php">Book</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="stationery.php">Stationery</a>
+                        <a class="nav-link" href="stationery/stationery.php">Stationery</a>
                     </li>
                 </ul>
                 <form class="d-flex me-auto search align-items-center" role="search">
@@ -153,43 +95,126 @@
         </button>
     </div>
 
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-10">
-                <h4>New book</h4>
-            </div>
-            <div class="col-md-2">
-                <a href="#" class=" float-end">See more</a>
-            </div>
-        </div>
-    </div>
-
     <?php
-    include '../import/connect.php';
+    $sql_items = "SELECT * FROM list_item";
+    $result_items = sqlsrv_query($conn, $sql_items);
 
-    // $sql = "SELECT TOP 5 bo.product_id, bo.book_name, pr.product_image, pr.product_price FROM books bo
-    // INNER JOIN products pr ON pr.product_id = bo.product_id;";
+    while ($row = sqlsrv_fetch_array($result_items, SQLSRV_FETCH_ASSOC)) {
+        if ($row['type_item'] == 'b') {
+            ?>
+            <div class="container mt-4">
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-md-10">
+                        <h4 style="margin-bottom: 0">
+                            <?php echo $row['title']; ?>
+                        </h4>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="#" class="btn float-end" style="background-color: #ffe100;">See more</a>
+                    </div>
+                </div>
+            </div>
+            <?php
+            $sql_item_book = $row['cmd_top5'];
+            $result_item_book = sqlsrv_query($conn, $sql_item_book);
+            ?>
+            <div class="container mt-4 d-flex">
+                <?php
+                while ($row_book = sqlsrv_fetch_array($result_item_book, SQLSRV_FETCH_ASSOC)) {
+                    ?>
+                    <div class="card me-2" style="width: 18rem;">
+                        <img src="<?php echo $row_book['product_image']; ?>" class="card-img-top"
+                            alt="<?php echo $row_book['book_name']; ?>">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <?php
+                                $title = $row_book['book_name'];
+                                if (strlen($title) > 40) {
+                                    $title = substr($title, 0, 35) . "...";
+                                }
+                                echo $title;
+                                ?>
+                            </h5>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-text">
+                                <p class="author"><?php echo $row_book['author_name']; ?></p>
+                                <p class="year"><?php echo $row_book['book_publication_year']; ?></p>
+                            </div>
+                            <p class="card-text">
+                                <strong>
+                                    <?php echo $row_book['product_price']; ?>đ
+                                </strong>
+                            </p>
 
-    $result = sqlsrv_query($conn, $sql_index);
+                            <a href="#" class="btn btn-success">Buy now</a>
+                            <a href="#" class="btn btn-danger float-end"><i class="bi bi-cart-dash"></i></a>
+                        </div>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
+            <?php
+        } else {
+            ?>
+            <div class="container mt-4">
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-md-10">
+                        <h4 style="margin-bottom: 0">
+                            <?php echo $row['title']; ?>
+                        </h4>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="#" class="btn float-end" style="background-color: #ffe100;">See more</a>
+                    </div>
+                </div>
+            </div>
+            <?php
+            $sql_item_other_product = $row['cmd_top5'];
+            $result_item_other_product = sqlsrv_query($conn, $sql_item_other_product);
+            ?>
+            <div class="container mt-4 d-flex">
+                <?php
+                while ($row_other_product = sqlsrv_fetch_array($result_item_other_product, SQLSRV_FETCH_ASSOC)) {
+                    ?>
+                    <div class="card me-2" style="width: 18rem;">
+                        <img src="<?php echo $row_other_product['product_image']; ?>" class="card-img-top"
+                            alt="<?php echo $row_other_product['others_product_name']; ?>">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <?php
+                                $title = $row_other_product['others_product_name'];
+                                if (strlen($title) > 40) {
+                                    $title = substr($title, 0, 35) . "...";
+                                }
+                                echo $title;
+                                ?>
+                            </h5>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-text">
+                                <p class="brand"><?php echo $row_other_product['brand_name']; ?></p>
+                            </div>
+                            <p class="card-text">
+                                <strong>
+                                    <?php echo $row_other_product['product_price']; ?>đ
+                                </strong>
+                            </p>
+
+                            <a href="#" class="btn btn-success">Buy now</a>
+                            <a href="#" class="btn btn-danger float-end"><i class="bi bi-cart-dash"></i></a>
+                        </div>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
+            <?php
+        }
+    }
     ?>
 
-    <div class="container mt-4 d-flex">
-        <?php
-        while ($row = sqlsrv_fetch_array($result))
-        {
-        ?>
-        <div class="card me-2" style="width: 18rem;">
-            <img src="<?php echo $row['product_image'] ?>" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title"><?php echo $row['book_name'] ?></h5>
-                <p class="card-text"> <?php echo $row['product_price'] ?></p>
-                <a href="#" class="btn btn-primary">Buy now</a>
-            </div>
-        </div>
-        <?php
-        }
-        ?>
-    </div>
 
     <footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiary">
         <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
@@ -210,57 +235,26 @@
                         <li class="mb-2">Currently v5.3.3.</li>
                     </ul>
                 </div>
-                <div class="col-6 col-lg-2 offset-lg-1 mb-3">
-                    <h5>Links</h5>
+                <div class="col-8 col-lg-3 offset-lg-1 mb-3">
+                    <h5>Product Categories</h5>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="/">Home</a></li>
-                        <li class="mb-2"><a href="/docs/5.3/">Docs</a></li>
-                        <li class="mb-2"><a href="/docs/5.3/examples/">Examples</a></li>
-                        <li class="mb-2"><a href="https://icons.getbootstrap.com/">Icons</a></li>
-                        <li class="mb-2"><a href="https://themes.getbootstrap.com/">Themes</a></li>
-                        <li class="mb-2"><a href="https://blog.getbootstrap.com/">Blog</a></li>
-                        <li class="mb-2"><a href="https://cottonbureau.com/people/bootstrap" target="_blank"
-                                rel="noopener">Swag Store</a></li>
+
                     </ul>
                 </div>
-                <div class="col-6 col-lg-2 mb-3">
-                    <h5>Guides</h5>
+                <div class="col-8 col-lg-3 mb-3">
+                    <h5>Site Maps</h5>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="/docs/5.3/getting-started/">Getting started</a></li>
-                        <li class="mb-2"><a href="/docs/5.3/examples/starter-template/">Starter template</a></li>
-                        <li class="mb-2"><a href="/docs/5.3/getting-started/webpack/">Webpack</a></li>
-                        <li class="mb-2"><a href="/docs/5.3/getting-started/parcel/">Parcel</a></li>
-                        <li class="mb-2"><a href="/docs/5.3/getting-started/vite/">Vite</a></li>
+
                     </ul>
                 </div>
-                <div class="col-6 col-lg-2 mb-3">
-                    <h5>Projects</h5>
+                <div class="col-8 col-lg-2 mb-3">
+                    <h5>Role</h5>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="https://github.com/twbs/bootstrap" target="_blank"
                                 rel="noopener">Bootstrap 5</a></li>
-                        <li class="mb-2"><a href="https://github.com/twbs/bootstrap/tree/v4-dev" target="_blank"
-                                rel="noopener">Bootstrap 4</a></li>
-                        <li class="mb-2"><a href="https://github.com/twbs/icons" target="_blank"
-                                rel="noopener">Icons</a></li>
-                        <li class="mb-2"><a href="https://github.com/twbs/rfs" target="_blank" rel="noopener">RFS</a>
-                        </li>
-                        <li class="mb-2"><a href="https://github.com/twbs/examples/" target="_blank"
-                                rel="noopener">Examples repo</a></li>
-                    </ul>
-                </div>
-                <div class="col-6 col-lg-2 mb-3">
-                    <h5>Community</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="https://github.com/twbs/bootstrap/issues" target="_blank"
-                                rel="noopener">Issues</a></li>
-                        <li class="mb-2"><a href="https://github.com/twbs/bootstrap/discussions" target="_blank"
-                                rel="noopener">Discussions</a></li>
-                        <li class="mb-2"><a href="https://github.com/sponsors/twbs" target="_blank"
-                                rel="noopener">Corporate sponsors</a></li>
-                        <li class="mb-2"><a href="https://opencollective.com/bootstrap" target="_blank"
-                                rel="noopener">Open Collective</a></li>
-                        <li class="mb-2"><a href="https://stackoverflow.com/questions/tagged/bootstrap-5"
-                                target="_blank" rel="noopener">Stack Overflow</a></li>
+
                     </ul>
                 </div>
             </div>

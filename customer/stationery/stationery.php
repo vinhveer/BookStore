@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
 
-    <?php include '../import/libary.php'; ?>
+    <?php include '../../import/libary.php'; ?>
 
     <style>
     a {
@@ -84,7 +84,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: url(../assets/images/home/pexels-pixabay-207665.jpg);
+        background: url(../../assets/images/home/pexels-pixabay-207665.jpg);
         background-size: cover;
         opacity: 0.25;
         /* Điều chỉnh độ mờ của background */
@@ -98,7 +98,7 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm fixed-top">
         <div class="container">
             <a class="navbar-brand align-items-center" href="index.php">
-                <img src="..\assets\images\logo\light_theme_logo.png" class="logo">
+                <img src="../../assets/images/logo/light_theme_logo.png" class="logo">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -126,7 +126,7 @@
 
                 <ul class="navbar-nav mb-2 mb-lg-0 align-items-center">
                     <li class="nav-item">
-                        <a class="nav-link active btn mx-2" aria-current="page" href="#">
+                        <a class="nav-link active btn mx-2" aria-current="page" href="cart.php">
                             <i class="bi bi-cart-dash"></i>
                             Cart
                         </a>
@@ -134,11 +134,11 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <img src="..\assets\images\avatar\avatar1.png" alt="" srcset="" class="avatar_navbar">
+                            <img src="../../assets/images/avatar/avatar1.png" alt="" srcset="" class="avatar_navbar">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li class="d-flex p-3">
-                                <img src="..\assets\images\avatar\avatar1.png" alt="" srcset="" class="avatar_dropdown">
+                                <img src="../../assets/images/avatar/avatar1.png" alt="" srcset="" class="avatar_dropdown">
                                 <div class="acc_content px-3">
                                     <h5>Trần Thanh Trí</h5>
                                     <p>tritt13579@gmail.com</p>
@@ -174,7 +174,7 @@
 
     <div class="container mt-4 d-flex">
         <div class="card me-2" style="width: 18rem;">
-            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="...">
+            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="../...">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">$18</p>
@@ -182,7 +182,7 @@
             </div>
         </div>
         <div class="card me-2" style="width: 18rem;">
-            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="...">
+            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="../...">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">$18</p>
@@ -190,7 +190,7 @@
             </div>
         </div>
         <div class="card me-2" style="width: 18rem;">
-            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="...">
+            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="../...">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">$18</p>
@@ -198,7 +198,7 @@
             </div>
         </div>
         <div class="card me-2" style="width: 18rem;">
-            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="...">
+            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="../...">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">$18</p>
@@ -206,7 +206,7 @@
             </div>
         </div>
         <div class="card" style="width: 18rem;">
-            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="...">
+            <img src="https://vppdeli.vn/wp-content/uploads/2024/03/EG81-BK-600x600.png" class="card-img-top" alt="../...">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">$18</p>
@@ -221,7 +221,7 @@
                 <div class="col-lg-3 mb-3">
                     <a class="d-inline-flex align-items-center mb-2 text-body-emphasis text-decoration-none" href="/"
                         aria-label="Amazon">
-                        <img src="..\assets\images\logo\light_theme_logo.png" alt="" srcset="" class="logo">
+                        <img src="../../assets/images/logo/light_theme_logo.png" alt="" srcset="" class="logo">
                     </a>
                     <ul class="list-unstyled small">
                         <li class="mb-2">
