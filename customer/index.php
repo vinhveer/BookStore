@@ -123,7 +123,7 @@
                 while ($row_book = sqlsrv_fetch_array($result_item_book, SQLSRV_FETCH_ASSOC)) {
                     ?>
                     <div class="card me-2" style="width: 18rem;">
-                        <img src="<?php echo $row_book['product_image']; ?>" class="card-img-top"
+                        <img src="<?php echo $row_book['product_image']; ?>" class="card-img-top-book"
                             alt="<?php echo $row_book['book_name']; ?>">
                         <div class="card-body">
                             <h5 class="card-title">
@@ -179,7 +179,7 @@
                 while ($row_other_product = sqlsrv_fetch_array($result_item_other_product, SQLSRV_FETCH_ASSOC)) {
                     ?>
                     <div class="card me-2" style="width: 18rem;">
-                        <img src="<?php echo $row_other_product['product_image']; ?>" class="card-img-top"
+                        <img src="<?php echo $row_other_product['product_image']; ?>" class="card-img-top-other"
                             alt="<?php echo $row_other_product['others_product_name']; ?>">
                         <div class="card-body">
                             <h5 class="card-title">

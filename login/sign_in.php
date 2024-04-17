@@ -7,8 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.122.0">
+    
     <title>Sign in</title>
 
     <?php include '../import/libary.php'; ?>
@@ -60,8 +59,8 @@
 
     <main class="form-signin m-auto">
         <form action="process.php" method="post">
-            <img class="mb-4" src="..\assets\images\logo\light_theme_logo.png" alt="" width="100px">
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <img class="mb-4" src="../assets/images/logo/light_theme_logo.png" alt="" width="100px">
+            <h1 class="h3 mb-3 fw-normal">Sign in</h1>
 
             <div class="form-floating">
                 <input type="text" class="form-control" id="floatingInput" placeholder="Username or email address ..."
@@ -82,7 +81,7 @@
                 </label>
             </div>
             <button class="btn w-100 py-2" type="submit" name="login">Sign in</button>
-            <p class="py-2">New customer? <a href="sign_up.php">Start here.</a></p>
+            <p class="py-2">New customer? <a href="register.php">Start here.</a></p>
             <p class="mt-5 mb-3 text-body-secondary">&copy; 2023–2024</p>
         </form>
     </main>
