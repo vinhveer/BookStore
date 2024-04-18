@@ -1,3 +1,2 @@
 <?php
-header("Location: customer/index.php");
-?>
+header('Location: login/sign_in.php');

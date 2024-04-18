@@ -14,28 +14,31 @@
     <?php include '../import/libary.php'; ?>
 
     <style>
-    html,
-    body {
-        height: 100%;
-    }
+        html,
+        body {
+            height: 100%;
+        }
 
-    .form-signin {
-        width: 500px;
-        padding: 1rem;
-    }
+        .form-signin {
+            width: 500px;
+            padding: 1rem;
+        }
 
-    .btn {
-        background-color: #ffe100;
-    }
+        .btn {
+            background-color: #ffe100;
+        }
 
-    .btn:hover {
-        background-color: #f7ca00;
-    }
+        .btn:hover {
+            background-color: #f7ca00;
+        }
     </style>
 
 </head>
 
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
+    <?php
+    session_destroy();
+    ?>
 
     <main class="form-signin m-auto">
         <form>
@@ -43,7 +46,8 @@
             <h1 class="h3 mb-3 fw-normal">Bye bye! Tri.</h1>
 
             <p>Resign in now?</p>
-            <a class="btn w-100 py-2" href="sign_in">Sign in</a>
+            <a class="btn w-100 py-2" href="../sign_in">Sign in</a>
+            <p class="py-2">New customer? <a href="register.php">Start here.</a></p>  
             <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
         </form>
     </main>
