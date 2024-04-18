@@ -1,3 +1,15 @@
+<?php
+
+// Kết nối CSDL
+$serverName = "TN"; // Tên máy chủ CSDL
+$connectionInfo = array("Database"=>"BookStore");
+$conn = sqlsrv_connect($serverName, $connectionInfo);
+
+// Kiểm tra kết nối
+if (!$conn) {
+    die("Kết nối đến CSDL thất bại: " . sqlsrv_errors());
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,8 +78,6 @@
                         </li>
                         /
                         <li><a href="#" class="active">Paid Order</a></li>
-                        /
-                        <li><a href="#" class="active">ID: 001</a></li>
                     </ul>
                 </div>
                 
@@ -83,31 +93,94 @@
                     <i class='bx bx-calendar-check'></i>
                     <span class="info">
                         <h3>
-                            1,999
+                            <?php
+                                // Câu truy vấn SQL
+                                $sqlPaidOrders = "SELECT COUNT(*) AS PaidOrders FROM orders_online WHERE status_on = 'Complete';";
+                                // Thực thi câu truy vấn
+                                $resultPaidOrders = sqlsrv_query($conn, $sqlPaidOrders);
+                                // Kiểm tra và hiển thị kết quả
+                                if ($resultPaidOrders === false) {
+                                    die( print_r( sqlsrv_errors(), true));
+                                }
+                                // Lấy số lượng đơn hàng đã thanh toán
+                                if ($rowPaidOrders = sqlsrv_fetch_array($resultPaidOrders, SQLSRV_FETCH_ASSOC)) {
+                                    echo $rowPaidOrders['PaidOrders'];
+                                } else {
+                                    echo "0"; // Nếu không có đơn hàng nào đã thanh toán
+                                }
+                            ?>
                         </h3>
                         <p><a href="index2.php">Paid Order</a></p>
                     </span>
                 </li>
-                <li><i class='bx bx-book-content'></i>
+                <li>
+                    <i class='bx bx-book-content'></i>
                     <span class="info">
                         <h3>
-                            3,999
+                            <?php
+                                // Câu truy vấn SQL
+                                $sqlTotalOrders = "SELECT COUNT(*) AS TotalOrders FROM orders_online;";
+                                // Thực thi câu truy vấn
+                                $resultTotalOrders = sqlsrv_query($conn, $sqlTotalOrders);
+                                // Kiểm tra và hiển thị kết quả
+                                if ($resultTotalOrders === false) {
+                                    die( print_r( sqlsrv_errors(), true));
+                                }
+                                // Lấy số lượng đơn hàng
+                                if ($rowTotalOrders = sqlsrv_fetch_array($resultTotalOrders, SQLSRV_FETCH_ASSOC)) {
+                                    echo $rowTotalOrders['TotalOrders'];
+                                } else {
+                                    echo "0"; // Nếu không có đơn hàng nào
+                                }
+                            ?>
                         </h3>
                         <p><a href="index1.php">Orders</a></p>
                     </span>
                 </li>
-                <li><i class='bx bxs-truck' ></i>
+                <li>
+                    <i class='bx bxs-truck' ></i>
                     <span class="info">
                         <h3>
-                            14,721
+                            <?php
+                                // Câu truy vấn SQL
+                                $sqlPendingOrders = "SELECT COUNT(*) AS PendingOrders FROM orders_online WHERE status_on = 'Pending';";
+                                // Thực thi câu truy vấn
+                                $resultPendingOrders = sqlsrv_query($conn, $sqlPendingOrders);
+                                // Kiểm tra và hiển thị kết quả
+                                if ($resultPendingOrders === false) {
+                                    die( print_r( sqlsrv_errors(), true));
+                                }
+                                // Lấy số lượng đơn hàng đang chờ xử lý
+                                if ($rowPendingOrders = sqlsrv_fetch_array($resultPendingOrders, SQLSRV_FETCH_ASSOC)) {
+                                    echo $rowPendingOrders['PendingOrders'];
+                                } else {
+                                    echo "0"; // Nếu không có đơn hàng nào đang chờ xử lý
+                                }
+                            ?>
                         </h3>
                         <p><a href="index3.php">Transport</a></p>
                     </span>
                 </li>
-                <li><i class='bx bx-dollar-circle'></i>
+                <li>
+                    <i class='bx bx-dollar-circle'></i>
                     <span class="info">
                         <h3>
-                            $6,742
+                            <?php
+                                // Câu truy vấn SQL
+                                $sqlTotalSales = "SELECT SUM(total_amount_on) AS TotalSales FROM orders_online WHERE status_on = 'Complete';";
+                                // Thực thi câu truy vấn
+                                $resultTotalSales = sqlsrv_query($conn, $sqlTotalSales);
+                                // Kiểm tra và hiển thị kết quả
+                                if ($resultTotalSales === false) {
+                                    die( print_r( sqlsrv_errors(), true));
+                                }
+                                // Lấy tổng số tiền của các đơn hàng đã thanh toán
+                                if ($rowTotalSales = sqlsrv_fetch_array($resultTotalSales, SQLSRV_FETCH_ASSOC)) {
+                                    echo "$" . $rowTotalSales['TotalSales'];
+                                } else {
+                                    echo "$0"; // Nếu không có đơn hàng nào đã thanh toán
+                                }
+                            ?>
                         </h3>
                         <p><a href="index4.php">Total Sales</a></p>
                     </span>
@@ -115,93 +188,92 @@
             </ul>
 
             <div class="order-content">
+                <!-- Hiển thị chi tiết hóa đơn -->
                 <h2>Bill details</h2>
                 <ul class="product">
-                <li>
-                    <img src="images/profile_1.jpg" alt="">
-                    <span class="info">
-                        <h3>
-                            name of product
-                        </h3>
-                        <h4>
-                            amount
-                        </h4>
-                        <h4>
-                            unit price
-                        </h4>
-                        <p>Total Prices</p>
-                    </span>
-                </li>
-                <li>
-                    <img src="images/profile_1.jpg" alt="">
-                    <span class="info">
-                        <h3>
-                            name of product
-                        </h3>
-                        <h4>
-                            amount
-                        </h4>
-                        <h4>
-                            unit price
-                        </h4>
-                        <p>Total Prices</p>
-                    </span>
-                </li>
-                <li>
-                    <img src="images/profile_1.jpg" alt="">
-                    <span class="info">
-                        <h3>
-                            name of product
-                        </h3>
-                        <h4>
-                            amount
-                        </h4>
-                        <h4>
-                            unit price
-                        </h4>
-                        <p>Total Prices</p>
-                    </span>
-                </li>
-                <li>
-                    <img src="images/profile_1.jpg" alt="">
-                    <span class="info">
-                        <h3>
-                            name of product
-                        </h3>
-                        <h4>
-                            amount
-                        </h4>
-                        <h4>
-                            unit price
-                        </h4>
-                        <p>Total Prices</p>
-                    </span>
-                </li>
-            </ul>
-            <h2>Customer</h2>
-            <ul class="product">
-                <li>
-                    <img src="images/profile_1.jpg" alt="">
-                    <span class="info">
-                        <h3>
-                            name of customer
-                        </h3>
-                        <h4>
-                            ID: 
-                        </h4>
-                        <h4>
-                            Phone number:
-                        </h4>
-                        <h4>
-                            Address:
-                        </h4>
-                    </span>
-                </li>
-            </ul>
-            <h2 class="total">Total Sales: </h2>
+                    <?php
+                    $order_id = 1; // Giả sử order_id là 1 cho ví dụ
+                    $sqlOrderDetails = "SELECT * FROM GetOrderDetails($order_id);";
+                    $resultOrderDetails = sqlsrv_query($conn, $sqlOrderDetails);
+
+                    if ($resultOrderDetails === false) {
+                        die("Lỗi khi thực thi truy vấn: " . sqlsrv_errors());
+                    }
+
+                    while ($detail = sqlsrv_fetch_array($resultOrderDetails, SQLSRV_FETCH_ASSOC)) {
+                        echo '<li>';
+                        echo '<img src="' . $detail['product_image'] . '" alt="">';
+                        echo '<span class="info">';
+                        echo '<h3>' . $detail['product_name'] . '</h3>';
+                        echo '<h4>' . $detail['quantity'] . '</h4>';
+                        echo '<h4>' . $detail['product_price'] . '</h4>';
+                        echo '<p>' . $detail['quantity'] * $detail['product_price'] . '</p>';
+                        echo '</span>';
+                        echo '</li>';
+                    }
+
+                    // Giải phóng tài nguyên
+                    sqlsrv_free_stmt($resultOrderDetails);
+                    ?>
+                </ul>
+
+                <!-- Hiển thị thông tin khách hàng -->
+                <h2>Customer</h2>
+                <ul class="product">
+                    <?php
+                    $sqlCustomerInfo = "SELECT * FROM GetCustomerInfoForOrder($order_id);";
+                    $resultCustomerInfo = sqlsrv_query($conn, $sqlCustomerInfo);
+
+                    if ($resultCustomerInfo === false) {
+                        die("Lỗi khi thực thi truy vấn: " . sqlsrv_errors());
+                    }
+
+                    if ($customer = sqlsrv_fetch_array($resultCustomerInfo, SQLSRV_FETCH_ASSOC)) {
+                        echo '<li>';
+                        echo '<img src="images/profile_1.jpg" alt="">';
+                        echo '<span class="info">';
+                        echo '<h3>' . $customer['first_name'] . '</h3>';
+                        echo '<h4>ID: ' . $customer['user_id'] . '</h4>';
+                        echo '<h4>Phone number: ' . $customer['phone'] . '</h4>';
+                        echo '<h4>Address: ' . $customer['address'] . '</h4>';
+                        echo '</span>';
+                        echo '</li>';
+                    } else {
+                        echo '<li>No customer information available.</li>';
+                    }
+
+                    // Giải phóng tài nguyên
+                    sqlsrv_free_stmt($resultCustomerInfo);
+                    ?>
+                </ul>
+
+                <!-- Hiển thị tổng số tiền bán hàng -->
+                <h2 class="total">Total Sales: </h2>
+                <?php
+                $sqlTotalSales = "SELECT dbo.GetTotalAmountForOrder($order_id) AS TotalSales";
+                $resultTotalSales = sqlsrv_query($conn, $sqlTotalSales);
+
+                if ($resultTotalSales === false) {
+                    die("Lỗi khi thực thi truy vấn: " . sqlsrv_errors());
+                }
+
+                if ($rowTotalSales = sqlsrv_fetch_array($resultTotalSales, SQLSRV_FETCH_ASSOC)) {
+                    echo '<p>' . $rowTotalSales['TotalSales'] . '</p>';
+                } else {
+                    echo '<p>Total sales not available.</p>';
+                }
+
+                // Giải phóng tài nguyên
+                sqlsrv_free_stmt($resultTotalSales);
+
+                // Đóng kết nối CSDL
+                sqlsrv_close($conn);
+                ?>
             </div>
         </main>
     </div>
     <script src="index.js"></script>
 </body>
+
 </html>
+

@@ -66,8 +66,6 @@
                         </li>
                         /
                         <li><a href="#" class="active">Transport</a></li>
-                        /
-                        <li><a href="#" class="active">ID: 001</a></li>
                     </ul>
                 </div>
                 
@@ -79,35 +77,154 @@
 
             <!-- Insights -->
             <ul class="insights">
-            <li>
+                <li>
                     <i class='bx bx-calendar-check'></i>
                     <span class="info">
                         <h3>
-                            1,999
+                            <?php
+                                // Kết nối CSDL
+                                $serverName = "TN"; // Tên máy chủ CSDL
+                                $connectionInfo = array("Database"=>"BookStore");
+                                $conn = sqlsrv_connect($serverName, $connectionInfo);
+
+                                // Kiểm tra kết nối
+                                if (!$conn) {
+                                    die("Kết nối đến CSDL thất bại: " . sqlsrv_errors());
+                                }
+
+                                // Câu truy vấn SQL
+                                $sqlPaidOrders = "SELECT COUNT(*) AS PaidOrders FROM orders_online WHERE status_on = 'Complete';";
+                                // Thực thi câu truy vấn
+                                $resultPaidOrders = sqlsrv_query($conn, $sqlPaidOrders);
+                                // Kiểm tra và hiển thị kết quả
+                                if ($resultPaidOrders === false) {
+                                    die( print_r( sqlsrv_errors(), true));
+                                }
+                                // Lấy số lượng đơn hàng đã thanh toán
+                                if ($rowPaidOrders = sqlsrv_fetch_array($resultPaidOrders, SQLSRV_FETCH_ASSOC)) {
+                                    echo $rowPaidOrders['PaidOrders'];
+                                } else {
+                                    echo "0"; // Nếu không có đơn hàng nào đã thanh toán
+                                }
+
+                                // Đóng kết nối và giải phóng tài nguyên
+                                sqlsrv_free_stmt($resultPaidOrders);
+                                sqlsrv_close($conn);
+                            ?>
                         </h3>
                         <p><a href="index2.php">Paid Order</a></p>
                     </span>
                 </li>
-                <li><i class='bx bx-book-content'></i>
+                <li>
+                    <i class='bx bx-book-content'></i>
                     <span class="info">
                         <h3>
-                            3,999
+                            <?php
+                                // Kết nối CSDL
+                                $serverName = "TN"; // Tên máy chủ CSDL
+                                $connectionInfo = array("Database"=>"BookStore");
+                                $conn = sqlsrv_connect($serverName, $connectionInfo);
+
+                                // Kiểm tra kết nối
+                                if (!$conn) {
+                                    die("Kết nối đến CSDL thất bại: " . sqlsrv_errors());
+                                }
+
+                                // Câu truy vấn SQL
+                                $sqlTotalOrders = "SELECT COUNT(*) AS TotalOrders FROM orders_online;";
+                                // Thực thi câu truy vấn
+                                $resultTotalOrders = sqlsrv_query($conn, $sqlTotalOrders);
+                                // Kiểm tra và hiển thị kết quả
+                                if ($resultTotalOrders === false) {
+                                    die( print_r( sqlsrv_errors(), true));
+                                }
+                                // Lấy số lượng đơn hàng
+                                if ($rowTotalOrders = sqlsrv_fetch_array($resultTotalOrders, SQLSRV_FETCH_ASSOC)) {
+                                    echo $rowTotalOrders['TotalOrders'];
+                                } else {
+                                    echo "0"; // Nếu không có đơn hàng nào
+                                }
+
+                                // Đóng kết nối và giải phóng tài nguyên
+                                sqlsrv_free_stmt($resultTotalOrders);
+                                sqlsrv_close($conn);
+                            ?>
                         </h3>
                         <p><a href="index1.php">Orders</a></p>
                     </span>
                 </li>
-                <li><i class='bx bxs-truck' ></i>
+                <li>
+                    <i class='bx bxs-truck' ></i>
                     <span class="info">
                         <h3>
-                            14,721
+                            <?php
+                                // Kết nối CSDL
+                                $serverName = "TN"; // Tên máy chủ CSDL
+                                $connectionInfo = array("Database"=>"BookStore");
+                                $conn = sqlsrv_connect($serverName, $connectionInfo);
+
+                                // Kiểm tra kết nối
+                                if (!$conn) {
+                                    die("Kết nối đến CSDL thất bại: " . sqlsrv_errors());
+                                }
+
+                                // Câu truy vấn SQL
+                                $sqlPendingOrders = "SELECT COUNT(*) AS PendingOrders FROM orders_online WHERE status_on = 'Pending';";
+                                // Thực thi câu truy vấn
+                                $resultPendingOrders = sqlsrv_query($conn, $sqlPendingOrders);
+                                // Kiểm tra và hiển thị kết quả
+                                if ($resultPendingOrders === false) {
+                                    die( print_r( sqlsrv_errors(), true));
+                                }
+                                // Lấy số lượng đơn hàng đang chờ xử lý
+                                if ($rowPendingOrders = sqlsrv_fetch_array($resultPendingOrders, SQLSRV_FETCH_ASSOC)) {
+                                    echo $rowPendingOrders['PendingOrders'];
+                                } else {
+                                    echo "0"; // Nếu không có đơn hàng nào đang chờ xử lý
+                                }
+
+                                // Đóng kết nối và giải phóng tài nguyên
+                                sqlsrv_free_stmt($resultPendingOrders);
+                                sqlsrv_close($conn);
+                            ?>
                         </h3>
                         <p><a href="index3.php">Transport</a></p>
                     </span>
                 </li>
-                <li><i class='bx bx-dollar-circle'></i>
+                <li>
+                    <i class='bx bx-dollar-circle'></i>
                     <span class="info">
                         <h3>
-                            $6,742
+                            <?php
+                                // Kết nối CSDL
+                                $serverName = "TN"; // Tên máy chủ CSDL
+                                $connectionInfo = array("Database"=>"BookStore");
+                                $conn = sqlsrv_connect($serverName, $connectionInfo);
+
+                                // Kiểm tra kết nối
+                                if (!$conn) {
+                                    die("Kết nối đến CSDL thất bại: " . sqlsrv_errors());
+                                }
+
+                                // Câu truy vấn SQL
+                                $sqlTotalSales = "SELECT SUM(total_amount_on) AS TotalSales FROM orders_online WHERE status_on = 'Complete';";
+                                // Thực thi câu truy vấn
+                                $resultTotalSales = sqlsrv_query($conn, $sqlTotalSales);
+                                // Kiểm tra và hiển thị kết quả
+                                if ($resultTotalSales === false) {
+                                    die( print_r( sqlsrv_errors(), true));
+                                }
+                                // Lấy tổng số tiền của các đơn hàng đã thanh toán
+                                if ($rowTotalSales = sqlsrv_fetch_array($resultTotalSales, SQLSRV_FETCH_ASSOC)) {
+                                    echo "$" . $rowTotalSales['TotalSales'];
+                                } else {
+                                    echo "$0"; // Nếu không có đơn hàng nào đã thanh toán
+                                }
+
+                                // Đóng kết nối và giải phóng tài nguyên
+                                sqlsrv_free_stmt($resultTotalSales);
+                                sqlsrv_close($conn);
+                            ?>
                         </h3>
                         <p><a href="index4.php">Total Sales</a></p>
                     </span>
@@ -116,25 +233,44 @@
             <div class="order-content">
                 <h2>Transporter</h2>
                 <ul class="product">
-                <li>
-                    <img src="images/profile_1.jpg" alt="">
-                    <span class="info">
-                        <h3>
-                            name of transporter
-                        </h3>
-                        <h4>
-                            ID: 
-                        </h4>
-                        <h4>
-                            Phone number:
-                        </h4>
-                        <h4>
-                            Average rating:
-                        </h4>
-                        <span class="status fb">Feedback</span>
-                    </span>
-                </li>
-            </ul>
+                    <?php
+                        // Kết nối CSDL
+                        $serverName = "TN"; // Tên máy chủ CSDL
+                        $connectionInfo = array("Database"=>"BookStore");
+                        $conn = sqlsrv_connect($serverName, $connectionInfo);
+                        // Kiểm tra kết nối
+                        if (!$conn) {
+                            die("Kết nối đến CSDL thất bại: " . sqlsrv_errors());
+                        }
+
+                        $sql = "SELECT * FROM GetDetailTransport(1);";
+
+                        // Thực thi câu truy vấn
+                        $result = sqlsrv_query($conn, $sql);
+
+                        // Kiểm tra và hiển thị kết quả
+                        if ($result === false) {
+                            die( print_r( sqlsrv_errors(), true));
+                        }
+
+                        while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+                            echo "<li>";
+                            echo "<img src='images/profile_1.jpg' alt=''>";
+                            echo "<span class='info'>";
+                            echo "<h3>" . $row['shipper_name'] . "</h3>";
+                            echo "<h4>ID: " . $row['shipper_id'] . "</h4>";
+                            echo "<h4>Phone number: " . $row['phone'] . "</h4>";
+                            echo "<h4>Average rating:</h4>";
+                            echo "<span class='status fb'>Feedback</span>";
+                            echo "</span>";
+                            echo "</li>";
+                        }
+
+                        // Giải phóng tài nguyên kết nối và kết quả
+                        sqlsrv_free_stmt($result);
+                        sqlsrv_close($conn);
+                    ?>
+                </ul>
             </div>
             <div class="update">
                 <h2>Rating: </h2>

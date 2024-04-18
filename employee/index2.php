@@ -80,31 +80,150 @@
                     <i class='bx bx-calendar-check'></i>
                     <span class="info">
                         <h3>
-                            1,999
+                            <?php
+                                // Kết nối CSDL
+                                $serverName = "TN"; // Tên máy chủ CSDL
+                                $connectionInfo = array("Database"=>"BookStore");
+                                $conn = sqlsrv_connect($serverName, $connectionInfo);
+
+                                // Kiểm tra kết nối
+                                if (!$conn) {
+                                    die("Kết nối đến CSDL thất bại: " . sqlsrv_errors());
+                                }
+
+                                // Câu truy vấn SQL
+                                $sqlPaidOrders = "SELECT COUNT(*) AS PaidOrders FROM orders_online WHERE status_on = 'Complete';";
+                                // Thực thi câu truy vấn
+                                $resultPaidOrders = sqlsrv_query($conn, $sqlPaidOrders);
+                                // Kiểm tra và hiển thị kết quả
+                                if ($resultPaidOrders === false) {
+                                    die( print_r( sqlsrv_errors(), true));
+                                }
+                                // Lấy số lượng đơn hàng đã thanh toán
+                                if ($rowPaidOrders = sqlsrv_fetch_array($resultPaidOrders, SQLSRV_FETCH_ASSOC)) {
+                                    echo $rowPaidOrders['PaidOrders'];
+                                } else {
+                                    echo "0"; // Nếu không có đơn hàng nào đã thanh toán
+                                }
+
+                                // Đóng kết nối và giải phóng tài nguyên
+                                sqlsrv_free_stmt($resultPaidOrders);
+                                sqlsrv_close($conn);
+                            ?>
                         </h3>
                         <p><a href="index2.php">Paid Order</a></p>
                     </span>
                 </li>
-                <li><i class='bx bx-book-content'></i>
+                <li>
+                    <i class='bx bx-book-content'></i>
                     <span class="info">
                         <h3>
-                            3,999
+                            <?php
+                                // Kết nối CSDL
+                                $serverName = "TN"; // Tên máy chủ CSDL
+                                $connectionInfo = array("Database"=>"BookStore");
+                                $conn = sqlsrv_connect($serverName, $connectionInfo);
+
+                                // Kiểm tra kết nối
+                                if (!$conn) {
+                                    die("Kết nối đến CSDL thất bại: " . sqlsrv_errors());
+                                }
+
+                                // Câu truy vấn SQL
+                                $sqlTotalOrders = "SELECT COUNT(*) AS TotalOrders FROM orders_online;";
+                                // Thực thi câu truy vấn
+                                $resultTotalOrders = sqlsrv_query($conn, $sqlTotalOrders);
+                                // Kiểm tra và hiển thị kết quả
+                                if ($resultTotalOrders === false) {
+                                    die( print_r( sqlsrv_errors(), true));
+                                }
+                                // Lấy số lượng đơn hàng
+                                if ($rowTotalOrders = sqlsrv_fetch_array($resultTotalOrders, SQLSRV_FETCH_ASSOC)) {
+                                    echo $rowTotalOrders['TotalOrders'];
+                                } else {
+                                    echo "0"; // Nếu không có đơn hàng nào
+                                }
+
+                                // Đóng kết nối và giải phóng tài nguyên
+                                sqlsrv_free_stmt($resultTotalOrders);
+                                sqlsrv_close($conn);
+                            ?>
                         </h3>
                         <p><a href="index1.php">Orders</a></p>
                     </span>
                 </li>
-                <li><i class='bx bxs-truck' ></i>
+                <li>
+                    <i class='bx bxs-truck' ></i>
                     <span class="info">
                         <h3>
-                            14,721
+                            <?php
+                                // Kết nối CSDL
+                                $serverName = "TN"; // Tên máy chủ CSDL
+                                $connectionInfo = array("Database"=>"BookStore");
+                                $conn = sqlsrv_connect($serverName, $connectionInfo);
+
+                                // Kiểm tra kết nối
+                                if (!$conn) {
+                                    die("Kết nối đến CSDL thất bại: " . sqlsrv_errors());
+                                }
+
+                                // Câu truy vấn SQL
+                                $sqlPendingOrders = "SELECT COUNT(*) AS PendingOrders FROM orders_online WHERE status_on = 'Pending';";
+                                // Thực thi câu truy vấn
+                                $resultPendingOrders = sqlsrv_query($conn, $sqlPendingOrders);
+                                // Kiểm tra và hiển thị kết quả
+                                if ($resultPendingOrders === false) {
+                                    die( print_r( sqlsrv_errors(), true));
+                                }
+                                // Lấy số lượng đơn hàng đang chờ xử lý
+                                if ($rowPendingOrders = sqlsrv_fetch_array($resultPendingOrders, SQLSRV_FETCH_ASSOC)) {
+                                    echo $rowPendingOrders['PendingOrders'];
+                                } else {
+                                    echo "0"; // Nếu không có đơn hàng nào đang chờ xử lý
+                                }
+
+                                // Đóng kết nối và giải phóng tài nguyên
+                                sqlsrv_free_stmt($resultPendingOrders);
+                                sqlsrv_close($conn);
+                            ?>
                         </h3>
                         <p><a href="index3.php">Transport</a></p>
                     </span>
                 </li>
-                <li><i class='bx bx-dollar-circle'></i>
+                <li>
+                    <i class='bx bx-dollar-circle'></i>
                     <span class="info">
                         <h3>
-                            $6,742
+                            <?php
+                                // Kết nối CSDL
+                                $serverName = "TN"; // Tên máy chủ CSDL
+                                $connectionInfo = array("Database"=>"BookStore");
+                                $conn = sqlsrv_connect($serverName, $connectionInfo);
+
+                                // Kiểm tra kết nối
+                                if (!$conn) {
+                                    die("Kết nối đến CSDL thất bại: " . sqlsrv_errors());
+                                }
+
+                                // Câu truy vấn SQL
+                                $sqlTotalSales = "SELECT SUM(total_amount_on) AS TotalSales FROM orders_online WHERE status_on = 'Complete';";
+                                // Thực thi câu truy vấn
+                                $resultTotalSales = sqlsrv_query($conn, $sqlTotalSales);
+                                // Kiểm tra và hiển thị kết quả
+                                if ($resultTotalSales === false) {
+                                    die( print_r( sqlsrv_errors(), true));
+                                }
+                                // Lấy tổng số tiền của các đơn hàng đã thanh toán
+                                if ($rowTotalSales = sqlsrv_fetch_array($resultTotalSales, SQLSRV_FETCH_ASSOC)) {
+                                    echo "$" . $rowTotalSales['TotalSales'];
+                                } else {
+                                    echo "$0"; // Nếu không có đơn hàng nào đã thanh toán
+                                }
+
+                                // Đóng kết nối và giải phóng tài nguyên
+                                sqlsrv_free_stmt($resultTotalSales);
+                                sqlsrv_close($conn);
+                            ?>
                         </h3>
                         <p><a href="index4.php">Total Sales</a></p>
                     </span>
@@ -112,34 +231,57 @@
             </ul>
             <div class="table-content">
                 <h2>Orders</h2>
-                   <table>
-                        <thead>
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Customer Name</th>
-                                <th>Total payout</th>
-                                <th>Date</th>
-                                <th>Details</th>
-                            </tr>
-                        </thead>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer Name</th>
+                            <th>Total payout</th>
+                            <th>Date</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
                     <tbody>
-                            <tr>
-                                <td>001</td>
-                                <td>John Doe</td>
-                                <td>$2,3</td>
-                                <td>6-4-1004</td>
-                                <td><a href="paid _order.php">show bill</a></td>
-                            </tr>
-                            <tr>
-                                <td>002</td>
-                                <td>Jane Smith</td>
-                                <td>$6,4</td>
-                                <td>6-4-2004</td>
-                                <td><a href="paid _order.php">show bill</a></td>
-                            </tr>
-                    <!-- Add more rows as needed -->
+                        <!-- Code PHP để lấy thông tin về đơn hàng -->
+                        <?php
+                            // Kết nối CSDL
+                            $serverName = "TN"; // Tên máy chủ CSDL
+                            $connectionInfo = array("Database"=>"BookStore");
+                            $conn = sqlsrv_connect($serverName, $connectionInfo);
+                            // Kiểm tra kết nối
+                            if (!$conn) {
+                                die("Kết nối đến CSDL thất bại: " . sqlsrv_errors());
+                            }
+                            // Câu truy vấn SQL
+                            $sql = "SELECT ol.order_id, first_name, po.amount, po.payment_date
+                            FROM orders_online ol
+                            INNER JOIN customers c ON ol.customer_id = c.customer_id
+                            INNER JOIN users us ON c.customer_id = us.user_id
+                            INNER JOIN payments_on po ON ol.order_id = po.order_id;";
+                            // Thực thi câu truy vấn
+                            $result = sqlsrv_query($conn, $sql);
+                            // Kiểm tra và hiển thị kết quả
+                            if ($result === false) {
+                                die( print_r( sqlsrv_errors(), true));
+                            }
+                            // Lặp qua các hàng kết quả và hiển thị trong bảng HTML
+                            while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+                                echo "<tr>";
+                                echo "<td>" . $row['order_id'] . "</td>";
+                                echo "<td>" . $row['first_name'] . "</td>";
+                                echo "<td>$" . number_format($row['amount'], 2) . "</td>";
+                                echo "<td>" . date_format($row['payment_date'], 'd-m-Y') . "</td>";
+                                echo "<td><a href='paid_order.php?order_id=" . $row['order_id'] . "'>show bill</a></td>";
+                                echo "</tr>";
+                            }
+
+                            // Giải phóng tài nguyên kết nối và kết quả
+                            sqlsrv_free_stmt($result);
+                            sqlsrv_close($conn);
+                        ?>
+                        <!-- Kết thúc mã PHP -->
                     </tbody>
-                    </table>
+                </table>
             </div>
         </main>
     </div>
