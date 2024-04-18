@@ -1,3 +1,15 @@
+<?php
+
+// Kết nối CSDL
+$serverName = "TN"; // Tên máy chủ CSDL
+$connectionInfo = array("Database"=>"BookStore");
+$conn = sqlsrv_connect($serverName, $connectionInfo);
+
+// Kiểm tra kết nối
+if (!$conn) {
+    die("Kết nối đến CSDL thất bại: " . sqlsrv_errors());
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +29,7 @@
             <div class="logo-name"><span>A</span>Employee</div>
         </a>
         <ul class="side-menu">
-            <li class="active"><a href="#"><i class='bx bx-store-alt' ></i>Home</a></li>
+            <li class="active"><a href="index.php"><i class='bx bx-store-alt' ></i>Home</a></li>
             <li><a href="#"><i class='bx bx-group'></i>User</a></li>
             <li><a href="#"><i class='bx bx-message-dots' ></i></i>Chat</a></li>
             <li><a href="#"><i class='bx bx-cog'></i>Settings</a></li>
@@ -59,8 +71,16 @@
             <div class="header">
                 <div class="left">
                     <h1>Bookstore</h1>
-                    
+                    <ul class="breadcrumb">
+                        <li><a href="#">
+                                Home
+                            </a>
+                        </li>
+                        /
+                        <li><a href="#" class="active">Orders</a></li>
+                    </ul>
                 </div>
+                
                 <a href="#" class="report">
                     <i class='bx bx-cloud-download'></i>
                     <span>Download CSV</span>
@@ -74,16 +94,6 @@
                     <span class="info">
                         <h3>
                             <?php
-                                // Kết nối CSDL
-                                $serverName = "TN"; // Tên máy chủ CSDL
-                                $connectionInfo = array("Database"=>"BookStore");
-                                $conn = sqlsrv_connect($serverName, $connectionInfo);
-
-                                // Kiểm tra kết nối
-                                if (!$conn) {
-                                    die("Kết nối đến CSDL thất bại: " . sqlsrv_errors());
-                                }
-
                                 // Câu truy vấn SQL
                                 $sqlPaidOrders = "SELECT COUNT(*) AS PaidOrders FROM orders_online WHERE status_on = 'Complete';";
                                 // Thực thi câu truy vấn
@@ -98,10 +108,6 @@
                                 } else {
                                     echo "0"; // Nếu không có đơn hàng nào đã thanh toán
                                 }
-
-                                // Đóng kết nối và giải phóng tài nguyên
-                                sqlsrv_free_stmt($resultPaidOrders);
-                                sqlsrv_close($conn);
                             ?>
                         </h3>
                         <p><a href="index2.php">Paid Order</a></p>
@@ -112,16 +118,6 @@
                     <span class="info">
                         <h3>
                             <?php
-                                // Kết nối CSDL
-                                $serverName = "TN"; // Tên máy chủ CSDL
-                                $connectionInfo = array("Database"=>"BookStore");
-                                $conn = sqlsrv_connect($serverName, $connectionInfo);
-
-                                // Kiểm tra kết nối
-                                if (!$conn) {
-                                    die("Kết nối đến CSDL thất bại: " . sqlsrv_errors());
-                                }
-
                                 // Câu truy vấn SQL
                                 $sqlTotalOrders = "SELECT COUNT(*) AS TotalOrders FROM orders_online;";
                                 // Thực thi câu truy vấn
@@ -136,10 +132,6 @@
                                 } else {
                                     echo "0"; // Nếu không có đơn hàng nào
                                 }
-
-                                // Đóng kết nối và giải phóng tài nguyên
-                                sqlsrv_free_stmt($resultTotalOrders);
-                                sqlsrv_close($conn);
                             ?>
                         </h3>
                         <p><a href="index1.php">Orders</a></p>
@@ -150,16 +142,6 @@
                     <span class="info">
                         <h3>
                             <?php
-                                // Kết nối CSDL
-                                $serverName = "TN"; // Tên máy chủ CSDL
-                                $connectionInfo = array("Database"=>"BookStore");
-                                $conn = sqlsrv_connect($serverName, $connectionInfo);
-
-                                // Kiểm tra kết nối
-                                if (!$conn) {
-                                    die("Kết nối đến CSDL thất bại: " . sqlsrv_errors());
-                                }
-
                                 // Câu truy vấn SQL
                                 $sqlPendingOrders = "SELECT COUNT(*) AS PendingOrders FROM orders_online WHERE status_on = 'Pending';";
                                 // Thực thi câu truy vấn
@@ -174,10 +156,6 @@
                                 } else {
                                     echo "0"; // Nếu không có đơn hàng nào đang chờ xử lý
                                 }
-
-                                // Đóng kết nối và giải phóng tài nguyên
-                                sqlsrv_free_stmt($resultPendingOrders);
-                                sqlsrv_close($conn);
                             ?>
                         </h3>
                         <p><a href="index3.php">Transport</a></p>
@@ -188,16 +166,6 @@
                     <span class="info">
                         <h3>
                             <?php
-                                // Kết nối CSDL
-                                $serverName = "TN"; // Tên máy chủ CSDL
-                                $connectionInfo = array("Database"=>"BookStore");
-                                $conn = sqlsrv_connect($serverName, $connectionInfo);
-
-                                // Kiểm tra kết nối
-                                if (!$conn) {
-                                    die("Kết nối đến CSDL thất bại: " . sqlsrv_errors());
-                                }
-
                                 // Câu truy vấn SQL
                                 $sqlTotalSales = "SELECT SUM(total_amount_on) AS TotalSales FROM orders_online WHERE status_on = 'Complete';";
                                 // Thực thi câu truy vấn
@@ -212,119 +180,92 @@
                                 } else {
                                     echo "$0"; // Nếu không có đơn hàng nào đã thanh toán
                                 }
-
-                                // Đóng kết nối và giải phóng tài nguyên
-                                sqlsrv_free_stmt($resultTotalSales);
-                                sqlsrv_close($conn);
                             ?>
                         </h3>
                         <p><a href="index4.php">Total Sales</a></p>
                     </span>
                 </li>
             </ul>
-            <div class="bottom-data">
-                <!-- Orders -->
+            <div class="order-content">
+            <h2>Order detail</h2>
+            <ul class="product">
                 <?php
-                    // Kết nối CSDL
-                    $serverName = "TN"; // Tên máy chủ CSDL
-                    $connectionInfo = array("Database"=>"BookStore");
-                    $conn = sqlsrv_connect($serverName, $connectionInfo);
-
-                    // Kiểm tra kết nối
-                    if (!$conn) {
-                        die("Kết nối đến CSDL thất bại: " . sqlsrv_errors());
+                    $order_id = 1; // Giả sử order_id là 1 cho ví dụ
+                    $sql = "SELECT * FROM GetOrderDetails($order_id)";
+                    $result = sqlsrv_query($conn, $sql);
+                    if ($result === false) {
+                        die("Lỗi khi thực thi truy vấn: " . sqlsrv_errors());
                     }
-
-                    // Câu truy vấn SQL
-                    $sqlRecentOrders = "SELECT TOP 3
-                                            ua.username,
-                                            oo.order_date_on,
-                                            oo.status_on
-                                        FROM
-                                            user_accounts ua
-                                        INNER JOIN
-                                            user_roles ur ON ua.user_role_id = ur.user_role_id
-                                        INNER JOIN 
-                                            customers c ON ur.user_id = c.user_id 
-                                        INNER JOIN 
-                                            orders_online oo ON c.customer_id = oo.customer_id
-                                        ORDER BY
-                                            oo.order_date_on DESC";
-                    // Thực thi câu truy vấn
-                    $resultRecentOrders = sqlsrv_query($conn, $sqlRecentOrders);
-                    // Kiểm tra và hiển thị kết quả
-                    if ($resultRecentOrders === false) {
-                        die( print_r( sqlsrv_errors(), true));
+                    while ($detail = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+                        echo '<li>';
+                        echo '<img src="' . $detail['product_image'] . '">';
+                        echo '<span class="info">';
+                        echo '<h3>' . $detail['product_name'] . '</h3>';
+                        echo '<h4>' . $detail['quantity'] . '</h4>';
+                        echo '<h4>' . $detail['product_price'] . '</h4>';
+                        echo '<p>' . $detail['quantity'] * $detail['product_price'] . '</p>';
+                        echo '</span>';
+                        echo '</li>';
+                        }
+                ?>
+            </ul>
+                <h2 class="total">Total Sales: </h2>
+                <?php
+                    $order_id = 1;
+                    $sql = "SELECT dbo.GetTotalAmountForOrder($order_id) AS TotalSales";
+                    $result = sqlsrv_query($conn, $sql);
+                    
+                    if ($result === false) {
+                        die("Lỗi khi thực thi truy vấn: " . sqlsrv_errors());
+                    }
+                    
+                    // Lấy giá trị tổng số tiền từ kết quả
+                    if ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+                        echo $row['TotalSales'];
+                    } else {
+                        echo "0";
                     }
                 ?>
-                <div class="orders">
-                    <div class="header">
-                        <i class='bx bx-receipt'></i>
-                        <h3>Recent Orders</h3>
-                        <i class='bx bx-filter'></i>
-                        <i class='bx bx-search'></i>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>User</th>
-                                <th>Order Date</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                                // Lặp qua các hàng kết quả và hiển thị trong bảng HTML
-                                while ($row = sqlsrv_fetch_array($resultRecentOrders, SQLSRV_FETCH_ASSOC)) {
-                                    echo "<tr>";
-                                    echo "<td>" . $row['username'] . "</td>";
-                                    echo "<td>" . date_format($row['order_date_on'], 'd-m-Y') . "</td>";
-                                    echo "<td>" . $row['status_on'] . "</td>";
-                                    echo "</tr>";
-                                }
-                                // Đóng kết nối và giải phóng tài nguyên
-                                sqlsrv_free_stmt($resultRecentOrders);
-                                sqlsrv_close($conn);
-                            ?>
-                        </tbody>
-                    </table>
+                <div class="update">
+                    <h2>Update Status: </h2>
+                    <span class="status completed_update">Completed</span>
+                    <span class="status pending_update">Pending</span>
+                    <span class="status canceled_update">Canceled</span>
                 </div>
-                <!-- Reminders -->
-                <div class="reminders">
-                    <div class="header">
-                        <i class='bx bx-note'></i>
-                        <h3>Reminders</h3>
-                        <i class='bx bx-filter'></i>
-                        <i class='bx bx-plus'></i>
-                    </div>
-                    <ul class="task-list">
-                        <li class="completed">
-                            <div class="task-title">
-                                <i class='bx bx-check-circle'></i>
-                                <p>Start Our Meeting</p>
-                            </div>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
-                        <li class="completed">
-                            <div class="task-title">
-                                <i class='bx bx-check-circle'></i>
-                                <p>Analyse Our Site</p>
-                            </div>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
-                        <li class="not-completed">
-                            <div class="task-title">
-                                <i class='bx bx-x-circle'></i>
-                                <p>Play Football</p>
-                            </div>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
-                    </ul>
-                </div>
+                <h2>Customer</h2>
+                <ul class="product">
+                    <?php
+                        $order_id = 1; 
+                        $sql = "SELECT * FROM GetCustomerInfoForOrder($order_id)";
+                        $result = sqlsrv_query($conn, $sql);
+                    
+                        if ($result === false) {
+                            die("Lỗi khi thực thi truy vấn: " . sqlsrv_errors());
+                        }
+                    
+                        // Lấy thông tin của khách hàng từ kết quả truy vấn
+                        if ($customer = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+                            echo '<li>';
+                            echo '<img src="images/profile_1.jpg" alt="">';
+                            echo '<span class="info">';
+                            echo '<h3>' . $customer['first_name'] . '</h3>';
+                            echo '<h4>ID: ' . $customer['user_id'] . '</h4>';
+                            echo '<h4>Phone number: ' . $customer['phone'] . '</h4>';
+                            echo '<h4>Address: ' . $customer['address'] . '</h4>';
+                            echo '</span>';
+                            echo '</li>';
+                        } else {
+                            echo '<li>No customer information available.</li>';
+                        }
+                    
+                        // Giải phóng tài nguyên
+                        sqlsrv_free_stmt($result);
+                    ?>
+                </ul>
             </div>
         </main>
     </div>
     <script src="index.js"></script>
 </body>
-</html>
 
+</html>

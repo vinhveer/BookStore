@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
     <title>Amazon Employee</title>
 </head>
-
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -17,11 +15,11 @@
             <div class="logo-name"><span>A</span>Employee</div>
         </a>
         <ul class="side-menu">
-            <li class="active"><a href="#"><i class='bx bx-store-alt' ></i>Home</a></li>
+            <li class="active"><a href="index.php"><i class='bx bx-store-alt'></i>Home</a></li>
             <li><a href="#"><i class='bx bx-group'></i>User</a></li>
-            <li><a href="#"><i class='bx bx-message-dots' ></i></i>Chat</a></li>
+            <li><a href="#"><i class='bx bx-message-dots'></i>Chat</a></li>
             <li><a href="#"><i class='bx bx-cog'></i>Settings</a></li>
-            <li><a href="#"><i class='bx bx-headphone' ></i>Support</a></li>
+            <li><a href="#"><i class='bx bx-headphone'></i>Support</a></li>
         </ul>
         <ul class="side-menu">
             <li>
@@ -48,7 +46,6 @@
             <label for="theme-toggle" class="theme-toggle"></label>
             <a href="#" class="notif">
                 <i class='bx bx-bell'></i>
-                <!-- <span class="count">12</span> -->
             </a>
             <a href="#" class="profile">
                 <img src="images/logo.jpg">
@@ -59,8 +56,13 @@
             <div class="header">
                 <div class="left">
                     <h1>Bookstore</h1>
-                    
+                    <ul class="breadcrumb">
+                        <li><a href="#">Home</a></li>
+                        /
+                        <li><a href="#" class="active">Transport</a></li>
+                    </ul>
                 </div>
+                
                 <a href="#" class="report">
                     <i class='bx bx-cloud-download'></i>
                     <span>Download CSV</span>
@@ -69,7 +71,7 @@
 
             <!-- Insights -->
             <ul class="insights">
-                <li>
+            <li>
                     <i class='bx bx-calendar-check'></i>
                     <span class="info">
                         <h3>
@@ -222,109 +224,71 @@
                     </span>
                 </li>
             </ul>
-            <div class="bottom-data">
-                <!-- Orders -->
-                <?php
-                    // Kết nối CSDL
-                    $serverName = "TN"; // Tên máy chủ CSDL
-                    $connectionInfo = array("Database"=>"BookStore");
-                    $conn = sqlsrv_connect($serverName, $connectionInfo);
 
-                    // Kiểm tra kết nối
-                    if (!$conn) {
-                        die("Kết nối đến CSDL thất bại: " . sqlsrv_errors());
-                    }
+            <!-- Table Content -->
+            <div class="table-content">
+                <h2>Orders</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Transporter Name</th>
+                            <th>State</th>
+                            <th>Date</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // Kết nối CSDL
+                        // Kết nối CSDL
+                        $serverName = "TN"; // Tên máy chủ CSDL
+                        $connectionInfo = array("Database"=>"BookStore");
+                        $conn = sqlsrv_connect($serverName, $connectionInfo);
 
-                    // Câu truy vấn SQL
-                    $sqlRecentOrders = "SELECT TOP 3
-                                            ua.username,
-                                            oo.order_date_on,
-                                            oo.status_on
-                                        FROM
-                                            user_accounts ua
-                                        INNER JOIN
-                                            user_roles ur ON ua.user_role_id = ur.user_role_id
-                                        INNER JOIN 
-                                            customers c ON ur.user_id = c.user_id 
-                                        INNER JOIN 
-                                            orders_online oo ON c.customer_id = oo.customer_id
-                                        ORDER BY
-                                            oo.order_date_on DESC";
-                    // Thực thi câu truy vấn
-                    $resultRecentOrders = sqlsrv_query($conn, $sqlRecentOrders);
-                    // Kiểm tra và hiển thị kết quả
-                    if ($resultRecentOrders === false) {
-                        die( print_r( sqlsrv_errors(), true));
-                    }
-                ?>
-                <div class="orders">
-                    <div class="header">
-                        <i class='bx bx-receipt'></i>
-                        <h3>Recent Orders</h3>
-                        <i class='bx bx-filter'></i>
-                        <i class='bx bx-search'></i>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>User</th>
-                                <th>Order Date</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                                // Lặp qua các hàng kết quả và hiển thị trong bảng HTML
-                                while ($row = sqlsrv_fetch_array($resultRecentOrders, SQLSRV_FETCH_ASSOC)) {
-                                    echo "<tr>";
-                                    echo "<td>" . $row['username'] . "</td>";
-                                    echo "<td>" . date_format($row['order_date_on'], 'd-m-Y') . "</td>";
-                                    echo "<td>" . $row['status_on'] . "</td>";
-                                    echo "</tr>";
-                                }
-                                // Đóng kết nối và giải phóng tài nguyên
-                                sqlsrv_free_stmt($resultRecentOrders);
-                                sqlsrv_close($conn);
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- Reminders -->
-                <div class="reminders">
-                    <div class="header">
-                        <i class='bx bx-note'></i>
-                        <h3>Reminders</h3>
-                        <i class='bx bx-filter'></i>
-                        <i class='bx bx-plus'></i>
-                    </div>
-                    <ul class="task-list">
-                        <li class="completed">
-                            <div class="task-title">
-                                <i class='bx bx-check-circle'></i>
-                                <p>Start Our Meeting</p>
-                            </div>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
-                        <li class="completed">
-                            <div class="task-title">
-                                <i class='bx bx-check-circle'></i>
-                                <p>Analyse Our Site</p>
-                            </div>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
-                        <li class="not-completed">
-                            <div class="task-title">
-                                <i class='bx bx-x-circle'></i>
-                                <p>Play Football</p>
-                            </div>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
-                    </ul>
-                </div>
+                        // Kiểm tra kết nối
+                        if (!$conn) {
+                            die("Kết nối đến CSDL thất bại: " . sqlsrv_errors());
+                        }
+
+                        // Truy vấn SQL
+                        $sql = "SELECT ol.order_id, sp.shipper_name, sp.delivery_status, sp.delivery_date
+                                FROM orders_online ol
+                                INNER JOIN shipper sp ON ol.order_id = sp.order_id";
+
+                        // Thực thi truy vấn
+                        $result = sqlsrv_query($conn, $sql);
+
+                        // Kiểm tra và hiển thị kết quả
+                        if ($result === false) {
+                            die("Lỗi truy vấn: " . print_r(sqlsrv_errors(), true));
+                        }
+
+                        // Hiển thị kết quả trong bảng HTML
+                        while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+                            echo "<tr>";
+                            echo "<td>" . $row['order_id'] . "</td>";
+                            echo "<td>" . $row['shipper_name'] . "</td>";
+                            echo "<td>" . $row['delivery_status'] . "</td>";
+                            echo "<td>" . $row['delivery_date']->format('Y-m-d') . "</td>";
+                            echo "<td><a href='transport.php?order_id=" . $row['order_id'] . "'>click to see</a></td>";
+                            echo "</tr>";
+                        }
+
+                        // Giải phóng bộ nhớ
+                        sqlsrv_free_stmt($result);
+
+                        // Đóng kết nối
+                        sqlsrv_close($conn);
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </main>
     </div>
     <script src="index.js"></script>
 </body>
 </html>
+
+
 
