@@ -1,3 +1,15 @@
+<?php
+    include_once '../../import/connect.php';
+    $user_id = $_GET['user_id'];
+    $sql_edit = "SELECT *
+    FROM users u
+    INNER JOIN user_roles ur ON u.user_id = ur.user_id
+    INNER JOIN roles r ON ur.role_id = r.role_id
+	INNER JOIN user_accounts ua on ua.user_role_id = ur.user_role_id
+    where u.user_id=$user_id";
+    $result_account_edit = sqlsrv_query($connect, $sql_edit);
+    $row_account_edit = sqlsrv_fetch_array($result_account_edit,SQLSRV_FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,6 +19,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
     <title>Amazon Warehouse</title>
     <style>
@@ -14,7 +27,7 @@
             display: flex;
             align-items: center;
         }
-        h3{
+        h3,.form-label{
             color: var(--dark);
         }
     </style>
@@ -70,88 +83,110 @@
         </nav>
 
     <main>
-    <div class="container mt-5">
-        <!-- Header -->
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <h3>Cật nhật thông tin</h3>
-            </div>
-            <div class="col-md-6">
-                <div class="d-flex justify-content-end">
-                    <button class="btn btn-primary me-2">Tải lên từ Excel</button>
-                    <a class="btn btn-primary" href="index.php">Thoát</a>
+        <div class="container mt-5">
+            <!-- Header -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h3><a href="index.php"><i class="bi bi-arrow-left-circle me-3"></i></a>Cập nhật thông tin</h3>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-primary me-2">Tải lên từ Excel</button>
+                    </div>
                 </div>
             </div>
+
+            <!-- Body - Registration Form -->
+            <form action="process.php?user_id=<?php echo $user_id;?>&edit=<?php echo $_GET['edit'] ?>" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate id="accountForm">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="firstName" class="form-label">Tên</label>
+                        <input type="text" class="form-control" id="firstName" name="first_name" required placeholder="Nhập Tên" value="<?php echo $row_account_edit['first_name']; ?>">
+                        <div class="invalid-feedback">
+                            Tên không được trống.
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="middle_name" class="form-label">Tên đệm</label>
+                        <input type="text" class="form-control" id="middle_name" name="middle_name" placeholder="Nhập tên đệm (có thể bỏ trống)" value="<?php echo $row_account_edit['middle_name']; ?>">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="lastName" class="form-label">Họ</label>
+                        <input type="text" class="form-control" id="lastName" name="last_name" required placeholder="Nhập họ" value="<?php echo $row_account_edit['last_name']; ?>">
+                        <div class="invalid-feedback">
+                            Họ không được trống.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="dob" class="form-label">Ngày sinh</label>
+                        <?php $dob = $row_account_edit['date_of_birth'];
+                        $formatted_dob = $dob->format('Y-m-d');?>
+                        <input type="date" class="form-control" id="dob" name="date_of_birth" required value="<?php echo $formatted_dob; ?>">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="gender" class="form-label">Giới tính</label>
+                        <select class="form-select" id="gender" name="gender" required>
+                            <option value="" disabled selected>Chọn giới tính</option>
+                            <option value="1" <?php echo ($row_account_edit['gender'] == '1') ? 'selected' : ''; ?>>Nam</option>
+                            <option value="0" <?php echo ($row_account_edit['gender'] == '0') ? 'selected' : ''; ?>>Nữ</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="phone" class="form-label">Số điện thoại</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" required placeholder="Nhập Số điện thoại" value="<?php echo $row_account_edit['phone']; ?>">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required placeholder="Nhập email" value="<?php echo $row_account_edit['email']; ?>">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="address" class="form-label">Địa chỉ</label>
+                        <input type="text" class="form-control" id="address" name="address" required placeholder="Nhập địa chỉ" value="<?php echo $row_account_edit['address']; ?>">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="username" class="form-label">Tên tài khoản</label>
+                            <div class="input-group">
+                                <span class="input-group-text">@</span>
+                                <input type="text" class="form-control" id="username" name="username" pattern="[a-zA-Z0-9_]+" title="Tên tài khoản không hợp lệ. Chỉ chấp nhận chữ, số và gạch dưới." required placeholder="Tên tài khoản" value="<?php echo $row_account_edit['username']; ?>">
+                                <div class="invalid-feedback">
+                                    Tên tài khoản không hợp lệ. Chỉ chấp nhận chữ, số và gạch dưới.
+                                </div>
+                            </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="password" class="form-label">Mật khẩu</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="password" name="password" required placeholder="Nhập mật khẩu" value="<?php echo $row_account_edit['password']; ?>">
+                                <span class="input-group-text" id="password-toggle"><i class="bx bxs-hide"></i></span>
+                                <div class="invalid-feedback">
+                                    Mật khẩu không được trống.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="image_user" class="form-label">Ảnh chân dung</label>
+                        <span style="padding-left: 10px;"><img src="../../<?php echo $row_account_edit['image_user']; ?>" width="60px"></span> <br><br>
+                        <input type="file" class="form-control" id="image_user" name="image_user">
+                        <div class="invalid-feedback">
+                            Vui lòng chọn ảnh chân dung.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary" name="sbm_edit">Tạo Tài Khoản</button>
+                </div>
+            </form>
         </div>
-
-        <!-- Body - Registration Form -->
-        <form action="" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate id="accountForm">
-        <div class="row mb-3">
-                <div class="col-md-4">
-                    <label for="firstName" class="form-label">Tên</label>
-                    <input type="text" class="form-control" id="firstName" name="first_name" required placeholder="Nhập Tên">
-                    <div class="invalid-feedback">
-                        Tên không được trống.
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <label for="midName" class="form-label">Tên đệm</label>
-                    <input type="text" class="form-control" id="midName" name="mid_name" placeholder="Nhập tên đệm (có thể bỏ trống)">
-                </div>
-                <div class="col-md-4">
-                    <label for="lastName" class="form-label">Họ</label>
-                    <input type="text" class="form-control" id="lastName" name="last_name" required placeholder="Nhập họ">
-                    <div class="invalid-feedback">
-                        Họ không được trống.
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <div class="col-md-4">
-                    <label for="dob" class="form-label">Ngày sinh</label>
-                    <input type="date" class="form-control" id="dob" name="date_of_birth" required>
-                </div>
-                <div class="col-md-4">
-                    <label for="gender" class="form-label">Giới tính</label>
-                    <select class="form-select" id="gender" name="gender" required>
-                        <option value="" disabled selected>Chọn giới tính</option>
-                        <option value="M">Nam</option>
-                        <option value="F">Nữ</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="phoneNumber" class="form-label">Số điện thoại</label>
-                    <input type="tel" class="form-control" id="phoneNumber" name="phone" required placeholder="Nhập Số điện thoại">
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" required placeholder="Nhập email">
-                </div>
-                <div class="col-md-6">
-                    <label for="address" class="form-label">Địa chỉ</label>
-                    <input type="text" class="form-control" id="address" name="address" required placeholder="Nhập địa chỉ">
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="portrait" class="form-label">Ảnh chân dung</label>
-                    <input type="file" class="form-control" id="portrait" name="image" required>
-                    <div class="invalid-feedback">
-                        Vui lòng chọn ảnh chân dung.
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <button type="submit" class="btn btn-primary" name="sbm_add">Lưu</button>
-            </div>
-        </form>
-    </div>
     </main>
     </div>
     <script src="index.js"></script>
@@ -172,6 +207,58 @@
                 form.classList.add('was-validated');
             }, false);
         })();
+
+    </script>
+    <script>
+        (function () {
+            'use strict';
+
+            var form = document.getElementById('accountInfoForm');
+            var passwordInput = document.getElementById('password');
+            var confirmPasswordInput = document.getElementById('confirm_password');
+            var passwordToggle = document.getElementById('password-toggle');
+            var confirmPasswordToggle = document.getElementById('confirm-password-toggle');
+
+            // Function to show or hide password
+            function togglePasswordVisibility(input, toggle) {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    toggle.innerHTML = '<i class="bx bxs-show"></i>';
+                } else {
+                    input.type = 'password';
+                    toggle.innerHTML = '<i class="bx bxs-hide"></i>';
+                }
+            }
+
+            // Toggle password visibility
+            passwordToggle.addEventListener('click', function () {
+                togglePasswordVisibility(passwordInput, passwordToggle);
+            });
+
+            confirmPasswordToggle.addEventListener('click', function () {
+                togglePasswordVisibility(confirmPasswordInput, confirmPasswordToggle);
+            });
+
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                // Check if passwords match
+                if (passwordInput.value !== confirmPasswordInput.value) {
+                    confirmPasswordInput.setCustomValidity("Mật khẩu không khớp.");
+                    var confirmPasswordFeedback = confirmPasswordInput.nextElementSibling;
+                    confirmPasswordFeedback.textContent = "Mật khẩu không khớp."
+                    event.preventDefault(); // Ngăn chặn gửi form nếu mật khẩu không khớp
+                } else {
+                    confirmPasswordInput.setCustomValidity('');
+                }
+
+                form.classList.add('was-validated');
+            }, false);
+        })();
+
     </script>
 </body>
 </html>

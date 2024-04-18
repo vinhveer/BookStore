@@ -125,36 +125,6 @@
             </div>
         </div>
         </div>
-        <div class="container mt-4 mb-5">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            Thông tin bảo hành
-                        </div>
-                        <div class="card-body">
-                            <p><strong>Mã hợp đồng:</strong> HD123456</p>
-                            <p><strong>Ngày ký:</strong> 01/04/2024</p>
-                            <p><strong>Ngày hết hạn:</strong> 01/04/2025</p>
-                            <p><strong>Trạng thái:</strong> Đã kích hoạt</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card">
-                        <div class="card-header">
-                            Thông tin khách hàng
-                        </div>
-                        <div class="card-body">
-                            <p><strong>Tên khách hàng:</strong> Nguyễn Văn A</p>
-                            <p><strong>Email:</strong> example@example.com</p>
-                            <p><strong>Số điện thoại:</strong> 0123 456 789</p>
-                            <p><strong>Địa chỉ:</strong> 123 Đường ABC, Quận XYZ, TP. HCM</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         </main>
         </div>
     <script src="index.js"></script>

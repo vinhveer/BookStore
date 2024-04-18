@@ -74,9 +74,7 @@
                 <div class="left">
                     <h1>Dashboard</h1>
                     <ul class="breadcrumb">
-                        <li><a href="#">
-                                Analytics
-                            </a></li>
+                        <li><a href="#"> Analytics</a></li>
                         /
                         <li><a href="#" class="active">Shop</a></li>
                     </ul>
@@ -98,20 +96,20 @@
                         <p>Paid Order</p>
                     </span>
                 </li>
-                <li><i class='bx bx-show-alt'></i>
+                <li><i class='bx bx-user-circle'></i>
                     <span class="info">
                         <h3>
-                            3,999
+                            199
                         </h3>
-                        <p>Site Visit</p>
+                        <p>Account User</p>
                     </span>
                 </li>
-                <li><i class='bx bx-line-chart'></i>
+                <li><i class='bx bx-calendar-edit'></i>
                     <span class="info">
                         <h3>
                             14,721
                         </h3>
-                        <p>Searches</p>
+                        <p>Reviews Product</p>
                     </span>
                 </li>
                 <li><i class='bx bx-dollar-circle'></i>

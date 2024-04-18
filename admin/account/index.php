@@ -2,9 +2,7 @@
     include_once '../../import/connect.php';
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem'])) {
         $tukhoa = $_POST['tukhoa'];
-        $keyword = strtolower(trim($tukhoa));
-        $keyword = str_replace(' ', '', $keyword);
-        $sql_account ="EXEC SearchUsers $keyword";
+        $sql_account ="SearchUsers N'$tukhoa'";
         $result_account = sqlsrv_query($connect, $sql_account);
     } else {
         $sql_account = "EXEC GetUserInformation_no";
@@ -24,7 +22,7 @@
     <link rel="stylesheet" href="style.css">
     <title>Home Admin</title>
     <style>
-        .action-buttons .btn-info,.action-buttons .btn-warning,.action-buttons .btn-danger  {
+        .action-buttons .btn-info,.action-buttons .btn-warning,.action-buttons .btn-danger,.btn.btn-primary  {
             display: flex;
             align-items: center;
         }
@@ -34,7 +32,7 @@
     </style>
 </head>
 
-<body>
+<body >
     <div class="sidebar">
         <a href="#" class="logo">
             <i class='bx bxl-amazon'></i>
@@ -61,7 +59,7 @@
     </div>
 
     <div class="content">
-        <nav>
+        <nav class="fixed-nav">
             <i class='bx bx-menu'></i>
             <form action="#">
                 <div class="form-input">
@@ -80,7 +78,7 @@
         </nav>
 
     <main>
-        <div class="container-fluid mt-4">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-2">
                     <h3>Tài khoản</h3>
@@ -103,18 +101,19 @@
                     <?php } ?>
                 </div>
                 <div class="col-md-6 text-right">
-                    <a href="account_add.php" class="btn btn-primary float-end">Thêm tài khoản mới</a>
-                    <a href="account_group.php" class="btn btn-primary float-end me-2">Nhóm Tài khoản</a>
+                    <a href="account_add.php" class="btn btn-primary float-end"><i class='bx bxs-user-plus' ></i>Thêm tài khoản mới</a>
+                    <a href="account_group.php" class="btn btn-primary float-end me-2"><i class='bx bxs-user-detail' ></i>Nhóm Tài khoản</a>
                 </div>
             </div>
         </div>
-        <div class="container-fluid mt-5">
+        <div class="container-fluid mt-3" >
             <div class="card">
                 <div class="card-body">
-                    <table class="table table-striped table-bordered">
-                        <thead>
+                    <table class="table table-striped table-bordered" >
+                        <thead >
                             <tr>
                                 <th scope="col">STT</th>
+                                <th scope="col">Tên người dùng</th>
                                 <th scope="col">Tên tài khoản</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Vai trò</th>
@@ -128,12 +127,13 @@
                                 <tr>
                                     <td scope="row"><?php $i++; echo $i ?></td>
                                     <td><?php echo $row_account['full_name'] ?></td>
+                                    <td><?php echo $row_account['username'] ?></td>
                                     <td><?php echo $row_account['email'] ?></td>
                                     <td><?php echo $row_account['role_name'] ?></td>
                                     <td>
                                         <div class="action-buttons d-flex justify-content-start">
-                                            <a href="account_edit.php" class="btn btn-sm btn-warning me-1"><i class='bx bx-sm bx-edit-alt me-1'></i>Edit</a>
-                                            <button class="btn btn-sm btn-danger me-1"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
+                                            <a href="account_edit.php?user_id=<?php echo $row_account['user_id']; ?>&edit=0" class="btn btn-sm btn-warning me-1"><i class='bx bx-sm bx-edit-alt me-1'></i>Edit</a>
+                                            <button class="btn btn-sm btn-danger me-1 deleteUserBtn" data-userId="<?php echo $row_account['user_id']; ?>"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
                                             <a href="show.php?user_id=<?php echo $row_account['user_id']; ?>&role_id=<?php echo $row_account['role_id'];?>" class="btn btn-info">
                                             <i class='bx bx-sm bx-show-alt me-1'></i></a>
                                         </div>
@@ -147,6 +147,50 @@
         </div>
     </main>
     </div>
+    <div style="z-index:99999" class="modal fade mt-5" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteUserModalLabel">Xác nhận xóa người dùng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa người dùng này?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <form id="deleteUserForm" action="" method="post">
+                    <button type="submit" class="btn btn-danger" id="confirmDeleteUser" name="confirmDeleteUser">Xóa</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
     <script src="index.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Xác định nút "Xóa" trên bảng
+    const deleteButtons = document.querySelectorAll('.btn-danger');
+
+    // Lặp qua từng nút và thêm sự kiện click
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            // Lấy id của người dùng từ thuộc tính data-userId của nút "Xóa"
+            const userId = button.getAttribute('data-userId');
+
+            // Set action của form xóa để truyền userId
+            document.getElementById('deleteUserForm').action = 'delete_user.php?user_id=' + userId;
+
+            // Hiển thị modal xác nhận xóa
+            const deleteUserModal = new bootstrap.Modal(document.getElementById('deleteUserModal'));
+            deleteUserModal.show();
+        });
+    });
+});
+</script>
 </body>
 </html>

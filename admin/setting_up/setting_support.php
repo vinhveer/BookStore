@@ -71,7 +71,8 @@
         </nav>
         <main>
         <div class="container-fluid mt-3 mb-5">
-        <h3>Quản lý Hỗ trợ kỹ thuật</h3>
+        <h3 style="text-align: center;">Quản lý Hỗ trợ kỹ thuật</h3>
+        </div>
         <table class="table table-striped">
             <thead>
                 <tr>

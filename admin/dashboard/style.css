@@ -343,15 +343,13 @@ body{
     color: var(--dark);
 }
 
-.content main .header .left .breadcrumb li a{
+.content main .header .left .breadcrumb li a:hover{
     color: var(--dark-grey);
-    pointer-events: none;
 }
 
-.content main .header .left .breadcrumb li a.active{
+/* .content main .header .left .breadcrumb li a.active{
     color: var(--primary);
-    pointer-events: none;
-}
+} */
 
 .content main .header .report{
     height: 36px;

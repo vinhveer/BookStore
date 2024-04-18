@@ -71,42 +71,9 @@
         </nav>
         <main>
         <div class="container-fluid mt-2 mb-5">
-        <h3 class="text-center mb-4">Cài đặt thông báo hệ thống</h3>
+        <h3 class="text-center mb-4">Thông báo hệ thống</h3>
         <div class="row">
-            <div class="col-md-6">
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h6 class="card-title">Thiết lập thông báo</h6>
-                        <p class="card-text">Thiết lập cách hệ thống thông báo với người dùng.</p>
-                        <form>
-                            <div class="mb-3">
-                                <label for="notificationMethod" class="form-label">Phương thức thông báo</label>
-                                <select class="form-select" id="notificationMethod">
-                                    <option selected>Chọn phương thức...</option>
-                                    <option>Email</option>
-                                    <option>Tin nhắn SMS</option>
-                                    <option>Thông báo trực tiếp trên ứng dụng</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                    <label for="notificationType" class="form-label">Loại thông báo</label>
-                                    <select class="form-select" id="notificationType">
-                                        <option selected disabled>Chọn loại thông báo</option>
-                                        <option value="1">Thông báo quan trọng</option>
-                                        <option value="2">Thông báo thường</option>
-                                        <option value="3">Thông báo khẩn cấp</option>
-                                    </select>
-                                </div>
-                                <div class="mb-4 form-check">
-                                    <input type="checkbox" class="form-check-input" id="sendToAll">
-                                    <label class="form-check-label" for="sendToAll">Gửi thông báo cho tất cả người dùng</label>
-                                </div>
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-cog me-1"></i>Lưu thiết lập</button>
-                        </form>
-                    </div>
-                </div>
-                </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="card mb-3">
                         <div class="card-body">
                             <h6 class="card-title">Gửi thông báo</h6>

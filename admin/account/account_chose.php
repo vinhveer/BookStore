@@ -7,6 +7,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
     <title>Amazon Warehouse</title>
     <style>
@@ -14,9 +15,17 @@
             display: flex;
             align-items: center;
         }
-        h3,.info,.form-label,hr{
+        h3,.form-label{
             color: var(--dark);
         }
+        img {
+            max-width: 50%;
+            width: 250px;
+            height: 100px;
+            display: block;
+            margin: 0 auto;
+        }
+
     </style>
 </head>
 
@@ -70,48 +79,71 @@
         </nav>
 
     <main>
-        <div class="container mt-5">
-            <h3>Thông tin tài khoản</h3>
-            <p class="info">Hoàn thành các thông tin sau:</p>
-            <hr class="my-4">
-            <form id="accountInfoForm" action="process.php" method="post" class="needs-validation" novalidate enctype="multipart/form-data" >
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="username" class="form-label">Tên tài khoản</label>
-                        <div class="input-group">
-                            <span class="input-group-text">@</span>
-                            <input type="text" class="form-control" id="username" name="username" pattern="[a-zA-Z0-9_]+" title="Tên tài khoản không hợp lệ. Chỉ chấp nhận chữ, số và gạch dưới." required>
-                            <div class="invalid-feedback">
-                                Tên tài khoản không hợp lệ. Chỉ chấp nhận chữ, số và gạch dưới.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="password" class="form-label">Mật khẩu</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                        <div class="invalid-feedback">
-                            Mật khẩu không được trống.
-                        </div>
-                    </div>
-                </div>
-                <hr class="my-4">
-
-                <div class="text-end">
-                    <button type="submit" class="btn btn-primary" name="sbm">Hoàn tất việc tạo tài khoản</button>
-                </div>
-            </form>
+    <form action="process.php" class="form-group" method="post">
+        <div class="container mt-4">
+            <h3 class="text-center mb-5">Chọn vai trò người dùng</h3>
         </div>
+        <div class="container mb-4">
+            <div class="row mt-4">
+                <div class="col-md-4 d-flex justify-content-center align-content-center">
+                    <button type="submit" class="card mb-3" name="sbm" value="1">
+                        <img src="..\..\assets\images\avatar\cus.png" alt="Khách hàng">
+                        <div class="container mt-4 mb-4">
+                            <h5 class="text-center">Khách hàng</h5>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="col-md-4 d-flex justify-content-center align-content-center">
+                    <button type="submit" class="card mb-3" name="sbm" value="2">
+                        <img src="..\..\assets\images\avatar\admin1.png" alt="Quản trị viên">
+                        <div class="container mt-4 mb-4">
+                            <h5 class="text-center">Quản trị viên</h5>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="col-md-4 d-flex justify-content-center align-content-center">
+                    <button type="submit" class="card mb-3" name="sbm" value="5">
+                        <img src="..\..\assets\images\avatar\manager.jpg" alt="Quản lý nhân viên">
+                        <div class="container mt-4 mb-4">
+                            <h5 class="text-center">Quản lý nhân viên</h5>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6 d-flex justify-content-center align-content-center">
+                    <button type="submit" class="card mb-3" name="sbm" value="3">
+                        <img src="..\..\assets\images\avatar\nhanvien1.png" alt="Nhân viên">
+                        <div class="container mt-4 mb-4">
+                            <h5 class="text-center">Nhân viên</h5>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="col-md-6 d-flex justify-content-center align-content-center">
+                    <button type="submit" class="card mb-3" name="sbm" value="4">
+                        <img src="..\..\assets\images\avatar\ware.png" alt="Quản lý kho">
+                        <div class="container mt-4 mb-4">
+                            <h5 class="text-center">Quản lý kho</h5>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
     </main>
     </div>
     <script src="index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-rqI2waM7CtpVHmUnY9NXfQTKc3N8RBLtbl6TbY3b3NC6HjbF2wF81v11z5KnMK17" crossorigin="anonymous"></script>
     <script>
         // Enable Bootstrap form validation
         (function() {
             'use strict';
 
-            var form = document.getElementById('accountInfoForm');
+            var form = document.getElementById('accountForm');
 
             form.addEventListener('submit', function(event) {
                 if (!form.checkValidity()) {

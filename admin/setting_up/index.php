@@ -71,14 +71,14 @@
         </nav>
 
     <main>
-    <div class="container mt-3 mb-3">
+    <div class="container-fluid mt-3 mb-3">
         <div class="row">
             <div class="col-md-6">
                 <h3>Cài đặt hệ thống</h3>
             </div>
         </div>
     </div>
-    <div class="container mt-5">
+    <div class="container-fluid mt-5">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -109,11 +109,11 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-md-6">
-                                <a href="setting_file.php" class="nav-link">
+                                <a href="#" class="nav-link">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h5 class="card-title"><i class="fas fa-folder-open me-1"></i>Quản lý file </h5>
-                                            <p>Upload và quản lí file dữ liệu. Xem sửa xóa khi cần thiết</p>
+                                            <h5 class="card-title"><i class="fas fa-folder-open me-1"></i>Quản lý website </h5>
+                                            <p>Quản lý và chỉnh sửa website khách hàng</p>
                                         </div>
                                     </div>
                                 </a>

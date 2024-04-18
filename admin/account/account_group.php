@@ -10,10 +10,11 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
     <title>Amazon Warehouse</title>
     <style>
-        .action-buttons .btn.btn-info  {
+        .action-buttons .btn.btn-info,.btn.btn-primary{
             display: flex;
             align-items: center;
         }
@@ -70,15 +71,10 @@
         </nav>
 
     <main>
-    <div class="container mt-4">
-        <div class="row mb-5">
+    <div class="container fluid">
+        <div class="row mb-3">
             <div class="col-md-6">
-                <h3>Nhóm Tài khoản</h3>
-            </div>
-            <div class="col-md-6">
-                <div class="d-flex justify-content-end">
-                    <a class="btn btn-primary" href="index.php">Thoát</a>
-                </div>
+                <h3><a href="index.php"><i class="bi bi-arrow-left-circle me-3"></i></a>Nhóm Tài khoản</h3>
             </div>
         </div>
             <ul class="nav nav-tabs">
@@ -99,27 +95,47 @@
                 </li>
             </ul>
 
-            <div class="tab-content mt-4">
-            <div class="row mb-3">
-                <div class="col-md-6 ">
-                    <form class="d-flex" action="" method="POST">
-                        <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm" name="tukhoa" value="">
-                        <button class="btn btn-outline-primary" type="submit" name="timkiem" value="find">Tìm</button>
-                    </form>
-                </div>
-                <div class="col-md-6 text-right">
-                    <a  href ="account_add.php" class="btn btn-primary float-end">Thêm tài khoản mới</a>
-                </div>
-            </div>
+            <div class="tab-content mt-3">
+
                 <div class="tab-pane fade show active" id="khachhang">
-                        <?php $sql_account_customer = "EXEC GetUserInformation_customer";
-                            $result_account_customer = sqlsrv_query($connect, $sql_account_customer);?>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                    <form class="d-flex" action="account_group.php" method="POST">
+                            <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm"
+                            name="tukhoa" value="">
+                        <button class="btn btn-outline-primary" type="submit" name="timkiem" value="find">Tìm</button>
+                        </form>
+                        <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem'])) { ?>
+                        <div class="row mt-3">
+                            <div class="col">
+                                <?php
+                                $tukhoa = $_POST['tukhoa'];
+                                echo "<p>&nbspTìm kiếm với từ khóa: '<strong>$tukhoa</strong>'</p>";
+                                ?>
+                            </div>
+                        </div>
+                        <?php } ?>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a  href ="account_group_add.php?role_id=1" class="btn btn-primary float-end"><i class='bx bx-plus-circle bx-sm' ></i>Thêm tài khoản mới</a>
+                    </div>
+                    </div>
+                        <?php
+                                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem'])) {
+                            $tukhoa = $_POST['tukhoa'];
+                            $sql_account_customer  ="SearchAccount_customer N'$tukhoa'";
+                            $result_account_customer = sqlsrv_query($connect, $sql_account_customer );
+                        } else {
+                            $sql_account_customer = "EXEC GetUserInformation_customer";
+                            $result_account_customer = sqlsrv_query($connect, $sql_account_customer);
+                        }?>
                         <div class="card">
                             <div class="card-body">
                                 <table class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                             <th scope="col">STT</th>
+                                            <th scope="col">Tên người dùng</th>
                                             <th scope="col">Tên tài khoản</th>
                                             <th scope="col">Email</th>
                                             <th scope="col">Password</th>
@@ -133,12 +149,13 @@
                                         <tr>
                                             <td scope="row"><?php $i++; echo $i ?></td>
                                             <td><?php echo $row_account_customer['full_name'] ?></td>
+                                            <td><?php echo $row_account_customer['username'] ?></td>
                                             <td><?php echo $row_account_customer['email'] ?></td>
                                             <td><?php echo $row_account_customer['password'] ?></td>
                                             <td>
-                                            <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
-                                                <button class="btn btn-sm btn-danger">Delete</button>
-                                                <a href ="show.php?user_id=<?php echo $row_account_customer['user_id']; ?>&role_id=1" class="btn btn-sm btn-info">Show</a>
+                                            <a href="account_edit.php?user_id=<?php echo $row_account_customer['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
+                                                <button class="btn btn-sm btn-danger"><i class='bx bxs-trash bx-sm'></i>Delete</button>
+                                                <a href ="show.php?user_id=<?php echo $row_account_customer['user_id']; ?>&role_id=1" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                             </td>
                                         </tr>
                                     <?php } ?>
@@ -150,14 +167,44 @@
 
                 <!-- Quản trị hệ thống -->
                 <div class="tab-pane fade" id="qtrihethong">
-                <?php $sql_account_admin = "EXEC GetUserInformation_admin";
-                        $result_account_admin = sqlsrv_query($connect, $sql_account_admin);?>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                    <form class="d-flex" action="account_group.php" method="POST">
+                            <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm"
+                            name="tukhoa" value="">
+                        <button class="btn btn-outline-primary" type="submit" name="timkiem1" value="find">Tìm</button>
+                        </form>
+                        <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem1'])) { ?>
+                        <div class="row mt-3">
+                            <div class="col">
+                                <?php
+                                $tukhoa = $_POST['tukhoa'];
+                                echo "<p>&nbspTìm kiếm với từ khóa: '<strong>$tukhoa</strong>'</p>";
+                                ?>
+                            </div>
+                        </div>
+                        <?php } ?>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a  href ="account_group_add.php?role_id=2" class="btn btn-primary float-end"><i class='bx bx-plus-circle bx-sm' ></i>Thêm tài khoản mới</a>
+                    </div>
+                </div>
+                <?php
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem1'])) {
+                    $tukhoa = $_POST['tukhoa'];
+                    $sql_account_admin  ="SearchAccount_admin N'$tukhoa'";
+                    $result_account_admin = sqlsrv_query($connect, $sql_account_admin );
+                } else {
+                    $sql_account_admin = "EXEC GetUserInformation_admin";
+                    $result_account_admin = sqlsrv_query($connect, $sql_account_admin);
+                }?>
                    <div class="card">
                         <div class="card-body">
                             <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th scope="col">STT</th>
+                                        <th scope="col">Tên người dùng</th>
                                         <th scope="col">Tên tài khoản</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Password</th>
@@ -171,12 +218,13 @@
                                     <tr>
                                         <td scope="row"><?php $i++; echo $i ?></td>
                                         <td><?php echo $row_account_admin['full_name'] ?></td>
+                                        <td><?php echo $row_account_admin['username'] ?></td>
                                         <td><?php echo $row_account_admin['email'] ?></td>
                                         <td><?php echo $row_account_admin['password'] ?></td>
                                         <td>
-                                        <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
-                                            <button class="btn btn-sm btn-danger">Delete</button>
-                                            <a href ="show.php?user_id=<?php echo $row_account_admin['user_id']; ?>&role_id=2" class="btn btn-sm btn-info">Show</a>
+                                        <a href="account_edit.php?user_id=<?php echo $row_account_admin['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
+                                            <button class="btn btn-sm btn-danger"><i class='bx bxs-trash bx-sm'></i>Delete</button>
+                                            <a href ="show.php?user_id=<?php echo $row_account_admin['user_id']; ?>&role_id=2" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -188,17 +236,46 @@
 
                 <!-- Nhân viên quản lí -->
                 <div class="tab-pane fade" id="nhanvienquanli">
-                <?php $sql_account_manager = "EXEC GetUserInformation_manager";
-                        $result_account_manager = sqlsrv_query($connect, $sql_account_manager);?>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                    <form class="d-flex" action="account_group.php" method="POST">
+                            <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm"
+                            name="tukhoa" value="">
+                        <button class="btn btn-outline-primary" type="submit" name="timkiem2" value="find">Tìm</button>
+                        </form>
+                        <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem2'])) { ?>
+                        <div class="row mt-3">
+                            <div class="col">
+                                <?php
+                                $tukhoa = $_POST['tukhoa'];
+                                echo "<p>&nbspTìm kiếm với từ khóa: '<strong>$tukhoa</strong>'</p>";
+                                ?>
+                            </div>
+                        </div>
+                        <?php } ?>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a  href ="account_group_add.php?role_id=5" class="btn btn-primary float-end"><i class='bx bx-plus-circle bx-sm' ></i>Thêm tài khoản mới</a>
+                    </div>
+                </div>
+                <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem2'])) {
+                    $tukhoa = $_POST['tukhoa'];
+                    $sql_account_manager  ="SearchAccount_manager N'$tukhoa'";
+                    $result_account_manager = sqlsrv_query($connect, $sql_account_manager );
+                } else {
+                    $sql_account_manager = "EXEC GetUserInformation_manager";
+                    $result_account_manager = sqlsrv_query($connect, $sql_account_manager);
+                }?>
                     <div class="card">
                         <div class="card-body">
                             <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th scope="col">STT</th>
+                                        <th scope="col">Tên người dùng</th>
                                         <th scope="col">Tên tài khoản</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col"></th>
+                                        <th scope="col">Password</th>
                                         <th scope="col">Thao tác</th>
                                     </tr>
                                 </thead>
@@ -209,12 +286,13 @@
                                     <tr>
                                         <td scope="row"><?php $i++; echo $i ?></td>
                                         <td><?php echo $row_account_manager['full_name'] ?></td>
+                                        <td><?php echo $row_account_manager['username'] ?></td>
                                         <td><?php echo $row_account_manager['email'] ?></td>
                                         <td><?php echo $row_account_manager['password'] ?></td>
                                         <td>
-                                        <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
-                                            <button class="btn btn-sm btn-danger">Delete</button>
-                                            <a href ="show.php?user_id=<?php echo $row_account_manager['user_id']; ?>&role_id=5" class="btn btn-sm btn-info">Show</a>
+                                        <a href="account_edit.php?user_id=<?php echo $row_account_manager['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
+                                            <button class="btn btn-sm btn-danger"><i class='bx bxs-trash bx-sm'></i>Delete</button>
+                                            <a href ="show.php?user_id=<?php echo $row_account_manager['user_id']; ?>&role_id=5" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -226,14 +304,45 @@
 
                 <!-- Nhân viên tiếp tân -->
                 <div class="tab-pane fade" id="nhanvientieptan">
-                <?php $sql_account_employee = "EXEC GetUserInformation_employee";
-                        $result_account_employee = sqlsrv_query($connect, $sql_account_employee);?>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                    <form class="d-flex" action="account_group.php" method="POST">
+                            <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm"
+                            name="tukhoa" value="">
+                        <button class="btn btn-outline-primary" type="submit" name="timkiem3" value="find">Tìm</button>
+                        </form>
+                        <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem3'])) { ?>
+                        <div class="row mt-3">
+                            <div class="col">
+                                <?php
+                                $tukhoa = $_POST['tukhoa'];
+                                echo "<p>&nbspTìm kiếm với từ khóa: '<strong>$tukhoa</strong>'</p>";
+                                ?>
+                            </div>
+                        </div>
+                        <?php } ?>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a  href ="account_group_add.php?role_id=3" class="btn btn-primary float-end"><i class='bx bx-plus-circle bx-sm' ></i>Thêm tài khoản mới</a>
+                    </div>
+                </div>
+                <?php
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem3'])) {
+                    $tukhoa = $_POST['tukhoa'];
+                    $sql_account_employee  ="SearchAccount_employee N'$tukhoa'";
+                    $result_account_employee = sqlsrv_query($connect, $sql_account_employee );
+                } else {
+                    $sql_account_employee = "EXEC GetUserInformation_employee";
+                    $result_account_employee = sqlsrv_query($connect, $sql_account_employee);
+                }
+                ?>
                    <div class ="card">
                         <div class="card-body">
                             <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th scope="col">STT</th>
+                                        <th scope="col">Tên người dùng</th>
                                         <th scope="col">Tên tài khoản</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Password</th>
@@ -247,12 +356,13 @@
                                     <tr>
                                         <td scope="row"><?php $i++; echo $i ?></td>
                                         <td><?php echo $row_account_employee['full_name'] ?></td>
+                                        <td><?php echo $row_account_employee['username'] ?></td>
                                         <td><?php echo $row_account_employee['email'] ?></td>
                                         <td><?php echo $row_account_employee['password'] ?></td>
                                         <td>
-                                        <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
-                                            <button class="btn btn-sm btn-danger">Delete</button>
-                                            <a href ="show.php?user_id=<?php echo $row_account_employee['user_id']; ?>&role_id=4" class="btn btn-sm btn-info">Show</a>
+                                        <a href="account_edit.php?user_id=<?php echo $row_account_employee['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
+                                            <button class="btn btn-sm btn-danger"><i class='bx bxs-trash bx-sm'></i>Delete</button>
+                                            <a href ="show.php?user_id=<?php echo $row_account_employee['user_id']; ?>&role_id=4" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -264,14 +374,43 @@
 
                 <!-- Quản lí kho -->
                 <div class="tab-pane fade" id="quanlikho">
-                <?php $sql_account_warehouse = "EXEC GetUserInformation_warehouse";
-                        $result_account_warehouse = sqlsrv_query($connect, $sql_account_warehouse);?>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                    <form class="d-flex" action="account_group.php" method="POST">
+                            <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm"
+                            name="tukhoa" value="">
+                        <button class="btn btn-outline-primary" type="submit" name="timkiem4" value="find">Tìm</button>
+                        </form>
+                        <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem4'])) { ?>
+                        <div class="row mt-3">
+                            <div class="col">
+                                <?php
+                                $tukhoa = $_POST['tukhoa'];
+                                echo "<p>&nbspTìm kiếm với từ khóa: '<strong>$tukhoa</strong>'</p>";
+                                ?>
+                            </div>
+                        </div>
+                        <?php } ?>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a  href ="account_group_add.php?role_id=4" class="btn btn-primary float-end"><i class='bx bx-plus-circle bx-sm' ></i>Thêm tài khoản mới</a>
+                    </div>
+                </div>
+                <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem4'])) {
+                    $tukhoa = $_POST['tukhoa'];
+                    $sql_account_warehouse  ="SearchAccount_warehouse N'$tukhoa'";
+                    $result_account_warehouse = sqlsrv_query($connect, $sql_account_warehouse );
+                } else {
+                    $sql_account_warehouse = "EXEC GetUserInformation_warehouse";
+                    $result_account_warehouse = sqlsrv_query($connect, $sql_account_warehouse);
+                }?>
                     <div class="card">
                         <div class="card-body">
                             <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th scope="col">STT</th>
+                                        <th scope="col">Tên người dùng</th>
                                         <th scope="col">Tên tài khoản</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Password</th>
@@ -285,12 +424,13 @@
                                     <tr>
                                         <td scope="row"><?php $i++; echo $i ?></td>
                                         <td><?php echo $row_account_warehouse['full_name'] ?></td>
+                                        <td><?php echo $row_account_warehouse['username'] ?></td>
                                         <td><?php echo $row_account_warehouse['email'] ?></td>
                                         <td><?php echo $row_account_warehouse['password'] ?></td>
                                         <td>
-                                        <a href="account_edit.php" class="btn btn-sm btn-warning">Edit</a>
-                                            <button class="btn btn-sm btn-danger">Delete</button>
-                                            <a href ="show.php?user_id=<?php echo $row_account_warehouse['user_id']; ?>&role_id=4" class="btn btn-sm btn-info">Show</a>
+                                        <a href="account_edit.php?user_id=<?php echo $row_account_warehouse['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
+                                            <button class="btn btn-sm btn-danger"><i class='bx bxs-trash bx-sm'></i>Delete</button>
+                                            <a href ="show.php?user_id=<?php echo $row_account_warehouse['user_id']; ?>&role_id=4" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -307,5 +447,27 @@
      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        // Lưu tab-pane hiện tại khi click vào tab
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var target = $(e.target).attr("href"); // Lấy id của tab-pane
+            localStorage.setItem('activeTab', target); // Lưu id của tab-pane vào localStorage
+        });
+
+        // Load lại trang và đặt tab-pane là active dựa trên localStorage
+        var activeTab = localStorage.getItem('activeTab');
+        if(activeTab){
+            $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
+        }
+
+        // Xử lý sự kiện khi submit form tìm kiếm
+        $('form').on('submit', function(){
+            var tabId = $('.nav-tabs .active').attr("href"); // Lấy id của tab-pane hiện tại
+            localStorage.setItem('activeTab', tabId); // Lưu id của tab-pane vào localStorage
+        });
+    });
+
+    </script>
 </body>
 </html>

@@ -63,7 +63,6 @@
             <label for="theme-toggle" class="theme-toggle"></label>
             <a href="#" class="notif">
                 <i class='bx bx-bell'></i>
-                <!-- <span class="count">12</span> -->
             </a>
             <a href="#" class="profile">
                 <img src="images/logo.jpg">
@@ -75,7 +74,7 @@
             <!-- Header -->
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <h3><a href="index.php"><i class="bi bi-arrow-left-circle me-3"></i></a>Tạo tài khoản mới</h3>
+                    <h3><a href="account_group.php"><i class="bi bi-arrow-left-circle me-3"></i></a>Tạo tài khoản mới</h3>
                 </div>
                 <div class="col-md-6">
                     <div class="d-flex justify-content-end">
@@ -85,7 +84,7 @@
             </div>
 
             <!-- Body - Registration Form -->
-            <form action="process.php" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate id="accountForm">
+            <form action="process.php?role=<?php echo $_GET['role_id']; ?>" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate id="accountForm">
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="firstName" class="form-label">Tên</label>
@@ -148,7 +147,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary" name="sbm_add">Tạo Tài Khoản</button>
+                    <button type="submit" class="btn btn-primary" name="sbm_group_add">Tạo Tài Khoản</button>
                 </div>
             </form>
         </div>
