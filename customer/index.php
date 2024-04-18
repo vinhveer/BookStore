@@ -9,7 +9,6 @@
 	<?php
 	include '../import/libary.php';
 	include '../import/connect.php';
-	session_start();
 	?>
 
 	<link rel="stylesheet" href="css/index.css">

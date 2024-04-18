@@ -9,7 +9,7 @@
     <?php include '../../import/libary.php'; ?>
     <?php include '../../import/connect.php'; ?>
 
-    <link rel="stylesheet" href="css/explore_category.css">
+    <link rel="stylesheet" href="css/brand.css">
 </head>
 
 <body>
@@ -75,66 +75,47 @@
         </div>
     </nav>
 
-    <?php
-    $sql_category = "SELECT book_category_name FROM book_categories WHERE book_category_id = " . $_GET['category_id'];
-    $result_category = sqlsrv_query($conn, $sql_category);
-    $row_category = sqlsrv_fetch_array($result_category, SQLSRV_FETCH_ASSOC);
-    ?>
-
-    <div class="container heading">
-        <h2><?php echo $row_category['book_category_name'] ?></h2>
+    <div class="container">
+        <h2>Brand</h2>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui esse quaerat, molestiae aut incidunt
+            praesentium modi quia libero suscipit nostrum minima corporis optio cum, veniam nesciunt voluptas, quod quae
+            quasi? </p>
     </div>
 
     <?php
-    $sql_item_book = "SELECT bo.book_name, bo.book_publication_year, pr.product_price, pr.product_image, au.author_name 
-    FROM books bo
-    INNER JOIN products pr ON bo.product_id = pr.product_id
-    INNER JOIN book_author ba ON bo.product_id = ba.product_id
-    INNER JOIN author au ON au.author_id = ba.author_id
-    WHERE book_category_id = " . $_GET['category_id'];
-    $result_item_book = sqlsrv_query($conn, $sql_item_book);
+    $sql = "SELECT * FROM brands;";
+    $result = sqlsrv_query($conn, $sql);
     ?>
-    <div class="container mt-4">
+
+    <div class="container">
         <div class="row">
             <?php
-            while ($row_book = sqlsrv_fetch_array($result_item_book)) {
-                ?>
-                <div class="col-md-2">
-                    <div class="card mt-3" style="height: 500px">
-                        <img src="<?php echo $row_book['product_image']; ?>" class="card-img-top-book"
-                            alt="<?php echo $row_book['book_name']; ?>">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <?php
-                                $title = $row_book['book_name'];
-                                if (strlen($title) > 40) {
-                                    $title = substr($title, 0, 35) . "...";
-                                }
-                                echo $title;
-                                ?>
-                            </h5>
-                        </div>
-                        <div class="card-footer">
-                            <div class="card-text">
-                                <p class="author"><?php echo $row_book['author_name']; ?></p>
-                                <p class="year"><?php echo $row_book['book_publication_year']; ?></p>
-                            </div>
-                            <p class="card-text">
-                                <strong>
-                                    <?php echo $row_book['product_price']; ?>đ
-                                </strong>
-                            </p>
-
-                            <a href="#" class="btn btn-success">Buy now</a>
-                            <a href="#" class="btn btn-danger float-end"><i class="bi bi-cart-dash"></i></a>
-                        </div>
+            while ($row = sqlsrv_fetch_array($result)) {
+                $sql_op = "SELECT COUNT(*) FROM others_products WHERE others_product_brand_id = " . $row['brand_id'] . ";";
+                $result_op = sqlsrv_query($conn, $sql_op);
+                $row_op = sqlsrv_fetch_array($result_op);
+            ?>
+            <div class="col-md-3">
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <?php echo $row['brand_name']; ?>
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            <?php echo $row_op[0]; ?> product
+                        </h6>
+                    </div>
+                    <div class="card-footer">
+                        <a href="explore_brand.php?brand_id=<?php echo $row['brand_id'] ?>" class="btn btn-primary">Explore</a>
                     </div>
                 </div>
-                <?php
+            </div>
+            <?php
             }
             ?>
         </div>
     </div>
+
 
 </body>
 

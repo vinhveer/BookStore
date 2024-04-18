@@ -9,7 +9,7 @@
     <?php include '../../import/libary.php'; ?>
     <?php include '../../import/connect.php'; ?>
 
-    <link rel="stylesheet" href="css/category.css">
+    <link rel="stylesheet" href="css/explore_brand.css">
 </head>
 
 <body>
@@ -75,47 +75,64 @@
         </div>
     </nav>
 
-    <div class="container">
-        <h2>Genre</h2>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui esse quaerat, molestiae aut incidunt
-            praesentium modi quia libero suscipit nostrum minima corporis optio cum, veniam nesciunt voluptas, quod quae
-            quasi? </p>
+    <?php
+    $sql_category = "SELECT brand_name FROM brands WHERE brand_id = " . $_GET['brand_id'];
+    $result_category = sqlsrv_query($conn, $sql_category);
+    $row_category = sqlsrv_fetch_array($result_category, SQLSRV_FETCH_ASSOC);
+    ?>
+
+    <div class="container heading">
+        <h2><?php echo $row_category['brand_name'] ?></h2>
     </div>
 
     <?php
-    $sql = "SELECT * FROM book_categories;";
-    $result = sqlsrv_query($conn, $sql);
+    $sql_item_book = "SELECT ot.others_product_name, pr.product_image, pr.product_price, br.brand_name
+    FROM others_products ot
+    INNER JOIN products pr ON ot.product_id = pr.product_id
+    INNER JOIN brands br ON br.brand_id = ot.others_product_brand_id
+    WHERE brand_id = " . $_GET['brand_id'];
+    $result_item_book = sqlsrv_query($conn, $sql_item_book);
     ?>
-
-    <div class="container">
+    <div class="container mt-4">
         <div class="row">
             <?php
-            while ($row = sqlsrv_fetch_array($result)) {
-                $sql_book = "SELECT COUNT(*) FROM books WHERE book_category_id = " . $row['book_category_id'] . ";";
-                $result_book = sqlsrv_query($conn, $sql_book);
-                $row_book = sqlsrv_fetch_array($result_book);
-            ?>
-            <div class="col-md-3">
-                <div class="card mt-3">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <?php echo $row['book_category_name']; ?>
-                        </h5>
-                        <h6 class="card-subtitle mb-2 text-muted">
-                            <?php echo $row_book[0]; ?> books
-                        </h6>
-                    </div>
-                    <div class="card-footer">
-                        <a href="explore_category.php?category_id=<?php echo $row['book_category_id'] ?>" class="btn btn-primary">Explore</a>
+            while ($row_book = sqlsrv_fetch_array($result_item_book)) {
+                ?>
+                <div class="col-md-2">
+                    <div class="card mt-3" style="height: 360px">
+                        <img src="<?php echo $row_book['product_image']; ?>" class="card-img-top"
+                            alt="<?php echo $row_book['others_product_name']; ?>">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <?php
+                                $title = $row_book['others_product_name'];
+                                if (strlen($title) > 40) {
+                                    $title = substr($title, 0, 35) . "...";
+                                }
+                                echo $title;
+                                ?>
+                            </h5>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-text">
+                                <p class="brand"><?php echo $row_book['brand_name']; ?></p>
+                            </div>
+                            <p class="card-text">
+                                <strong>
+                                    <?php echo $row_book['product_price']; ?>đ
+                                </strong>
+                            </p>
+
+                            <a href="#" class="btn btn-success">Buy now</a>
+                            <a href="#" class="btn btn-danger float-end"><i class="bi bi-cart-dash"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <?php
+                <?php
             }
             ?>
         </div>
     </div>
-
 
 </body>
 
