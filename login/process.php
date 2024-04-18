@@ -138,8 +138,3 @@ if (isset($_POST['register'])) {
         header('Location: sign_in.php');
     }
 }
-
-
-
-
-
