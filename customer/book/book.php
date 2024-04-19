@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Book</title>
 
     <?php include '../../import/libary.php'; ?>
     <?php include '../../import/connect.php'; ?>
@@ -36,7 +36,7 @@
                     </li>
                 </ul>
                 <form class="d-flex me-auto search align-items-center" role="search">
-                    <input class="form-control border-secondary rounded-start-pill" type="search" placeholder="Search"
+                    <input class="form-control border-secondary rounded-start-pill" type="search" placeholder="Search book ..."
                         aria-label="Search">
                     <button class="btn btn-outline-secondary rounded-end-pill" type="submit"><i
                             class="bi bi-search"></i></button>

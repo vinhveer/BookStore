@@ -91,10 +91,10 @@
                         <div class="container mb-4">
                             <div class="row align-items-center">
                                 <div class="col-md-6">
-                                    <h4 style="margin-bottom: 0px">Profile information</h4>
+                                    <h4 style="margin-bottom: 0px">Edit profile information</h4>
                                 </div>
                                 <div class="col-md-6">
-                                    <button class="btn btn-primary float-end">Edit</button>
+                                    <button class="btn btn-primary float-end">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -147,11 +147,11 @@
             </div>
         </main>
         <?php
-                    } else {
-                        header("Location: ../login/login.php");
-                        exit();
-                    }
-                    ?>
+        } else {
+            header("Location: ../login/login.php");
+            exit();
+        }
+        ?>
 </body>
 
 </html>

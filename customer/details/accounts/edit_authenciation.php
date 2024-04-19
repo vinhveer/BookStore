@@ -97,10 +97,10 @@
                     <div class="container mb-4">
                         <div class="row align-items-center">
                             <div class="col-md-6">
-                                <h4 style="margin-bottom: 0px">Authenciation</h4>
+                                <h4 style="margin-bottom: 0px">Edit authenciation</h4>
                             </div>
                             <div class="col-md-6">
-                                <button class="btn btn-primary float-end">Edit</button>
+                                <button class="btn btn-primary float-end">Save</button>
                             </div>
                         </div>
                     </div>
@@ -119,14 +119,14 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item list-group-item-action list-group-item-light">
                                     <div class="d-flex align-items-center">
-                                        <strong style="margin-right: 65px">Username</strong>
-                                        <p style="margin-bottom: 0px">@<?php echo $row_auth['username']?></p>
+                                        <strong style="margin-right: 58px">Username</strong>
+                                        <input type="text" name="username" id="username" class="form-control" placeholder="@<?php echo $row_auth['username']?>">
                                     </div>
                                 </li>
                                 <li class="list-group-item list-group-item-action list-group-item-light">
                                     <div class="d-flex align-items-center">
                                         <strong style="margin-right: 65px">Password</strong>
-                                        <p style="margin-bottom: 0px">***********</p>
+                                        <input type="password" name="password" id="password" class="form-control" placeholder="Enter password">
                                     </div>
                                 </li>
                             </ul>
