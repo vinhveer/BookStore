@@ -17,7 +17,7 @@
             <div class="logo-name"><span>A</span>Warehouse</div>
         </a>
         <ul class="side-menu">
-            <li class="active"><a href="orders.php"><i class='bx bx-store-alt'></i>Orders</a></li>
+            <li><a href="orders.php"><i class='bx bx-store-alt'></i>Orders</a></li>
             <li><a href="user.php"><i class='bx bx-group'></i>User</a></li>
             <li><a href="salary.php"><i class='bx bx-coin-stack' ></i>Salary</a></li>
             <li><a href="revenue.php"><i class='bx bxs-bar-chart-alt-2'></i></i>Revenue</a></li>
@@ -64,9 +64,10 @@
                     <ul class="breadcrumb">
                         <li><a href="#">
                                 Amazon
-                            </a></li>
+                            </a>
+                        </li>
                         /
-                        <li><a href="#" class="active">Orders</a></li>
+                        <li><a href="#" class="active">Order details</a></li>
                     </ul>
                 </div>
                 <a href="#" class="report">
@@ -80,82 +81,61 @@
             <div class="bottom-data">
                 <div class="orders">
                     <div class="header">
-                        <i class='bx bx-x-circle'></i>
-                        <h3>Not accepted yet</h3>
-                        <input type="search" placeholder="Search ID...">
-                        <i class='bx bx-search'></i>
+                        <i class='bx bx-edit' ></i>
+                        <h3>Order details</h3>
                     </div>
                     <table>
                         <thead>
                             <tr>
-                                <th>Order ID</th>
-                                <th>Customer</th>
-                                <th>Details</th>
+                                <th>Product ID</th>
+                                <th>Product name</th>
+                                <th>Amount</th>
+                                <th>Unit price</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>ID</td>
+                                <td>
+                                    <img src="images/profile_1.jpg">
+                                    <p>ID</p>
+                                </td>
                                 <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
+                                <td>_</td>
+                                <td>_</td>
                             </tr>
                             <tr>
-                                <td>ID</td>
+                                <td>
+                                    <img src="images/profile_1.jpg">
+                                    <p>ID</p>
+                                </td>
                                 <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
+                                <td>_</td>
+                                <td>_</td>
                             </tr>
                             <tr>
-                                <td>ID</td>
+                                <td>
+                                    <img src="images/profile_1.jpg">
+                                    <p>ID</p>
+                                </td>
                                 <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
+                                <td>_</td>
+                                <td>_</td>
                             </tr>
                             <tr>
-                                <td>ID</td>
+                                <td>
+                                    <img src="images/profile_1.jpg">
+                                    <p>ID</p>
+                                </td>
                                 <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
+                                <td>_</td>
+                                <td>_</td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-
-                <div class="orders">
-                    <div class="header">
-                        <i class='bx bx-notepad'></i>
-                        <h3>Have accepted</h3>
-                        <input type="search" placeholder="Search ID...">
-                        <i class='bx bx-search'></i>
+                    <!-- Total Sales -->
+                    <div class="total-sale">
+                        <h2>Total sales: </h2>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Customer</th>
-                                <th>Details</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>ID</td>
-                                <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </main>

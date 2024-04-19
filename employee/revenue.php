@@ -17,10 +17,10 @@
             <div class="logo-name"><span>A</span>Warehouse</div>
         </a>
         <ul class="side-menu">
-            <li class="active"><a href="orders.php"><i class='bx bx-store-alt'></i>Orders</a></li>
+            <li><a href="orders.php"><i class='bx bx-store-alt'></i>Orders</a></li>
             <li><a href="user.php"><i class='bx bx-group'></i>User</a></li>
             <li><a href="salary.php"><i class='bx bx-coin-stack' ></i>Salary</a></li>
-            <li><a href="revenue.php"><i class='bx bxs-bar-chart-alt-2'></i></i>Revenue</a></li>
+            <li class="active"><a href="revenue.php"><i class='bx bxs-bar-chart-alt-2'></i></i>Revenue</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Message</a></li>
            
             <li><a href="#"><i class='bx bx-cog'></i>Settings</a></li>
@@ -66,7 +66,7 @@
                                 Amazon
                             </a></li>
                         /
-                        <li><a href="#" class="active">Orders</a></li>
+                        <li><a href="#" class="active">Revenue</a></li>
                     </ul>
                 </div>
                 <a href="#" class="report">
@@ -80,78 +80,43 @@
             <div class="bottom-data">
                 <div class="orders">
                     <div class="header">
-                        <i class='bx bx-x-circle'></i>
-                        <h3>Not accepted yet</h3>
-                        <input type="search" placeholder="Search ID...">
-                        <i class='bx bx-search'></i>
+                        <i class='bx bxs-component'></i>
+                        <h3>Revenue</h3>
+                        <div class="dropdown">
+                            <button class="dropbtn">By Date</button>
+                            <div class="dropdown-content">
+                                <a href="revenue_month.php">By Month</a>
+                                <a href="revenue_year.php">By Year</a>
+                            </div>
+                        </div> 
+                        <i class='bx bx-calendar'></i>
                     </div>
                     <table>
                         <thead>
                             <tr>
-                                <th>Order ID</th>
-                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Order total</th>
+                                <th>Total amount</th>
                                 <th>Details</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>ID</td>
-                                <td>name</td>
+                                <td>null</td>
+                                <td>null</td>
+                                <td>null</td>
                                 <td><a href="orders_detail.php">Click to see</a></td>
                             </tr>
                             <tr>
-                                <td>ID</td>
-                                <td>name</td>
+                                <td>null</td>
+                                <td>null</td>
+                                <td>null</td>
                                 <td><a href="orders_detail.php">Click to see</a></td>
                             </tr>
                             <tr>
-                                <td>ID</td>
-                                <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="orders">
-                    <div class="header">
-                        <i class='bx bx-notepad'></i>
-                        <h3>Have accepted</h3>
-                        <input type="search" placeholder="Search ID...">
-                        <i class='bx bx-search'></i>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Customer</th>
-                                <th>Details</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>ID</td>
-                                <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>name</td>
+                                <td>null</td>
+                                <td>null</td>
+                                <td>null</td>
                                 <td><a href="orders_detail.php">Click to see</a></td>
                             </tr>
                         </tbody>
