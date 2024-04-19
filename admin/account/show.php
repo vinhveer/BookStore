@@ -77,7 +77,8 @@
             <div class="col-md-12">
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <h3><a href="account_group.php"><i class="bi bi-arrow-left-circle me-3"></i></a> Thông tin người dùng</h3>
+                        <?php $show = $_GET['show'];?>
+                        <h3><a href="<?php echo ($show == 1)?'account_group.php':'index.php'; ?>"><i class="bi bi-arrow-left-circle me-3"></i></a> Thông tin người dùng</h3>
                     </div>
                 </div>
                 <?php
@@ -156,14 +157,14 @@
                     <div class="tab-pane fade" id="phanquyen">
                             <div class="col-md-12 mb-3">
                                 <div class="card">
-                                    <form >
+                                    <form action="process.php?user_id=<?php echo $user_id;?>&show=<?php echo $show?>" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate id="accountForm">
                                         <div class="card-body">
                                         <h4 class="card-title me-5">Quyền tài khoản</h4>
                                             <div class="mb-3">
                                                 <div class="d-flex">
                                                     <span class="col-md-4">Chon vai trò: </span>
                                                         <div class="col-md-5">
-                                                            <select class="form-select" id="selectRole">
+                                                            <select class="form-select" id="selectRole" name="role_id">
                                                                 <option disabled selected> Choose role</option>
                                                                 <option value="2" <?php echo ($row_account_info['role_id'] == '2') ? 'selected' : ''; ?>>Admin</option>
                                                                 <option value="1" <?php echo ($row_account_info['role_id'] == '1') ? 'selected' : ''; ?>>customer</option>
@@ -235,7 +236,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Lưu</button>
+                                            <button type="submit" class="btn btn-primary" name ="sbm_role">Lưu</button>
                                         </div>
                                     </form>
                                 </div>

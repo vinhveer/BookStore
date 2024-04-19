@@ -134,7 +134,7 @@
                                         <div class="action-buttons d-flex justify-content-start">
                                             <a href="account_edit.php?user_id=<?php echo $row_account['user_id']; ?>&edit=0" class="btn btn-sm btn-warning me-1"><i class='bx bx-sm bx-edit-alt me-1'></i>Edit</a>
                                             <button type="button" class="btn btn-sm btn-danger float-end me-2" data-postid="<?php echo $row_account['user_id']; ?>&delete=0" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
-                                            <a href="show.php?user_id=<?php echo $row_account['user_id']; ?>&role_id=<?php echo $row_account['role_id'];?>" class="btn btn-info">
+                                            <a href="show.php?user_id=<?php echo $row_account['user_id']; ?>&role_id=<?php echo $row_account['role_id'];?>&show=0" class="btn btn-info">
                                             <i class='bx bx-sm bx-show-alt me-1'></i></a>
                                         </div>
                                     </td>

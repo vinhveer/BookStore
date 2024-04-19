@@ -155,7 +155,7 @@
                                             <td>
                                             <a href="account_edit.php?user_id=<?php echo $row_account_customer['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
                                             <button type="button" class="btn btn-sm btn-danger me-2" data-postid="<?php echo $row_account_customer['user_id']; ?>&delete=1" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
-                                                <a href ="show.php?user_id=<?php echo $row_account_customer['user_id']; ?>&role_id=1" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
+                                                <a href ="show.php?user_id=<?php echo $row_account_customer['user_id']; ?>&role_id=1&show=1" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                             </td>
                                         </tr>
                                     <?php } ?>
@@ -224,7 +224,7 @@
                                         <td>
                                         <a href="account_edit.php?user_id=<?php echo $row_account_admin['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
                                         <button type="button" class="btn btn-sm btn-danger me-2" data-postid="<?php echo $row_account_admin['user_id']; ?>&delete=1" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
-                                            <a href ="show.php?user_id=<?php echo $row_account_admin['user_id']; ?>&role_id=2" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
+                                        <a href ="show.php?user_id=<?php echo $row_account_admin['user_id']; ?>&role_id=2&show=1" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -292,7 +292,7 @@
                                         <td>
                                         <a href="account_edit.php?user_id=<?php echo $row_account_manager['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
                                         <button type="button" class="btn btn-sm btn-danger me-2" data-postid="<?php echo $row_account_manager['user_id']; ?>&delete=1" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
-                                            <a href ="show.php?user_id=<?php echo $row_account_manager['user_id']; ?>&role_id=5" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
+                                            <a href ="show.php?user_id=<?php echo $row_account_manager['user_id']; ?>&role_id=5&show=1" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -362,7 +362,7 @@
                                         <td>
                                         <a href="account_edit.php?user_id=<?php echo $row_account_employee['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
                                         <button type="button" class="btn btn-sm btn-danger me-2" data-postid="<?php echo $row_account_employee['user_id']; ?>&delete=1" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
-                                            <a href ="show.php?user_id=<?php echo $row_account_employee['user_id']; ?>&role_id=4" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
+                                            <a href ="show.php?user_id=<?php echo $row_account_employee['user_id']; ?>&role_id=4&show=1" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -430,7 +430,7 @@
                                         <td>
                                         <a href="account_edit.php?user_id=<?php echo $row_account_warehouse['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
                                         <button type="button" class="btn btn-sm btn-danger me-2" data-postid="<?php echo $row_account_warehouse['user_id']; ?>&delete=1" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
-                                            <a href ="show.php?user_id=<?php echo $row_account_warehouse['user_id']; ?>&role_id=4" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
+                                            <a href ="show.php?user_id=<?php echo $row_account_warehouse['user_id']; ?>&role_id=4&show=1" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                         </td>
                                     </tr>
                                 <?php } ?>

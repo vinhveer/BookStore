@@ -87,7 +87,8 @@
             <!-- Header -->
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <h3><a href="index.php"><i class="bi bi-arrow-left-circle me-3"></i></a>Cập nhật thông tin</h3>
+                    <?php $edit = $_GET['edit'];?>
+                    <h3><a href="<?php echo($edit==1)?'account_group.php':'index.php';?>"><i class="bi bi-arrow-left-circle me-3"></i></a>Cập nhật thông tin</h3>
                 </div>
                 <div class="col-md-6">
                     <div class="d-flex justify-content-end">

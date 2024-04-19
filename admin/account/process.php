@@ -238,4 +238,17 @@
             if($delete == 0) header ('location: index.php' );
             if($delete == 1) header ('location: account_group.php' );
     }
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["sbm_role"])) {
+        $user_id = $_GET['user_id'];
+        $show = $_GET['show'];
+        $role_id = $_POST['role_id'];
+        $sql_role_id = "UPDATE user_roles SET role_id = '$role_id' Where user_id=$user_id";
+        $result_role = sqlsrv_query($connect, $sql_role_id);
+        if ($result_role === false) {
+            die( print_r( sqlsrv_errors(), true));
+        }else{
+            header ("location: show.php?user_id=$user_id&show=$show");
+        }
+    }
 ?>
