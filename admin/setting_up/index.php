@@ -15,7 +15,7 @@
             display: flex;
             align-items: center;
         }
-        h3{
+        h1,.syb{
             color: var(--dark);
         }
     </style>
@@ -29,12 +29,10 @@
             <div class="logo-name"><span>A</span>&nbspBookstore</div>
         </a>
         <ul class="side-menu">
-            <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
             <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
-            <li><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
-            <li><a href="#"><i class='bx bx-clipboard'></i>Orders</a></li>
-            <li><a href="#"><i class='bx bx-message-square-dots'></i>Tickets</a></li>
-            <li><a href="#"><i class='bx bxs-user-account'></i>Manager</a></li>
+            <li><a href="../order/index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
+            <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
             <li><a href="../account/index.php"><i class='bx bx-group'></i>Users</a></li>
             <li class="active"><a href="index.php"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
@@ -71,13 +69,26 @@
         </nav>
 
     <main>
-    <div class="container-fluid mt-3 mb-3">
-        <div class="row">
-            <div class="col-md-6">
-                <h3>Cài đặt hệ thống</h3>
+    <div class="header">
+                <div class="left">
+                    <h1>Setting</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="../dashboard/index.php">Home</a></li>
+                        <span class="syb">/</span>
+                        <li><a href="../account/index.php">Users</a></li>
+                        <span class="syb">/</span>
+                        <li><a href="index.php" class="active">Setting</a></li>
+                        <span class="syb">/</span>
+                        <li><a href="#">Shop</a></li>
+                        <span class="syb">/</span>
+                        <li><a href="../order/index.php">Orders</a></li>
+                    </ul>
+                </div>
+                <a href="#" class="report">
+                    <i class='bx bx-cloud-download'></i>
+                    <span>Update CSV</span>
+                </a>
             </div>
-        </div>
-    </div>
     <div class="container-fluid mt-5">
         <div class="row">
             <div class="col-md-12">
@@ -109,11 +120,11 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-md-6">
-                                <a href="#" class="nav-link">
+                                <a href="setting_transport.php" class="nav-link">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h5 class="card-title"><i class="fas fa-folder-open me-1"></i>Quản lý website </h5>
-                                            <p>Quản lý và chỉnh sửa website khách hàng</p>
+                                        <h5 class="card-title"><i class="fas fa-shipping-fast me-1"></i>Vận chuyển</h5>
+                                            <p>Quản lý phương thức vận chuyển đơn hàng</p>
                                         </div>
                                     </div>
                                 </a>

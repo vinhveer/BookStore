@@ -15,7 +15,7 @@
             display: flex;
             align-items: center;
         }
-        h4,#cod,hr{
+        h3,#cod,hr,.bxs-chevrons-left{
             color: var(--dark);
         }
     </style>
@@ -29,12 +29,10 @@
             <div class="logo-name"><span>A</span>&nbspBookstore</div>
         </a>
         <ul class="side-menu">
-            <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
             <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
-            <li><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
-            <li><a href="#"><i class='bx bx-clipboard'></i>Orders</a></li>
-            <li><a href="#"><i class='bx bx-message-square-dots'></i>Tickets</a></li>
-            <li><a href="#"><i class='bx bxs-user-account'></i>Manager</a></li>
+            <li><a href="../order/index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
+            <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
             <li><a href="../account/index.php"><i class='bx bx-group'></i>Users</a></li>
             <li class="active"><a href="index.php"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
@@ -74,7 +72,7 @@
         <div class="container-fluid mt-5">
         <div class="row">
               <div class="col-md-4 me-3">
-                <h4>Địa chỉ cửa hàng</h4> <hr>
+              <h3><a style="color:black;" href="index.php"><i class='bx bxs-chevrons-left me-3' ></i></a>Address Shop</h3>
                 <p id="cod" style="text-align: justify;">Quản lý địa chỉ cửa hàng, chi nhánh, kho hàng giúp chúng tôi gửi đơn hàng của bạn đến nhà vận chuyển nhanh gọn và chính xác hơn.</p><hr>
                 <button class="btn btn-primary" data-toggle="modal" data-target="#addAddressModal">Thêm địa chỉ cửa hàng</button>
           </div>

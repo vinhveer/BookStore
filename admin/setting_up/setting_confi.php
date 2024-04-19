@@ -15,7 +15,7 @@
             display: flex;
             align-items: center;
         }
-        h3,h5,.pet,hr{
+        h3,h5,.pet,hr,.bxs-chevrons-left{
             color: var(--dark);
         }
         .form-group {
@@ -38,12 +38,10 @@
             <div class="logo-name"><span>A</span>&nbspBookstore</div>
         </a>
         <ul class="side-menu">
-            <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
             <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
-            <li><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
-            <li><a href="#"><i class='bx bx-clipboard'></i>Orders</a></li>
-            <li><a href="#"><i class='bx bx-message-square-dots'></i>Tickets</a></li>
-            <li><a href="#"><i class='bx bxs-user-account'></i>Manager</a></li>
+            <li><a href="../order/index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
+            <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
             <li><a href="../account/index.php"><i class='bx bx-group'></i>Users</a></li>
             <li class="active"><a href="index.php"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
@@ -82,7 +80,7 @@
         <div class="container mt-4 mb-4">
         <div class="row">
             <div class="col-md-6">
-                <h3>Cấu hình chung</h3>
+                <h3><a style="color:black;" href="index.php"><i class='bx bxs-chevrons-left me-3' ></i></a>Cấu hình chung</h3>
             </div>
         </div>
             <hr>

@@ -15,7 +15,7 @@
             display: flex;
             align-items: center;
         }
-        h3,hr{
+        h3,hr,.bxs-chevrons-left{
             color: var(--dark);
         }
     </style>
@@ -29,12 +29,10 @@
             <div class="logo-name"><span>A</span>&nbspBookstore</div>
         </a>
         <ul class="side-menu">
-            <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
             <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
-            <li><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
-            <li><a href="#"><i class='bx bx-clipboard'></i>Orders</a></li>
-            <li><a href="#"><i class='bx bx-message-square-dots'></i>Tickets</a></li>
-            <li><a href="#"><i class='bx bxs-user-account'></i>Manager</a></li>
+            <li><a href="../order/index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
+            <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
             <li><a href="../account/index.php"><i class='bx bx-group'></i>Users</a></li>
             <li class="active"><a href="index.php"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
@@ -70,10 +68,10 @@
             </a>
         </nav>
         <main>
-        <div class="container-fluid mt-2 mb-5">
-        <h3 class="text-center mb-4">Thông báo hệ thống</h3>
-        <div class="row">
-                <div class="col-md-12">
+        <div class="container-fluid">
+        <h3 class="mb-4"><a style="color:black;" href="index.php"><i class='bx bxs-chevrons-left me-3' ></i></a>Thông báo hệ thống</h3>
+            <div class="row">
+                <div class="col-md-6">
                     <div class="card mb-3">
                         <div class="card-body">
                             <h6 class="card-title">Gửi thông báo</h6>
@@ -95,8 +93,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
-                <div class="card">
+                <div class="col-md-6">
+                    <div class="card">
                         <div class="card-body">
                             <h6 class="card-title">Thông báo mới nhất</h6>
                             <p class="card-text">Xem danh sách các thông báo mới nhất từ hệ thống.</p>

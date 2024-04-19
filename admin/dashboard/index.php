@@ -25,15 +25,13 @@
     <div class="sidebar">
         <a href="#" class="logo">
             <i class='bx bxl-amazon'></i>
-            <div class="logo-name"><span>A</span>&nbspBookstore</div>
+            <div class="logo-name"><span></span>&nbspAdmin</div>
         </a>
         <ul class="side-menu">
-            <li class="active"><a href="index.php"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li class="active"><a href="index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
             <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
-            <li><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
-            <li><a href="#"><i class='bx bx-clipboard'></i>Orders</a></li>
-            <li><a href="#"><i class='bx bx-message-square-dots'></i>Tickets</a></li>
-            <li><a href="#"><i class='bx bxs-user-account'></i>Manager</a></li>
+            <li><a href="../order/index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
+            <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
             <li><a href="../account/index.php"><i class='bx bx-group'></i>Users</a></li>
             <li><a href="../setting_up/index.php"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
@@ -72,11 +70,17 @@
     <main>
     <div class="header">
                 <div class="left">
-                    <h1>Dashboard</h1>
+                    <h1>Home page</h1>
                     <ul class="breadcrumb">
-                        <li><a href="#"> Analytics</a></li>
-                        /
-                        <li><a href="#" class="active">Shop</a></li>
+                        <li><a href="index.php" class="active">Home</a></li>
+                        <span class="syb">/</span>
+                        <li><a href="../account/index.php">Users</a></li>
+                        <span class="syb">/</span>
+                        <li><a href="../setting_up/index.php" >Setting</a></li>
+                        <span class="syb">/</span>
+                        <li><a href="#">Shop</a></li>
+                        <span class="syb">/</span>
+                        <li><a href="../order/index.php">Orders</a></li>
                     </ul>
                 </div>
                 <a href="#" class="report">

@@ -345,12 +345,12 @@ body{
 
 .content main .header .left .breadcrumb li a{
     color: var(--dark-grey);
-    pointer-events: none;
+    /* pointer-events: none; */
 }
 
 .content main .header .left .breadcrumb li a.active{
     color: var(--primary);
-    pointer-events: none;
+    /* pointer-events: none; */
 }
 
 .content main .header .report{

@@ -36,15 +36,13 @@
     <div class="sidebar">
         <a href="#" class="logo">
             <i class='bx bxl-amazon'></i>
-            <div class="logo-name"><span>Admin</span></div>
+            <div class="logo-name"><span></span>&nbspAdmin</div>
         </a>
         <ul class="side-menu">
-            <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
             <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
-            <li><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
-            <li><a href="#"><i class='bx bx-clipboard'></i>Orders</a></li>
-            <li><a href="#"><i class='bx bx-message-square-dots'></i>Tickets</a></li>
-            <li><a href="#"><i class='bx bxs-user-account'></i>Manager</a></li>
+            <li><a href="../order/index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
+            <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
             <li class="active"><a href="index.php"><i class='bx bx-group'></i>Users</a></li>
             <li><a href="../setting_up/index.php"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
@@ -78,11 +76,31 @@
         </nav>
 
     <main>
+    <div class="header ms-3">
+                <div class="left">
+                    <h1>Account</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="../dashboard/index.php">Home</a></li>
+                        <span class="syb">/</span>
+                        <li><a href="index.php" class="active">Users</a></li>
+                        <span class="syb">/</span>
+                        <li><a href="../setting_up/index.php">Setting</a></li>
+                        <span class="syb">/</span>
+                        <li><a href="#">Shop</a></li>
+                        <span class="syb">/</span>
+                        <li><a href="../order/index.php">Orders</a></li>
+                    </ul>
+                </div>
+                <a href="#" class="report">
+                    <i class='bx bx-cloud-download'></i>
+                    <span>Update CSV</span>
+                </a>
+            </div>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-2">
-                    <h3>Tài khoản</h3>
-                </div>
+                <!-- <div class="col-md-2">
+                    <p>Tìm kiếm</p>
+                </div> -->
                 <div class="col-md-4">
                     <form class="d-flex" action="index.php" method="POST">
                         <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm"
@@ -100,7 +118,7 @@
                     </div>
                     <?php } ?>
                 </div>
-                <div class="col-md-6 text-right">
+                <div class="col-md-8 text-right">
                     <a href="account_add.php" class="btn btn-primary float-end"><i class='bx bxs-user-plus' ></i>Thêm tài khoản mới</a>
                     <a href="account_group.php" class="btn btn-primary float-end me-2"><i class='bx bxs-user-detail' ></i>Nhóm Tài khoản</a>
                 </div>

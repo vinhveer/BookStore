@@ -29,14 +29,12 @@
             <div class="logo-name"><span>A</span>&nbspBookstore</div>
         </a>
         <ul class="side-menu">
-            <li><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
             <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
-            <li class="active"><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
-            <li><a href="#"><i class='bx bx-clipboard'></i>Orders</a></li>
-            <li><a href="#"><i class='bx bx-message-square-dots'></i>Tickets</a></li>
-            <li><a href="#"><i class='bx bxs-user-account'></i>Manager</a></li>
-            <li><a href="#"><i class='bx bx-group'></i>Users</a></li>
-            <li><a href="#"><i class='bx bx-cog'></i>Settings</a></li>
+            <li><a href="index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
+            <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
+            <li><a href="../account/index.php"><i class='bx bx-group'></i>Users</a></li>
+            <li><a href="../setting_up/index.php"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
         <ul class="side-menu">
             <li>
@@ -71,18 +69,33 @@
         </nav>
 
     <main>
-    <div class="container mt-3">
-        <div class="row">
-            <div class="col-md-6">
-                <h3>Thống kê đơn hàng</h3>
+    <div class="header">
+                <div class="left ms-3">
+                    <h1>Order statistics</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="../dashboard/index.php">Home</a></li>
+                        <span class="syb">/</span>
+                        <li><a href="../account/index.php">Users</a></li>
+                        <span class="syb">/</span>
+                        <li><a href="../setting_up/index.php" >Setting</a></li>
+                        <span class="syb">/</span>
+                        <li><a href="#">Shop</a></li>
+                        <span class="syb">/</span>
+                        <li><a href="index.php" class="active">Orders</a></li>
+                    </ul>
+                </div>
+                <div class="d-flex">
+                    <a href="order_list.php" class="report">
+                    <i class='bx bx-calendar' ></i>
+                        <span>Xem chi tiết đơn hàng</span>
+                    </a>
+                    <a href="#" class="report">
+                        <i class='bx bx-cloud-download'></i>
+                        <span>Xuất báo cáo</span>
+                    </a>
+                </div>
             </div>
-            <div class="col-md-6">
-                <button class="btn btn-primary float-end">Xuất báo cáo</button>
-                <a href="order_list.php" class="btn btn-primary float-end me-2" type ="button">Xem chi tiết đơn hàng</a>
-            </div>
-        </div>
-    </div>
-    <div class="container mt-4">
+    <div class="container-fluid mt-4">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -129,7 +142,7 @@
         </div>
     </div>
 
-    <div class="container mt-4 mb-5">
+    <div class="container-fluid mt-4 mb-5">
         <div class="row">
             <div class="col-md-9">
                 <div class="row">
