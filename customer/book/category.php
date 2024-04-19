@@ -9,7 +9,7 @@
     <?php include '../../import/libary.php'; ?>
     <?php include '../../import/connect.php'; ?>
 
-    <link rel="stylesheet" href="css/book.css">
+    <link rel="stylesheet" href="css/category.css">
 </head>
 
 <body>
@@ -75,77 +75,47 @@
         </div>
     </nav>
 
-    <div class="container heading">
-        <h1>Book</h1>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quos libero culpa, id explicabo sunt, accusantium
-            atque tenetur nulla neque odio distinctio iusto optio laudantium ipsam. Ipsam reprehenderit iste similique
-            excepturi?</p>
+    <div class="container">
+        <h2>Genre</h2>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui esse quaerat, molestiae aut incidunt
+            praesentium modi quia libero suscipit nostrum minima corporis optio cum, veniam nesciunt voluptas, quod quae
+            quasi? </p>
     </div>
 
     <?php
-    $sql_items = "SELECT * FROM list_item";
-    $result_items = sqlsrv_query($conn, $sql_items);
+    $sql = "SELECT * FROM book_categories;";
+    $result = sqlsrv_query($conn, $sql);
+    ?>
 
-    while ($row = sqlsrv_fetch_array($result_items, SQLSRV_FETCH_ASSOC)) {
-        if ($row['type_item'] == 'b') {
+    <div class="container">
+        <div class="row">
+            <?php
+            while ($row = sqlsrv_fetch_array($result)) {
+                $sql_book = "SELECT COUNT(*) FROM books WHERE book_category_id = " . $row['book_category_id'] . ";";
+                $result_book = sqlsrv_query($conn, $sql_book);
+                $row_book = sqlsrv_fetch_array($result_book);
             ?>
-            <div class="container mt-4">
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-md-10">
-                        <h4 style="margin-bottom: 0">
-                            <?php echo $row['title']; ?>
-                        </h4>
+            <div class="col-md-3">
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <?php echo $row['book_category_name']; ?>
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            <?php echo $row_book[0]; ?> books
+                        </h6>
                     </div>
-                    <div class="col-md-2">
-                        <a href="#" class="btn float-end" style="background-color: #ffe100;">See more</a>
+                    <div class="card-footer">
+                        <a href="explore_category.php?category_id=<?php echo $row['book_category_id'] ?>" class="btn btn-primary">Explore</a>
                     </div>
                 </div>
             </div>
             <?php
-            $sql_item_book = $row['cmd_top5'];
-            $result_item_book = sqlsrv_query($conn, $sql_item_book);
+            }
             ?>
-            <div class="container mt-4 d-flex">
-                <?php
-                while ($row_book = sqlsrv_fetch_array($result_item_book, SQLSRV_FETCH_ASSOC)) {
-                    ?>
-                    <div class="card mt-3" style="width: 18rem;">
-                        <img src="<?php echo $row_book['product_image']; ?>" class="card-img-top-book"
-                            alt="<?php echo $row_book['book_name']; ?>">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <?php
-                                $title = $row_book['book_name'];
-                                if (strlen($title) > 40) {
-                                    $title = substr($title, 0, 35) . "...";
-                                }
-                                echo $title;
-                                ?>
-                            </h5>
-                        </div>
-                        <div class="card-footer">
-                            <div class="card-text">
-                                <p class="author"><?php echo $row_book['author_name']; ?></p>
-                                <p class="year"><?php echo $row_book['book_publication_year']; ?></p>
-                            </div>
-                            <p class="card-text">
-                                <strong>
-                                    <?php echo $row_book['product_price']; ?>đ
-                                </strong>
-                            </p>
+        </div>
+    </div>
 
-                            <a href="#" class="btn btn-success">Buy now</a>
-                            <a href="#" class="btn btn-danger float-end"><i class="bi bi-cart-dash"></i></a>
-                        </div>
-                    </div>
-                    <?php
-                }
-                ?>
-            </div>
-            <?php
-        }
-    }
-    ?>
 
 </body>
 

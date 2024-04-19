@@ -99,3 +99,25 @@ body {
     background-color: #fc9303;
     color: white;
 }
+
+.heading {
+    position: relative;
+    padding: 50px;
+}
+
+.heading::before {
+    content: "";
+    /* Thêm nội dung vào pseudo-element */
+    position: absolute;
+    /* Đặt vị trí của pseudo-element là absolute để nó có thể che phủ hoàn toàn phần tử cha */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(../../../assets/images/home/pexels-pixabay-159711.jpg);
+    background-size: cover;
+    opacity: 0.25;
+    /* Điều chỉnh độ mờ của background */
+    z-index: -1;
+    /* Đẩy pseudo-element xuống phía sau để nó không che phủ chữ */
+}

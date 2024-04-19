@@ -9,7 +9,7 @@
     <?php include '../../import/libary.php'; ?>
     <?php include '../../import/connect.php'; ?>
 
-    <link rel="stylesheet" href="css/stationery.css">
+    <link rel="stylesheet" href="css/explore_brand.css">
 </head>
 
 <body>
@@ -26,13 +26,13 @@
             <div class="collapse navbar-collapse align-items-center" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php">Home</a>
+                        <a class="nav-link" aria-current="page" href="../index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="book.php">Book</a>
+                        <a class="nav-link active" href="book.php">Book</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="stationery.php">Stationery</a>
+                        <a class="nav-link" href="../stationery/stationery.php">Stationery</a>
                     </li>
                 </ul>
                 <form class="d-flex me-auto search align-items-center" role="search">
@@ -56,15 +56,18 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li class="d-flex p-3">
-                                <img src="../../assets/images/avatar/avatar1.png" alt="" srcset="" class="avatar_dropdown">
+                                <img src="../../assets/images/avatar/avatar1.png" alt="" srcset=""
+                                    class="avatar_dropdown">
                                 <div class="acc_content px-3">
                                     <h5>Trần Thanh Trí</h5>
                                     <p>tritt13579@gmail.com</p>
                                 </div>
                             </li>
                             <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle"></i>Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i>Setting</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right"></i>Logout</a></li>
+                            <li><a class="dropdown-item" href="../details/settings.php"><i
+                                        class="bi bi-gear"></i>Setting</a></li>
+                            <li><a class="dropdown-item" href="../../login/sign_out.php"><i
+                                        class="bi bi-box-arrow-right"></i>Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -72,41 +75,31 @@
         </div>
     </nav>
 
+    <?php
+    $sql_category = "SELECT brand_name FROM brands WHERE brand_id = " . $_GET['brand_id'];
+    $result_category = sqlsrv_query($conn, $sql_category);
+    $row_category = sqlsrv_fetch_array($result_category, SQLSRV_FETCH_ASSOC);
+    ?>
+
     <div class="container heading">
-        <h1>Stationery</h1>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quos libero culpa, id explicabo sunt, accusantium
-            atque tenetur nulla neque odio distinctio iusto optio laudantium ipsam. Ipsam reprehenderit iste similique
-            excepturi?</p>
+        <h2><?php echo $row_category['brand_name'] ?></h2>
     </div>
 
     <?php
-	$sql_items = "SELECT * FROM list_item";
-	$result_items = sqlsrv_query($conn, $sql_items);
-
-	while ($row = sqlsrv_fetch_array($result_items, SQLSRV_FETCH_ASSOC)) {
-		if ($row['type_item'] == 'p') {
-			?>
-			<div class="container mt-4">
-				<div class="row justify-content-center align-items-center">
-					<div class="col-md-10">
-						<h4 style="margin-bottom: 0">
-							<?php echo $row['title']; ?>
-						</h4>
-					</div>
-					<div class="col-md-2">
-						<a href="#" class="btn float-end" style="background-color: #ffe100;">See more</a>
-					</div>
-				</div>
-			</div>
-			<?php
-			$sql_item_book = $row['cmd_top5'];
-			$result_item_book = sqlsrv_query($conn, $sql_item_book);
-			?>
-			<div class="container mt-4 d-flex">
-				<?php
-				while ($row_book = sqlsrv_fetch_array($result_item_book, SQLSRV_FETCH_ASSOC)) {
-					?>
-                    <div class="card me-2" style="width: 18rem;">
+    $sql_item_book = "SELECT ot.others_product_name, pr.product_image, pr.product_price, br.brand_name
+    FROM others_products ot
+    INNER JOIN products pr ON ot.product_id = pr.product_id
+    INNER JOIN brands br ON br.brand_id = ot.others_product_brand_id
+    WHERE brand_id = " . $_GET['brand_id'];
+    $result_item_book = sqlsrv_query($conn, $sql_item_book);
+    ?>
+    <div class="container mt-4">
+        <div class="row">
+            <?php
+            while ($row_book = sqlsrv_fetch_array($result_item_book)) {
+                ?>
+                <div class="col-md-2">
+                    <div class="card mt-3" style="height: 360px">
                         <img src="<?php echo $row_book['product_image']; ?>" class="card-img-top"
                             alt="<?php echo $row_book['others_product_name']; ?>">
                         <div class="card-body">
@@ -134,14 +127,13 @@
                             <a href="#" class="btn btn-danger float-end"><i class="bi bi-cart-dash"></i></a>
                         </div>
                     </div>
-                    <?php
+                </div>
+                <?php
             }
             ?>
         </div>
-        <?php
-            }
-        }
-        ?>
+    </div>
+
 </body>
 
 </html>

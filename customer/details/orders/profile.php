@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings - Account</title>
 
-    <?php include '../../import/libary.php'; ?>
+    <?php include '../../../import/libary.php'; ?>
 
-    <link rel="stylesheet" href="css/settings.css">
+    <link rel="stylesheet" href="css/profile.css">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm fixed-top">
         <div class="container">
-            <a class="navbar-brand align-items-center d-flex" href="../index.php">
-                <img src="..\..\assets\images\logo\light_theme_logo.png" class="logo">
+            <a class="navbar-brand align-items-center d-flex" href="../../index.php">
+                <img src="../../../assets/images/logo/light_theme_logo.png" class="logo">
                 <h6>Account Settings</h6>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -26,13 +26,13 @@
             <div class="collapse navbar-collapse align-items-center" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php">Account</a>
+                        <a class="nav-link active" href="index.php">Account</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="book.php">Order</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="stationery.php">Statistics</a>
+                        <a class="nav-link" href="stationery.php">Statistics</a>
                     </li>
                 </ul>
 
@@ -40,11 +40,11 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <img src="..\..\assets\images\avatar\avatar1.png" alt="" srcset="" class="avatar_navbar">
+                            <img src="../../../assets/images/avatar/avatar1.png" alt="" srcset="" class="avatar_navbar">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li class="d-flex p-3">
-                                <img src="..\..\assets\images\avatar\avatar1.png" alt="" srcset=""
+                                <img src="../../../assets/images/avatar/avatar1.png" alt="" srcset=""
                                     class="avatar_dropdown">
                                 <div class="acc_content px-3">
                                     <h5>Trần Thanh Trí</h5>
@@ -64,7 +64,7 @@
             <div class="col-md-3">
                 <h5 class="mb-2" style="padding-left: 15px;">Account Settings</h5>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item list-group-item-action list-group-item-light"><a
+                    <li class="list-group-item list-group-item-action list-group-item-light active_item"><a
                             href="#personal-info">Profile information</a></li>
                     <li class="list-group-item list-group-item-action list-group-item-light"><a
                             href="#shipping-address">Authenciation</a></li>
@@ -86,7 +86,7 @@
                     <div class="container">
                         <div class="row header">
                             <div class="col-md-2">
-                                <img src="..\..\assets\images\avatar\avatar1.png" alt="" srcset=""
+                                <img src="../../../assets/images/avatar/avatar1.png" alt="" srcset=""
                                     class="avatar_header">
                             </div>
                             <div class="col-md-10">
