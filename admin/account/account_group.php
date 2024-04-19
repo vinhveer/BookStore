@@ -154,7 +154,7 @@
                                             <td><?php echo $row_account_customer['password'] ?></td>
                                             <td>
                                             <a href="account_edit.php?user_id=<?php echo $row_account_customer['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
-                                                <button class="btn btn-sm btn-danger"><i class='bx bxs-trash bx-sm'></i>Delete</button>
+                                            <button type="button" class="btn btn-sm btn-danger me-2" data-postid="<?php echo $row_account_customer['user_id']; ?>&delete=1" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
                                                 <a href ="show.php?user_id=<?php echo $row_account_customer['user_id']; ?>&role_id=1" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                             </td>
                                         </tr>
@@ -223,7 +223,7 @@
                                         <td><?php echo $row_account_admin['password'] ?></td>
                                         <td>
                                         <a href="account_edit.php?user_id=<?php echo $row_account_admin['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
-                                            <button class="btn btn-sm btn-danger"><i class='bx bxs-trash bx-sm'></i>Delete</button>
+                                        <button type="button" class="btn btn-sm btn-danger me-2" data-postid="<?php echo $row_account_admin['user_id']; ?>&delete=1" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
                                             <a href ="show.php?user_id=<?php echo $row_account_admin['user_id']; ?>&role_id=2" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                         </td>
                                     </tr>
@@ -291,7 +291,7 @@
                                         <td><?php echo $row_account_manager['password'] ?></td>
                                         <td>
                                         <a href="account_edit.php?user_id=<?php echo $row_account_manager['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
-                                            <button class="btn btn-sm btn-danger"><i class='bx bxs-trash bx-sm'></i>Delete</button>
+                                        <button type="button" class="btn btn-sm btn-danger me-2" data-postid="<?php echo $row_account_manager['user_id']; ?>&delete=1" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
                                             <a href ="show.php?user_id=<?php echo $row_account_manager['user_id']; ?>&role_id=5" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                         </td>
                                     </tr>
@@ -361,7 +361,7 @@
                                         <td><?php echo $row_account_employee['password'] ?></td>
                                         <td>
                                         <a href="account_edit.php?user_id=<?php echo $row_account_employee['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
-                                            <button class="btn btn-sm btn-danger"><i class='bx bxs-trash bx-sm'></i>Delete</button>
+                                        <button type="button" class="btn btn-sm btn-danger me-2" data-postid="<?php echo $row_account_employee['user_id']; ?>&delete=1" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
                                             <a href ="show.php?user_id=<?php echo $row_account_employee['user_id']; ?>&role_id=4" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                         </td>
                                     </tr>
@@ -429,7 +429,7 @@
                                         <td><?php echo $row_account_warehouse['password'] ?></td>
                                         <td>
                                         <a href="account_edit.php?user_id=<?php echo $row_account_warehouse['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
-                                            <button class="btn btn-sm btn-danger"><i class='bx bxs-trash bx-sm'></i>Delete</button>
+                                        <button type="button" class="btn btn-sm btn-danger me-2" data-postid="<?php echo $row_account_warehouse['user_id']; ?>&delete=1" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
                                             <a href ="show.php?user_id=<?php echo $row_account_warehouse['user_id']; ?>&role_id=4" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                         </td>
                                     </tr>
@@ -443,10 +443,30 @@
     </div>
     </main>
     </div>
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteUserModalLabel">Xác nhận xóa tài khoản</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc chắn muốn xóa tài khoản này?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <form id="deletePostForm" action="" method="post">
+                        <button type="submit" class="btn btn-danger" name="delete_user">Xóa</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="index.js"></script>
-     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
     <script>
     $(document).ready(function(){
         // Lưu tab-pane hiện tại khi click vào tab
@@ -467,7 +487,18 @@
             localStorage.setItem('activeTab', tabId); // Lưu id của tab-pane vào localStorage
         });
     });
-
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteButtons = document.querySelectorAll('.btn.btn-sm.btn-danger.me-2');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const userId = this.getAttribute('data-postid');
+                    const form = document.querySelector('#deletePostForm');
+                    form.action = `process.php?user_id=${userId}`;
+                });
+            });
+        });
     </script>
 </body>
 </html>

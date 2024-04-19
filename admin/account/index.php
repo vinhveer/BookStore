@@ -133,7 +133,7 @@
                                     <td>
                                         <div class="action-buttons d-flex justify-content-start">
                                             <a href="account_edit.php?user_id=<?php echo $row_account['user_id']; ?>&edit=0" class="btn btn-sm btn-warning me-1"><i class='bx bx-sm bx-edit-alt me-1'></i>Edit</a>
-                                            <button class="btn btn-sm btn-danger me-1 deleteUserBtn" data-userId="<?php echo $row_account['user_id']; ?>"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
+                                            <button type="button" class="btn btn-sm btn-danger float-end me-2" data-postid="<?php echo $row_account['user_id']; ?>&delete=0" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
                                             <a href="show.php?user_id=<?php echo $row_account['user_id']; ?>&role_id=<?php echo $row_account['role_id'];?>" class="btn btn-info">
                                             <i class='bx bx-sm bx-show-alt me-1'></i></a>
                                         </div>
@@ -147,50 +147,41 @@
         </div>
     </main>
     </div>
-    <div style="z-index:99999" class="modal fade mt-5" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteUserModalLabel">Xác nhận xóa người dùng</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Bạn có chắc chắn muốn xóa người dùng này?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                <form id="deleteUserForm" action="" method="post">
-                    <button type="submit" class="btn btn-danger" id="confirmDeleteUser" name="confirmDeleteUser">Xóa</button>
-                </form>
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteUserModalLabel">Xác nhận xóa tài khoản</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc chắn muốn xóa tài khoản này?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <form id="deletePostForm" action="" method="post">
+                        <button type="submit" class="btn btn-danger" name="delete_user">Xóa</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-    </div>
     <script src="index.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Xác định nút "Xóa" trên bảng
-    const deleteButtons = document.querySelectorAll('.btn-danger');
-
-    // Lặp qua từng nút và thêm sự kiện click
-    deleteButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            // Lấy id của người dùng từ thuộc tính data-userId của nút "Xóa"
-            const userId = button.getAttribute('data-userId');
-
-            // Set action của form xóa để truyền userId
-            document.getElementById('deleteUserForm').action = 'delete_user.php?user_id=' + userId;
-
-            // Hiển thị modal xác nhận xóa
-            const deleteUserModal = new bootstrap.Modal(document.getElementById('deleteUserModal'));
-            deleteUserModal.show();
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteButtons = document.querySelectorAll('.btn.btn-sm.btn-danger.float-end.me-2');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const userId = this.getAttribute('data-postid');
+                    const form = document.querySelector('#deletePostForm');
+                    form.action = `process.php?user_id=${userId}`;
+                });
+            });
         });
-    });
-});
+    </script>
 </script>
 </body>
 </html>

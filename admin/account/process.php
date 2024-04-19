@@ -229,5 +229,13 @@
             if($edit == 1) header ('location: account_group.php' );
         }
     }
-
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_user"])) {
+        $user_id = $_GET['user_id'];
+        $sql_delete = "DELETE FROM users where user_id = $user_id";
+        $query = sqlsrv_query($connect, $sql_delete);
+        // sqlsrv_close($connect);
+        $delete = $_GET['delete'];
+            if($delete == 0) header ('location: index.php' );
+            if($delete == 1) header ('location: account_group.php' );
+    }
 ?>

@@ -26,6 +26,10 @@ session_start();
             text-align: center;
             color: red;
             margin-top: 10px;
+
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -121,9 +125,10 @@ session_start();
                             </div>
                         </div>
                     </div>
-                    <div class="alert alert-danger" role="alert">
-                    <p id="log"></p>
-                     </div>
+                    <div class="alert alert-danger <?= (!isset($_SESSION['username_exists']) || !$_SESSION['username_exists']) ?
+                    'hidden' : '' ?>" role="alert">
+                        <p id="log"></p>
+                    </div>
                     <hr class="my-4">
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary" name="sbm_account_add">Hoàn tất việc tạo tài khoản</button>
