@@ -71,7 +71,7 @@
     <main>
     <div class="header">
                 <div class="left ms-3">
-                    <h1>Order statistics</h1>
+                    <h1>Order</h1>
                     <ul class="breadcrumb">
                         <li><a href="../dashboard/index.php">Home</a></li>
                         <span class="syb">/</span>
@@ -95,52 +95,7 @@
                     </a>
                 </div>
             </div>
-    <div class="container-fluid mt-4">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Tổng quan</h5>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="card text-white bg-primary mb-3">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Số lượng đơn hàng</h5>
-                                        <p class="card-text">325</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card text-white bg-success mb-3">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Giá trị đơn hàng</h5>
-                                        <p class="card-text">825 triệu (20%)</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card text-white bg-warning mb-3">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Thực thu</h5>
-                                        <p class="card-text">480 triệu (20%)</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card text-white bg-danger mb-3">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Số còn phải thu</h5>
-                                        <p class="card-text">345 triệu (20%)</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <div class="container-fluid mt-4 mb-5">
         <div class="row">
@@ -244,7 +199,7 @@
         labels: ['Đã thanh toán', 'Chưa thanh toán', 'Đang giao hàng', 'Chưa giao hàng'],
         datasets: [{
             label: 'Thống kê đơn hàng',
-            data: [300, 35, 75, 100],
+            data: [3, 3, 5, 10],
             backgroundColor: [
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',
