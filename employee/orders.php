@@ -82,8 +82,10 @@
                     <div class="header">
                         <i class='bx bx-x-circle'></i>
                         <h3>Not accepted yet</h3>
-                        <input type="search" placeholder="Search ID...">
-                        <i class='bx bx-search'></i>
+                        <form action="">
+                            <input type="search" name="search1" placeholder="Search ID...">
+                            <button type="submit" name="submit1"><i class='bx bx-search'></i></button>
+                        </form>
                     </div>
                     <table>
                         <thead>
@@ -94,26 +96,40 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>ID</td>
-                                <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
+                        <?php
+                            // Kết nối CSDL
+                            $serverName = "TN";
+                            $connectionInfo = array("Database"=>"BookStore");
+                            $conn = sqlsrv_connect($serverName, $connectionInfo);
+
+                            // Kiểm tra kết nối
+                            if (!$conn) {
+                                echo "Kết nối đến CSDL thất bại: " . sqlsrv_errors();
+                            } else {
+                                // Kiểm tra xem có dữ liệu được gửi từ form không
+                                if(isset($_GET['submit1'])){
+                                    // Lấy giá trị từ ô tìm kiếm
+                                    $order_id = $_GET['search1'] ?? null;
+                                    $sql = "SELECT * FROM FindOrderO(?)";
+                                    $params = array($order_id);
+                                    $result = sqlsrv_query($conn, $sql, $params);
+                                    // Kiểm tra và hiển thị kết quả
+                                    if ($result === false) {
+                                        echo "Lỗi truy vấn: " . sqlsrv_errors();
+                                    } else {
+                                        while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+                                            echo "<tr>";
+                                            echo "<td>" . $row['order_id'] . "</td>";
+                                            echo "<td>" . $row['first_name'] . "</td>";
+                                            echo "<td><a href='orders_detail.php'>Click to see</a></td>";
+                                            echo "</tr>";
+                                        }
+                                    }
+                                }
+                                sqlsrv_close($conn);
+                            }
+                            ?>
+                        
                         </tbody>
                     </table>
                 </div>
@@ -122,8 +138,10 @@
                     <div class="header">
                         <i class='bx bx-notepad'></i>
                         <h3>Have accepted</h3>
-                        <input type="search" placeholder="Search ID...">
-                        <i class='bx bx-search'></i>
+                        <form action="">
+                            <input type="search" name="search2" placeholder="Search ID...">
+                            <button type="submit" name="submit2"><i class='bx bx-search'></i></button>
+                        </form>
                     </div>
                     <table>
                         <thead>
@@ -134,26 +152,40 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>ID</td>
-                                <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>name</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
+                        <?php
+                            // Kết nối CSDL
+                            $serverName = "TN";
+                            $connectionInfo = array("Database"=>"BookStore");
+                            $conn = sqlsrv_connect($serverName, $connectionInfo);
+
+                            // Kiểm tra kết nối
+                            if (!$conn) {
+                                echo "Kết nối đến CSDL thất bại: " . sqlsrv_errors();
+                            } else {
+                                // Kiểm tra xem có dữ liệu được gửi từ form không
+                                if(isset($_GET['submit2'])){
+                                    // Lấy giá trị từ ô tìm kiếm
+                                    $order_id = $_GET['search2'] ?? null;
+                                    $sql = "SELECT * FROM FindOrderOO(?)";
+                                    $params = array($order_id);
+                                    $result = sqlsrv_query($conn, $sql, $params);
+                                    // Kiểm tra và hiển thị kết quả
+                                    if ($result === false) {
+                                        echo "Lỗi truy vấn: " . sqlsrv_errors();
+                                    } else {
+                                        while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+                                            echo "<tr>";
+                                            echo "<td>" . $row['order_id'] . "</td>";
+                                            echo "<td>" . $row['first_name'] . "</td>";
+                                            echo "<td><a href='orders_detail.php'>Click to see</a></td>";
+                                            echo "</tr>";
+                                        }
+                                    }
+                                }
+                                sqlsrv_close($conn);
+                            }
+                            ?>
+                        
                         </tbody>
                     </table>
                 </div>

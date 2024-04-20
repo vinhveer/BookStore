@@ -82,8 +82,10 @@
                     <div class="header">
                         <i class='bx bx-receipt'></i>
                         <h3>Product</h3>
-                        <input type="search" placeholder="Search ID...">
-                        <i class='bx bx-search'></i>
+                        <form action="">
+                            <input type="search" name="search" placeholder="Search ID...">
+                            <button type="submit" name="submit"><i class='bx bx-search'></i></button>
+                        </form>
                     </div>
                     <table>
                         <thead>
@@ -96,15 +98,29 @@
                         <tbody>
                             <?php
                             // Kết nối CSDL
-                            $serverName = "TN";
-                            $connectionInfo = array("Database"=>"BookStore");
-                            $conn = sqlsrv_connect($serverName, $connectionInfo);
+                        $serverName = "TN";
+                        $connectionInfo = array("Database"=>"BookStore");
+                        $conn = sqlsrv_connect($serverName, $connectionInfo);
 
-                            // Kiểm tra kết nối
-                            if (!$conn) {
-                                echo "Kết nối đến CSDL thất bại: " . sqlsrv_errors();
+                        // Kiểm tra kết nối
+                        if (!$conn) {
+                            echo "Kết nối đến CSDL thất bại: " . sqlsrv_errors();
+                        } else {
+                            // Xử lý tìm kiếm
+                            if (isset($_GET['search']) && !empty($_GET['search'])) {
+                                $search_id = $_GET['search'];
+                                $sql = "SELECT p.product_id, p.product_price, 
+                                            CASE 
+                                                WHEN b.book_name IS NOT NULL THEN b.book_name 
+                                                ELSE op.others_product_name 
+                                            END AS product_name
+                                        FROM products p
+                                        LEFT JOIN books b ON p.product_id = b.product_id
+                                        LEFT JOIN others_products op ON p.product_id = op.product_id
+                                        WHERE p.product_id = ?";
+                                $params = array($search_id);
                             } else {
-                                // Thực hiện câu truy vấn
+                                // Mặc định hiển thị tất cả sản phẩm
                                 $sql = "SELECT p.product_id, p.product_price, 
                                             CASE 
                                                 WHEN b.book_name IS NOT NULL THEN b.book_name 
@@ -113,21 +129,25 @@
                                         FROM products p
                                         LEFT JOIN books b ON p.product_id = b.product_id
                                         LEFT JOIN others_products op ON p.product_id = op.product_id";
-                                $result = sqlsrv_query($conn, $sql);
+                                $params = array();
+                            }
 
-                                // Kiểm tra và hiển thị kết quả
-                                if ($result === false) {
-                                    echo "Lỗi truy vấn: " . sqlsrv_errors();
-                                } else {
-                                    while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-                                        echo "<tr>";
-                                        echo "<td>" . $row['product_id'] . "</td>";
-                                        echo "<td>" . $row['product_name'] . "</td>";
-                                        echo "<td>" . $row['product_price'] . "</td>";
-                                        echo "</tr>";
-                                    }
+                            // Thực hiện câu truy vấn
+                            $stmt = sqlsrv_query($conn, $sql, $params);
+
+                            // Kiểm tra và hiển thị kết quả
+                            if ($stmt === false) {
+                                echo "Lỗi truy vấn: " . sqlsrv_errors();
+                            } else {
+                                while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                    echo "<tr>";
+                                    echo "<td>" . $row['product_id'] . "</td>";
+                                    echo "<td>" . $row['product_name'] . "</td>";
+                                    echo "<td>" . $row['product_price'] . "</td>";
+                                    echo "</tr>";
                                 }
                             }
+                        }
                             ?>
                         </tbody>
                     </table>
@@ -181,6 +201,7 @@
     <script src="user.js"></script>
 </body>
 </html>
+
 
 
 

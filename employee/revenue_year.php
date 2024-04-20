@@ -83,13 +83,12 @@
                         <i class='bx bxs-component'></i>
                         <h3>Revenue</h3>
                         <div class="dropdown">
-                            <button class="dropbtn">By Year</button>
+                            <button class="dropbtn">By Year<i class='bx bx-calendar'></i></button>
                             <div class="dropdown-content">
                                 <a href="revenue.php">By Date</a>
                                 <a href="revenue_month.php">By Month</a>
                             </div>
                         </div> 
-                        <i class='bx bx-calendar'></i>
                     </div>
                     <table>
                         <thead>
@@ -97,28 +96,68 @@
                                 <th>Year</th>
                                 <th>Order total</th>
                                 <th>Total amount</th>
-                                <th>Details</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>null</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
-                            <tr>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>null</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
-                            <tr>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>null</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
-                            </tr>
+                            <?php
+                            // Kết nối đến cơ sở dữ liệu
+                            $serverName = "TN";
+                            $connectionInfo = array("Database"=>"BookStore");
+                            $conn = sqlsrv_connect($serverName, $connectionInfo);
+
+                            // Kiểm tra kết nối
+                            if (!$conn) {
+                                echo "Kết nối đến CSDL thất bại: " . sqlsrv_errors();
+                            } else {
+                                // Chuẩn bị câu truy vấn SQL
+                                $sql = "SELECT 
+                                            YEAR(Ngay) AS Year,
+                                            SUM(TongSoHoaDon) AS TongSoHoaDon,
+                                            SUM(ThuNhap) AS TongThuNhap
+                                        FROM (
+                                            SELECT 
+                                                order_date_off AS Ngay,
+                                                COUNT(*) AS TongSoHoaDon,
+                                                SUM(total_amount_off) AS ThuNhap
+                                            FROM 
+                                                orders_offline
+                                            GROUP BY 
+                                                YEAR(order_date_off), order_date_off
+
+                                            UNION ALL
+
+                                            SELECT 
+                                                order_date_on AS Ngay,
+                                                COUNT(*) AS TongSoHoaDon,
+                                                SUM(total_amount_on) AS ThuNhap
+                                            FROM 
+                                                orders_online
+                                            WHERE 
+                                                delivery_status = 'Delivered' 
+                                            GROUP BY 
+                                                YEAR(order_date_on), order_date_on
+                                        ) AS T
+                                        GROUP BY 
+                                            YEAR(Ngay)";
+
+                                // Thực hiện truy vấn và lặp qua kết quả
+                                $result = sqlsrv_query($conn, $sql);
+                                if ($result === false) {
+                                    echo "Lỗi truy vấn: " . sqlsrv_errors();
+                                } else {
+                                    while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+                                        echo "<tr>";
+                                        echo "<td>" . $row["Year"] . "</td>";
+                                        echo "<td>" . $row["TongSoHoaDon"] . "</td>";
+                                        echo "<td>" . $row["TongThuNhap"] . "</td>";
+                                        echo "</tr>";
+                                    }
+                                }
+                            }
+
+                            // Đóng kết nối
+                            sqlsrv_close($conn);
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -128,7 +167,3 @@
     <script src="user.js"></script>
 </body>
 </html>
-
-
-
-
