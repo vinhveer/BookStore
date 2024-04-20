@@ -83,13 +83,12 @@
                         <i class='bx bxs-component'></i>
                         <h3>Revenue</h3>
                         <div class="dropdown">
-                            <button class="dropbtn">By Month</button>
+                            <button class="dropbtn">By Month<i class='bx bx-calendar'></i></button>
                             <div class="dropdown-content">
                                 <a href="revenue.php">By Date</a>
                                 <a href="revenue_year.php">By Year</a>
                             </div>
                         </div> 
-                        <i class='bx bx-calendar'></i>
                     </div>
                     <table>
                         <thead>
@@ -97,7 +96,6 @@
                                 <th>Month</th>
                                 <th>Order total</th>
                                 <th>Total amount</th>
-                                <th>Details</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -105,19 +103,16 @@
                                 <td>null</td>
                                 <td>null</td>
                                 <td>null</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
                             </tr>
                             <tr>
                                 <td>null</td>
                                 <td>null</td>
                                 <td>null</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
                             </tr>
                             <tr>
                                 <td>null</td>
                                 <td>null</td>
                                 <td>null</td>
-                                <td><a href="orders_detail.php">Click to see</a></td>
                             </tr>
                         </tbody>
                     </table>

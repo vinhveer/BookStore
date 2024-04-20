@@ -467,21 +467,30 @@ body{
 }
 
 .content main .bottom-data .orders table th{
-    padding-bottom: 12px;
+    padding-bottom: 20px;
     font-size: 13px;
     text-align: left;
     border-bottom: 1px solid var(--grey);
+    width: 100px;
 }
 
 .content main .bottom-data .orders table td{
-    padding: 16px 0;
+    padding-left: 0px;
+    width: 300px;
 }
 
 .content main .bottom-data .orders table tr td:first-child{
     display: flex;
     align-items: center;
     grid-gap: 12px;
-    padding-left: 6px;
+    padding-left: 0px;
+    width: 150px;
+}
+
+.content main .bottom-data .orders table th:nth-child(3),
+.content main .bottom-data .orders table td:nth-child(3) {
+    width: 200px; 
+    text-align: right;
 }
 
 .content main .bottom-data .orders table td img{
@@ -685,7 +694,7 @@ body{
 .dropdown {
     position: relative;
     display: inline-block;
-    margin-right: -20px;
+    margin-right: 60px;
 }
 
 .dropbtn {
@@ -700,6 +709,9 @@ body{
     align-items: center;
 }
 
+.dropdown button i{
+    padding-left: 10px;
+}
 .dropdown-content {
     display: none;
     position: absolute;
@@ -722,5 +734,22 @@ body{
 
 .dropdown:hover .dropdown-content {
     display: block;
+}
+.orders button {
+    background-color: var(--primary); 
+    color: var(--light); 
+    border: none; 
+    border-radius: 5px;
+    padding: 5px 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease;
+}
+
+.orders button:hover {
+    background-color: var(--light-primary); 
+}
+
+.orders input{
+    padding: 6px;
 }
 

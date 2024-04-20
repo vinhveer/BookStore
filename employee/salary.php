@@ -90,8 +90,6 @@
                             <tr>
                                 <th>Employee ID</th>
                                 <th>Payment Date</th>
-                                <th>Base salary</th>
-                                <th>Salary coefficient</th>
                                 <th>Salary</th>
                             </tr>
                         </thead>
@@ -107,7 +105,7 @@
                                     echo "Kết nối đến CSDL thất bại: " . sqlsrv_errors();
                                 } else {
                                     // Thực hiện truy vấn lấy dữ liệu lương từ cơ sở dữ liệu
-                                    $sql = "SELECT es.employee_id, es.salary_date, es.salary_base, sc.salary_coefficient_value, (es.salary_base * sc.salary_coefficient_value) AS salary
+                                    $sql = "SELECT es.employee_id, es.salary_date, (es.salary_base * sc.salary_coefficient_value) AS salary
                                             FROM salary_coefficient sc
                                             INNER JOIN employee_salary es ON sc.salary_coefficient_id = es.salary_coefficient_id";
                                     $result = sqlsrv_query($conn, $sql);
@@ -120,8 +118,6 @@
                                             echo "<tr>";
                                             echo "<td>" . $row['employee_id'] . "</td>";
                                             echo "<td>" . $row['salary_date']->format('Y-m-d') . "</td>";
-                                            echo "<td>" . $row['salary_base'] . "</td>";
-                                            echo "<td>" . $row['salary_coefficient_value'] . "</td>";
                                             echo "<td>" . $row['salary'] . "</td>";
                                             echo "</tr>";
                                         }
