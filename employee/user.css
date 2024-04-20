@@ -476,13 +476,10 @@ body{
 
 .content main .bottom-data .orders table td{
     padding-left: 0px;
-    width: 300px;
+    width: 700px;
 }
 
 .content main .bottom-data .orders table tr td:first-child{
-    display: flex;
-    align-items: center;
-    grid-gap: 12px;
     padding-left: 0px;
     width: 150px;
 }
