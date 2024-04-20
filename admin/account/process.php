@@ -187,8 +187,6 @@
         $address = $_POST['address'];
         $phone = $_POST['phone'];
         $email = $_POST['email'];
-        $username = $_POST['username'];
-        $password = $_POST['password'];
         if(isset($_FILES['image_user']) && $_FILES['image_user']['error'] === UPLOAD_ERR_OK) {
             $image_user_tmp = $_FILES['image_user']['tmp_name'];
             $image_user = "assets/images/avatar/".$_FILES['image_user']['name'];
@@ -214,19 +212,13 @@
             phone = '$phone',
             email = '$email',
             image_user = '$image'
-        WHERE user_id = $user_id;
-
-        UPDATE user_accounts
-        SET username = '$username',
-            password = '$password'
-        WHERE user_role_id IN (SELECT user_role_id FROM user_roles WHERE user_id = $user_id);";
+        WHERE user_id = $user_id;";
         $query_update_user = sqlsrv_query($connect, $sql_edit_user);
         if ($query_update_user === false) {
             die( print_r( sqlsrv_errors(), true));
         } else {
-            $edit = $_GET['edit'];
-            if($edit == 0) header ('location: index.php' );
-            if($edit == 1) header ('location: account_group.php' );
+            $show = $_GET['show'];
+            header ("location: show.php?user_id=$user_id&show=$show");
         }
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_user"])) {
@@ -235,8 +227,9 @@
         $query = sqlsrv_query($connect, $sql_delete);
         // sqlsrv_close($connect);
         $delete = $_GET['delete'];
-            if($delete == 0) header ('location: index.php' );
-            if($delete == 1) header ('location: account_group.php' );
+            if ($delete == 1) header ('location: account_group.php');
+            else if($delete == 2) header ('location: ../setting_up/setting_confi.php');
+            else  header ('location: index.php');
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["sbm_role"])) {
@@ -249,6 +242,24 @@
             die( print_r( sqlsrv_errors(), true));
         }else{
             header ("location: show.php?user_id=$user_id&show=$show");
+        }
+    }
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["sbm_account_edit"])) {
+        $user_id = $_GET['user_id'];
+        $edit = $_GET['edit'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $sql_upadte_account = "UPDATE user_accounts
+        SET username = '$username',
+            password = '$password'
+        WHERE user_role_id IN (SELECT user_role_id FROM user_roles WHERE user_id = $user_id);";
+        $result_update_account = sqlsrv_query($connect, $sql_upadte_account);
+        if ($result_update_account === false) {
+            die( print_r( sqlsrv_errors(), true));
+        }else{
+            if($edit == 0) header ("location: index.php");
+            else if($edit==1) header ("location: account_group.php");
+            else header ("location: ../setting_up/setting_confi.php.php");
         }
     }
 ?>

@@ -33,7 +33,6 @@
         </a>
         <ul class="side-menu">
         <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
-            <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
             <li><a href="../order/index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
             <li class="active"><a href="index.php"><i class='bx bx-group'></i>Users</a></li>
@@ -151,7 +150,7 @@
                                             <td><?php echo $row_account_customer['email'] ?></td>
                                             <td><?php echo $row_account_customer['password'] ?></td>
                                             <td>
-                                            <a href="account_edit.php?user_id=<?php echo $row_account_customer['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
+                                            <a href="account_user_edit.php?user_id=<?php echo $row_account_customer['user_id'];?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
                                             <button type="button" class="btn btn-sm btn-danger me-2" data-postid="<?php echo $row_account_customer['user_id']; ?>&delete=1" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
                                                 <a href ="show.php?user_id=<?php echo $row_account_customer['user_id']; ?>&role_id=1&show=1" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                             </td>
@@ -220,7 +219,7 @@
                                         <td><?php echo $row_account_admin['email'] ?></td>
                                         <td><?php echo $row_account_admin['password'] ?></td>
                                         <td>
-                                        <a href="account_edit.php?user_id=<?php echo $row_account_admin['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
+                                        <a href="account_user_edit.php?user_id=<?php echo $row_account_admin['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
                                         <button type="button" class="btn btn-sm btn-danger me-2" data-postid="<?php echo $row_account_admin['user_id']; ?>&delete=1" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
                                         <a href ="show.php?user_id=<?php echo $row_account_admin['user_id']; ?>&role_id=2&show=1" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                         </td>
@@ -288,7 +287,7 @@
                                         <td><?php echo $row_account_manager['email'] ?></td>
                                         <td><?php echo $row_account_manager['password'] ?></td>
                                         <td>
-                                        <a href="account_edit.php?user_id=<?php echo $row_account_manager['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
+                                        <a href="account_user_edit.php?user_id=<?php echo $row_account_manager['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
                                         <button type="button" class="btn btn-sm btn-danger me-2" data-postid="<?php echo $row_account_manager['user_id']; ?>&delete=1" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
                                             <a href ="show.php?user_id=<?php echo $row_account_manager['user_id']; ?>&role_id=5&show=1" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                         </td>
@@ -358,7 +357,7 @@
                                         <td><?php echo $row_account_employee['email'] ?></td>
                                         <td><?php echo $row_account_employee['password'] ?></td>
                                         <td>
-                                        <a href="account_edit.php?user_id=<?php echo $row_account_employee['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
+                                        <a href="account_user_edit.php?user_id=<?php echo $row_account_employee['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
                                         <button type="button" class="btn btn-sm btn-danger me-2" data-postid="<?php echo $row_account_employee['user_id']; ?>&delete=1" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
                                             <a href ="show.php?user_id=<?php echo $row_account_employee['user_id']; ?>&role_id=4&show=1" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                         </td>
@@ -426,7 +425,7 @@
                                         <td><?php echo $row_account_warehouse['email'] ?></td>
                                         <td><?php echo $row_account_warehouse['password'] ?></td>
                                         <td>
-                                        <a href="account_edit.php?user_id=<?php echo $row_account_warehouse['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
+                                        <a href="account_user_edit.php?user_id=<?php echo $row_account_warehouse['user_id']; ?>&edit=1" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
                                         <button type="button" class="btn btn-sm btn-danger me-2" data-postid="<?php echo $row_account_warehouse['user_id']; ?>&delete=1" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
                                             <a href ="show.php?user_id=<?php echo $row_account_warehouse['user_id']; ?>&role_id=4&show=1" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i>Show</a>
                                         </td>

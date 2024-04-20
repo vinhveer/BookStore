@@ -30,7 +30,6 @@
         </a>
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
-            <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
             <li><a href="../order/index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
             <li><a href="../account/index.php"><i class='bx bx-group'></i>Users</a></li>
@@ -69,7 +68,7 @@
         </nav>
 
     <main>
-    <div class="header">
+    <div class="header ms-3">
                 <div class="left">
                     <h1>Setting</h1>
                     <ul class="breadcrumb">
@@ -78,8 +77,6 @@
                         <li><a href="../account/index.php">Users</a></li>
                         <span class="syb">/</span>
                         <li><a href="index.php" class="active">Setting</a></li>
-                        <span class="syb">/</span>
-                        <li><a href="#">Shop</a></li>
                         <span class="syb">/</span>
                         <li><a href="../order/index.php">Orders</a></li>
                     </ul>
@@ -101,8 +98,8 @@
                                 <a href="setting_confi.php" class="nav-link">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h5 class="card-title"><i class="fas fa-cogs me-1"></i>Cấu hình chung </h5>
-                                            <p>Xem và chỉnh sửa thông tin website cửa hàng của bạn</p>
+                                            <h5 class="card-title"><i class="fas fa-cogs me-1"></i>Cấu hình tài khoản admin </h5>
+                                            <p>Xem và chỉnh sửa thông tin tài khoản admin</p>
                                         </div>
                                     </div>
                                 </a>
@@ -120,16 +117,6 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-md-6">
-                                <a href="setting_transport.php" class="nav-link">
-                                    <div class="card">
-                                        <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-shipping-fast me-1"></i>Vận chuyển</h5>
-                                            <p>Quản lý phương thức vận chuyển đơn hàng</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-6">
                                 <a href="setting_notification.php" class="nav-link">
                                     <div class="card">
                                         <div class="card-body">
@@ -139,24 +126,12 @@
                                     </div>
                                 </a>
                             </div>
-                        </div>
-                        <div class="row mt-2">
                             <div class="col-md-6">
                                 <a href="setting_support.php" class="nav-link">
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title"><i class="fas fa-tools me-1"> </i>Hỗ trợ kĩ thuật</h5>
                                             <p>Hỗ trợ trao đổi thông tin khách hàng</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-6">
-                                <a href="setting_address.php" class="nav-link">
-                                    <div class="card">
-                                        <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-map-marker-alt me-1"></i>Địa chỉ cửa hàng</h5>
-                                            <p>Quản lý thông tin địa chỉ cửa hàng</p>
                                         </div>
                                     </div>
                                 </a>

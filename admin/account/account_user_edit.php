@@ -1,5 +1,13 @@
 <?php
-session_start();
+    include_once '../../import/connect.php';
+    $edit = $_GET['edit'];
+    $user_id = $_GET['user_id'];
+    $sql_user_edit = "SELECT ua.password, ua.username
+    FROM user_roles ur
+	INNER JOIN user_accounts ua on ua.user_role_id = ur.user_role_id
+    where ur.user_id=$user_id";
+    $result_user_edit = sqlsrv_query($connect, $sql_user_edit);
+    $row_user_edit = sqlsrv_fetch_array($result_user_edit,SQLSRV_FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,16 +90,17 @@ session_start();
 
         <main>
             <div class="container mt-5">
-                <h3>Thông tin tài khoản</h3>
+            <h3><a style="color:black;" href="<?php if($edit==1) echo'account_group.php'; else if($edit==0) echo'index.php';
+            else echo'../setting_up/setting_confi.php';?>"><i class='bx bxs-chevrons-left me-3' ></i></a>Thông tin tài khoản</h3>
                 <p class="info">Hoàn thành các thông tin sau:</p>
                 <hr class="my-4">
-                <form id="accountInfoForm" action="process.php?role_value=<?php echo isset($_GET['role'])?$_GET['role']:""; ?>" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
+                <form id="accountInfoForm" action="process.php?user_id=<?php echo $user_id;?>&edit=<?php echo $edit;?>" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="username" class="form-label">Tên tài khoản</label>
                             <div class="input-group">
                                 <span class="input-group-text">@</span>
-                                <input type="text" class="form-control" id="username" name="username" pattern="[a-zA-Z0-9_]+" title="Tên tài khoản không hợp lệ. Chỉ chấp nhận chữ, số và gạch dưới." required>
+                                <input type="text" class="form-control" id="username" name="username" pattern="[a-zA-Z0-9_]+" title="Tên tài khoản không hợp lệ. Chỉ chấp nhận chữ, số và gạch dưới." required value="<?php echo $row_user_edit['username'] ?>">
                                 <div class="invalid-feedback">
                                     Tên tài khoản không hợp lệ. Chỉ chấp nhận chữ, số và gạch dưới.
                                 </div>
@@ -102,7 +111,7 @@ session_start();
                         <div class="col-md-6">
                             <label for="password" class="form-label">Mật khẩu</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="password" name="password" required>
+                                <input type="password" class="form-control" id="password" name="password" required value="<?php echo $row_user_edit['password'];?>">
                                 <span class="input-group-text" id="password-toggle"><i class="bx bxs-hide"></i></span>
                                 <div class="invalid-feedback">
                                     Mật khẩu không được trống.
@@ -114,7 +123,7 @@ session_start();
                         <div class="col-md-6">
                             <label for="confirm_password" class="form-label">Xác nhận mật khẩu</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required value="<?php echo $row_user_edit['password'] ?>">
                                 <span class="input-group-text" id="confirm-password-toggle"><i class="bx bxs-hide"></i></span>
                                 <div class="invalid-feedback">
                                     Vui lòng xác nhận mật khẩu.
@@ -128,7 +137,7 @@ session_start();
                     </div>
                     <hr class="my-4">
                     <div class="text-end">
-                        <button type="submit" class="btn btn-primary" name="sbm_account_add">Hoàn tất việc tạo tài khoản</button>
+                        <button type="submit" class="btn btn-primary" name="sbm_account_edit">Hoàn tất việc tạo tài khoản</button>
                     </div>
                 </form>
             </div>
@@ -175,7 +184,8 @@ session_start();
                 if (passwordInput.value !== confirmPasswordInput.value) {
                     confirmPasswordInput.setCustomValidity("Mật khẩu không khớp.");
                     var confirmPasswordFeedback = confirmPasswordInput.nextElementSibling;
-                    confirmPasswordFeedback.textContent = "Mật khẩu không khớp."
+                    confirmPasswordFeedback.textContent = "Mật khẩu không khớp!."
+                    confirmPasswordFeedback.style.color = "red";
                     event.preventDefault(); // Ngăn chặn gửi form nếu mật khẩu không khớp
                 } else {
                     confirmPasswordInput.setCustomValidity('');

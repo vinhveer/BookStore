@@ -1,3 +1,6 @@
+<?php
+    include_once '../../import/connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,25 +10,16 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
-    <title>Home Admin</title>
+    <title>Amazon Warehouse</title>
     <style>
-        .action-buttons .btn.btn-info  {
+        .action-buttons .btn.btn-info,.btn.btn-primary{
             display: flex;
             align-items: center;
         }
-        h3,h5,.pet,hr,.bxs-chevrons-left{
+        h3{
             color: var(--dark);
-        }
-        .form-group {
-            margin-bottom: 30px;
-        }
-        .form-group label {
-            font-weight: bold;
-        }
-        .hidden {
-            display: none;
         }
     </style>
 </head>
@@ -39,7 +33,6 @@
         </a>
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
-            <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
             <li><a href="../order/index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
             <li><a href="../account/index.php"><i class='bx bx-group'></i>Users</a></li>
@@ -77,185 +70,88 @@
             </a>
         </nav>
         <main>
-        <div class="container mt-4 mb-4">
-        <div class="row">
-            <div class="col-md-6">
-                <h3><a style="color:black;" href="index.php"><i class='bx bxs-chevrons-left me-3' ></i></a>Cấu hình chung</h3>
+        <div class="container mt-3 mb-3">
+            <h3><a style="color:black;" href="index.php"><i class='bx bxs-chevrons-left me-3' ></i></a>Quản trị hệ thống</h3>
+                <div class="row mb-3">
+                    <div class="text-right">
+                        <a  href ="../account/account_group_add.php?role_id=2" class="btn btn-primary float-end"><i class='bx bx-plus-circle bx-sm' ></i>Thêm tài khoản mới</a>
+                    </div>
+                </div>
+                <?php
+                    $sql_account_admin = "EXEC GetUserInformation_admin";
+                    $result_account_admin = sqlsrv_query($connect, $sql_account_admin);
+                ?>
+                   <div class="card">
+                        <div class="card-body">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Tên người dùng</th>
+                                        <th scope="col">Tên tài khoản</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Password</th>
+                                        <th scope="col">Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $i = 0;
+                                while ($row_account_admin = sqlsrv_fetch_array($result_account_admin)) {?>
+                                    <tr>
+                                        <td scope="row"><?php $i++; echo $i ?></td>
+                                        <td><?php echo $row_account_admin['full_name'] ?></td>
+                                        <td><?php echo $row_account_admin['username'] ?></td>
+                                        <td><?php echo $row_account_admin['email'] ?></td>
+                                        <td><?php echo $row_account_admin['password'] ?></td>
+                                        <td>
+                                        <a href="../account/account_user_edit.php?user_id=<?php echo $row_account_admin['user_id']; ?>&edit=3" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
+                                        <button type="button" class="btn btn-sm btn-danger me-2" data-postid="<?php echo $row_account_admin['user_id']; ?>&delete=2" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
+                                    </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                   </div>
+                </div>
+        </div>
+    </main>
+    </div>
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteUserModalLabel">Xác nhận xóa tài khoản</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc chắn muốn xóa tài khoản này?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <form id="deletePostForm" action="" method="post">
+                        <button type="submit" class="btn btn-danger" name="delete_user">Xóa</button>
+                    </form>
+                </div>
             </div>
         </div>
-            <hr>
-        </div>
-        <form class="mb-4">
-            <div class="container mt-2">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h5>Thông tin website</h5>
-                        <p class="pet">Thông tin được sử dụng để Bizweb và khách hàng liên hệ đến bạn.</p>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="websiteName">Tên website</label>
-                                        <input type="text" class="form-control" id="websiteName" value="Coffee Cake">
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="homeTitle">Tiêu đề trang chủ</label>
-                                                <input type="text" class="form-control" id="homeTitle" value="Coffee Cake">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="logoTitle">Logo website</label>
-                                                <input type="file" class="form-control" id="logoTitle">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="homeDescription">Mô tả trang chủ</label>
-                                        <textarea class="form-control" id="homeDescription" rows="3">Coffee Cake là địa điểm yêu thích của các bạn trẻ hiện đại với bánh ngọt và cafe ngon trứ danh.</textarea>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label for="adminEmail">Email quản trị</label>
-                                            <input type="email" class="form-control" id="adminEmail" value="cskh@dkt.com.vn">
-                                            <p><em>Email được sử dụng cho Bizweb liên lạc với bạn.</em></p>
-
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="notificationEmail">Email gửi thông báo</label>
-                                            <input type="email" class="form-control" id="notificationEmail" value="cskh@dkt.com.vn">
-                                            <p><em>Email sử dụng để gửi thông báo và nhận liên hệ từ các khách hàng của bạn.</em></p>
-                                        </div>
-                                    </div>
-                            </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container mt-3">
-                <hr>
-                <div class="row">
-                    <div class="col-md-4">
-                        <h5>Thông tin liên hệ</h5>
-                        <p class="pet">Thông tin được sử dụng trong thông báo về đơn hàng và địa chỉ để liên hệ đến cửa hàng.</p>
-                    </div>
-                    <div class="col-md-8">
-                    <div class="card">
-                            <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="websiteName">Tên kinh doanh</label>
-                                        <input type="text" class="form-control" id="websiteName" value="Coffee Cake">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="homeTitle">Điện thoại</label>
-                                        <input type="number" class="form-control" id="homeTitle" value="0929272622">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="homeDescription">Địa chỉ</label>
-                                        <textarea class="form-control" id="homeDescription" rows="3">Đường 23, Hai BÀ Trưng, Vĩnh Phước, Hà Nội, Việt Nam.</textarea>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label for="country">Quốc gia</label>
-                                            <select class="form-control" id="city">
-                                                <option value="" disabled selected>Chọn Quốc Gia</option>
-                                                <option value="">Việt Nam</option>
-                                                <option value="">Trung Quốc</option>
-                                                <option value="">Thái Lan</option>
-                                                <option value="">Hoa Kỳ</option>
-                                                <option value="">Anh</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="city">Tỉnh / Thành phố</label>
-                                            <select class="form-control" id="city">
-                                            <option value="" disabled selected>Chọn Tỉnh/Thành Phố</option>
-                                            <option>Hà Nội</option>a
-                                            <option>NewYork</option>a
-                                            <option>Hồ Chí Minh</option>a
-                                            <option>Nha Trang</option>a
-                                            </select>
-                                        </div>
-                                    </div>
-                            </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container mt-3">
-                <hr>
-                <div class="row">
-                    <div class="col-md-4">
-                        <h5>Ẩn sản phẩm khi hết hàng</h5>
-                        <p class="pet">Khi bật chế độ này, các sản phẩm hết hàng sẽ không được hiển thị ở các trang danh sách sản phẩm.</p>
-                    </div>
-                    <div class="col-md-8">
-                    <div class="card">
-                            <div class="card-body">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="hideOutOfStock">
-                                    <label class="custom-control-label" for="hideOutOfStock">Ẩn sản phẩm hết hàng</label>
-                                </div>
-                            </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container mt-3">
-                <hr>
-                <div class="row">
-                    <div class="col-md-4">
-                        <h5>Trạng thái Website</h5>
-                        <p class="pet">Khi bật chế độ hiển thị nâng cấp, khách hàng sẽ thấy website của bạn đang ở trạng thái bảo trì. Nhập mật khẩu để truy cập được vào website.</p>
-                    </div>
-                    <div class="col-md-8">
-                    <div class="card">
-                            <div class="card-body">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="upgradeMode" onchange="toggleUpgradeForm()">
-                                    <label class="custom-control-label" for="upgradeMode">Bật chế độ hiển thị nâng cấp</label>
-                                </div>
-                                <!-- Hidden upgrade form -->
-                                <div id="upgradeForm" class="form-group hidden mt-2">
-                                    <label for="password">Mật khẩu truy cập</label>
-                                    <input type="password" class="form-control" id="password" value="123456Q">
-                                    <div class="form-group">
-                                        <label for="homeDescription">Thông tin truy cập website</label>
-                                        <textarea class="form-control" id="homeDescription" rows="3">Website của ShopMen đang trong quá trình chỉnh sửa.Xin quý khách vui lòng quay lại vào 2 ngày tới!</textarea>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Your existing HTML content here -->
-            <div class="container mt-3">
-                <hr>
-                <div class="row">
-                    <div class="col-md-12 mb-3">
-                        <button type="submit" class="btn btn-primary float-end">Lưu</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-        </main>
-        </div>
+    </div>
     <script src="index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
     <script>
-        function toggleUpgradeForm() {
-            var upgradeForm = document.getElementById("upgradeForm");
-            var upgradeCheckbox = document.getElementById("upgradeMode");
-
-            if (upgradeCheckbox.checked) {
-                upgradeForm.classList.remove("hidden");
-            } else {
-                upgradeForm.classList.add("hidden");
-            }
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteButtons = document.querySelectorAll('.btn.btn-sm.btn-danger.me-2');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const userId = this.getAttribute('data-postid');
+                    const form = document.querySelector('#deletePostForm');
+                    form.action = `../account/process.php?user_id=${userId}`;
+                });
+            });
+        });
     </script>
 </body>
 </html>

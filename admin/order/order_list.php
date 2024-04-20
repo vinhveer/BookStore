@@ -1,3 +1,12 @@
+<?php
+    include_once '../../import/connect.php';
+    $sql_order = "SELECT oo.order_id, oo.order_date_on, CONCAT(u.first_name, ' ', u.last_name) AS full_name, oo.status_on
+    FROM orders_online AS oo
+    JOIN customers AS c ON oo.customer_id = c.customer_id
+    JOIN users AS u ON c.user_id = u.user_id;
+    ";
+    $result_order = sqlsrv_query($connect, $sql_order);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +39,6 @@
         </a>
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
-            <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
             <li><a href="index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
             <li><a href="../account/index.php"><i class='bx bx-group'></i>Users</a></li>
@@ -103,72 +111,22 @@
                                     </tr>
                             </thead>
                             <tbody>
+                                <?php  $i = 0;
+                                while ($row_order = sqlsrv_fetch_array($result_order)) {?>
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>DH001</td> <!-- Mã đơn hàng -->
-                                    <td>2024-03-31</td> <!-- Ngày đặt -->
-                                    <td>Khách hàng A</td> <!-- Tên khách hàng -->
-                                    <td>Đã thanh toán</td> <!-- Trạng thái -->
+                                    <th scope="row"><?php $i++; echo $i ?></th>
+                                    <td>DH00<?php echo $row_order['order_id']; ?></td> <!-- Mã đơn hàng -->
+                                    <?php $order_date = $row_order['order_date_on'];
+                                    $formatted_date = $order_date->format('Y-m-d');?>
+                                    <td><?php echo  $formatted_date; ?></td> <!-- Ngày đặt -->
+                                    <td><?php echo $row_order['full_name']; ?></td> <!-- Tên khách hàng -->
+                                    <td><?php echo $row_order['status_on']; ?></td> <!-- Trạng thái -->
                                     <td>
                                         <button class="btn btn-sm btn-info">Xem</button>
                                         <button class="btn btn-sm btn-danger">Hủy</button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>DH001</td> <!-- Mã đơn hàng -->
-                                    <td>2024-03-31</td> <!-- Ngày đặt -->
-                                    <td>Khách hàng A</td> <!-- Tên khách hàng -->
-                                    <td>Đã thanh toán</td> <!-- Trạng thái -->
-                                    <td>
-                                        <button class="btn btn-sm btn-info">Xem</button>
-                                        <button class="btn btn-sm btn-danger">Hủy</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>DH001</td> <!-- Mã đơn hàng -->
-                                    <td>2024-03-31</td> <!-- Ngày đặt -->
-                                    <td>Khách hàng E</td> <!-- Tên khách hàng -->
-                                    <td>Đã thanh toán</td> <!-- Trạng thái -->
-                                    <td>
-                                        <button class="btn btn-sm btn-info">Xem</button>
-                                        <button class="btn btn-sm btn-danger">Hủy</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>DH002</td> <!-- Mã đơn hàng -->
-                                    <td>2024-03-31</td> <!-- Ngày đặt -->
-                                    <td>Khách hàng B</td> <!-- Tên khách hàng -->
-                                    <td>Đã thanh toán</td> <!-- Trạng thái -->
-                                    <td>
-                                        <button class="btn btn-sm btn-info">Xem</button>
-                                        <button class="btn btn-sm btn-danger">Hủy</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>DH003</td> <!-- Mã đơn hàng -->
-                                    <td>2024-03-31</td> <!-- Ngày đặt -->
-                                    <td>Khách hàng C</td> <!-- Tên khách hàng -->
-                                    <td>Chưa thanh toán</td> <!-- Trạng thái -->
-                                    <td>
-                                        <button class="btn btn-sm btn-info">Xem</button>
-                                        <button class="btn btn-sm btn-danger">Hủy</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>DH006</td> <!-- Mã đơn hàng -->
-                                    <td>2024-03-31</td> <!-- Ngày đặt -->
-                                    <td>Khách hàng D</td> <!-- Tên khách hàng -->
-                                    <td>Đang thanh toán</td> <!-- Trạng thái -->
-                                    <td>
-                                        <button class="btn btn-sm btn-info">Xem</button>
-                                        <button class="btn btn-sm btn-danger">Hủy</button>
-                                    </td>
-                                </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>

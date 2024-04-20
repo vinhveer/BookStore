@@ -15,6 +15,7 @@
         h3{
             color: var(--dark);
         }
+
     </style>
 </head>
 
@@ -27,7 +28,6 @@
         </a>
         <ul class="side-menu">
             <li class="active"><a href="index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
-            <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
             <li><a href="../order/index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
             <li><a href="../account/index.php"><i class='bx bx-group'></i>Users</a></li>
@@ -58,7 +58,6 @@
             <label for="theme-toggle" class="theme-toggle"></label>
             <a href="#" class="notif">
                 <i class='bx bx-bell'></i>
-                <!-- <span class="count">12</span> -->
             </a>
             <a href="#" class="profile">
                 <img src="images/logo.jpg">
@@ -75,8 +74,6 @@
                         <li><a href="../account/index.php">Users</a></li>
                         <span class="syb">/</span>
                         <li><a href="../setting_up/index.php" >Setting</a></li>
-                        <span class="syb">/</span>
-                        <li><a href="#">Shop</a></li>
                         <span class="syb">/</span>
                         <li><a href="../order/index.php">Orders</a></li>
                     </ul>

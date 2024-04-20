@@ -1,12 +1,8 @@
 <?php
     include_once '../../import/connect.php';
+    $show = $_GET['show'];
     $user_id = $_GET['user_id'];
-    $sql_edit = "SELECT *
-    FROM users u
-    INNER JOIN user_roles ur ON u.user_id = ur.user_id
-    INNER JOIN roles r ON ur.role_id = r.role_id
-	INNER JOIN user_accounts ua on ua.user_role_id = ur.user_role_id
-    where u.user_id=$user_id";
+    $sql_edit = "SELECT * FROM users where user_id=$user_id";
     $result_account_edit = sqlsrv_query($connect, $sql_edit);
     $row_account_edit = sqlsrv_fetch_array($result_account_edit,SQLSRV_FETCH_ASSOC);
 ?>
@@ -42,7 +38,6 @@
         </a>
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
-            <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
             <li><a href="../order/index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
             <li class="active"><a href="index.php"><i class='bx bx-group'></i>Users</a></li>
@@ -85,8 +80,7 @@
             <!-- Header -->
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <?php $edit = $_GET['edit'];?>
-                    <h3><a href="<?php echo($edit==1)?'account_group.php':'index.php';?>"><i class="bi bi-arrow-left-circle me-3"></i></a>Cập nhật thông tin</h3>
+                    <h3><a href="show.php?user_id=<?php echo $user_id; ?>&show=<?php echo $show; ?>"><i class="bi bi-arrow-left-circle me-3"></i></a>Cập nhật thông tin</h3>
                 </div>
                 <div class="col-md-6">
                     <div class="d-flex justify-content-end">
@@ -96,7 +90,7 @@
             </div>
 
             <!-- Body - Registration Form -->
-            <form action="process.php?user_id=<?php echo $user_id;?>&edit=<?php echo $_GET['edit'] ?>" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate id="accountForm">
+            <form action="process.php?user_id=<?php echo $user_id;?>&show=<?php echo $show; ?>" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate id="accountForm">
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="firstName" class="form-label">Tên</label>
@@ -151,28 +145,6 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <label for="username" class="form-label">Tên tài khoản</label>
-                            <div class="input-group">
-                                <span class="input-group-text">@</span>
-                                <input type="text" class="form-control" id="username" name="username" pattern="[a-zA-Z0-9_]+" title="Tên tài khoản không hợp lệ. Chỉ chấp nhận chữ, số và gạch dưới." required placeholder="Tên tài khoản" value="<?php echo $row_account_edit['username']; ?>">
-                                <div class="invalid-feedback">
-                                    Tên tài khoản không hợp lệ. Chỉ chấp nhận chữ, số và gạch dưới.
-                                </div>
-                            </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="password" class="form-label">Mật khẩu</label>
-                            <div class="input-group">
-                                <input type="password" class="form-control" id="password" name="password" required placeholder="Nhập mật khẩu" value="<?php echo $row_account_edit['password']; ?>">
-                                <span class="input-group-text" id="password-toggle"><i class="bx bxs-hide"></i></span>
-                                <div class="invalid-feedback">
-                                    Mật khẩu không được trống.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
                         <label for="image_user" class="form-label">Ảnh chân dung</label>
                         <span style="padding-left: 10px;"><img src="../../<?php echo $row_account_edit['image_user']; ?>" width="60px"></span> <br><br>
                         <input type="file" class="form-control" id="image_user" name="image_user">
@@ -201,57 +173,6 @@
                 if (!form.checkValidity()) {
                     event.preventDefault();
                     event.stopPropagation();
-                }
-
-                form.classList.add('was-validated');
-            }, false);
-        })();
-
-    </script>
-    <script>
-        (function () {
-            'use strict';
-
-            var form = document.getElementById('accountInfoForm');
-            var passwordInput = document.getElementById('password');
-            var confirmPasswordInput = document.getElementById('confirm_password');
-            var passwordToggle = document.getElementById('password-toggle');
-            var confirmPasswordToggle = document.getElementById('confirm-password-toggle');
-
-            // Function to show or hide password
-            function togglePasswordVisibility(input, toggle) {
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    toggle.innerHTML = '<i class="bx bxs-show"></i>';
-                } else {
-                    input.type = 'password';
-                    toggle.innerHTML = '<i class="bx bxs-hide"></i>';
-                }
-            }
-
-            // Toggle password visibility
-            passwordToggle.addEventListener('click', function () {
-                togglePasswordVisibility(passwordInput, passwordToggle);
-            });
-
-            confirmPasswordToggle.addEventListener('click', function () {
-                togglePasswordVisibility(confirmPasswordInput, confirmPasswordToggle);
-            });
-
-            form.addEventListener('submit', function (event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-
-                // Check if passwords match
-                if (passwordInput.value !== confirmPasswordInput.value) {
-                    confirmPasswordInput.setCustomValidity("Mật khẩu không khớp.");
-                    var confirmPasswordFeedback = confirmPasswordInput.nextElementSibling;
-                    confirmPasswordFeedback.textContent = "Mật khẩu không khớp."
-                    event.preventDefault(); // Ngăn chặn gửi form nếu mật khẩu không khớp
-                } else {
-                    confirmPasswordInput.setCustomValidity('');
                 }
 
                 form.classList.add('was-validated');

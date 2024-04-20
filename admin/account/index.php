@@ -1,15 +1,28 @@
 <?php
     include_once '../../import/connect.php';
+
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem'])) {
         $tukhoa = $_POST['tukhoa'];
         $sql_account ="SearchUsers N'$tukhoa'";
         $result_account = sqlsrv_query($connect, $sql_account);
     } else {
-        $sql_account = "EXEC GetUserInformation_no";
+        $recordsPerPage = 8;
+        $sql_count = "SELECT COUNT(*) AS total_records FROM users";
+        $result_count = sqlsrv_query($connect, $sql_count);
+        $row_count = sqlsrv_fetch_array($result_count);
+        $totalRecords = $row_count['total_records'];
+        $totalPages = ceil($totalRecords / $recordsPerPage);
+        if (!isset($_GET['page'])) {
+            $currentPage = 1;
+        } else {
+            $currentPage = $_GET['page'];
+        }
+        $sql_account = "EXEC GetUserInformation_no $currentPage";
         $result_account = sqlsrv_query($connect, $sql_account);
-    }
+}
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,6 +42,7 @@
         h3{
             color: var(--dark);
         }
+
     </style>
 </head>
 
@@ -40,7 +54,6 @@
         </a>
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
-            <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
             <li><a href="../order/index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
             <li class="active"><a href="index.php"><i class='bx bx-group'></i>Users</a></li>
@@ -150,7 +163,7 @@
                                     <td><?php echo $row_account['role_name'] ?></td>
                                     <td>
                                         <div class="action-buttons d-flex justify-content-start">
-                                            <a href="account_edit.php?user_id=<?php echo $row_account['user_id']; ?>&edit=0" class="btn btn-sm btn-warning me-1"><i class='bx bx-sm bx-edit-alt me-1'></i>Edit</a>
+                                            <a href="account_user_edit.php?user_id=<?php echo $row_account['user_id'];?>&edit=0" class="btn btn-sm btn-warning me-1"><i class='bx bx-sm bx-edit-alt me-1'></i>Edit</a>
                                             <button type="button" class="btn btn-sm btn-danger float-end me-2" data-postid="<?php echo $row_account['user_id']; ?>&delete=0" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
                                             <a href="show.php?user_id=<?php echo $row_account['user_id']; ?>&role_id=<?php echo $row_account['role_id'];?>&show=0" class="btn btn-info">
                                             <i class='bx bx-sm bx-show-alt me-1'></i></a>
@@ -160,6 +173,35 @@
                             <?php } ?>
                         </tbody>
                     </table>
+                    <div aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <div class="pagination">
+                                    <?php
+                                    if ($totalPages > 1) {
+                                        // Hiển thị ô đầu tiên
+                                        echo '<a href="index.php?page=1">1</a>';
+                                        // Nếu trang hiện tại lớn hơn 3, hiển thị dấu ... ở đầu
+                                        if ($currentPage > 3) {
+                                            echo '<span>...</span>';
+                                        }
+
+                                        // Hiển thị các ô trung tâm
+                                        for ($i = max(2, $currentPage - 1); $i <= min($currentPage + 1, $totalPages - 1); $i++) {
+                                            echo "<a href='index.php?page=$i'>$i</a>";
+                                        }
+
+                                        // Nếu trang hiện tại là trang cuối cùng hoặc gần cuối cùng, không hiển thị dấu ... ở cuối
+                                        if ($currentPage < $totalPages - 2) {
+                                            echo '<span>...</span>';
+                                        }
+
+                                        // Hiển thị ô cuối cùng
+                                        echo "<a href='index.php?page=$totalPages'>$totalPages</a>";
+                                    }
+                                    ?>
+                            </div>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

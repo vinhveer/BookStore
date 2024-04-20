@@ -32,7 +32,6 @@
         </a>
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
-            <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
             <li><a href="../order/index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
             <li class="active"><a href="index.php"><i class='bx bx-group'></i>Users</a></li>
@@ -70,17 +69,23 @@
         </nav>
 
     <main>
-    <div class="container mt-4">
+    <div class="container-fluid mt-4">
         <div class="row">
             <div class="col-md-12">
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <?php $show = $_GET['show'];?>
+                        <?php
+                        $show = $_GET['show'];
+                        $user_id = $_GET['user_id'];
+                        ?>
                         <h3><a href="<?php echo ($show == 1)?'account_group.php':'index.php'; ?>"><i class="bi bi-arrow-left-circle me-3"></i></a> Thông tin người dùng</h3>
+                    </div>
+                        <div class="col-md-6 text-right">
+                            <a href="account_edit.php?user_id=<?php echo $user_id; ?>&show=<?php echo $show;?>" class="btn btn-success float-end"><i class='bx bx-sm bx-edit-alt me-1'></i>Sửa đổi thông tin</a>
+                        </div>
                     </div>
                 </div>
                 <?php
-                    $user_id = $_GET['user_id'];
                     $sql_info_account = "SELECT ua.username,ua.password,u.email,r.role_name,r.role_id FROM users u
                     INNER JOIN user_roles ur ON u.user_id = ur.user_id
                     INNER JOIN roles r ON ur.role_id = r.role_id
@@ -140,12 +145,44 @@
                                         <div class="col-md-8">
                                             <h4>Thông tin cá nhân</h4>
                                             <hr class="info-divider">
-                                            <p><b>Họ và Tên: </b> <?php echo $row_user_info['full_name']; ?></p>
-                                            <p><b>Giới tính: </b> <?php echo $row_user_info['gender_name']; ?></p>
-                                            <p><b>Ngày sinh: </b> <?php echo $row_user_info['DOB']; ?></p>
-                                            <p><b>Địa chỉ: </b><?php echo $row_user_info['address']; ?></p>
-                                            <p><b>Số điện thoại: </b><?php echo $row_user_info['phone']; ?></p>
-                                            <p><b>Email: </b> <?php echo $row_user_info['email']; ?></p>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item list-group-item-action list-group-item-light">
+                                                    <div class="d-flex align-items-center">
+                                                        <strong style="margin-right: 75px">Full name:</strong>
+                                                        <p style="margin-bottom: 0px"><?php echo $row_user_info['full_name']; ?></p>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item list-group-item-action list-group-item-light">
+                                                    <div class="d-flex align-items-center">
+                                                        <strong style="margin-right: 95px">Gender:</strong>
+                                                        <p style="margin-bottom: 0px"><?php echo $row_user_info['gender_name']; ?></p>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item list-group-item-action list-group-item-light">
+                                                    <div class="d-flex align-items-center">
+                                                        <strong style="margin-right: 50px">Date Of Birth:</strong>
+                                                        <p style="margin-bottom: 0px"><?php echo $row_user_info['DOB']; ?></p>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item list-group-item-action list-group-item-light">
+                                                    <div class="d-flex align-items-center">
+                                                        <strong style="margin-right: 85px">Address:</strong>
+                                                        <p style="margin-bottom: 0px"><?php echo $row_user_info['address']; ?></p>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item list-group-item-action list-group-item-light">
+                                                    <div class="d-flex align-items-center">
+                                                        <strong style="margin-right: 98px">Phone:</strong>
+                                                        <p style="margin-bottom: 0px"><?php echo $row_user_info['phone']; ?></p>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item list-group-item-action list-group-item-light">
+                                                    <div class="d-flex align-items-center">
+                                                        <strong style="margin-right: 105px">Email:</strong>
+                                                        <p style="margin-bottom: 0px"><?php echo $row_user_info['email']; ?></p>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>

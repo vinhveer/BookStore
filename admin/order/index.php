@@ -1,3 +1,15 @@
+<?php
+    include_once '../../import/connect.php';
+    $sql_order_index = "SELECT
+                (SELECT COUNT(*) FROM orders_online WHERE status_on = 'Pending') AS pending_orders,
+                (SELECT COUNT(*) FROM orders_online WHERE status_on = 'Confirmed') AS confirmed_orders,
+                (SELECT COUNT(*) FROM orders_online WHERE status_on = 'Deleted') AS deleted_orders,
+                (SELECT COUNT(*) FROM orders_online WHERE status_on = 'Unpaid') AS unpaid_orders,
+                (SELECT COUNT(*) FROM orders_online WHERE status_on = 'Shipped') AS shipped_orders,
+                (SELECT COUNT(*) FROM orders_online WHERE status_on = 'Completed') AS completed_orders";
+    $result_order_index = sqlsrv_query($connect, $sql_order_index);
+    $row = sqlsrv_fetch_array($result_order_index);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +42,6 @@
         </a>
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
-            <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
             <li><a href="index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
             <li><a href="../account/index.php"><i class='bx bx-group'></i>Users</a></li>
@@ -79,8 +90,6 @@
                         <span class="syb">/</span>
                         <li><a href="../setting_up/index.php" >Setting</a></li>
                         <span class="syb">/</span>
-                        <li><a href="#">Shop</a></li>
-                        <span class="syb">/</span>
                         <li><a href="index.php" class="active">Orders</a></li>
                     </ul>
                 </div>
@@ -97,94 +106,46 @@
             </div>
 
 
-    <div class="container-fluid mt-4 mb-5">
-        <div class="row">
-            <div class="col-md-9">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Thống kê</h5>
-                                <hr>
-                                <div class="row">
-                                <div class="col-md-4">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Đã thực hiện 325</h5>
-                                            <!-- Thêm icon vào đây -->
-                                            <p class="card-text border"><i class='bx bxs-check-circle'></i> Chưa thực hiện: 125</p>
-                                            <p class="card-text border"><i class='bx bxs-time'></i> Đang thực hiện: 124</p>
-                                            <p class="card-text border"><i class='bx bxs-check-circle'></i> Đã thực hiện: 325</p>
-                                            <p class="card-text border"><i class='bx bxs-x-circle'></i> Đã hủy: 15</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Đã thanh toán: 300</h5>
-                                            <!-- Thêm icon vào đây -->
-                                            <p class="card-text border"><i class='bx bxs-check-circle'></i> Chưa thanh toán: 35</p>
-                                            <p class="card-text border"><i class='bx bxs-check-circle'></i> Đã thanh toán 1 phần: 45</p>
-                                            <p class="card-text border"><i class='bx bxs-check-circle'></i> Đã thanh toán 300: 300</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Đã giao hàng: 75</h5>
-                                            <!-- Thêm icon vào đây -->
-                                            <p class="card-text border"><i class='bx bxs-check-circle'></i> Chưa giao hàng: 100</p>
-                                            <p class="card-text border"><i class='bx bxs-time'></i> Đang giao hàng: 150</p>
-                                            <p class="card-text border"><i class='bx bxs-check-circle'></i> Đã giao hàng: 75</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 mt-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Biểu đồ đơn hàng</h5>
-                            <hr>
-                            <!-- Nội dung biểu đồ -->
-                            <canvas id="orderChart" width="400" height="200"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-3">
+    <div class="container-fluid mt-4 ">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title text-center">Hoạt động giao dịch</h5>
-                        <div class="d-flex justify-content-center align-items-center">
-                            <div class="col-sm-9">
-                                <select class="form-select" id="activity" name="activity" required>
-                                    <option value="" disabled selected>Chọn Lịch sử</option>
-                                    <option value="">Hôm nay</option>
-                                    <option value="">Ngày hôm qua</option>
-                                    <option value="">Một tuần trước</option>
-                                    <option value="">Một tháng trước</option>
-                                    <option value="">Một Năm trước</option>
-                                </select>
-                            </div>
+                        <h5 class="card-title">Thống kê</h5>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Đã thực hiện <?php echo $row['confirmed_orders']; ?></h5>
+                                                    <!-- Thêm icon vào đây -->
+                                                    <p class="card-text border"><i class='bx bxs-check-circle'></i> Chưa thực hiện: <?php echo $row['pending_orders']; ?></p>
+                                                    <p class="card-text border"><i class='bx bxs-check-circle'></i> Đã thực hiện: <?php echo $row['confirmed_orders']; ?></p>
+                                                    <p class="card-text border"><i class='bx bxs-x-circle'></i> Đã hủy: <?php echo $row['deleted_orders']; ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Đã thanh toán: <?php echo $row['completed_orders']; ?></h5>
+                                                    <!-- Thêm icon vào đây -->
+                                                    <p class="card-text border"><i class='bx bxs-check-circle'></i> Chưa thanh toán: <?php echo $row['unpaid_orders']; ?></p>
+                                                    <p class="card-text border"><i class='bx bxs-check-circle'></i> Đang giao hàng: <?php echo $row['shipped_orders']; ?></p>
+                                                    <p class="card-text border"><i class='bx bxs-check-circle'></i> Đã thanh toán: <?php echo $row['completed_orders']; ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                         </div>
-                        <hr class="info-divider">
-                        <p><i class='bx bx-package bx-sm'></i> Đơn hàng giá trị là 100.000 đã thanh toán</p>
-                        <p><i class='bx bx-package bx-sm'></i> Đơn hàng giá trị là 100.000 đã thanh toán</p>
-                        <p><i class='bx bx-package bx-sm'></i> Đơn hàng giá trị là 100.000 đã thanh toán </p>
-                        <p><i class='bx bx-shopping-bag bx-sm'></i></i> Đơn hàng giá trị là 100.000 đang chờ thanh toán</p>
-                        <p><i class='bx bx-package bx-sm'></i> Đơn hàng giá trị là 100.000 đã thanh toán </p>
+                </div>
+                <div class="card mt-2">
+                        <div class="card-body">
+                        <h5 class="card-title">Biểu đồ đơn hàng</h5>
+                        <hr>
+                            <!-- Nội dung biểu đồ -->
+                        <canvas id="orderChart" width="400" height="200"></canvas>
                     </div>
                 </div>
-            </div>
         </div>
-    </div>
     </main>
     </div>
     <script src="index.js"></script>
@@ -199,7 +160,7 @@
         labels: ['Đã thanh toán', 'Chưa thanh toán', 'Đang giao hàng', 'Chưa giao hàng'],
         datasets: [{
             label: 'Thống kê đơn hàng',
-            data: [3, 3, 5, 10],
+            data: [30, 3, 5, 10],
             backgroundColor: [
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',

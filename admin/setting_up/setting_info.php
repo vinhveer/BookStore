@@ -30,7 +30,6 @@
         </a>
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
-            <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
             <li><a href="../order/index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
             <li><a href="../account/index.php"><i class='bx bx-group'></i>Users</a></li>
@@ -77,35 +76,9 @@
                         Thông tin hệ thống
                     </div>
                     <div class="card-body">
-                        <p class="d-flex justify-content-between">Version: 1.0.0<a href="">Xem chi tiết</a></p>
+                        <p>Name: Bookstore management software system</p>
                         <p>Developed by: Your Company Name</p>
                         <p>Email: info@company.com</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        Thông tin phiên bản
-                    </div>
-                    <div class="card-body">
-                        <p>Phiên bản mới nhất: 1.1.0</p>
-                        <p>Ngày cập nhật: 01/01/2024</p>
-                        <p><a href="#">Xem chi tiết cập nhật</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        Bản quyền
-                    </div>
-                    <div class="card-body">
-                        <p>Bản quyền © 2024. Bảo lưu mọi quyền.</p>
-                        <p>Được phát triển bởi Your Company Name.</p>
-                        <p>Mã: IVAGSSSSF</p>
                     </div>
                 </div>
             </div>
@@ -115,7 +88,7 @@
                         Liên hệ
                     </div>
                     <div class="card-body">
-                        <p class="d-flex justify-content-between">Thông tin liên hệ<a href="">Xem chi tiết</a></p>
+                        <p>Thông tin liên hệ</p>
                         <p>Điện thoại: 0123 456 789</p>
                         <p>Email: contact@company.com</p>
                     </div>
