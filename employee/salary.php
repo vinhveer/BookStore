@@ -82,12 +82,13 @@
                     <div class="header">
                         <i class='bx bx-money-withdraw'></i>
                         <h3>Salary</h3>
-                        <input type="search" placeholder="Search date...">
+                        <input type="search" placeholder="Search ID...">
                         <i class='bx bx-search'></i>
                     </div>
                     <table>
                         <thead>
                             <tr>
+                                <th>Employee ID</th>
                                 <th>Payment Date</th>
                                 <th>Base salary</th>
                                 <th>Salary coefficient</th>
@@ -95,24 +96,38 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>null</td>
-                            </tr>
-                            <tr>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>null</td>
-                            </tr>
-                            <tr>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>null</td>
-                            </tr>
+                            <?php
+                                // Kết nối CSDL
+                                $serverName = "TN";
+                                $connectionInfo = array("Database"=>"BookStore");
+                                $conn = sqlsrv_connect($serverName, $connectionInfo);
+
+                                // Kiểm tra kết nối
+                                if (!$conn) {
+                                    echo "Kết nối đến CSDL thất bại: " . sqlsrv_errors();
+                                } else {
+                                    // Thực hiện truy vấn lấy dữ liệu lương từ cơ sở dữ liệu
+                                    $sql = "SELECT es.employee_id, es.salary_date, es.salary_base, sc.salary_coefficient_value, (es.salary_base * sc.salary_coefficient_value) AS salary
+                                            FROM salary_coefficient sc
+                                            INNER JOIN employee_salary es ON sc.salary_coefficient_id = es.salary_coefficient_id";
+                                    $result = sqlsrv_query($conn, $sql);
+
+                                    // Kiểm tra và hiển thị kết quả
+                                    if ($result === false) {
+                                        echo "Lỗi truy vấn: " . sqlsrv_errors();
+                                    } else {
+                                        while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+                                            echo "<tr>";
+                                            echo "<td>" . $row['employee_id'] . "</td>";
+                                            echo "<td>" . $row['salary_date']->format('Y-m-d') . "</td>";
+                                            echo "<td>" . $row['salary_base'] . "</td>";
+                                            echo "<td>" . $row['salary_coefficient_value'] . "</td>";
+                                            echo "<td>" . $row['salary'] . "</td>";
+                                            echo "</tr>";
+                                        }
+                                    }
+                                }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -121,6 +136,7 @@
     </div>
     <script src="user.js"></script>
 </body>
+
 </html>
 
 

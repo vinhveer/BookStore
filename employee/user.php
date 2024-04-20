@@ -78,7 +78,7 @@
             <!-- Insights -->
 
             <div class="bottom-data">
-                <div class="orders">
+                <div class="orders" id="product-table">
                     <div class="header">
                         <i class='bx bx-receipt'></i>
                         <h3>Product</h3>
@@ -88,58 +88,53 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Product ID</th>
+                                <th>ID</th>
                                 <th>Name</th>
                                 <th>Price</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <img src="images/profile_1.jpg">
-                                    <p>ID pro 1</p>
-                                </td>
-                                <td>name pro 1</td>
-                                <td>price</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="images/profile_1.jpg">
-                                    <p>ID pro 2</p>
-                                </td>
-                                <td>name pro 2</td>
-                                <td>price</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="images/profile_1.jpg">
-                                    <p>ID pro 3</p>
-                                </td>
-                                <td>name pro 3</td>
-                                <td>price</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="images/profile_1.jpg">
-                                    <p>ID pro 4</p>
-                                </td>
-                                <td>name pro 4</td>
-                                <td>price</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="images/profile_1.jpg">
-                                    <p>ID pro 5</p>
-                                </td>
-                                <td>name pro 5</td>
-                                <td>price</td>
-                            </tr>
+                            <?php
+                            // Kết nối CSDL
+                            $serverName = "TN";
+                            $connectionInfo = array("Database"=>"BookStore");
+                            $conn = sqlsrv_connect($serverName, $connectionInfo);
+
+                            // Kiểm tra kết nối
+                            if (!$conn) {
+                                echo "Kết nối đến CSDL thất bại: " . sqlsrv_errors();
+                            } else {
+                                // Thực hiện câu truy vấn
+                                $sql = "SELECT p.product_id, p.product_price, 
+                                            CASE 
+                                                WHEN b.book_name IS NOT NULL THEN b.book_name 
+                                                ELSE op.others_product_name 
+                                            END AS product_name
+                                        FROM products p
+                                        LEFT JOIN books b ON p.product_id = b.product_id
+                                        LEFT JOIN others_products op ON p.product_id = op.product_id";
+                                $result = sqlsrv_query($conn, $sql);
+
+                                // Kiểm tra và hiển thị kết quả
+                                if ($result === false) {
+                                    echo "Lỗi truy vấn: " . sqlsrv_errors();
+                                } else {
+                                    while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+                                        echo "<tr>";
+                                        echo "<td>" . $row['product_id'] . "</td>";
+                                        echo "<td>" . $row['product_name'] . "</td>";
+                                        echo "<td>" . $row['product_price'] . "</td>";
+                                        echo "</tr>";
+                                    }
+                                }
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
 
                 <!-- Reminders -->
-                <div class="reminders">
+                <div class="reminders" id="sales-table">
                     <div class="sales">
                         <div class="header">
                             <i class='bx bx-note'></i>
