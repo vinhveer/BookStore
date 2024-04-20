@@ -11,7 +11,7 @@
     include '../../../import/connect.php';
     ?>
 
-    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -94,7 +94,7 @@
                                     <h4 style="margin-bottom: 0px">Profile information</h4>
                                 </div>
                                 <div class="col-md-6">
-                                    <button class="btn btn-primary float-end">Edit</button>
+                                    <a class="btn btn-primary float-end" href="edit_profile.php">Edit</a>
                                 </div>
                             </div>
                         </div>
