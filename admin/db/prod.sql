@@ -1,8 +1,18 @@
 CREATE PROCEDURE GetUserInformation_no
+@startFrom INT
 AS
 BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @pageSize INT = 8; -- Số lượng bản ghi trên mỗi trang
+    DECLARE @startRow INT = (@startFrom - 1) * @pageSize; -- Số lượng dòng bắt đầu được bỏ qua
+
     SELECT
-        CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name) AS full_name,
+        case
+			when LEN(u.middle_name)> 0 then
+				 CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name)
+			else CONCAT(u.last_name,' ', u.first_name)
+		end AS full_name,
         u.email,
         r.role_name,
 		r.role_id,
@@ -14,8 +24,12 @@ BEGIN
         user_roles ur ON u.user_id = ur.user_id
     INNER JOIN
         roles r ON ur.role_id = r.role_id
-	INNER JOIN
-		user_accounts ua on ua.user_role_id = ur.user_role_id;
+    INNER JOIN
+        user_accounts ua ON ur.user_role_id = ua.user_role_id
+    ORDER BY
+        u.user_id
+    OFFSET @startRow ROWS
+    FETCH NEXT @pageSize ROWS ONLY;
 END;
 
 
