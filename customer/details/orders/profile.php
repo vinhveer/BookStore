@@ -26,10 +26,10 @@
             <div class="collapse navbar-collapse align-items-center" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.php">Account</a>
+                        <a class="nav-link" href="index.php">Account</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="book.php">Order</a>
+                        <a class="nav-link active" href="book.php">Order</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="stationery.php">Statistics</a>
@@ -62,12 +62,12 @@
     <main class="container">
         <div class="row">
             <div class="col-md-3">
-                <h5 class="mb-2" style="padding-left: 15px;">Account Settings</h5>
+                <h5 class="mb-2" style="padding-left: 15px;">Order</h5>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item list-group-item-action list-group-item-light active_item"><a
-                            href="#personal-info">Profile information</a></li>
+                            href="#personal-info">Order purchased</a></li>
                     <li class="list-group-item list-group-item-action list-group-item-light"><a
-                            href="#shipping-address">Authenciation</a></li>
+                            href="#shipping-address">Order status</a></li>
                 </ul>
             </div>
 
@@ -80,52 +80,6 @@
                             </div>
                             <div class="col-md-6">
                                 <button class="btn btn-primary float-end">Edit</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container">
-                        <div class="row header">
-                            <div class="col-md-2">
-                                <img src="../../../assets/images/avatar/avatar1.png" alt="" srcset=""
-                                    class="avatar_header">
-                            </div>
-                            <div class="col-md-10">
-                                <h3>Trần Thanh Trí</h3>
-                                <p>tritt13579@gmail.com</p>
-                            </div>
-                            <div class="mt-5">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item list-group-item-action list-group-item-light">
-                                        <div class="d-flex align-items-center">
-                                            <strong style="margin-right: 90px">Gender</strong>
-                                            <p style="margin-bottom: 0px">Male</p>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item list-group-item-action list-group-item-light">
-                                        <div class="d-flex align-items-center">
-                                            <strong style="margin-right: 43px">Date Of Birth</strong>
-                                            <p style="margin-bottom: 0px">30/07/2004</p>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item list-group-item-action list-group-item-light">
-                                        <div class="d-flex align-items-center">
-                                            <strong style="margin-right: 85px">Address</strong>
-                                            <p style="margin-bottom: 0px">Xã Ninh Hưng, Thị xã Ninh Hòa, Khánh Hòa</p>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item list-group-item-action list-group-item-light">
-                                        <div class="d-flex align-items-center">
-                                            <strong style="margin-right: 98px">Phone</strong>
-                                            <p style="margin-bottom: 0px">0348376333</p>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item list-group-item-action list-group-item-light">
-                                        <div class="d-flex align-items-center">
-                                            <strong style="margin-right: 65px">Username</strong>
-                                            <p style="margin-bottom: 0px">@thanhtri123</p>
-                                        </div>
-                                    </li>
-                                </ul>
                             </div>
                         </div>
                     </div>

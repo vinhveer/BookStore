@@ -1,4 +1,8 @@
-/* Các kiểu dáng tùy chỉnh cho trang web */
+a {
+    text-decoration: none;
+    color: black;
+}
+
 .logo {
     width: 80px;
 }
@@ -44,4 +48,34 @@ h6 {
 
 .navbar-brand {
     padding-top: 10px;
+}
+
+.sum_product {
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.dropdown-item i {
+    padding-right: 8px;
+}
+
+.card img {
+    height: 250px;
+}
+
+.card-title {
+    height: 50px;
+    font-size: 16px;
+}
+
+.year {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+.author {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 0;
 }

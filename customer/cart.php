@@ -6,66 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
 
-    <?php include '../import/libary.php'; ?>
+    <?php
+    include '../import/libary.php';
+    include '../import/connect.php';
+    ?>
 
-    <style>
-        a {
-            text-decoration: none;
-            color: black;
-        }
 
-        .logo {
-            width: 80px;
-        }
-
-        .nav-link i {
-            font-size: 20px;
-        }
-
-        .search {
-            width: 100%;
-            height: 35px;
-        }
-
-        .avatar_navbar {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-        }
-
-        .avatar_dropdown {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-        }
-
-        .dropdown-menu {
-            width: 350px;
-        }
-
-        .active {
-            font-weight: bold;
-        }
-
-        body {
-            margin-top: 90px;
-        }
-
-        h6 {
-            padding-left: 20px;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .navbar-brand {
-            padding-top: 10px;
-        }
-
-        .sum_product {
-            font-size: 20px;
-            font-weight: 300;
-        }
-    </style>
+    <link rel="stylesheet" href="css/cart.css">
 </head>
 
 <body>
@@ -96,46 +43,64 @@
                     </li>
                 </ul>
 
-
                 <ul class="navbar-nav mb-2 mb-lg-0 align-items-center">
-                    <form class="d-flex me-auto search align-items-center" role="search">
-                        <input class="form-control border-secondary rounded-start-pill" type="search"
-                            placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-secondary rounded-end-pill" type="submit"><i
-                                class="bi bi-search"></i></button>
-                    </form>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <img src="..\assets\images\avatar\avatar1.png" alt="" srcset="" class="avatar_navbar">
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li class="d-flex p-3">
-                                <img src="..\assets\images\avatar\avatar1.png" alt="" srcset="" class="avatar_dropdown">
-                                <div class="acc_content px-3">
-                                    <h5>Trần Thanh Trí</h5>
-                                    <p>tritt13579@gmail.com</p>
-                                </div>
-                            </li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle"></i>Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i>Setting</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right"></i>Logout</a></li>
-                        </ul>
-                    </li>
+                    <?php
+                    if (isset($_SESSION['user_id'])) {
+                        ?>
+                        <li class="nav-item me-3">
+                            <form class="d-flex me-5 search align-items-center" role="search">
+                                <input class="form-control border-secondary rounded-start-pill" type="search"
+                                    placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-secondary rounded-end-pill" type="submit"><i
+                                        class="bi bi-search"></i></button>
+                            </form>
+                        </li>
+                        <?php
+                        $sql_user = "SELECT * FROM users WHERE user_id = " . $_SESSION['user_id'];
+                        $result_user = sqlsrv_query($conn, $sql_user);
+                        $row_user = sqlsrv_fetch_array($result_user, SQLSRV_FETCH_ASSOC);
+                        ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <img src="../../<?php echo $row_user['image_user'] ?>" alt="" srcset=""
+                                    class="avatar_navbar">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li class="d-flex p-3">
+                                    <img src="../../<?php echo $row_user['image_user'] ?>" alt="" srcset=""
+                                        class="avatar_dropdown">
+                                    <div class="acc_content px-3">
+                                        <h5><?php echo $row_user['last_name'] . " " . $row_user['middle_name'] . " " . $row_user['first_name'] ?>
+                                        </h5>
+                                        <p><?php echo $row_user['email'] ?></p>
+                                    </div>
+                                </li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle"></i>Profile</a></li>
+                                <li><a class="dropdown-item" href="details/settings.php"><i
+                                            class="bi bi-gear"></i>Setting</a></li>
+                                <li><a class="dropdown-item" href="../login/sign_out.php"><i
+                                            class="bi bi-box-arrow-right"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                        <?php
+                    } else {
+                        header("Location: ../login/login.php");
+                        exit();
+                    }
+                    ?>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <main class="container">
+    <div class="container">
         <div class="row">
-            <!-- Phần tiêu đề -->
             <div class="col-md-6">
                 <h3 class="section-title">Cart</h3>
             </div>
-
         </div>
-    </main>
+    </div>
 
     <div class="container mt-2">
         <div class="row">
@@ -166,74 +131,72 @@
         </div>
     </div>
 
-    <div class="container mt-4 d-flex">
-        <div class="card me-2" style="width: 18rem;">
-            <img src="" class="card-img-top-book" alt="">
-            <div class="card-body">
-                <h5 class="card-title">
-                    Hello
-                </h5>
-            </div>
-            <div class="card-footer">
-                <div class="card-text">
-                    <p class="author"></p>
-                    <p class="year"></p>
+    <div class="container mt-4">
+        <h4>Book</h4>
+    </div>
+    <div class="container mt-2">
+        <?php
+        $sql = "SELECT pr.product_id ,bo.book_name, bo.book_publication_year, pr.product_price, pr.product_image, au.author_name 
+        FROM books bo
+        INNER JOIN products pr ON bo.product_id = pr.product_id
+        INNER JOIN carts ca ON ca.product_id = bo.product_id
+        INNER JOIN book_author ba ON bo.product_id = ba.product_id
+        INNER JOIN author au ON au.author_id = ba.author_id
+        WHERE user_id = " . $_SESSION['user_id'];
+
+        $result_book = sqlsrv_query($conn, $sql);
+        ?>
+        <div class="row">
+            <?php
+            while ($row_book = sqlsrv_fetch_array($result_book, SQLSRV_FETCH_ASSOC)) {
+                ?>
+                <div class="col-md-2">
+                    <div class="card">
+                        <img src="<?php echo $row_book['product_image']; ?>" class="card-img-top-book"
+                            alt="<?php echo $row_book['book_name']; ?>">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <?php
+                                $title = $row_book['book_name'];
+                                if (strlen($title) > 40) {
+                                    $title = substr($title, 0, 35) . "...";
+                                }
+                                echo $title;
+                                ?>
+                            </h5>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-text">
+                                <p class="author"><?php echo $row_book['author_name']; ?></p>
+                                <p class="year"><?php echo $row_book['book_publication_year']; ?></p>
+                            </div>
+                            <p class="card-text">
+                                <strong>
+                                    <?php echo $row_book['product_price']; ?>đ
+                                </strong>
+                            </p>
+                            <div class="form-check-product">
+                                <input class="form-check-input" type="checkbox" id="choose-product">
+                                <label class="form-check-label" for="select-all">Chọn mua</label>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
-                <p class="card-text">
-                    <strong>
-                        đ
-                    </strong>
-                </p>
-            </div>
+                <?php
+            }
+            ?>
         </div>
     </div>
 
+    <div class="container mt-4">
+        <h5>Stationery</h5>
+    </div>
+    <div class="container mt-2">
+        <p>Bạn chưa thêm vào giỏ hàng vật phẩm học tập nào</p>
+    </div>
 
-
-    <footer class="py-5 container mt-4">
-        <div class="row">
-            <div class="col-6 col-md-3 mb-3">
-                <h5>Thông tin liên hệ</h5>
-                <ul class="nav flex-column">
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
-                </ul>
-            </div>
-
-            <div class="col-6 col-md-3 mb-3">
-                <h5>Các nền tảng mạng xã hội</h5>
-                <ul class="nav flex-column">
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
-                </ul>
-            </div>
-
-            <div class="col-md-5 offset-md-1 mb-3">
-                <form>
-                    <h5>Bạn chưa đăng nhập</h5>
-                    <p>Hãy đăng nhập để trải nghiệm đầy đủ tính năng.</p>
-                    <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-                        <label for="newsletter1" class="visually-hidden">Email address</label>
-                        <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-                        <button class="btn btn-primary" type="button">Subscribe</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-            <p>© 2024 Company, Inc. All rights reserved.</p>
-            <ul class="list-unstyled d-flex">
-                <img src="..\assets\images\logo\light_theme_logo.png" class="logo">
-            </ul>
-        </div>
-    </footer>
+    <?php include "footer.php" ?>
 </body>
 
 </html>
