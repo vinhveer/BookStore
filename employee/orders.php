@@ -82,8 +82,10 @@
                     <div class="header">
                         <i class='bx bx-x-circle'></i>
                         <h3>Not accepted yet</h3>
-                        <input type="search" placeholder="Search ID...">
-                        <i class='bx bx-search'></i>
+                        <form action="">
+                            <input type="search" name="search" placeholder="Search ID...">
+                            <button type="submit" name="submit"><i class='bx bx-search'></i></button>
+                        </form>
                     </div>
                     <table>
                         <thead>
@@ -122,8 +124,10 @@
                     <div class="header">
                         <i class='bx bx-notepad'></i>
                         <h3>Have accepted</h3>
-                        <input type="search" placeholder="Search ID...">
-                        <i class='bx bx-search'></i>
+                        <form action="">
+                            <input type="search" name="search" placeholder="Search ID...">
+                            <button type="submit" name="submit"><i class='bx bx-search'></i></button>
+                        </form>
                     </div>
                     <table>
                         <thead>
