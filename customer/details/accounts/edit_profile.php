@@ -11,7 +11,7 @@
     include '../../../import/connect.php';
     ?>
 
-    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -98,50 +98,76 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="container">
+                        <form class="container">
                             <div class="row header">
                                 <div class="col-md-2">
                                     <img src="../../../../<?php echo $row_user['image_user'] ?>" alt="" srcset=""
-                                        class="avatar_header">
+                                        class="avatar_header" style="width: 100px">
                                 </div>
                                 <div class="col-md-10">
-                                    <h3><?php echo $row_user['last_name'] . " " . $row_user['middle_name'] . " " . $row_user['first_name'] ?>
-                                    </h3>
-                                    <p><?php echo $row_user['email'] ?></p>
+                                    <h5>Upload your avatar if you need change</h5>
+                                    <input type="file" name="avatar_image" class="form-control">
                                 </div>
-                                <div class="mt-5">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item list-group-item-action list-group-item-light">
-                                            <div class="d-flex align-items-center">
-                                                <strong style="margin-right: 90px">Gender</strong>
-                                                <p style="margin-bottom: 0px">
-                                                    <?php echo $row_user['gender'] == 1 ? "Female" : "Male" ?></p>
+                                <div class="mt-5 mb-5">
+                                    <form action="" class="form-control">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="first_name" class="form-label">First name</label>
+                                                <input type="text" class="form-control" id="first_name"
+                                                    value="<?php echo $row_user['first_name'] ?>">
                                             </div>
-                                        </li>
-                                        <li class="list-group-item list-group-item-action list-group-item-light">
-                                            <div class="d-flex align-items-center">
-                                                <strong style="margin-right: 43px">Date Of Birth</strong>
-                                                <p style="margin-bottom: 0px">
-                                                    <?php echo date_format($row_user['date_of_birth'], 'd/m/Y') ?>
-                                                </p>
+                                            <div class="col-md-4">
+                                                <label for="last_name" class="form-label">Middle name</label>
+                                                <input type="text" class="form-control" id="middle_name"
+                                                    value="<?php echo $row_user['middle_name'] ?>">
                                             </div>
-                                        </li>
-                                        <li class="list-group-item list-group-item-action list-group-item-light">
-                                            <div class="d-flex align-items-center">
-                                                <strong style="margin-right: 85px">Address</strong>
-                                                <p style="margin-bottom: 0px"><?php echo $row_user['address'] ?></p>
+                                            <div class="col-md-4">
+                                                <label for="last_name" class="form-label">Last name</label>
+                                                <input type="text" class="form-control" id="last_name"
+                                                    value="<?php echo $row_user['last_name'] ?>">
                                             </div>
-                                        </li>
-                                        <li class="list-group-item list-group-item-action list-group-item-light">
-                                            <div class="d-flex align-items-center">
-                                                <strong style="margin-right: 98px">Phone</strong>
-                                                <p style="margin-bottom: 0px"><?php echo $row_user['phone'] ?></p>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="email"
+                                                    value="<?php echo $row_user['email'] ?>">
                                             </div>
-                                        </li>
-                                    </ul>
+                                            <div class="col-md-6">
+                                                <label for="phone" class="form-label">Phone</label>
+                                                <input type="text" class="form-control" id="phone"
+                                                    value="<?php echo $row_user['phone'] ?>">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <label for="dob" class="form-label">Date of Birth</label>
+                                                <input type="date" class="form-control" id="dob"
+                                                    value="<?php echo $row_user['date_of_birth']->format('Y-m-d'); ?>">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="gender" class="form-label">Gender</label>
+                                                <select class="form-select" id="gender">
+                                                    <option value="1" <?php if ($row_user['gender'] == 'male')
+                                                        echo 'selected'; ?>>Male</option>
+                                                    <option value="2" <?php if ($row_user['gender'] == 'female')
+                                                        echo 'selected'; ?>>Female</option>
+                                                    <option value="3" <?php if ($row_user['gender'] == 'other')
+                                                        echo 'selected'; ?>>Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-12">
+                                                <label for="address" class="form-label">Address</label>
+                                                <textarea class="form-control"
+                                                    id="address"><?php echo $row_user['address'] ?></textarea>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </section>
                 </div>
             </div>

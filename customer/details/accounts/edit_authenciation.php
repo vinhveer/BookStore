@@ -11,7 +11,7 @@
     include '../../../import/connect.php';
     ?>
 
-    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -115,22 +115,18 @@
 
                         $row_auth = sqlsrv_fetch_array($result_auth, SQLSRV_FETCH_ASSOC);
                         ?>
-                        <div class="row header">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item list-group-item-action list-group-item-light">
-                                    <div class="d-flex align-items-center">
-                                        <strong style="margin-right: 58px">Username</strong>
-                                        <input type="text" name="username" id="username" class="form-control" placeholder="@<?php echo $row_auth['username']?>">
-                                    </div>
-                                </li>
-                                <li class="list-group-item list-group-item-action list-group-item-light">
-                                    <div class="d-flex align-items-center">
-                                        <strong style="margin-right: 65px">Password</strong>
-                                        <input type="password" name="password" id="password" class="form-control" placeholder="Enter password">
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                        <form action="">
+                            <div class="mt-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" name="username" id="username" class="form-control"
+                                    placeholder="@<?php echo $row_auth['username']?>">
+                            </div>
+                            <div class="mt-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" name="password" id="password" class="form-control"
+                                    placeholder="Enter new password">
+                            </div>
+                        </form>
                     </div>
                 </section>
             </div>

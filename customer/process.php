@@ -19,3 +19,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_to_cart"])) {
     }
 }
 
+
+if (isset($_POST["buy_now"]))
+{
+    $arrays = $_POST['books'];
+    
+    foreach ($arrays as $product_id) {
+        echo $product_id;
+    }
+}

@@ -11,7 +11,6 @@
     include '../import/connect.php';
     ?>
 
-
     <link rel="stylesheet" href="css/cart.css">
 </head>
 
@@ -20,10 +19,7 @@
         <div class="container">
             <a class="navbar-brand align-items-center d-flex" href="index.php">
                 <img src="..\assets\images\logo\light_theme_logo.png" class="logo">
-                <h6>
-                    <i class="bi bi-cart-dash"></i>
-                    Cart
-                </h6>
+                <h6> <i class="bi bi-cart-dash"></i> Cart</h6>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -102,100 +98,102 @@
         </div>
     </div>
 
-    <div class="container mt-2">
-        <div class="row">
-            <div class="col-md-6">
-                <p>Tick chọn các mặt hàng để mua và thanh toán</p>
-            </div>
-            <div class="col-md-6">
-                <div class="form-check float-end">
-                    <input class="form-check-input" type="checkbox" id="select-all">
-                    <label class="form-check-label" for="select-all">Select All</label>
-                    <span class="checkmark"></span>
+    <form action="process.php" method="post">
+        <div class="container mt-2">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Tick chọn các mặt hàng để mua và thanh toán</p>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <p class="sum_product">0đ - 0 Product</p>
-            </div>
-            <div class="col-md-6 text-end">
-                <a href="index.php" class="btn btn-primary btn-purchase"><i class="bi bi-cart-fill me-2"></i>Mua ngay
-                    (2)</a>
-                <a href="index.php" class="btn btn-danger"><i class="bi bi-cart-fill me-2"></i>Xóa khỏi giỏ hàng
-                    (2)</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="container mt-4">
-        <h4>Book</h4>
-    </div>
-    <div class="container mt-2">
-        <?php
-        $sql = "SELECT pr.product_id ,bo.book_name, bo.book_publication_year, pr.product_price, pr.product_image, au.author_name 
-        FROM books bo
-        INNER JOIN products pr ON bo.product_id = pr.product_id
-        INNER JOIN carts ca ON ca.product_id = bo.product_id
-        INNER JOIN book_author ba ON bo.product_id = ba.product_id
-        INNER JOIN author au ON au.author_id = ba.author_id
-        WHERE user_id = " . $_SESSION['user_id'];
-
-        $result_book = sqlsrv_query($conn, $sql);
-        ?>
-        <div class="row">
-            <?php
-            while ($row_book = sqlsrv_fetch_array($result_book, SQLSRV_FETCH_ASSOC)) {
-                ?>
-                <div class="col-md-2">
-                    <div class="card">
-                        <img src="<?php echo $row_book['product_image']; ?>" class="card-img-top-book"
-                            alt="<?php echo $row_book['book_name']; ?>">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <?php
-                                $title = $row_book['book_name'];
-                                if (strlen($title) > 40) {
-                                    $title = substr($title, 0, 35) . "...";
-                                }
-                                echo $title;
-                                ?>
-                            </h5>
-                        </div>
-                        <div class="card-footer">
-                            <div class="card-text">
-                                <p class="author"><?php echo $row_book['author_name']; ?></p>
-                                <p class="year"><?php echo $row_book['book_publication_year']; ?></p>
-                            </div>
-                            <p class="card-text">
-                                <strong>
-                                    <?php echo $row_book['product_price']; ?>đ
-                                </strong>
-                            </p>
-                            <div class="form-check-product">
-                                <input class="form-check-input" type="checkbox" id="choose-product">
-                                <label class="form-check-label" for="select-all">Chọn mua</label>
-                            </div>
-
-                        </div>
+                <div class="col-md-6">
+                    <div class="form-check float-end">
+                        <input class="form-check-input" type="checkbox" id="select-all">
+                        <label class="form-check-label" for="select-all">Select All</label>
+                        <span class="checkmark"></span>
                     </div>
                 </div>
-                <?php
-            }
-            ?>
+            </div>
         </div>
-    </div>
 
-    <div class="container mt-4">
-        <h5>Stationery</h5>
-    </div>
-    <div class="container mt-2">
-        <p>Bạn chưa thêm vào giỏ hàng vật phẩm học tập nào</p>
-    </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="sum_product">0đ - 0 Product</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <button type="submit" class="btn btn-primary btn-purchase" name="buy_now"><i
+                            class="bi bi-cart-fill me-2"></i>Mua ngay</button>
+                    <a href="index.php" class="btn btn-danger"><i class="bi bi-cart-fill me-2"></i>Xóa khỏi giỏ hàng
+                        (2)</a>
+                </div>
+            </div>
+        </div>
 
+        <div class="container mt-4">
+            <h4>Book</h4>
+        </div>
+        <div class="container mt-2">
+            <?php
+            $sql = "SELECT pr.product_id ,bo.book_name, bo.book_publication_year, pr.product_price, pr.product_image, au.author_name 
+            FROM books bo
+            INNER JOIN products pr ON bo.product_id = pr.product_id
+            INNER JOIN carts ca ON ca.product_id = bo.product_id
+            INNER JOIN book_author ba ON bo.product_id = ba.product_id
+            INNER JOIN author au ON au.author_id = ba.author_id
+            WHERE user_id = " . $_SESSION['user_id'];
+
+            $result_book = sqlsrv_query($conn, $sql);
+            ?>
+            <div class="row">
+                <?php
+                $index = 0;
+                while ($row_book = sqlsrv_fetch_array($result_book, SQLSRV_FETCH_ASSOC)) {
+                    ?>
+                    <div class="col-md-2">
+                        <div class="card">
+                            <img src="<?php echo $row_book['product_image']; ?>" class="card-img-top-book"
+                                alt="<?php echo $row_book['book_name']; ?>">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <?php
+                                    $title = $row_book['book_name'];
+                                    if (strlen($title) > 40) {
+                                        $title = substr($title, 0, 35) . "...";
+                                    }
+                                    echo $title;
+                                    ?>
+                                </h5>
+                            </div>
+                            <div class="card-footer">
+                                <div class="card-text">
+                                    <p class="author"><?php echo $row_book['author_name']; ?></p>
+                                    <p class="year"><?php echo $row_book['book_publication_year']; ?></p>
+                                </div>
+                                <p class="card-text">
+                                    <strong>
+                                        <?php echo $row_book['product_price']; ?>đ
+                                    </strong>
+                                </p>
+                                <?php $index++; ?>
+                                <div class="form-check-product">
+                                    <input class="form-check-input" type="checkbox" id="choose-product<?php echo $index; ?>" name="books[]" value="<?php echo $row_book['product_id']; ?>">
+                                    <label class="form-check-label" for="choose-product<?php echo $index; ?>">Chọn mua</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
+        </div>
+
+        <div class="container mt-4">
+            <h5>Stationery</h5>
+        </div>
+        <div class="container mt-2">
+            <p>Bạn chưa thêm vào giỏ hàng vật phẩm học tập nào</p>
+        </div>
+    </form>
     <?php include "footer.php" ?>
 </body>
 
