@@ -99,21 +99,64 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>null</td>
-                            </tr>
-                            <tr>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>null</td>
-                            </tr>
-                            <tr>
-                                <td>null</td>
-                                <td>null</td>
-                                <td>null</td>
-                            </tr>
+                        <?php
+                            // Kết nối đến cơ sở dữ liệu
+                            $serverName = "TN";
+                            $connectionInfo = array("Database"=>"BookStore");
+                            $conn = sqlsrv_connect($serverName, $connectionInfo);
+
+                            // Kiểm tra kết nối
+                            if (!$conn) {
+                                echo "Kết nối đến CSDL thất bại: " . sqlsrv_errors();
+                            } else {
+                            // Chuẩn bị câu truy vấn SQL
+                            $sql = "SELECT 
+                                        Ngay,
+                                        SUM(TongSoHoaDon) AS TongSoHoaDon,
+                                        SUM(ThuNhap) AS TongThuNhap
+                                    FROM (
+                                        SELECT 
+                                            CONVERT(date, order_date_off) AS Ngay,
+                                            COUNT(*) AS TongSoHoaDon,
+                                            SUM(total_amount_off) AS ThuNhap
+                                        FROM 
+                                            orders_offline
+                                        GROUP BY 
+                                            CONVERT(date, order_date_off)
+                        
+                                        UNION ALL
+                        
+                                        SELECT 
+                                            CONVERT(date, order_date_on) AS Ngay,
+                                            COUNT(*) AS TongSoHoaDon,
+                                            SUM(total_amount_on) AS ThuNhap
+                                        FROM 
+                                            orders_online
+                                        WHERE 
+                                            delivery_status = 'Delivered'
+                                        GROUP BY 
+                                            CONVERT(date, order_date_on)
+                                    ) AS T
+                                    GROUP BY 
+                                    Ngay";
+                            // Thực hiện truy vấn và lặp qua kết quả
+                            $result = sqlsrv_query($conn, $sql);
+                            if ($result === false) {
+                                echo "Lỗi truy vấn: " . sqlsrv_errors();
+                            } else {
+                            while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+                                echo "<tr>";
+                                echo "<td>" . $row["Ngay"]->format('Y-m-d') . "</td>";
+                                echo "<td>" . $row["TongSoHoaDon"] . "</td>";
+                                echo "<td>" . $row["TongThuNhap"] . "</td>";
+                                echo "</tr>";
+                                }
+                            }
+                        }
+
+                            // Đóng kết nối
+                            sqlsrv_close($conn);
+                        ?>
                         </tbody>
                     </table>
                 </div>

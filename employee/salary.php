@@ -98,33 +98,33 @@
                         <tbody>
                             <?php
                                 // Kết nối CSDL
-                                $serverName = "TN";
-                                $connectionInfo = array("Database"=>"BookStore");
-                                $conn = sqlsrv_connect($serverName, $connectionInfo);
+                            $serverName = "TN";
+                            $connectionInfo = array("Database"=>"BookStore");
+                            $conn = sqlsrv_connect($serverName, $connectionInfo);
 
-                                // Kiểm tra kết nối
-                                if (!$conn) {
-                                    echo "Kết nối đến CSDL thất bại: " . sqlsrv_errors();
+                            // Kiểm tra kết nối
+                            if (!$conn) {
+                                echo "Kết nối đến CSDL thất bại: " . sqlsrv_errors();
+                            } else {
+                                // Xử lý tìm kiếm
+                                $employee_id = $_GET['search'] ?? null;
+                                $sql = "SELECT * FROM FindSalary(?)";
+                                $params = array($employee_id);
+                                $result = sqlsrv_query($conn, $sql, $params);
+
+                                // Kiểm tra và hiển thị kết quả
+                                if ($result === false) {
+                                    echo "Lỗi truy vấn: " . sqlsrv_errors();
                                 } else {
-                                    // Thực hiện truy vấn lấy dữ liệu lương từ cơ sở dữ liệu
-                                    $sql = "SELECT es.employee_id, es.salary_date, (es.salary_base * sc.salary_coefficient_value) AS salary
-                                            FROM salary_coefficient sc
-                                            INNER JOIN employee_salary es ON sc.salary_coefficient_id = es.salary_coefficient_id";
-                                    $result = sqlsrv_query($conn, $sql);
-
-                                    // Kiểm tra và hiển thị kết quả
-                                    if ($result === false) {
-                                        echo "Lỗi truy vấn: " . sqlsrv_errors();
-                                    } else {
-                                        while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-                                            echo "<tr>";
-                                            echo "<td>" . $row['employee_id'] . "</td>";
-                                            echo "<td>" . $row['salary_date']->format('Y-m-d') . "</td>";
-                                            echo "<td>" . $row['salary'] . "</td>";
-                                            echo "</tr>";
-                                        }
+                                    while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+                                        echo "<tr>";
+                                        echo "<td>" . $row['employee_id'] . "</td>";
+                                        echo "<td>" . $row['salary_date']->format('Y-m-d') . "</td>";
+                                        echo "<td>" . $row['salary'] . "</td>";
+                                        echo "</tr>";
                                     }
                                 }
+                            }
                             ?>
                         </tbody>
                     </table>

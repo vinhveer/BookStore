@@ -691,7 +691,7 @@ body{
 .dropdown {
     position: relative;
     display: inline-block;
-    margin-right: 60px;
+    margin-right: 40px;
 }
 
 .dropbtn {

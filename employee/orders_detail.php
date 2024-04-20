@@ -67,6 +67,8 @@
                             </a>
                         </li>
                         /
+                        <li><a href="#" class="active">Orders</a></li>
+                        /
                         <li><a href="#" class="active">Order details</a></li>
                     </ul>
                 </div>
@@ -87,45 +89,28 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Product ID</th>
                                 <th>Product name</th>
-                                <th>Amount</th>
                                 <th>Unit price</th>
+                                <th>Amount</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>
-                                    <img src="images/profile_1.jpg">
-                                    <p>ID</p>
-                                </td>
                                 <td>name</td>
                                 <td>_</td>
                                 <td>_</td>
                             </tr>
                             <tr>
-                                <td>
-                                    <img src="images/profile_1.jpg">
-                                    <p>ID</p>
-                                </td>
                                 <td>name</td>
                                 <td>_</td>
                                 <td>_</td>
                             </tr>
                             <tr>
-                                <td>
-                                    <img src="images/profile_1.jpg">
-                                    <p>ID</p>
-                                </td>
                                 <td>name</td>
                                 <td>_</td>
                                 <td>_</td>
                             </tr>
                             <tr>
-                                <td>
-                                    <img src="images/profile_1.jpg">
-                                    <p>ID</p>
-                                </td>
                                 <td>name</td>
                                 <td>_</td>
                                 <td>_</td>
