@@ -65,6 +65,188 @@ BEGIN
 		OR LOWER(REPLACE(CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name) COLLATE Vietnamese_CI_AI,' ','')) LIKE '%' + lower(replace(@keyword,' ','')) + '%';
 END;
 
+--
+ALTER PROCEDURE [dbo].[GetUserInformation_admin]
+@startFrom INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @pageSize INT = 5; -- Số lượng bản ghi trên mỗi trang
+    DECLARE @startRow INT = (@startFrom - 1) * @pageSize; -- Số lượng dòng bắt đầu được bỏ qua
+
+    SELECT
+        case
+			when LEN(u.middle_name)> 0 then
+				 CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name)
+			else CONCAT(u.last_name,' ', u.first_name)
+		end AS full_name,
+        u.email,
+        r.role_name,
+		r.role_id,
+		ua.username,
+		ua.password,
+		u.user_id
+    FROM
+        users u
+    INNER JOIN
+        user_roles ur ON u.user_id = ur.user_id
+    INNER JOIN
+        roles r ON ur.role_id = r.role_id
+    INNER JOIN
+        user_accounts ua ON ur.user_role_id = ua.user_role_id
+	where r.role_id=2
+    ORDER BY
+        u.user_id
+    OFFSET @startRow ROWS
+    FETCH NEXT @pageSize ROWS ONLY;
+END;
+
+ALTER PROCEDURE [dbo].[GetUserInformation_customer]
+@startFrom INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @pageSize INT = 5; -- Số lượng bản ghi trên mỗi trang
+    DECLARE @startRow INT = (@startFrom - 1) * @pageSize; -- Số lượng dòng bắt đầu được bỏ qua
+
+    SELECT
+        case
+			when LEN(u.middle_name)> 0 then
+				 CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name)
+			else CONCAT(u.last_name,' ', u.first_name)
+		end AS full_name,
+        u.email,
+        r.role_name,
+		r.role_id,
+		ua.username,
+		ua.password,
+		u.user_id
+    FROM
+        users u
+    INNER JOIN
+        user_roles ur ON u.user_id = ur.user_id
+    INNER JOIN
+        roles r ON ur.role_id = r.role_id
+    INNER JOIN
+        user_accounts ua ON ur.user_role_id = ua.user_role_id
+	where r.role_id=1
+    ORDER BY
+        u.user_id
+    OFFSET @startRow ROWS
+    FETCH NEXT @pageSize ROWS ONLY;
+END;
+
+ALTER PROCEDURE [dbo].[GetUserInformation_employee]
+@startFrom INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @pageSize INT = 5; -- Số lượng bản ghi trên mỗi trang
+    DECLARE @startRow INT = (@startFrom - 1) * @pageSize; -- Số lượng dòng bắt đầu được bỏ qua
+
+    SELECT
+        case
+			when LEN(u.middle_name)> 0 then
+				 CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name)
+			else CONCAT(u.last_name,' ', u.first_name)
+		end AS full_name,
+        u.email,
+        r.role_name,
+		r.role_id,
+		ua.username,
+		ua.password,
+		u.user_id
+    FROM
+        users u
+    INNER JOIN
+        user_roles ur ON u.user_id = ur.user_id
+    INNER JOIN
+        roles r ON ur.role_id = r.role_id
+    INNER JOIN
+        user_accounts ua ON ur.user_role_id = ua.user_role_id
+	where r.role_id=3
+    ORDER BY
+        u.user_id
+    OFFSET @startRow ROWS
+    FETCH NEXT @pageSize ROWS ONLY;
+END;
+
+ALTER PROCEDURE [dbo].[GetUserInformation_manager]
+@startFrom INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @pageSize INT = 5; -- Số lượng bản ghi trên mỗi trang
+    DECLARE @startRow INT = (@startFrom - 1) * @pageSize; -- Số lượng dòng bắt đầu được bỏ qua
+
+    SELECT
+        case
+			when LEN(u.middle_name)> 0 then
+				 CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name)
+			else CONCAT(u.last_name,' ', u.first_name)
+		end AS full_name,
+        u.email,
+        r.role_name,
+		r.role_id,
+		ua.username,
+		ua.password,
+		u.user_id
+    FROM
+        users u
+    INNER JOIN
+        user_roles ur ON u.user_id = ur.user_id
+    INNER JOIN
+        roles r ON ur.role_id = r.role_id
+    INNER JOIN
+        user_accounts ua ON ur.user_role_id = ua.user_role_id
+	where r.role_id=5
+    ORDER BY
+        u.user_id
+    OFFSET @startRow ROWS
+    FETCH NEXT @pageSize ROWS ONLY;
+END;
+
+
+ALTER PROCEDURE [dbo].[GetUserInformation_warehouse]
+@startFrom INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @pageSize INT = 5; -- Số lượng bản ghi trên mỗi trang
+    DECLARE @startRow INT = (@startFrom - 1) * @pageSize; -- Số lượng dòng bắt đầu được bỏ qua
+
+    SELECT
+        case
+			when LEN(u.middle_name)> 0 then
+				 CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name)
+			else CONCAT(u.last_name,' ', u.first_name)
+		end AS full_name,
+        u.email,
+        r.role_name,
+		r.role_id,
+		ua.username,
+		ua.password,
+		u.user_id
+    FROM
+        users u
+    INNER JOIN
+        user_roles ur ON u.user_id = ur.user_id
+    INNER JOIN
+        roles r ON ur.role_id = r.role_id
+    INNER JOIN
+        user_accounts ua ON ur.user_role_id = ua.user_role_id
+	where r.role_id=4
+    ORDER BY
+        u.user_id
+    OFFSET @startRow ROWS
+    FETCH NEXT @pageSize ROWS ONLY;
+END;
+
 -- search- em:
 CREATE PROCEDURE [dbo].[SearchAccount_employee]
     @keyword NVARCHAR(200)
