@@ -1,8 +1,10 @@
 <?php
+
 $servername = "DESKTOP-ARM6I0A\SQLEXPRESS";
 $database = "BookStore";
 $uid = "sa";
 $pass = "12345";
+
 
 $connection = [
     "Database" => $database,
