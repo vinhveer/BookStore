@@ -7,6 +7,9 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="user.css">
     <title>Amazon Bookstore</title>
+    <style>
+        /* Your CSS styles here */
+    </style>
 </head>
 
 <body>
@@ -22,7 +25,6 @@
             <li><a href="salary.php"><i class='bx bx-coin-stack' ></i>Salary</a></li>
             <li><a href="revenue.php"><i class='bx bxs-bar-chart-alt-2'></i></i>Revenue</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Message</a></li>
-           
             <li><a href="#"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
         <ul class="side-menu">
@@ -35,7 +37,7 @@
         </ul>
     </div>
 
-    <!-- content -->
+    <!-- Content -->
     <div class="content">
         <!-- Navbar -->
         <nav>
@@ -50,7 +52,6 @@
             <label for="theme-toggle" class="theme-toggle"></label>
             <a href="#" class="notif">
                 <i class='bx bx-bell'></i>
-                <!-- <span class="count">12</span> -->
             </a>
             <a href="#" class="profile">
                 <img src="images/logo.jpg">
@@ -62,10 +63,7 @@
                 <div class="left">
                     <h1>Amazon</h1>
                     <ul class="breadcrumb">
-                        <li><a href="#">
-                                Amazon
-                            </a>
-                        </li>
+                        <li><a href="#">Amazon</a></li>
                         /
                         <li><a href="#" class="active">Orders</a></li>
                         /
@@ -78,8 +76,7 @@
                 </a>
             </div>
 
-            <!-- Insights -->
-
+            <!-- Order details -->
             <div class="bottom-data">
                 <div class="orders">
                     <div class="header">
@@ -95,31 +92,68 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>name</td>
-                                <td>_</td>
-                                <td>_</td>
-                            </tr>
-                            <tr>
-                                <td>name</td>
-                                <td>_</td>
-                                <td>_</td>
-                            </tr>
-                            <tr>
-                                <td>name</td>
-                                <td>_</td>
-                                <td>_</td>
-                            </tr>
-                            <tr>
-                                <td>name</td>
-                                <td>_</td>
-                                <td>_</td>
-                            </tr>
+                            <!-- PHP query to retrieve order details -->
+                            <?php
+                                // Kết nối CSDL
+                                $serverName = "TN";
+                                $connectionInfo = array("Database"=>"BookStore");
+                                $conn = sqlsrv_connect($serverName, $connectionInfo);
+
+                                // Lấy id từ URL
+                                if(isset($_GET['id'])) {
+                                    $order_id = $_GET['id'];
+
+                                    // Thực hiện truy vấn SQL với id này
+                                    $sql = "SELECT * FROM GetOrderDetails(?)";
+                                    $params = array($order_id);
+                                    $stmt = sqlsrv_query($conn, $sql, $params);
+
+                                    // Hiển thị dữ liệu tương ứng
+                                    if ($stmt !== false) {
+                                        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                            echo "<tr>";
+                                            echo "<td>" . $row['product_name'] . "</td>";
+                                            echo "<td>" . $row['product_price'] . "</td>";
+                                            echo "<td>" . $row['quantity'] * $row['product_price'] . "</td>";
+                                            echo "</tr>";
+                                        }
+                                    } else {
+                                        echo "Error querying database: " . sqlsrv_errors();
+                                    }
+
+                                    // Lấy giảm giá
+                                    $sql_discount = "SELECT * FROM GetDiscount(?)";
+                                    $params_discount = array($order_id);
+                                    $stmt_discount = sqlsrv_query($conn, $sql_discount, $params_discount);
+                                    if ($stmt_discount !== false) {
+                                        $row_discount = sqlsrv_fetch_array($stmt_discount, SQLSRV_FETCH_ASSOC);
+                                        $discount = $row_discount['discount'];
+                                    } else {
+                                        $discount = "Error querying discount: " . sqlsrv_errors();
+                                    }
+
+                                    // Lấy tổng số tiền
+                                    $sql_total = "SELECT * FROM GetTotal(?)";
+                                    $params_total = array($order_id);
+                                    $stmt_total = sqlsrv_query($conn, $sql_total, $params_total);
+                                    if ($stmt_total !== false) {
+                                        $row_total = sqlsrv_fetch_array($stmt_total, SQLSRV_FETCH_ASSOC);
+                                        $total_amount_on = $row_total['total_amount_on'];
+                                    } else {
+                                        $total_amount_on = "Error querying total amount: " . sqlsrv_errors();
+                                    }
+
+                                    sqlsrv_close($conn);
+                                } else {
+                                    echo "Invalid order ID";
+                                }
+                            ?>
                         </tbody>
                     </table>
                     <!-- Total Sales -->
                     <div class="total-sale">
-                        <h2>Total sales: </h2>
+                        <h4>Discount: <?php echo $discount; ?></h4>
+                        <h2>Total Sales: <?php echo $total_amount_on; ?></h2>
                     </div>
                 </div>
             </div>
@@ -127,7 +161,9 @@
     </div>
     <script src="user.js"></script>
 </body>
+
 </html>
+
 
 
 

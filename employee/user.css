@@ -482,6 +482,7 @@ body{
 .content main .bottom-data .orders table tr td:first-child{
     padding-left: 0px;
     width: 150px;
+    padding-right: 15px;
 }
 
 .content main .bottom-data .orders table th:nth-child(3),

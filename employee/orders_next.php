@@ -129,7 +129,7 @@
                                         echo "<tr>";
                                         echo "<td>" . $row['order_id'] . "</td>";
                                         echo "<td>" . $row['customer_name'] . "</td>";
-                                        echo "<td><a href='orders_detail.php'>Click to see</a></td>";
+                                        echo "<td><a href='orders_detail.php?id=" . $row['order_id'] . "'>Click to see</a></td>";
                                         echo "</tr>";
                                     }
                                 } else {
