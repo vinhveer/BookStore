@@ -34,7 +34,7 @@
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
             <li><a href="../order/index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
-            <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
+            <li><a href="setting_support.php"><i class='bx bx-support'></i>Support</a></li>
             <li><a href="../account/index.php"><i class='bx bx-group'></i>Users</a></li>
             <li class="active"><a href="index.php"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
@@ -78,7 +78,22 @@
                     </div>
                 </div>
                 <?php
-                    $sql_account_admin = "EXEC GetUserInformation_admin";
+                    $sql_account_admin = "SELECT
+                    CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name) AS full_name,
+                    u.email,
+                    ua.password,
+                    r.role_id,
+                    ua.username,
+                    u.user_id
+                FROM
+                    users u
+                INNER JOIN
+                    user_roles ur ON u.user_id = ur.user_id
+                INNER JOIN
+                    roles r ON ur.role_id = r.role_id
+                INNER JOIN
+                    user_accounts ua on ua.user_role_id = ur.user_role_id
+                WHERE r.role_id=2;";
                     $result_account_admin = sqlsrv_query($connect, $sql_account_admin);
                 ?>
                    <div class="card">

@@ -55,7 +55,7 @@
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
             <li><a href="../order/index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
-            <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
+            <li><a href="../setting_up/setting_support.php"><i class='bx bx-support'></i>Support</a></li>
             <li class="active"><a href="index.php"><i class='bx bx-group'></i>Users</a></li>
             <li><a href="../setting_up/index.php"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
@@ -92,17 +92,6 @@
     <div class="header ms-3">
                 <div class="left">
                     <h1>Account</h1>
-                    <ul class="breadcrumb">
-                        <li><a href="../dashboard/index.php">Home</a></li>
-                        <span class="syb">/</span>
-                        <li><a href="index.php" class="active">Users</a></li>
-                        <span class="syb">/</span>
-                        <li><a href="../setting_up/index.php">Setting</a></li>
-                        <span class="syb">/</span>
-                        <li><a href="#">Shop</a></li>
-                        <span class="syb">/</span>
-                        <li><a href="../order/index.php">Orders</a></li>
-                    </ul>
                 </div>
                 <a href="#" class="report">
                     <i class='bx bx-cloud-download'></i>
@@ -111,9 +100,6 @@
             </div>
         <div class="container-fluid">
             <div class="row">
-                <!-- <div class="col-md-2">
-                    <p>Tìm kiếm</p>
-                </div> -->
                 <div class="col-md-4">
                     <form class="d-flex" action="index.php" method="POST">
                         <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm"
@@ -137,7 +123,7 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid mt-3" >
+        <div class="container-fluid mt-2" >
             <div class="card">
                 <div class="card-body">
                     <table class="table table-striped table-bordered" >

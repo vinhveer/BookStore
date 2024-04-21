@@ -34,7 +34,7 @@
         <ul class="side-menu">
         <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
             <li><a href="../order/index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
-            <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
+            <li><a href="../setting_up/setting_support.php"><i class='bx bx-support'></i>Support</a></li>
             <li class="active"><a href="index.php"><i class='bx bx-group'></i>Users</a></li>
             <li><a href="../setting_up/index.php"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
@@ -122,8 +122,22 @@
                             $tukhoa = $_POST['tukhoa'];
                             $sql_account_customer  ="SearchAccount_customer N'$tukhoa'";
                             $result_account_customer = sqlsrv_query($connect, $sql_account_customer );
-                        } else {
-                            $sql_account_customer = "EXEC GetUserInformation_customer";
+                            } else {
+                                $recordsPerPage = 5;
+                                $sql_count = "SELECT COUNT(*) AS total_records FROM users u
+                                INNER JOIN user_roles ur ON u.user_id = ur.user_id
+                                INNER JOIN roles r ON ur.role_id = r.role_id
+                                WHERE r.role_id=1";
+                                $result_count = sqlsrv_query($connect, $sql_count);
+                                $row_count = sqlsrv_fetch_array($result_count);
+                                $totalRecords = $row_count['total_records'];
+                                $totalPages = ceil($totalRecords / $recordsPerPage);
+                            if (!isset($_GET['page'])) {
+                                $currentPage = 1;
+                            } else {
+                                $currentPage = $_GET['page'];
+                            }
+                            $sql_account_customer = "GetUserInformation_customer $currentPage";
                             $result_account_customer = sqlsrv_query($connect, $sql_account_customer);
                         }?>
                         <div class="card">
@@ -158,6 +172,27 @@
                                     <?php } ?>
                                     </tbody>
                                 </table>
+                                <div aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        <div class="pagination">
+                                                <?php
+                                                if ($totalPages > 1) {
+                                                    echo '<a href="account_group.php?page=1">1</a>';
+                                                    if ($currentPage > 3) {
+                                                        echo '<span>...</span>';
+                                                    }
+                                                    for ($i = max(2, $currentPage - 1); $i <= min($currentPage + 1, $totalPages - 1); $i++) {
+                                                        echo "<a href='account_group.php?page=$i'>$i</a>";
+                                                    }
+                                                    if ($currentPage < $totalPages - 2) {
+                                                        echo '<span>...</span>';
+                                                    }
+                                                    echo "<a href='account_group.php?page=$totalPages'>$totalPages</a>";
+                                                }
+                                                ?>
+                                        </div>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                 </div>
@@ -192,8 +227,22 @@
                     $sql_account_admin  ="SearchAccount_admin N'$tukhoa'";
                     $result_account_admin = sqlsrv_query($connect, $sql_account_admin );
                 } else {
-                    $sql_account_admin = "EXEC GetUserInformation_admin";
-                    $result_account_admin = sqlsrv_query($connect, $sql_account_admin);
+                    $recordsPerPage = 5;
+                    $sql_count = "SELECT COUNT(*) AS total_records FROM users u
+                    INNER JOIN user_roles ur ON u.user_id = ur.user_id
+                    INNER JOIN roles r ON ur.role_id = r.role_id
+                    WHERE r.role_id=2";
+                    $result_count = sqlsrv_query($connect, $sql_count);
+                    $row_count = sqlsrv_fetch_array($result_count);
+                    $totalRecords = $row_count['total_records'];
+                    $totalPages = ceil($totalRecords / $recordsPerPage);
+                if (!isset($_GET['page'])) {
+                    $currentPage = 1;
+                } else {
+                    $currentPage = $_GET['page'];
+                }
+                $sql_account_admin = "GetUserInformation_admin $currentPage";
+                $result_account_admin = sqlsrv_query($connect, $sql_account_admin);
                 }?>
                    <div class="card">
                         <div class="card-body">
@@ -227,6 +276,27 @@
                                 <?php } ?>
                                 </tbody>
                             </table>
+                            <div aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        <div class="pagination">
+                                                <?php
+                                                if ($totalPages > 1) {
+                                                    echo '<a href="account_group.php?page=1">1</a>';
+                                                    if ($currentPage > 3) {
+                                                        echo '<span>...</span>';
+                                                    }
+                                                    for ($i = max(2, $currentPage - 1); $i <= min($currentPage + 1, $totalPages - 1); $i++) {
+                                                        echo "<a href='account_group.php?page=$i'>$i</a>";
+                                                    }
+                                                    if ($currentPage < $totalPages - 2) {
+                                                        echo '<span>...</span>';
+                                                    }
+                                                    echo "<a href='account_group.php?page=$totalPages'>$totalPages</a>";
+                                                }
+                                                ?>
+                                        </div>
+                                    </ul>
+                                </div>
                         </div>
                    </div>
                 </div>
@@ -260,8 +330,22 @@
                     $sql_account_manager  ="SearchAccount_manager N'$tukhoa'";
                     $result_account_manager = sqlsrv_query($connect, $sql_account_manager );
                 } else {
-                    $sql_account_manager = "EXEC GetUserInformation_manager";
-                    $result_account_manager = sqlsrv_query($connect, $sql_account_manager);
+                    $recordsPerPage = 5;
+                    $sql_count = "SELECT COUNT(*) AS total_records FROM users u
+                    INNER JOIN user_roles ur ON u.user_id = ur.user_id
+                    INNER JOIN roles r ON ur.role_id = r.role_id
+                    WHERE r.role_id=5";
+                    $result_count = sqlsrv_query($connect, $sql_count);
+                    $row_count = sqlsrv_fetch_array($result_count);
+                    $totalRecords = $row_count['total_records'];
+                    $totalPages = ceil($totalRecords / $recordsPerPage);
+                if (!isset($_GET['page'])) {
+                    $currentPage = 1;
+                } else {
+                    $currentPage = $_GET['page'];
+                }
+                $sql_account_manager = "GetUserInformation_manager $currentPage";
+                $result_account_manager = sqlsrv_query($connect, $sql_account_manager);
                 }?>
                     <div class="card">
                         <div class="card-body">
@@ -295,6 +379,27 @@
                                 <?php } ?>
                                 </tbody>
                             </table>
+                            <div aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        <div class="pagination">
+                                                <?php
+                                                if ($totalPages > 1) {
+                                                    echo '<a href="account_group.php?page=1">1</a>';
+                                                    if ($currentPage > 3) {
+                                                        echo '<span>...</span>';
+                                                    }
+                                                    for ($i = max(2, $currentPage - 1); $i <= min($currentPage + 1, $totalPages - 1); $i++) {
+                                                        echo "<a href='account_group.php?page=$i'>$i</a>";
+                                                    }
+                                                    if ($currentPage < $totalPages - 2) {
+                                                        echo '<span>...</span>';
+                                                    }
+                                                    echo "<a href='account_group.php?page=$totalPages'>$totalPages</a>";
+                                                }
+                                                ?>
+                                        </div>
+                                    </ul>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -329,8 +434,22 @@
                     $sql_account_employee  ="SearchAccount_employee N'$tukhoa'";
                     $result_account_employee = sqlsrv_query($connect, $sql_account_employee );
                 } else {
-                    $sql_account_employee = "EXEC GetUserInformation_employee";
-                    $result_account_employee = sqlsrv_query($connect, $sql_account_employee);
+                    $recordsPerPage = 5;
+                    $sql_count = "SELECT COUNT(*) AS total_records FROM users u
+                    INNER JOIN user_roles ur ON u.user_id = ur.user_id
+                    INNER JOIN roles r ON ur.role_id = r.role_id
+                    WHERE r.role_id=3";
+                    $result_count = sqlsrv_query($connect, $sql_count);
+                    $row_count = sqlsrv_fetch_array($result_count);
+                    $totalRecords = $row_count['total_records'];
+                    $totalPages = ceil($totalRecords / $recordsPerPage);
+                if (!isset($_GET['page'])) {
+                    $currentPage = 1;
+                } else {
+                    $currentPage = $_GET['page'];
+                }
+                $sql_account_employee = "GetUserInformation_employee $currentPage";
+                $result_account_employee = sqlsrv_query($connect, $sql_account_employee);
                 }
                 ?>
                    <div class ="card">
@@ -365,6 +484,27 @@
                                 <?php } ?>
                                 </tbody>
                             </table>
+                            <div aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        <div class="pagination">
+                                                <?php
+                                                if ($totalPages > 1) {
+                                                    echo '<a href="account_group.php?page=1">1</a>';
+                                                    if ($currentPage > 3) {
+                                                        echo '<span>...</span>';
+                                                    }
+                                                    for ($i = max(2, $currentPage - 1); $i <= min($currentPage + 1, $totalPages - 1); $i++) {
+                                                        echo "<a href='account_group.php?page=$i'>$i</a>";
+                                                    }
+                                                    if ($currentPage < $totalPages - 2) {
+                                                        echo '<span>...</span>';
+                                                    }
+                                                    echo "<a href='account_group.php?page=$totalPages'>$totalPages</a>";
+                                                }
+                                                ?>
+                                        </div>
+                                    </ul>
+                                </div>
                         </div>
                    </div>
                 </div>
@@ -398,8 +538,22 @@
                     $sql_account_warehouse  ="SearchAccount_warehouse N'$tukhoa'";
                     $result_account_warehouse = sqlsrv_query($connect, $sql_account_warehouse );
                 } else {
-                    $sql_account_warehouse = "EXEC GetUserInformation_warehouse";
-                    $result_account_warehouse = sqlsrv_query($connect, $sql_account_warehouse);
+                    $recordsPerPage = 5;
+                    $sql_count = "SELECT COUNT(*) AS total_records FROM users u
+                    INNER JOIN user_roles ur ON u.user_id = ur.user_id
+                    INNER JOIN roles r ON ur.role_id = r.role_id
+                    WHERE r.role_id=4";
+                    $result_count = sqlsrv_query($connect, $sql_count);
+                    $row_count = sqlsrv_fetch_array($result_count);
+                    $totalRecords = $row_count['total_records'];
+                    $totalPages = ceil($totalRecords / $recordsPerPage);
+                    if (!isset($_GET['page'])) {
+                        $currentPage = 1;
+                    } else {
+                        $currentPage = $_GET['page'];
+                    }
+                $sql_account_warehouse = "GetUserInformation_warehouse $currentPage";
+                $result_account_warehouse = sqlsrv_query($connect, $sql_account_warehouse);
                 }?>
                     <div class="card">
                         <div class="card-body">
@@ -433,6 +587,27 @@
                                 <?php } ?>
                                 </tbody>
                             </table>
+                            <div aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        <div class="pagination">
+                                                <?php
+                                                if ($totalPages > 1) {
+                                                    echo '<a href="account_group.php?page=1">1</a>';
+                                                    if ($currentPage > 3) {
+                                                        echo '<span>...</span>';
+                                                    }
+                                                    for ($i = max(2, $currentPage - 1); $i <= min($currentPage + 1, $totalPages - 1); $i++) {
+                                                        echo "<a href='account_group.php?page=$i'>$i</a>";
+                                                    }
+                                                    if ($currentPage < $totalPages - 2) {
+                                                        echo '<span>...</span>';
+                                                    }
+                                                    echo "<a href='account_group.php?page=$totalPages'>$totalPages</a>";
+                                                }
+                                                ?>
+                                        </div>
+                                    </ul>
+                                </div>
                         </div>
                     </div>
                 </div>

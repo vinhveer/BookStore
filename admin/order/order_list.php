@@ -1,11 +1,49 @@
 <?php
     include_once '../../import/connect.php';
-    $sql_order = "SELECT oo.order_id, oo.order_date_on, CONCAT(u.first_name, ' ', u.last_name) AS full_name, oo.status_on
-    FROM orders_online AS oo
-    JOIN customers AS c ON oo.customer_id = c.customer_id
-    JOIN users AS u ON c.user_id = u.user_id;
-    ";
-    $result_order = sqlsrv_query($connect, $sql_order);
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem'])) {
+        $tukhoa = $_POST['tukhoa'];
+        $keyword = strtolower(trim($tukhoa));
+        $select_order = $_GET['select'];
+        if($select_order == 1){
+            $sql_order = "SELECT oo.order_id, oo.order_date_on, CONCAT(u.first_name, ' ', u.last_name) AS full_name, oo.status_on,oo.note_on
+            FROM orders_online AS oo
+            JOIN customers AS c ON oo.customer_id = c.customer_id
+            JOIN users AS u ON c.user_id = u.user_id
+            WHERE LOWER(CONCAT('DH00', CAST(order_id AS NVARCHAR(MAX)))) LIKE '%' + '$keyword' + '%';";
+            $result_order = sqlsrv_query($connect, $sql_order);
+        }
+        if($select_order == 0){
+            $sql_order = "SELECT *
+            FROM orders_offline
+            WHERE LOWER(CONCAT('DH00', CAST(order_id AS NVARCHAR(MAX)))) LIKE '%' + '$keyword' + '%';";
+            $result_order = sqlsrv_query($connect, $sql_order);
+        }
+    }
+    else{
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['sbm_select_order'])) {
+        $select_order=$_POST['order'];
+        if($select_order == 1){
+            $sql_order = "SELECT oo.order_id, oo.order_date_on, CONCAT(u.first_name, ' ', u.last_name) AS full_name, oo.status_on,oo.note_on
+            FROM orders_online AS oo
+            JOIN customers AS c ON oo.customer_id = c.customer_id
+            JOIN users AS u ON c.user_id = u.user_id;";
+            $result_order = sqlsrv_query($connect, $sql_order);
+        }
+        if($select_order == 0){
+            $sql_order = "SELECT * FROM orders_offline";
+            $result_order = sqlsrv_query($connect, $sql_order);
+        }
+    }
+    else{
+        $select_order = 1;
+        $sql_order = "SELECT oo.order_id, oo.order_date_on, CONCAT(u.first_name, ' ', u.last_name) AS full_name, oo.status_on,oo.note_on
+        FROM orders_online AS oo
+        JOIN customers AS c ON oo.customer_id = c.customer_id
+        JOIN users AS u ON c.user_id = u.user_id;
+        ";
+        $result_order = sqlsrv_query($connect, $sql_order);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +78,7 @@
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
             <li><a href="index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
-            <li><a href="#"><i class='bx bx-message-square-dots'></i>Chats</a></li>
+            <li><a href="../setting_up/setting_support.php"><i class='bx bx-support'></i>Support</a></li>
             <li><a href="../account/index.php"><i class='bx bx-group'></i>Users</a></li>
             <li><a href="../setting_up/index.php"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
@@ -83,10 +121,21 @@
                 <h3>Danh sách đơn hàng</h3>
             </div>
             <div class="col-md-5">
-                <form class="d-flex" action="" method="POST">
-                    <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm" name="tukhoa" value="">
+                <form class="d-flex" action="order_list.php?select=<?php echo $select_order?>" method="POST">
+                        <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm"
+                        name="tukhoa" value="">
                     <button class="btn btn-outline-primary" type="submit" name="timkiem" value="find">Tìm</button>
-                </form>
+                    </form>
+                    <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem'])) { ?>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <?php
+                            $tukhoa = $_POST['tukhoa'];
+                            echo "<p>Tìm kiếm với từ khóa: '<strong>$tukhoa</strong>'</p>";
+                            ?>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
             <div class="col-md-4 text-right">
                 <button class="btn btn-primary float-end">Xuất Excel</button>
@@ -98,40 +147,76 @@
         <div class="col-md-12 mt-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Bảng liệt kê đơn hàng</h5>
-                        <table class="table table-striped table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Mã đơn hàng</th>
-                                    <th scope="col">Ngày đặt</th>
-                                    <th scope="col">Khách hàng</th>
-                                    <th scope="col">Trạng thái</th>
-                                    <th scope="col">Thao tác</th>
+                <form  action="order_list.php" method="post">
+                   <div class="row">
+                        <div class="col-md-5">
+                            <h5 class="card-title">Bảng liệt kê đơn hàng</h5>
+                        </div>
+                            <div class="col-md-7 text-end">
+                                <div class=" row d-flex">
+                                    <div class="col-md-6"></div>
+                                   <div class ="col-md-4 text-end ">
+                                        <select class="form-select" id="order" name="order" required>
+                                            <option value="" disabled selected>Chọn loại đơn hàng</option>
+                                            <option value="1" <?php echo ($select_order == '1') ? 'selected' : ''; ?>>Đơn hàng online</option>
+                                            <option value="0"<?php echo ($select_order == '0') ? 'selected' : ''; ?>>Đơn hàng offline</option>
+                                        </select>
+                                   </div>
+                                    <div class="col-md-2">
+                                        <button type="submit" class="btn btn-outline-success" name="sbm_select_order">Lọc đơn</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                   </div>
+                   <hr>
+                   <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Mã đơn hàng</th>
+                                        <th scope="col">Ngày đặt</th>
+                                        <?php if($select_order == 1) { ?>
+                                            <th scope="col">Khách hàng</th>
+                                            <th scope="col">Trạng thái</th>
+                                            <th scope="col">Ghi chú</th>
+                                        <?php } else { ?>
+                                            <th scope="col">Ghi chú</th>
+                                        <?php } ?>
+                                        <th scope="col">Thao tác</th>
                                     </tr>
-                            </thead>
-                            <tbody>
-                                <?php  $i = 0;
-                                while ($row_order = sqlsrv_fetch_array($result_order)) {?>
-                                <tr>
-                                    <th scope="row"><?php $i++; echo $i ?></th>
-                                    <td>DH00<?php echo $row_order['order_id']; ?></td> <!-- Mã đơn hàng -->
-                                    <?php $order_date = $row_order['order_date_on'];
-                                    $formatted_date = $order_date->format('Y-m-d');?>
-                                    <td><?php echo  $formatted_date; ?></td> <!-- Ngày đặt -->
-                                    <td><?php echo $row_order['full_name']; ?></td> <!-- Tên khách hàng -->
-                                    <td><?php echo $row_order['status_on']; ?></td> <!-- Trạng thái -->
-                                    <td>
-                                        <button class="btn btn-sm btn-info">Xem</button>
-                                        <button class="btn btn-sm btn-danger">Hủy</button>
-                                    </td>
-                                </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $i = 0;
+                                    while ($row_order = sqlsrv_fetch_array($result_order)) {
+                                        $i++;
+                                    ?>
+                                    <tr>
+                                        <th scope="row"><?php echo $i ?></th>
+                                        <td>DH00<?php echo $row_order['order_id']; ?></td>
+                                        <?php
+                                        if($select_order == 1) $order_date = $row_order['order_date_on'];
+                                        else $order_date = $row_order['order_date_off'];
+                                        $formatted_date = $order_date->format('Y-m-d');?>
+                                        <td><?php echo  $formatted_date; ?></td>
+                                        <?php if($select_order == 1) { ?>
+                                            <td><?php echo $row_order['full_name']; ?></td>
+                                            <td><?php echo $row_order['status_on']; ?></td>
+                                            <td><?php echo $row_order['note_on']; ?></td>
+                                        <?php } else { ?>
+                                            <td><?php echo $row_order['note_off']; ?></td>
+                                        <?php } ?>
+                                        <td>
+                                            <button class="btn btn-sm btn-info">Xem</button>
+                                            <button class="btn btn-sm btn-danger">Hủy</button>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
     </main>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,15 +8,15 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
-    <title>Home Admin</title>
+    <title>Amazon Warehouse</title>
     <style>
         .action-buttons .btn.btn-info  {
             display: flex;
             align-items: center;
         }
-        h3,hr,.bxs-chevrons-left{
+        h3,.form-label{
             color: var(--dark);
         }
     </style>
@@ -26,14 +27,14 @@
     <div class="sidebar">
         <a href="#" class="logo">
             <i class='bx bxl-amazon'></i>
-            <div class="logo-name"><span>A</span>&nbspBookstore</div>
+            <div class="logo-name"><span></span>&nbspAdmin</div>
         </a>
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
             <li><a href="../order/index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
-            <li><a href="setting_support.php"><i class='bx bx-support'></i>Support</a></li>
-            <li><a href="../account/index.php"><i class='bx bx-group'></i>Users</a></li>
-            <li class="active"><a href="index.php"><i class='bx bx-cog'></i>Settings</a></li>
+            <li><a href="../setting_up/setting_support.php"><i class='bx bx-support'></i>Support</a></li>
+            <li class="active"><a href="index.php"><i class='bx bx-group'></i>Users</a></li>
+            <li><a href="../setting_up/index.php"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
         <ul class="side-menu">
             <li>
@@ -66,41 +67,54 @@
                 <img src="images/logo.jpg">
             </a>
         </nav>
-        <main>
-        <div class="container mt-3 mb-3">
-        <h3><a style="color:black;" href="index.php"><i class='bx bxs-chevrons-left me-3' ></i></a>Thông tin hệ thống</h3>
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        Thông tin hệ thống
-                    </div>
-                    <div class="card-body">
-                        <p>Name: Bookstore management software system</p>
-                        <p>Developed by: Your Company Name</p>
-                        <p>Email: info@company.com</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        Liên hệ
-                    </div>
-                    <div class="card-body">
-                        <p>Thông tin liên hệ</p>
-                        <p>Điện thoại: 0123 456 789</p>
-                        <p>Email: contact@company.com</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-        </main>
-        </div>
-    <script src="index.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-</body>
 
+    <main>
+    <div class="container">
+    <div class="container mt-4 mb-4">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Tin Tức Hệ Thống</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+            <!-- Tin tức 1 -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Tiêu đề tin tức 1</h5>
+                        <p class="card-text">Mô tả ngắn gọn về tin tức này...</p>
+                        <a href="#" class="btn btn-primary">Xem thêm</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Tin tức 2 -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Tiêu đề tin tức 2</h5>
+                        <p class="card-text">Mô tả ngắn gọn về tin tức này...</p>
+                        <a href="#" class="btn btn-primary">Xem thêm</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Tin tức 3 -->
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Tiêu đề tin tức 3</h5>
+                        <p class="card-text">Mô tả ngắn gọn về tin tức này...</p>
+                        <a href="#" class="btn btn-primary">Xem thêm</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </main>
+    </div>
+    <script src="index.js"></script>
+</body>
 </html>
