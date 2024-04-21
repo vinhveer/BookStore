@@ -18,3 +18,6 @@ if (!$connect) {
     echo "";
 }
 ?>
+
+session_start();
+
