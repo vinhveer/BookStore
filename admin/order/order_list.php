@@ -5,7 +5,12 @@
         $keyword = strtolower(trim($tukhoa));
         $select_order = $_GET['select'];
         if($select_order == 1){
-            $sql_order = "SELECT oo.order_id, oo.order_date_on, CONCAT(u.first_name, ' ', u.last_name) AS full_name, oo.status_on,oo.note_on
+            $sql_order = "SELECT oo.order_id, oo.order_date_on,
+        case
+			when LEN(u.middle_name)> 0 then
+				 CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name)
+			else CONCAT(u.last_name,' ', u.first_name)
+		end AS full_name, oo.status_on,oo.note_on
             FROM orders_online AS oo
             JOIN customers AS c ON oo.customer_id = c.customer_id
             JOIN users AS u ON c.user_id = u.user_id
@@ -23,7 +28,12 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['sbm_select_order'])) {
         $select_order=$_POST['order'];
         if($select_order == 1){
-            $sql_order = "SELECT oo.order_id, oo.order_date_on, CONCAT(u.first_name, ' ', u.last_name) AS full_name, oo.status_on,oo.note_on
+            $sql_order = "SELECT oo.order_id, oo.order_date_on,
+        case
+			when LEN(u.middle_name)> 0 then
+				 CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name)
+			else CONCAT(u.last_name,' ', u.first_name)
+		end AS full_name, oo.status_on,oo.note_on
             FROM orders_online AS oo
             JOIN customers AS c ON oo.customer_id = c.customer_id
             JOIN users AS u ON c.user_id = u.user_id;";
@@ -36,7 +46,12 @@
     }
     else{
         $select_order = 1;
-        $sql_order = "SELECT oo.order_id, oo.order_date_on, CONCAT(u.first_name, ' ', u.last_name) AS full_name, oo.status_on,oo.note_on
+        $sql_order = "SELECT oo.order_id, oo.order_date_on,
+    case
+        when LEN(u.middle_name)> 0 then
+             CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name)
+        else CONCAT(u.last_name,' ', u.first_name)
+    end AS full_name, oo.status_on,oo.note_on
         FROM orders_online AS oo
         JOIN customers AS c ON oo.customer_id = c.customer_id
         JOIN users AS u ON c.user_id = u.user_id;
@@ -77,7 +92,7 @@
         </a>
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
-            <li><a href="index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
+            <li class="active"><a href="index.php"><i class='bx bx-clipboard'></i>Orders</a></li>
             <li><a href="../setting_up/setting_support.php"><i class='bx bx-support'></i>Support</a></li>
             <li><a href="../account/index.php"><i class='bx bx-group'></i>Users</a></li>
             <li><a href="../setting_up/index.php"><i class='bx bx-cog'></i>Settings</a></li>
@@ -208,8 +223,15 @@
                                             <td><?php echo $row_order['note_off']; ?></td>
                                         <?php } ?>
                                         <td>
-                                            <button class="btn btn-sm btn-info">Xem</button>
-                                            <button class="btn btn-sm btn-danger">Hủy</button>
+                                       <div class="d-flex">
+                                            <?php if($select_order == 1) { ?>
+                                                <a href="order_detail.php?order_id=<?php echo $row_order['order_id']; ?>&select=1" class="btn btn-sm btn-info me-2">Xem</a>
+                                                <button class="btn btn-sm btn-danger delete-btn me-2" data-order-id="<?php echo $row_order['order_id']; ?>">Xóa</button>
+                                            <?php } else { ?>
+                                                <a href="order_detail.php?order_id=<?php echo $row_order['order_id']; ?>&select=0" class="btn btn-sm btn-info me-2">Xem</a>
+                                                <button class="btn btn-sm btn-danger delete-btn me-2" data-order-id="<?php echo $row_order['order_id']; ?>">Xóa</button>
+                                            <?php } ?>
+                                       </div>
                                         </td>
                                     </tr>
                                     <?php } ?>
@@ -221,6 +243,40 @@
     </div>
     </main>
     </div>
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationModalLabel">Xác nhận xóa đơn hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xóa đơn hàng này không?
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" action="process.php" method="POST">
+                    <input type="hidden" name="order_id" id="order_id_input">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-danger">Xóa</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
     <script src="index.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <script>
+    // JavaScript to handle delete button click and pass order ID to the confirmation modal
+    $(document).ready(function() {
+        $('.delete-btn').click(function() {
+            var orderId = $(this).data('order-id');
+            $('#order_id_input').val(orderId);
+            $('#deleteConfirmationModal').modal('show');
+        });
+    });
+</script>
 </body>
 </html>
