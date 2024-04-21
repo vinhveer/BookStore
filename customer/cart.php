@@ -35,7 +35,7 @@
                         <a class="nav-link" href="book.php">Book</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="statione  ry.php">Stationery</a>
+                        <a class="nav-link" href="stationery.php">Stationery</a>
                     </li>
                 </ul>
 

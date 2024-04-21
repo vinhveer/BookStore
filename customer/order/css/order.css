@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.logo {
+    width: 80px;
+}
+
+.nav-link i {
+    font-size: 20px;
+}
+
+.search {
+    width: 100%;
+    height: 35px;
+}
+
+.avatar_navbar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.avatar_dropdown {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.dropdown-menu {
+    width: 350px;
+}
+
+.active {
+    font-weight: bold;
+}
+
+body {
+    margin-top: 90px;
+}
+
+h6 {
+    padding-left: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.navbar-brand {
+    padding-top: 10px;
+}
+
+.sum_product {
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.dropdown-item i {
+    padding-right: 8px;
+}
+
+
+.head_order {
+    padding-left: 0px;
+    font-weight: 300;
+    margin-left: 0px;
+}
+
+.head_order {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.total {
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.pay_type label {
+    margin-bottom: 10px;
+    display: block;
+}
+
+
+/* Tạo hiệu ứng hover cho radio box */
+.form-check-input[type="radio"]:hover {
+    background-color: #f0f0f0;
+}
+
+/* Tùy chỉnh radio box được chọn */
+.form-check-input[type="radio"]:checked {
+    background-color: #007bff; /* Màu nền khi được chọn */
+    border-color: #007bff; /* Màu viền khi được chọn */
+}
+
+/* Thay đổi màu chữ của nhãn khi radio box được chọn */
+.form-check-input[type="radio"]:checked + .form-check-label {
+    color: #007bff;
+}
+
+/* Căn giữa nhãn với radio box */
+.form-check-label {
+    display: flex;
+    align-items: center;
+    color: #333; /* Màu chữ của nhãn */
+}
+
+.pay_type {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.price_section {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.head_order {
+    padding-bottom: 10px;
+}
