@@ -78,16 +78,16 @@
             <div class="bottom-data">
                 <div class="orders">
                     <div class="header">
-                        <i class='bx bx-x-circle'></i>
-                        <h3>Not accepted</h3>
+                    <i class='bx bx-notepad'></i>
+                        <h3>Have accepted</h3>
                         <form action="">
                             <input type="search" name="search" placeholder="Search ID...">
                             <button type="submit" name="submit"><i class='bx bx-search'></i></button>
                         </form>
                         <div class="dropdown">
-                            <button class="dropbtn">Not accepted</button>
+                            <button class="dropbtn">Have accepted</button>
                             <div class="dropdown-content">
-                                <a href="orders_next.php">Have accepted</a>
+                                <a href="orders.php">Not accepted</a>
                             </div>
                         </div> 
                     </div>
@@ -100,7 +100,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <?php
+                            <?php
                             // Kết nối CSDL
                             $serverName = "TN";
                             $connectionInfo = array("Database"=>"BookStore");
@@ -111,13 +111,12 @@
                                 // Xử lý tìm kiếm
                                 if (isset($_GET['search']) && !empty($_GET['search'])) {
                                     $search_id = $_GET['search'];
-                                    // Gọi hàm FindOrderO và thực hiện truy vấn
-                                    $sql = "SELECT * FROM FindOrderO(?)";
+                                    // Gọi hàm FindOrderOO và thực hiện truy vấn
+                                    $sql = "SELECT * FROM FindOrderOO(?)";
                                     $params = array($search_id);
-                                    
                                 } else {
-                                    // Mặc định hiển thị tất cả đơn hàng chưa được chấp nhận
-                                    $sql = "SELECT * FROM FindOrderO(NULL)";
+                                    // Mặc định hiển thị tất cả đơn hàng đã được chấp nhận
+                                    $sql = "SELECT * FROM FindOrderOO(NULL)";
                                     $params = array();
                                 }
 
@@ -151,4 +150,5 @@
     </div>
     <script src="user.js"></script>
 </body>
+
 </html>
