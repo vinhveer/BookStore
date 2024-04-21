@@ -60,34 +60,42 @@
     </nav>
 
     <main class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <h5 class="mb-2" style="padding-left: 15px;">Order</h5>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item list-group-item-action list-group-item-light active_item"><a
-                            href="#personal-info">Order purchased</a></li>
-                    <li class="list-group-item list-group-item-action list-group-item-light"><a
-                            href="#shipping-address">Order status</a></li>
-                </ul>
-            </div>
+        <h3>Order List</h3>
 
-            <div class="col-md-9">
-                <section id="personal-info">
-                    <div class="container mb-4">
-                        <div class="row align-items-center">
-                            <div class="col-md-6">
-                                <h4 style="margin-bottom: 0px">Profile information</h4>
-                            </div>
-                            <div class="col-md-6">
-                                <button class="btn btn-primary float-end">Edit</button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
+        <table class="table">
+            <th>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Order Date</th>
+                    <th>Order Status</th>
+                    <th>Order Total</th>
+                    <th>Order Detail</th>
+                </tr>
+            </th>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>2021-10-10</td>
+                    <td>Processing</td>
+                    <td>1000000</td>
+                    <td><a href="details.php">View</a></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>2021-10-10</td>
+                    <td>Processing</td>
+                    <td>1000000</td>
+                    <td><a href="details.php">View</a></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>2021-10-10</td>
+                    <td>Processing</td>
+                    <td>1000000</td>
+                    <td><a href="details.php">View</a></td>
+                </tr>
+        </table>
     </main>
-
 </body>
 
 </html>

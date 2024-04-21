@@ -98,7 +98,7 @@
         </div>
     </div>
 
-    <form action="process.php" method="post">
+    <form action="order/order.php" method="post">
         <div class="container mt-2">
             <div class="row">
                 <div class="col-md-6">
@@ -122,8 +122,7 @@
                 <div class="col-md-6 text-end">
                     <button type="submit" class="btn btn-primary btn-purchase" name="buy_now"><i
                             class="bi bi-cart-fill me-2"></i>Mua ngay</button>
-                    <a href="index.php" class="btn btn-danger"><i class="bi bi-cart-fill me-2"></i>Xóa khỏi giỏ hàng
-                        (2)</a>
+                    <a href="index.php" class="btn btn-danger"><i class="bi bi-cart-fill me-2"></i>Xóa khỏi giỏ hàng</a>
                 </div>
             </div>
         </div>

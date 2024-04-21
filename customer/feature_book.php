@@ -1,6 +1,9 @@
 <?php
-// Retrieve data for the featured item
-$sql_item_book = $row['cmd_top5'];
+if ($_SERVER['SCRIPT_NAME'] !== "/customer/see_more.php") {
+    $sql_item_book = $row['cmd_top5'];
+} else {
+    $sql_item_book = $row['cmd_top30'];
+}
 $result_item_book = sqlsrv_query($conn, $sql_item_book);
 ?>
 
@@ -10,7 +13,9 @@ $result_item_book = sqlsrv_query($conn, $sql_item_book);
             <h4><?php echo $row['title']; ?></h4>
         </div>
         <div class="col-md-3 text-end">
-            <a href="#" class="btn btn-warning">See more</a>
+            <?php if ($_SERVER['SCRIPT_NAME'] !== "/customer/see_more.php"): ?>
+                <a href="see_more.php?list_item_id=<?php echo $row['id'] ?>" class="btn btn-warning">See more</a>
+            <?php endif; ?>
         </div>
     </div>
 </div>
@@ -26,8 +31,8 @@ $result_item_book = sqlsrv_query($conn, $sql_item_book);
                                 alt="<?php echo $row_book['book_name']; ?>">
                         </div>
                         <div class="col-md-7">
-                            <div class="card-body d-flex flex-column">
-                                <a href="">
+                            <div class="card-body d-flex flex-column" style="height: 40%">
+                                <a href="book/book_details.php?book_id=<?php echo $row_book['product_id'] ?>">
                                     <h5 class="card-title">
                                         <?php
                                         $title = $row_book['book_name'];
@@ -36,7 +41,7 @@ $result_item_book = sqlsrv_query($conn, $sql_item_book);
                                     </h5>
                                 </a>
                             </div>
-                            <div class="card-details card-footer">
+                            <div class="card-details card-footer" style="height: 40%">
                                 <div class="card-text">
                                     <p class="author"><?php echo $row_book['author_name']; ?></p>
                                     <p class="year"><?php echo $row_book['book_publication_year']; ?></p>
@@ -45,17 +50,16 @@ $result_item_book = sqlsrv_query($conn, $sql_item_book);
                                     <strong><?php echo $row_book['product_price']; ?>đ</strong>
                                 </div>
                             </div>
-                            <div class="card-footer mt-auto">
-                                <div class="button d-flex justify-content-between">
-                                    <a href="#" class="btn btn-success">Buy now</a>
-                                    <form method="post" action="process.php">
-                                        <input type="hidden" name="product_id"
-                                            value="<?php echo $row_book['product_id']; ?>">
-                                        <button type="submit" name="add_to_cart" class="btn btn-danger"><i
-                                                class="bi bi-cart-plus"></i></button>
-                                    </form>
-                                </div>
+                            <div class="row d-flex" style="height: 20%">
+                                <form method="post" action="process.php">
+                                    <a href="order/order.php?product_id=<?php echo $row_book['product_id'] ?>"
+                                        class="col-md-8 btn btn-success">Buy now</a>
+                                    <input type="hidden" name="product_id" value="<?php echo $row_book['product_id']; ?>">
+                                    <button type="submit" name="add_to_cart" class="btn btn-secondary col-md-3"><i
+                                            class="bi bi-cart-plus"></i></button>
+                                </form>
                             </div>
+
                         </div>
                     </div>
                 </div>

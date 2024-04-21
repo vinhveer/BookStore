@@ -90,8 +90,8 @@
 					} else {
 						?>
 						<li class="nav-item d-flex">
-							<a class="nav-link btn mx-2 login_btn" aria-current="page" href="../login/sign_in.php">Login</a>
-							<a class="nav-link btn mx-2 sign_up_btn" aria-current="page"
+							<a class="nav-link btn btn-outline-light me-2" aria-current="page" href="../login/sign_in.php">Login</a>
+							<a class="nav-link btn btn-warning" aria-current="page"
 								href="../login/register.php">Register</a>
 						</li>
 						<?php
@@ -102,7 +102,7 @@
 		</div>
 	</nav>
 
-	<div id="carouselExampleAutoplaying" class="carousel slide container mt-4" data-bs-ride="carousel">
+	<div id="carouselExampleAutoplaying" class="carousel slide container-fluid mt-4" data-bs-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active">
 				<img src="..\assets\images\slide\image.png" class="d-block w-100" alt="...">
