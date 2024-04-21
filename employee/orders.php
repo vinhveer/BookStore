@@ -19,10 +19,9 @@
         <ul class="side-menu">
             <li class="active"><a href="orders.php"><i class='bx bx-store-alt'></i>Orders</a></li>
             <li><a href="user.php"><i class='bx bx-group'></i>User</a></li>
-            <li><a href="salary.php"><i class='bx bx-coin-stack' ></i>Salary</a></li>
-            <li><a href="revenue.php"><i class='bx bxs-bar-chart-alt-2'></i></i>Revenue</a></li>
+            <li><a href="salary.php"><i class='bx bx-coin-stack'></i>Salary</a></li>
+            <li><a href="revenue.php"><i class='bx bxs-bar-chart-alt-2'></i>Revenue</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Message</a></li>
-           
             <li><a href="#"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
         <ul class="side-menu">
@@ -62,9 +61,7 @@
                 <div class="left">
                     <h1>Amazon</h1>
                     <ul class="breadcrumb">
-                        <li><a href="#">
-                                Amazon
-                            </a></li>
+                        <li><a href="#">Amazon</a></li>
                         /
                         <li><a href="#" class="active">Orders</a></li>
                     </ul>
@@ -91,49 +88,42 @@
                         <thead>
                             <tr>
                                 <th>Order ID</th>
-                                <th>Customer</th>
+                                <th>Customer Name</th>
                                 <th>Details</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <?php
-                            // Kết nối CSDL
+                            <?php
                             $serverName = "TN";
                             $connectionInfo = array("Database"=>"BookStore");
                             $conn = sqlsrv_connect($serverName, $connectionInfo);
 
-                            // Kiểm tra kết nối
                             if (!$conn) {
                                 echo "Kết nối đến CSDL thất bại: " . sqlsrv_errors();
                             } else {
-                                // Kiểm tra xem có dữ liệu được gửi từ form không
-                                if(isset($_GET['submit1'])){
-                                    // Lấy giá trị từ ô tìm kiếm
-                                    $order_id = $_GET['search1'] ?? null;
-                                    $sql = "SELECT * FROM FindOrderO(?)";
-                                    $params = array($order_id);
-                                    $result = sqlsrv_query($conn, $sql, $params);
-                                    // Kiểm tra và hiển thị kết quả
-                                    if ($result === false) {
-                                        echo "Lỗi truy vấn: " . sqlsrv_errors();
-                                    } else {
-                                        while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-                                            echo "<tr>";
-                                            echo "<td>" . $row['order_id'] . "</td>";
-                                            echo "<td>" . $row['first_name'] . "</td>";
-                                            echo "<td><a href='orders_detail.php'>Click to see</a></td>";
-                                            echo "</tr>";
-                                        }
+                                // Xử lý tìm kiếm
+                                $order_id = $_GET['search1'] ?? null;
+                                $sql = "SELECT * FROM FindOrderO(?)";
+                                $params = array($order_id);
+                                $result = sqlsrv_query($conn, $sql, $params);
+
+                                if ($result === false) {
+                                    echo "Lỗi truy vấn: " . sqlsrv_errors();
+                                } else {
+                                    while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+                                        echo "<tr>";
+                                        echo "<td>" . $row['order_id'] . "</td>";
+                                        echo "<td>" . $row['customer_name'] . "</td>";
+                                        echo "<td><a href='orders_detail.php'>Click to see</a></td>";
+                                        echo "</tr>";
                                     }
                                 }
                                 sqlsrv_close($conn);
                             }
                             ?>
-                        
                         </tbody>
                     </table>
                 </div>
-
                 <div class="orders">
                     <div class="header">
                         <i class='bx bx-notepad'></i>
@@ -147,45 +137,38 @@
                         <thead>
                             <tr>
                                 <th>Order ID</th>
-                                <th>Customer</th>
+                                <th>Customer Name</th>
                                 <th>Details</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <?php
-                            // Kết nối CSDL
+                            <?php
                             $serverName = "TN";
                             $connectionInfo = array("Database"=>"BookStore");
                             $conn = sqlsrv_connect($serverName, $connectionInfo);
 
-                            // Kiểm tra kết nối
                             if (!$conn) {
                                 echo "Kết nối đến CSDL thất bại: " . sqlsrv_errors();
                             } else {
-                                // Kiểm tra xem có dữ liệu được gửi từ form không
-                                if(isset($_GET['submit2'])){
-                                    // Lấy giá trị từ ô tìm kiếm
-                                    $order_id = $_GET['search2'] ?? null;
-                                    $sql = "SELECT * FROM FindOrderOO(?)";
-                                    $params = array($order_id);
-                                    $result = sqlsrv_query($conn, $sql, $params);
-                                    // Kiểm tra và hiển thị kết quả
-                                    if ($result === false) {
-                                        echo "Lỗi truy vấn: " . sqlsrv_errors();
-                                    } else {
-                                        while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-                                            echo "<tr>";
-                                            echo "<td>" . $row['order_id'] . "</td>";
-                                            echo "<td>" . $row['first_name'] . "</td>";
-                                            echo "<td><a href='orders_detail.php'>Click to see</a></td>";
-                                            echo "</tr>";
-                                        }
+                                // Xử lý tìm kiếm
+                                $order_id = $_GET['search2'] ?? null;
+                                $sql = "SELECT * FROM FindOrderOO(?)";
+                                $params = array($order_id);
+                                $result = sqlsrv_query($conn, $sql, $params);
+                                if ($result === false) {
+                                    echo "Lỗi truy vấn: " . sqlsrv_errors();
+                                } else {
+                                    while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+                                        echo "<tr>";
+                                        echo "<td>" . $row['order_id'] . "</td>";
+                                        echo "<td>" . $row['customer_name'] . "</td>";
+                                        echo "<td><a href='orders_detail.php'>Click to see</a></td>";
+                                        echo "</tr>";
                                     }
                                 }
                                 sqlsrv_close($conn);
                             }
                             ?>
-                        
                         </tbody>
                     </table>
                 </div>
@@ -194,7 +177,12 @@
     </div>
     <script src="user.js"></script>
 </body>
+
 </html>
+
+
+
+
 
 
 
