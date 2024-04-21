@@ -621,3 +621,40 @@ body{
     }
 
 }
+
+a{
+    text-decoration: none; /* Loại bỏ gạch chân khi hover */
+}
+
+/* CSS cho card */
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-subtitle {
+    color: #6c757d;
+    margin-bottom: 1rem;
+  }
+  
+  .card-text {
+    color: #495057;
+  }
+  
+  .card-link {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 10px;
+  }
+  
+  .card-link:hover {
+    text-decoration: underline;
+  }
+  

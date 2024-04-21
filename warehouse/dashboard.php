@@ -1,3 +1,7 @@
+<?php
+include '../import/connect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,12 +21,12 @@
             <div class="logo-name"><span>A</span>Warehouse</div>
         </a>
         <ul class="side-menu">
-            <li><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
-            <li><a href="#"><i class='bx bx-store-alt'></i>Shop</a></li>
-            <li class="active"><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
-            <li><a href="#"><i class='bx bx-message-square-dots'></i>Tickets</a></li>
-            <li><a href="#"><i class='bx bx-group'></i>Users</a></li>
-            <li><a href="#"><i class='bx bx-cog'></i>Settings</a></li>
+            <li class="active"><a href="dashboard.php"><i class='bx bxs-bar-chart-alt-2'></i>Dashboard</a></li>
+            <li><a href="category.php"><i class='bx bxs-category'></i>Category</a></li>
+            <li><a href="analytics.php"><i class='bx bx-analyse'></i>Analytics</a></li>
+            <li><a href="inventory.php"><i class='bx bxs-store-alt'></i>Inventory</a></li>
+            <li><a href="supplier.php"><i class='bx bxs-user-pin'></i>Supplier</a></li>
+            <li><a href="settings.php"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
         <ul class="side-menu">
             <li>
@@ -61,11 +65,17 @@
                 <div class="left">
                     <h1>Dashboard</h1>
                     <ul class="breadcrumb">
-                        <li><a href="#">
-                                Analytics
-                            </a></li>
-                        /
-                        <li><a href="#" class="active">Shop</a></li>
+                        <li><a href="dashboard.php" class="active">Dashboard</a></li>
+                        <li>/</li>
+                        <li><a href="category.php">Category</a></li>
+                        <li>/</li>
+                        <li><a href="analytics.php">Analytics</a></li>
+                        <li>/</li>
+                        <li><a href="inventory.php">Inventory</a></li>
+                        <li>/</li>
+                        <li><a href="supplier.php">Supplier</a></li>
+                        <li>/</li>
+                        <li><a href="settings.php">Settings</a></li>
                     </ul>
                 </div>
                 <a href="#" class="report">
@@ -110,6 +120,7 @@
                     </span>
                 </li>
             </ul>
+            
 
             <div class="bottom-data">
                 <div class="orders">
@@ -193,8 +204,5 @@
     </div>
     <script src="index.js"></script>
 </body>
+
 </html>
-
-
-
-
