@@ -4,6 +4,7 @@
     $select = $_GET['select'];
     if($select == 1){
         $sql_order_detail = "SELECT
+        c.customer_id,
         o.order_id AS OrderID,
         od.product_id AS ProductID,
         CASE
@@ -268,6 +269,8 @@
             <form id="editOrderForm" action="process.php" method="POST">
                 <div class="modal-body">
                     <input type="hidden" name="order_id" value="<?php echo $order_id ?>">
+                    <input type="hidden" name="select" value="<?php echo $select;?>">
+                    <input type="hidden" name="total" value="<?php echo $totalPrice; ?>">
                     <!-- Ngày đặt hàng -->
                     <div class="mb-3">
                         <label for="order_date" class="form-label">Ngày đặt hàng:</label>
@@ -280,12 +283,12 @@
                     </div>
                     <?php if($select == 1) { ?>
                     <div class="mb-3">
-                        <label for="customer" class="form-label">Tên Khách hàng:</label>
-                        <input type="text" class="form-control" id="customer" name="customer" value="<?php echo $row_order_detail['full_name'] ?>">
+                        <label for="customer" class="form-label">Mã Khách hàng:</label>
+                        <input type="text" class="form-control" id="customer" name="customer" value="<?php echo $row_order_detail['customer_id'] ?>" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="Status" class="form-label">Trạng thái:</label>
-                        <select class="form-select" id="gender" name="gender" required>
+                        <select class="form-select" id="Status" name="Status" required>
                             <option value="" disabled selected>Chọn trạng thái</option>
                             <option value="Confirmed" <?php echo ($row_order_detail['Status'] == 'Confirmed') ? 'selected' : ''; ?>>Confirmed</option>
                             <option value="Pending" <?php echo ($row_order_detail['Status'] == 'Pending') ? 'selected' : ''; ?>>Pending</option>
@@ -299,7 +302,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                    <button type="submit" class="btn btn-primary" name="btn_edit_order">Lưu thay đổi</button>
                 </div>
             </form>
         </div>
@@ -317,6 +320,7 @@
                 <div class="modal-body">
                     <input type="hidden" name="product_id" id="edit_product_id">
                     <input type="hidden" name="order_id" value="<?php echo $order_id ?>">
+                    <input type="hidden" name="select" value="<?php echo $select;?>">
                     <!-- Quantity -->
                     <div class="mb-3">
                         <label for="edit_quantity" class="form-label">Số lượng:</label>
@@ -325,7 +329,7 @@
                     <!-- Price Per Unit -->
                     <div class="mb-3">
                         <label for="edit_price_per_unit" class="form-label">Đơn giá:</label>
-                        <input type="text" class="form-control" id="edit_price_per_unit" name="edit_price_per_unit">
+                        <input type="text" class="form-control" id="edit_price_per_unit" name="edit_price_unit">
                     </div>
                     <!-- Discount -->
                     <div class="mb-3">
@@ -335,7 +339,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                    <button type="submit" class="btn btn-primary" name="btn_edit_product">Lưu thay đổi</button>
                 </div>
             </form>
         </div>
@@ -351,12 +355,13 @@
             <form id="deleteProductForm" action="process.php" method="POST">
                 <div class="modal-body">
                     <p>Bạn có chắc chắn muốn xóa sản phẩm này khỏi đơn hàng?</p>
-                    <input type="hidden" name="delete_product_id" id="delete_product_id">
-                    <input type="hidden" name="order_id" value="<?php echo $order_id ?>">
+                    <input type="hidden" name="product_id" id="delete_product_id">
+                    <input type="hidden" name="order_id" value="<?php echo $order_id; ?>">
+                    <input type="hidden" name="select" value="<?php echo $select;?>">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
-                    <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-danger" name="btn_delete_product">Xác nhận xóa</button>
                 </div>
             </form>
         </div>

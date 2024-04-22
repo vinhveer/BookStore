@@ -261,8 +261,9 @@
             <div class="modal-footer">
                 <form id="deleteForm" action="process.php" method="POST">
                     <input type="hidden" name="order_id" id="order_id_input">
+                    <input type="hidden" name="select" id="" value="<?php echo $select_order;?>">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-danger">Xóa</button>
+                    <button type="submit" class="btn btn-danger" name="btn_delete">Xóa</button>
                 </form>
             </div>
         </div>

@@ -88,6 +88,7 @@
                             <p class="card-text">Xem danh sách các thông báo mới nhất từ hệ thống.</p>
                             <div class="list-group">
                             <?php
+                                $i=0;
                             while ($row_notif = sqlsrv_fetch_array($result_notif)) {?>
                                 <a href="#" class="list-group-item list-group-item-action" aria-current="true">
                                     <div class="d-flex justify-content-between">
@@ -101,14 +102,15 @@
                                             <button type="button" class="btn btn-danger">Xóa</button>
                                         </div>
                                     </div>
-                                    <p class="mb-1"><?php echo $row_notif['notif_content'] ?></p>
+                                    <p class="mb-1">Thông báo <?php $i++; echo $i ?></p>
+                                    <input type="hidden" class="notification" value="<?php echo $row_notif['notif_content']; ?>">
                                     <input type="hidden" class="notification-id" value="<?php echo $row_notif['notif_id']; ?>">
                                 </a>
                             <?php } ?>
                             </div>
                         </div>
+                </div>
             </div>
-        </div>
         </main>
         </div>
         <!-- Notification Information Form -->
@@ -218,7 +220,7 @@
             // Kiểm tra xem không phải là nút "Sửa" được nhấn
             if (!event.target.classList.contains('btn-primary') && !event.target.classList.contains('btn-danger')) {
                 const notificationTitle = link.querySelector('h5').textContent;
-                const notificationContent = link.querySelector('p').textContent;
+                const notificationContent = link.querySelector('.notification').value;
 
                 document.getElementById('notificationTitle').value = notificationTitle;
                 document.getElementById('notificationContent').value = notificationContent;
@@ -236,7 +238,7 @@
             const notificationItem = button.closest('.list-group-item');
             const notificationId = notificationItem.querySelector('.notification-id').value;
             const notificationTitle = notificationItem.querySelector('h5').textContent;
-            const notificationContent = notificationItem.querySelector('p').textContent;
+            const notificationContent = notificationItem.querySelector('.notification').value;
 
             // Hiển thị form edit và điền thông tin
             document.getElementById('editNotificationTitle').value = notificationTitle;
@@ -273,28 +275,14 @@
     });
 });
 
-    // Xử lý submit form thêm thông báo
-    document.getElementById('addNotificationForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-        // Lấy dữ liệu từ form
-        const newNotificationTitle = document.getElementById('newNotificationTitle').value;
-        const newNotificationContent = document.getElementById('newNotificationContent').value;
-        // Đóng modal sau khi thêm
-        $('#addNotificationModal').modal('hide');
+document.addEventListener("DOMContentLoaded", function () {
+    // Xử lý sự kiện khi nhấn nút "Thêm thông báo"
+    const addNotificationButton = document.querySelector('.btn.btn-success');
+    addNotificationButton.addEventListener('click', function () {
+        // Hiển thị modal thêm thông báo
+        $('#addNotificationModal').modal('show');
     });
-    // Xử lý sự kiện khi click vào nút "Thêm thông báo"
-    document.getElementById('addNotificationForm').addEventListener('submit', function (event) {
-        // Ngăn chặn hành vi mặc định của form khi submit
-        event.preventDefault();
-
-        // Lấy dữ liệu từ form
-        const newNotificationTitle = document.getElementById('newNotificationTitle').value;
-        const newNotificationContent = document.getElementById('newNotificationContent').value;
-        this.submit();
-
-        // Đóng modal sau khi thêm
-        $('#addNotificationModal').modal('hide');
-    });
+});
 
 </script>
 
