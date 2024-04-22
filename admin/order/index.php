@@ -39,7 +39,7 @@
     <div class="sidebar">
         <a href="#" class="logo">
             <i class='bx bxl-amazon'></i>
-            <div class="logo-name"><span>A</span>&nbspBookstore</div>
+            <div class="logo-name"><span></span>&nbspAdmin</div>
         </a>
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
@@ -82,7 +82,7 @@
 
     <main>
     <div class="header">
-                <div class="left ms-3">
+                <div class="left ms-4">
                     <h1>Order</h1>
                 </div>
                 <div class="d-flex">
@@ -96,9 +96,8 @@
                     </a>
                 </div>
             </div>
-
-
-    <div class="container-fluid mt-4 ">
+    <div class="container-fluid mt-4">
+    <hr>
         <div class="row">
             <div class="card col-md-5 me-1 ms-4">
                 <div class="card-body">
@@ -179,7 +178,7 @@
                 'rgba(13, 131, 51, 1)',
                 'rgba(131, 13, 98, 1)'
             ],
-            borderWidth: 1
+            borderWidth: 2
         }]
     };
 

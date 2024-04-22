@@ -45,18 +45,23 @@
         }
     }
     else{
-        $select_order = 1;
-        $sql_order = "SELECT oo.order_id, oo.order_date_on,
-    case
-        when LEN(u.middle_name)> 0 then
-             CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name)
-        else CONCAT(u.last_name,' ', u.first_name)
-    end AS full_name, oo.status_on,oo.note_on
-        FROM orders_online AS oo
-        JOIN customers AS c ON oo.customer_id = c.customer_id
-        JOIN users AS u ON c.user_id = u.user_id;
-        ";
-        $result_order = sqlsrv_query($connect, $sql_order);
+        $select_order = (isset($_GET['select']))?$_GET['select']:1;
+        if($select_order == 1){
+            $sql_order = "SELECT oo.order_id, oo.order_date_on,
+        case
+			when LEN(u.middle_name)> 0 then
+				 CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name)
+			else CONCAT(u.last_name,' ', u.first_name)
+		end AS full_name, oo.status_on,oo.note_on
+            FROM orders_online AS oo
+            JOIN customers AS c ON oo.customer_id = c.customer_id
+            JOIN users AS u ON c.user_id = u.user_id;";
+            $result_order = sqlsrv_query($connect, $sql_order);
+        }
+        if($select_order == 0){
+            $sql_order = "SELECT * FROM orders_offline";
+            $result_order = sqlsrv_query($connect, $sql_order);
+        }
     }
 }
 ?>
@@ -132,10 +137,10 @@
     <main>
     <div class="container mt-4">
         <div class="row">
-            <div class="col-md-3">
-                <h3>Danh sách đơn hàng</h3>
-            </div>
             <div class="col-md-5">
+                <h3><a style="color:black;" href="index.php"><i class='bx bxs-chevrons-left me-3' ></i></a>Danh sách hóa đơn</h3>
+            </div>
+            <div class="col-md-4">
                 <form class="d-flex" action="order_list.php?select=<?php echo $select_order?>" method="POST">
                         <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm"
                         name="tukhoa" value="">
@@ -152,7 +157,7 @@
                     </div>
                 <?php } ?>
             </div>
-            <div class="col-md-4 text-right">
+            <div class="col-md-3 text-right">
                 <button class="btn btn-primary float-end">Xuất Excel</button>
             </div>
         </div>

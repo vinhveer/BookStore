@@ -1,3 +1,31 @@
+<?php
+    include_once '../../import/connect.php';
+    $sql_support="SELECT
+    CASE
+        WHEN LEN(u.middle_name) > 0 THEN CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name)
+        ELSE CONCAT(u.last_name, ' ', u.first_name)
+    END AS full_name,
+        u.email, si.title_support, si.content_support, si.created_at,si.support_id,u.user_id
+    FROM
+        support_info si
+    INNER JOIN
+        support_users su ON si.support_id = su.support_id
+    INNER JOIN
+        users u ON su.user_id = u.user_id
+    INNER JOIN
+        user_roles ur ON u.user_id = ur.user_id
+    WHERE  ur.role_id <> 2;
+";
+    $result_support = sqlsrv_query($connect,$sql_support);
+
+    $sql_feedback_ids = "SELECT support_id FROM feedback";
+    $result_feedback_ids = sqlsrv_query($connect, $sql_feedback_ids);
+    $feedback_ids = array();
+    while ($row = sqlsrv_fetch_array($result_feedback_ids)) {
+        $feedback_ids[] = $row['support_id'];
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -82,37 +110,42 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
+                                    <th scope="col">STT</th>
                                     <th scope="col">ID</th>
                                     <th scope="col">Tên khách hàng</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Đánh giá</th>
                                     <th scope="col">Thời gian</th>
                                     <th>Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Người dùng A</td>
-                                    <td>nnnnn@ddd</td>
-                                    <td>5 sao</td>
-                                    <td>2024-04-14 10:00</td>
-                                    <td>
-                                        <a href="#" class="view-details">xem chi tiết</a>
-                                        <button class="btn btn-success float-end" >Gửi phản hồi</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Người dùng B</td>
-                                    <td>uuuu@ghgahah</td>
-                                    <td>4 sao</td>
-                                    <td>2024-04-14 11:30</td>
-                                    <td>
-                                        <a href="#" class="view-details">xem chi tiết</a>
-                                        <button class="btn btn-success float-end" >Gửi phản hồi</button>
-                                    </td>
-                                </tr>
+                            <?php
+                                $i = 0;
+                                while ($row_support = sqlsrv_fetch_array($result_support)) {?>
+                                    <tr>
+                                        <td><?php $i++; echo $i; ?></td>
+                                        <td>KH00<?php echo $row_support['user_id'] ?></td>
+                                        <td><?php echo $row_support['full_name']; ?></td>
+                                        <?php $created = $row_support['created_at'];
+                                            $formatted_created = $created->format('Y-m-d H:i:s');?>
+                                        <td><?php echo $row_support['email'] ?></td>
+                                        <td><?php echo $formatted_created; ?></td>
+                                        <td>
+                                            <a href="#" class="view-details"
+                                                   data-title="<?php echo $row_support['title_support']; ?>"
+                                                   data-content="<?php echo $row_support['content_support']; ?>">xem chi tiết</a>
+                                            <?php
+                                            // Kiểm tra xem support_id có trong danh sách feedback_ids hay không
+                                            if (in_array($row_support['support_id'], $feedback_ids)) { ?>
+                                               <button class="btn btn-danger float-end">Đã phản hồi</button>
+                                            <?php } else {
+                                            ?>
+                                                <button class="btn btn-success float-end">Gửi phản hồi</button>
+                                            <?php } ?>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+
                             </tbody>
                         </table>
                     </div>
@@ -132,7 +165,11 @@
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
-                            <label for="customerName" class="form-label">Họ tên khách hàng:</label>
+                            <label for="customerID" class="form-label">Tên Khách hàng:</label>
+                            <input type="text" class="form-control" id="customerID" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="customerName" class="form-label">Tên Khách hàng:</label>
                             <input type="text" class="form-control" id="customerName" readonly>
                         </div>
                         <div class="mb-3">
@@ -140,15 +177,15 @@
                             <input type="email" class="form-control" id="customerEmail" readonly>
                         </div>
                         <div class="mb-3">
-                            <label for="reviewRating" class="form-label">Đánh giá:</label>
-                            <input type="text" class="form-control" id="reviewRating" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label for="reviewTime" class="form-label">Thời gian đánh giá:</label>
+                            <label for="reviewTime" class="form-label">Thời gian yêu cầu:</label>
                             <input type="text" class="form-control" id="reviewTime" readonly>
                         </div>
                         <div class="mb-3">
-                            <label for="reviewContent" class="form-label">Nội dung đánh giá:</label>
+                            <label for="reviewTittle" class="form-label">Tiêu đề:</label>
+                            <input type="text" class="form-control" id="reviewTittle" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reviewContent" class="form-label">Nội dung thắc mắc:</label>
                             <textarea class="form-control" id="reviewContent" readonly></textarea>
                         </div>
                     </form>
@@ -165,18 +202,18 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="feedbackForm">
+                <form id="feedbackForm" action="process.php" method="post">
                     <div class="mb-3">
                         <label for="selectedCustomerEmail" class="form-label">Email khách hàng:</label>
                         <input type="email" class="form-control" id="selectedCustomerEmail" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="feedbackSubject" class="form-label">Tiêu đề phản hồi:</label>
-                        <input type="text" class="form-control" id="feedbackSubject" required>
+                        <input type="text" class="form-control" id="feedbackSubject" name="Tilte_feedback">
                     </div>
                     <div class="mb-3">
                         <label for="feedbackContent" class="form-label">Nội dung phản hồi:</label>
-                        <textarea class="form-control" id="feedbackContent" required></textarea>
+                        <textarea class="form-control" id="feedbackContent" name="Tilte_feedback"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Gửi</button>
                 </form>
@@ -192,28 +229,31 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const viewDetailLinks = document.querySelectorAll('.view-details');
+        const viewDetailLinks = document.querySelectorAll('.view-details');
 
-            viewDetailLinks.forEach(link => {
-                link.addEventListener('click', function (event) {
-                    event.preventDefault();
-                    const row = event.target.closest('tr');
-                    const customerName = row.cells[1].innerText;
-                    const customerEmail = row.cells[2].innerText;
-                    const reviewRating = row.cells[3].innerText;
-                    const reviewTime = row.cells[4].innerText;
-                    const reviewContent = "Nội dung đánh giá của khách hàng";
+        viewDetailLinks.forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                const row = event.target.closest('tr');
+                const customerID = row.cells[1].innerText;
+                const customerName = row.cells[2].innerText;
+                const customerEmail = row.cells[3].innerText;
+                const reviewTime = row.cells[4].innerText;
+                const reviewTittle = event.target.getAttribute('data-title');
+                const reviewContent = event.target.getAttribute('data-content');
 
-                    document.getElementById('customerName').value = customerName;
-                    document.getElementById('customerEmail').value = customerEmail;
-                    document.getElementById('reviewRating').value = reviewRating;
-                    document.getElementById('reviewTime').value = reviewTime;
-                    document.getElementById('reviewContent').value = reviewContent;
+                document.getElementById('customerID').value = customerID;
+                document.getElementById('customerName').value = customerName;
+                document.getElementById('customerEmail').value = customerEmail;
+                document.getElementById('reviewTime').value = reviewTime;
+                document.getElementById('reviewTittle').value = reviewTittle;
+                document.getElementById('reviewContent').value = reviewContent;
 
-                    $('#reviewDetailsModal').modal('show');
-                });
+                $('#reviewDetailsModal').modal('show');
             });
         });
+    });
+
 
         document.addEventListener("DOMContentLoaded", function () {
     const feedbackButtons = document.querySelectorAll('.btn.btn-success');
@@ -222,31 +262,14 @@
         button.addEventListener('click', function (event) {
             event.preventDefault();
             const row = event.target.closest('tr');
-            const selectedCustomerEmail = row.cells[2].innerText;
+            const selectedCustomerEmail = row.cells[3].innerText;
 
             document.getElementById('selectedCustomerEmail').value = selectedCustomerEmail;
             $('#feedbackModal').modal('show');
         });
     });
-
-    // Xử lý gửi form phản hồi
-    $('#feedbackForm').submit(function (event) {
-        event.preventDefault();
-
-        // Lấy dữ liệu từ form
-        const selectedCustomerEmail = $('#selectedCustomerEmail').val();
-        const feedbackSubject = $('#feedbackSubject').val();
-        const feedbackContent = $('#feedbackContent').val();
-
-        // Đoạn này bạn có thể thực hiện các thao tác gửi phản hồi, ví dụ gửi thông qua AJAX
-
-        // Sau khi gửi xong, có thể đóng modal feedback
-        $('#feedbackModal').modal('hide');
-
-        // Clear form sau khi gửi
-        $('#feedbackForm')[0].reset();
-    });
 });
+
 
     </script>
 

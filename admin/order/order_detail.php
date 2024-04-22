@@ -12,7 +12,7 @@
             ELSE 'Unknown Product'
         END AS ProductName,
         od.quantity AS Quantity,
-        od.discount AS Discount,
+        CAST(od.discount AS INT) AS Discount,
         p.product_price AS PricePerUnit,
         CAST(od.quantity * p.product_price - (od.discount/100)*(od.quantity * p.product_price) AS DECIMAL(10,3)) AS TotalPrice,
         o.order_date_on AS OrderDate,
@@ -44,7 +44,7 @@
         END AS ProductName,
         od.quantity AS Quantity,
         p.product_price AS PricePerUnit,
-        od.discount AS Discount,
+        CAST(od.discount AS INT) AS Discount,
         CAST(od.quantity * p.product_price - (od.discount/100)*(od.quantity * p.product_price) AS DECIMAL(10,3)) AS TotalPrice,
         o.order_date_off AS OrderDate,
         o.note_off AS Note
@@ -130,7 +130,7 @@
     <div class="container-fluid mt-4">
         <div class="row mb-3">
             <div class="col-md-6">
-            <h3><a style="color:black;" href="order_list.php"><i class='bx bxs-chevrons-left me-3' ></i></a>Thông tin hóa đơn</h3>
+                <h3><a style="color:black;" href="order_list.php?select=<?php echo $select;?>"><i class='bx bxs-chevrons-left me-3' ></i></a>Thông tin hóa đơn</h3>
             </div>
                 <div class="col-md-6">
                     <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#editOrderModal">
@@ -155,7 +155,7 @@
                                                 <li class="list-group-item list-group-item-action list-group-item-light">
                                                     <div class="d-flex align-items-center">
                                                         <strong style="margin-right: 75px">Mã Hóa Đơn:</strong>
-                                                        <p style="margin-bottom: 0px">DH00<?php echo $row_order_detail['OrderID'] ?></p>
+                                                        <p style="margin-bottom: 0px">DH00<?php echo $row_order_detail['OrderID']; ?></p>
                                                     </div>
                                                 </li>
                                                 <li class="list-group-item list-group-item-action list-group-item-light">
@@ -219,18 +219,17 @@
                                         <td><?php echo $row['ProductName'] ?></td>
                                         <td><?php echo $row['Quantity'] ?></td>
                                         <td><?php echo $row['PricePerUnit'] ?></td>
-                                        <td><?php echo $row['Discount'] ?></td>
+                                        <td><?php echo $row['Discount'] ?>%</td>
                                         <td><?php echo $row['TotalPrice'] ?></td>
                                         <td >
                                             <div class="d-flex">
-                                                <button class="btn btn-sm btn-warning me-2"><i class='bx bx-edit bx-sm'></i></button>
-                                                <button type="button" class="btn btn-sm btn-danger me-2" data-postid="<?php echo $row_account_admin['user_id']; ?>&delete=1" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i></button>
-                                                <a href ="" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i></a>
+                                                <button class="btn btn-sm btn-warning me-2 edit-product-btn" data-productid="<?php echo $row['ProductID'] ?>" data-quantity="<?php echo $row['Quantity'] ?>" data-price="<?php echo $row['PricePerUnit'] ?>" data-discount="<?php echo $row['Discount'] ?>"><i class='bx bx-edit bx-sm'></i></button>
+                                                <button type="button" class="btn btn-sm btn-danger me-2 delete-product-btn" data-productid="<?php echo $row['ProductID'] ?>"><i class='bx bx-sm bx-trash me-1'></i></button>
+                                                <a href ="product_detail.php?product_id=<?php echo $row['ProductID'];?>&order_id=<?php echo $order_id;?>&select=<?php echo $select;?>" class="btn btn-sm btn-info"><i class='bx bxs-show bx-sm' ></i></a>
                                             </div>
                                         </td>
                                     </tr>
-                            <?php
-                                }
+                                <?php }
                             }
                             ?>
                             <tr>
@@ -281,7 +280,7 @@
                     </div>
                     <?php if($select == 1) { ?>
                     <div class="mb-3">
-                        <label for="customer" class="form-label">Mã sản phẩm:</label>
+                        <label for="customer" class="form-label">Tên Khách hàng:</label>
                         <input type="text" class="form-control" id="customer" name="customer" value="<?php echo $row_order_detail['full_name'] ?>">
                     </div>
                     <div class="mb-3">
@@ -306,6 +305,64 @@
         </div>
     </div>
 </div>
+<!-- Edit Product Form -->
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProductModalLabel">Chỉnh sửa thông tin sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editProductForm" action="process.php?" method="POST">
+                <div class="modal-body">
+                    <input type="hidden" name="product_id" id="edit_product_id">
+                    <input type="hidden" name="order_id" value="<?php echo $order_id ?>">
+                    <!-- Quantity -->
+                    <div class="mb-3">
+                        <label for="edit_quantity" class="form-label">Số lượng:</label>
+                        <input type="text" class="form-control" id="edit_quantity" name="edit_quantity">
+                    </div>
+                    <!-- Price Per Unit -->
+                    <div class="mb-3">
+                        <label for="edit_price_per_unit" class="form-label">Đơn giá:</label>
+                        <input type="text" class="form-control" id="edit_price_per_unit" name="edit_price_per_unit">
+                    </div>
+                    <!-- Discount -->
+                    <div class="mb-3">
+                        <label for="edit_discount" class="form-label">Khuyến mãi (%):</label>
+                        <input type="text" class="form-control" id="edit_discount" name="edit_discount">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteProductModalLabel">Xác nhận xóa sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="deleteProductForm" action="process.php" method="POST">
+                <div class="modal-body">
+                    <p>Bạn có chắc chắn muốn xóa sản phẩm này khỏi đơn hàng?</p>
+                    <input type="hidden" name="delete_product_id" id="delete_product_id">
+                    <input type="hidden" name="order_id" value="<?php echo $order_id ?>">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
+                    <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
     <script src="index.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -322,5 +379,36 @@
         });
 
 </script>
+<script>
+    // Handle click on edit button
+    $(document).on("click", ".edit-product-btn", function () {
+        var product_id = $(this).data('productid');
+        var quantity = $(this).data('quantity');
+        var price = $(this).data('price');
+        var discount = $(this).data('discount');
+
+        // Set values in the edit form
+        $('#edit_product_id').val(product_id);
+        $('#edit_quantity').val(quantity);
+        $('#edit_price_per_unit').val(price);
+        $('#edit_discount').val(discount);
+
+        // Show the edit modal
+        $('#editProductModal').modal('show');
+    });
+
+        // Handle click on delete button
+    $(document).on("click", ".delete-product-btn", function () {
+        var product_id = $(this).data('productid');
+
+        // Set product ID in the delete form
+        $('#delete_product_id').val(product_id);
+
+        // Show the delete modal
+        $('#deleteProductModal').modal('show');
+    });
+
+</script>
+
 </body>
 </html>

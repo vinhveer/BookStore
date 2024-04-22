@@ -203,9 +203,9 @@
         }
 
         $sql_edit_user = "UPDATE users
-        SET first_name = '$first_name',
-            middle_name = '$middle_name',
-            last_name = '$last_name',
+        SET first_name = N'$first_name',
+            middle_name = N'$middle_name',
+            last_name = N'$last_name',
             date_of_birth = '$birth',
             gender = $gender,
             address = '$address',

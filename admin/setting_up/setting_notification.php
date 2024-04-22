@@ -1,3 +1,8 @@
+<?php
+    include_once '../../import/connect.php';
+    $sql_notif="SELECT * FROM notiffication";
+    $result_notif = sqlsrv_query($connect,$sql_notif);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -82,214 +87,217 @@
                             <h6 class="card-title">Thông báo mới nhất</h6>
                             <p class="card-text">Xem danh sách các thông báo mới nhất từ hệ thống.</p>
                             <div class="list-group">
-                                <a href="" class="list-group-item list-group-item-action" aria-current="true">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">Thông báo 1</h5>
-                                        <small>3 ngày trước</small>
-                                        <small><span class="badge bg-primary rounded-pill">Mới</span></small>
+                            <?php
+                            while ($row_notif = sqlsrv_fetch_array($result_notif)) {?>
+                                <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                                    <div class="d-flex justify-content-between">
+                                        <h5 class="mb-1"><?php echo $row_notif['notif_title'] ?></h5>
+                                        <?php $created = $row_notif['notif_date'];
+                                            $formatted_created = $created->format('Y-m-d H:i:s');?>
+                                        <small><?php echo  $formatted_created; ?></small>
+                                        <small><span class="badge bg-primary rounded-pill">New</span></small>
+                                        <div class=>
+                                            <button type="button" class="btn btn-primary">Sửa</button>
+                                            <button type="button" class="btn btn-danger">Xóa</button>
+                                        </div>
                                     </div>
-                                    <p class="mb-1">Đây là nội dung của thông báo 1.</p>
+                                    <p class="mb-1"><?php echo $row_notif['notif_content'] ?></p>
+                                    <input type="hidden" class="notification-id" value="<?php echo $row_notif['notif_id']; ?>">
                                 </a>
-                                <a href="" class="list-group-item list-group-item-action">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">Thông báo 2</h5>
-                                        <small>5 ngày trước</small>
-                                        <small><span class="badge bg-primary rounded-pill">Mới</span></small>
-                                    </div>
-                                    <p class="mb-1">Đây là nội dung của thông báo 2.</p>
-                                </a>
-                                <a href="" class="list-group-item list-group-item-action">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">Thông báo 3</h5>
-                                        <small>1 tuần trước</small>
-                                        <small><span class="badge bg-primary rounded-pill">Mới</span></small>
-                                    </div>
-                                    <p class="mb-1">Đây là nội dung của thông báo 3.</p>
-                                </a>
+                            <?php } ?>
                             </div>
                         </div>
             </div>
         </div>
         </main>
         </div>
-    <!-- Notification Information Form -->
-<div id="notificationInfoModal" class="modal fade" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Thông tin thông báo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="notificationInfoForm">
-                    <div class="mb-3">
-                        <label for="notificationTitle" class="form-label">Tiêu đề:</label>
-                        <input type="text" class="form-control" id="notificationTitle" readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label for="notificationContent" class="form-label">Nội dung:</label>
-                        <textarea class="form-control" id="notificationContent" readonly></textarea>
-                    </div>
-                    <button type="button" class="btn btn-primary" id="editNotificationBtn">Sửa</button>
-                    <button type="button" class="btn btn-danger" id="deleteNotificationBtn">Xóa</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+        <!-- Notification Information Form -->
+    <div id="notificationInfoModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thông tin thông báo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="notificationInfoForm">
+                        <div class="mb-3">
+                            <label for="notificationTitle" class="form-label">Tiêu đề:</label>
+                            <input type="text" class="form-control" id="notificationTitle" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="notificationContent" class="form-label">Nội dung:</label>
+                            <textarea class="form-control" id="notificationContent" readonly></textarea>
+                        </div>
 
-<!-- Delete Confirmation Form -->
-<div id="deleteConfirmationModal" class="modal fade" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Xác nhận xóa</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Bạn có chắc chắn muốn xóa thông báo này?</p>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xác nhận</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Edit Notification Form -->
-<div id="editNotificationModal" class="modal fade" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Sửa thông báo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editNotificationForm">
-                    <div class="mb-3">
-                        <label for="editNotificationTitle" class="form-label">Tiêu đề:</label>
-                        <input type="text" class="form-control" id="editNotificationTitle" required>
+
+    <!-- Delete Confirmation Form -->
+    <div id="deleteConfirmationModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <form id="deleteConfirmationForm" action="process.php" method="POST">
+            <input type="hidden" id="deleteNotificationId" name="notif_id">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Xác nhận xóa</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="mb-3">
-                        <label for="editNotificationContent" class="form-label">Nội dung:</label>
-                        <textarea class="form-control" id="editNotificationContent" required></textarea>
+                    <div class="modal-body">
+                        <p>Bạn có chắc chắn muốn xóa thông báo này?</p>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-danger" id="confirmDeleteBtn" name="sbm_delete_noti">Xác nhận</button>
                     </div>
-                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
                 </form>
             </div>
         </div>
     </div>
-</div>
-<!-- Add Notification Form -->
-<div id="addNotificationModal" class="modal fade" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Thêm thông báo mới</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="addNotificationForm">
-                    <div class="mb-3">
-                        <label for="newNotificationTitle" class="form-label">Tiêu đề:</label>
-                        <input type="text" class="form-control" id="newNotificationTitle" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="newNotificationContent" class="form-label">Nội dung:</label>
-                        <textarea class="form-control" id="newNotificationContent" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Thêm</button>
-                </form>
+    <!-- Edit Notification Form -->
+    <div id="editNotificationModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Sửa thông báo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editNotificationForm" action ="process.php" method="POST">
+                    <input type="hidden" id="editNotificationId" name="notif_id">
+                        <div class="mb-3">
+                            <label for="editNotificationTitle" class="form-label">Tiêu đề:</label>
+                            <input type="text" class="form-control" id="editNotificationTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editNotificationContent" class="form-label">Nội dung:</label>
+                            <textarea class="form-control" id="editNotificationContent" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="confirmEditBtn"  name="sbm_edit_noti">Lưu thay đổi</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- Add Notification Form -->
+    <div id="addNotificationModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm thông báo mới</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addNotificationForm" action ="process.php" method="POST">
+                        <div class="mb-3">
+                            <label for="newNotificationTitle" class="form-label">Tiêu đề:</label>
+                            <input type="text" class="form-control" id="newNotificationTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newNotificationContent" class="form-label">Nội dung:</label>
+                            <textarea class="form-control" id="newNotificationContent" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" name="sbm_add_noti">Thêm</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="index.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
+   document.addEventListener("DOMContentLoaded", function () {
     const notificationLinks = document.querySelectorAll('.list-group-item-action');
-
     notificationLinks.forEach(link => {
         link.addEventListener('click', function (event) {
             event.preventDefault();
-            const notificationTitle = link.querySelector('h5').textContent;
-            const notificationContent = link.querySelector('p').textContent;
+            // Kiểm tra xem không phải là nút "Sửa" được nhấn
+            if (!event.target.classList.contains('btn-primary') && !event.target.classList.contains('btn-danger')) {
+                const notificationTitle = link.querySelector('h5').textContent;
+                const notificationContent = link.querySelector('p').textContent;
 
-            document.getElementById('notificationTitle').value = notificationTitle;
-            document.getElementById('notificationContent').value = notificationContent;
-            $('#notificationInfoModal').modal('show');
+                document.getElementById('notificationTitle').value = notificationTitle;
+                document.getElementById('notificationContent').value = notificationContent;
+                $('#notificationInfoModal').modal('show');
+            }
+        });
+    });
+});
+
+    document.addEventListener("DOMContentLoaded", function () {
+    // Xử lý sự kiện khi click vào nút "Sửa"
+    const editButtons = document.querySelectorAll('.btn.btn-primary');
+    editButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const notificationItem = button.closest('.list-group-item');
+            const notificationId = notificationItem.querySelector('.notification-id').value;
+            const notificationTitle = notificationItem.querySelector('h5').textContent;
+            const notificationContent = notificationItem.querySelector('p').textContent;
+
+            // Hiển thị form edit và điền thông tin
+            document.getElementById('editNotificationTitle').value = notificationTitle;
+            document.getElementById('editNotificationContent').value = notificationContent;
+            $('#editNotificationModal').modal('show');
+
+            // Đóng form thông tin
+            $('#notificationInfoModal').modal('hide');
+
+            // Truyền notif_id qua input hidden
+            document.getElementById('editNotificationId').value = notificationId;
         });
     });
 
-    // Xử lý sự kiện khi nhấn nút xóa
-    document.getElementById('deleteNotificationBtn').addEventListener('click', function () {
-        $('#notificationInfoModal').modal('hide');
-        $('#deleteConfirmationModal').modal('show');
+    // Xử lý sự kiện khi click vào nút "Xóa"
+    const deleteButtons = document.querySelectorAll('.btn.btn-danger');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const notificationItem = button.closest('.list-group-item');
+            const notificationId = notificationItem.querySelector('.notification-id').value;
+
+            // Hiển thị form xóa và truyền notif_id
+            $('#deleteConfirmationModal').modal('show');
+            document.getElementById('deleteNotificationId').value = notificationId;
+
+            // Đóng form thông tin
+            $('#notificationInfoModal').modal('hide');
+        });
     });
-
-    // Xác nhận xóa thông báo
-    document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
-        // Thực hiện xóa thông báo ở đây
-
-        // Sau khi xóa, đóng modal xác nhận xóa
-        $('#deleteConfirmationModal').modal('hide');
+    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+    confirmDeleteBtn.addEventListener('click', function () {
+        // Gửi form xác nhận xóa
+        document.getElementById('deleteConfirmationForm').submit();
     });
-
-    // Xử lý sự kiện khi nhấn nút sửa
-    document.getElementById('editNotificationBtn').addEventListener('click', function () {
-        // Hiển thị form sửa thông báo ở đây (nếu cần)
-    });
-
 });
-document.addEventListener("DOMContentLoaded", function () {
-    // Xử lý sự kiện khi click vào nút "Sửa"
-    document.getElementById('editNotificationBtn').addEventListener('click', function () {
-        const notificationTitle = document.getElementById('notificationTitle').value;
-        const notificationContent = document.getElementById('notificationContent').value;
 
-        document.getElementById('editNotificationTitle').value = notificationTitle;
-        document.getElementById('editNotificationContent').value = notificationContent;
-
-        $('#notificationInfoModal').modal('hide');
-        $('#editNotificationModal').modal('show');
+    // Xử lý submit form thêm thông báo
+    document.getElementById('addNotificationForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        // Lấy dữ liệu từ form
+        const newNotificationTitle = document.getElementById('newNotificationTitle').value;
+        const newNotificationContent = document.getElementById('newNotificationContent').value;
+        // Đóng modal sau khi thêm
+        $('#addNotificationModal').modal('hide');
     });
-
-    // Xử lý submit form sửa thông báo
-    document.getElementById('editNotificationForm').addEventListener('submit', function (event) {
+    // Xử lý sự kiện khi click vào nút "Thêm thông báo"
+    document.getElementById('addNotificationForm').addEventListener('submit', function (event) {
+        // Ngăn chặn hành vi mặc định của form khi submit
         event.preventDefault();
 
         // Lấy dữ liệu từ form
-        const editedNotificationTitle = document.getElementById('editNotificationTitle').value;
-        const editedNotificationContent = document.getElementById('editNotificationContent').value;
+        const newNotificationTitle = document.getElementById('newNotificationTitle').value;
+        const newNotificationContent = document.getElementById('newNotificationContent').value;
+        this.submit();
 
-        // Thực hiện các thao tác cập nhật thông báo ở đây
-
-        // Đóng modal sau khi cập nhật
-        $('#editNotificationModal').modal('hide');
+        // Đóng modal sau khi thêm
+        $('#addNotificationModal').modal('hide');
     });
-});
-// Xử lý sự kiện khi click vào nút "Thêm thông báo"
-document.querySelector('.btn-success').addEventListener('click', function () {
-    $('#addNotificationModal').modal('show');
-});
-
-// Xử lý submit form thêm thông báo
-document.getElementById('addNotificationForm').addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    // Lấy dữ liệu từ form
-    const newNotificationTitle = document.getElementById('newNotificationTitle').value;
-    const newNotificationContent = document.getElementById('newNotificationContent').value;
-
-    // Thực hiện các thao tác thêm thông báo ở đây
-
-    // Đóng modal sau khi thêm
-    $('#addNotificationModal').modal('hide');
-});
 
 </script>
+
 </body>
 
 </html>
