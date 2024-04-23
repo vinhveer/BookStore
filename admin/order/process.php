@@ -59,16 +59,16 @@
                     order_date_on = '$date_order',
                     customer_id = '$customer',
                     status_on = '$status',
-                    note_on = '$note',
+                    note_on = N'$note',
                     total_amount_on = '$total'
                     where order_id = $order_id;";
 
           }
           if($select == 0){
                $sql_update_order = "UPDATE orders_offline SET
-                    order_date_on = '$date_order',
-                    note_on = '$note',
-                    total_amount_on = '$total'
+                    order_date_off = '$date_order',
+                    note_off = N'$note',
+                    total_amount_off = '$total'
                     where order_id = $order_id;
                ";
           }

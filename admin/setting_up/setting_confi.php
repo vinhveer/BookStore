@@ -29,7 +29,7 @@
     <div class="sidebar">
         <a href="#" class="logo">
             <i class='bx bxl-amazon'></i>
-            <div class="logo-name"><span>A</span>&nbspBookstore</div>
+            <div class="logo-name"><span></span>&nbspAdmin</div>
         </a>
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
@@ -71,7 +71,7 @@
         </nav>
         <main>
         <div class="container mt-3 mb-3">
-            <h3><a style="color:black;" href="index.php"><i class='bx bxs-chevrons-left me-3' ></i></a>Quản trị hệ thống</h3>
+            <h3><a style="color:black;" href="index.php"><i class='bx bxs-cog me-3' ></i></i></a>Quản trị hệ thống</h3>
                 <div class="row mb-3">
                     <div class="text-right">
                         <a  href ="../account/account_group_add.php?role_id=2" class="btn btn-primary float-end"><i class='bx bx-plus-circle bx-sm' ></i>Thêm tài khoản mới</a>

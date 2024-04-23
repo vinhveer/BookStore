@@ -521,7 +521,15 @@ body{
 .content main .bottom-data .orders table tr td .status.pending{
     background: var(--warning);
 }
-
+.content main .bottom-data .orders table tr td .status.delete{
+    background: var(--danger);
+}
+.content main .bottom-data .orders table tr td .status.confirmed{
+    background: var(--light-success);
+}
+.content main .bottom-data .orders table tr td .status.unpaid{
+    background: var(--light-danger);
+}
 .content main .bottom-data .reminders{
     flex-grow: 1;
     flex-basis: 300px;

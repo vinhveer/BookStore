@@ -1,3 +1,65 @@
+<?php
+    include_once '../../import/connect.php';
+    $sql_product_sold = "SELECT SUM(quantity) AS total_sold_quantity
+    FROM (
+        SELECT quantity
+        FROM order_details_on odo
+        INNER JOIN orders_online oo ON odo.order_id = oo.order_id
+        WHERE oo.status_on = 'Completed'
+        UNION ALL
+            SELECT quantity
+        FROM order_details_off odf
+    ) AS all_orders;";
+    $result_product_sold = sqlsrv_query($connect,$sql_product_sold);
+    $row_product_sold = sqlsrv_fetch_array($result_product_sold);
+
+    $sql_order_count = "SELECT COUNT(*) AS total_orders
+    FROM (
+        SELECT order_id FROM orders_online
+
+        UNION ALL
+            SELECT order_id FROM orders_offline
+    ) AS all_orders;
+    ";
+    $result_order_count = sqlsrv_query($connect,$sql_order_count);
+    $row_order_count = sqlsrv_fetch_array($result_order_count);
+
+    $sql_account_count = "SELECT COUNT(*) AS total_accounts
+    FROM user_accounts;";
+    $result_account_count = sqlsrv_query($connect,$sql_account_count);
+    $row_account_count = sqlsrv_fetch_array($result_account_count);
+
+    $sql_total_revenue = "SELECT SUM(total_amount) AS total_revenue
+    FROM (
+        SELECT total_amount_on AS total_amount
+        FROM orders_online
+        UNION ALL
+        SELECT total_amount_off AS total_amount
+        FROM orders_offline
+    ) AS all_orders;";
+    $result_total_revenue = sqlsrv_query($connect,$sql_total_revenue);
+    $row_total_revenue = sqlsrv_fetch_array($result_total_revenue);
+
+    $sql_order_online = "SELECT TOP 3
+    c.customer_id,u.image_user,
+    case
+			when LEN(u.middle_name)> 0 then
+				 CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name)
+			else CONCAT(u.last_name,' ', u.first_name)
+		end AS full_name,
+    oo.order_date_on,
+    oo.status_on
+    FROM
+        orders_online oo
+    INNER JOIN
+        customers c ON oo.customer_id = c.customer_id
+    INNER JOIN
+        users u ON c.user_id = u.user_id
+    ORDER BY
+        oo.order_date_on DESC;";
+    $result_order_online = sqlsrv_query($connect,$sql_order_online);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,15 +130,6 @@
         <div class="header">
                 <div class="left">
                     <h1>Home</h1>
-                    <ul class="breadcrumb">
-                        <li><a href="index.php" class="active">Home</a></li>
-                        <span class="syb">/</span>
-                        <li><a href="../account/index.php">Users</a></li>
-                        <span class="syb">/</span>
-                        <li><a href="../setting_up/index.php" >Setting</a></li>
-                        <span class="syb">/</span>
-                        <li><a href="../order/index.php">Orders</a></li>
-                    </ul>
                 </div>
                 <a href="#" class="report">
                     <i class='bx bx-cloud-download'></i>
@@ -90,15 +143,15 @@
                     <i class='bx bx-calendar-check'></i>
                     <span class="info">
                         <h3>
-                            1,999
+                            <?php echo $row_order_count['total_orders'] ?>
                         </h3>
-                        <p>Paid Order</p>
+                        <p>Number of Order</p>
                     </span>
                 </li>
                 <li><i class='bx bx-user-circle'></i>
                     <span class="info">
                         <h3>
-                            199
+                            <?php echo $row_account_count['total_accounts'] ?>
                         </h3>
                         <p>Account User</p>
                     </span>
@@ -106,17 +159,17 @@
                 <li><i class='bx bx-calendar-edit'></i>
                     <span class="info">
                         <h3>
-                            14,721
+                            <?php echo $row_product_sold['total_sold_quantity'] ?>
                         </h3>
-                        <p>Reviews Product</p>
+                        <p>Products sold</p>
                     </span>
                 </li>
                 <li><i class='bx bx-dollar-circle'></i>
                     <span class="info">
                         <h3>
-                            $6,742
+                            $<?php echo $row_total_revenue['total_revenue'] ?>
                         </h3>
-                        <p>Total Sales</p>
+                        <p>Total revenue</p>
                     </span>
                 </li>
             </ul>
@@ -138,30 +191,32 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php
+                                while ($row_order_online = sqlsrv_fetch_array($result_order_online)) {?>
                             <tr>
                                 <td>
-                                    <img src="images/profile_1.jpg">
-                                    <p>Vinh Veer</p>
+                                    <img src="../../<?php echo $row_order_online['image_user'] ?>">
+                                    <p><?php echo $row_order_online['full_name'] ?></p>
                                 </td>
-                                <td>01-04-2024</td>
-                                <td><span class="status completed">Completed</span></td>
+                                <?php $order_date = $row_order_online['order_date_on'];
+                                    $formatted_date = $order_date->format('Y-m-d'); ?>
+                                <td><?php echo $formatted_date; ?></td>
+                                <?php if($row_order_online['status_on'] == "Completed"){ ?>
+                                    <td><span class="status completed">Completed</span></td>
+                                <?php } if($row_order_online['status_on'] == "Pending"){?>
+                                    <td><span class="status pending">Pending</span></td>
+                                <?php } if($row_order_online['status_on'] == "Unpaid"){?>
+                                    <td><span class="status unpaid">Unpaid</span></td>
+                                <?php } if($row_order_online['status_on'] == "Shipped"){?>
+                                    <td><span class="status process">Shipped</span></td>
+                                <?php } if($row_order_online['status_on'] == "Deleted"){?>
+                                    <td><span class="status delete">Deleted</span></td>
+                                <?php } if($row_order_online['status_on'] == "Confirmed"){?>
+                                    <td><span class="status confirmed">Confirmed</span></td>
+                                <?php }?>
                             </tr>
-                            <tr>
-                                <td>
-                                    <img src="images/profile_1.jpg">
-                                    <p>Vinh Veer</p>
-                                </td>
-                                <td>01-04-2024</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="images/profile_1.jpg">
-                                    <p>Vinh Veer</p>
-                                </td>
-                                <td>01-04-2024</td>
-                                <td><span class="status process">Processing</span></td>
-                            </tr>
+                            <?php } ?>
+
                         </tbody>
                     </table>
                 </div>
@@ -170,9 +225,9 @@
                 <div class="reminders">
                     <div class="header">
                         <i class='bx bx-note'></i>
-                        <h3>Remiders</h3>
+                        <h3>Notifications</h3>
                         <i class='bx bx-filter'></i>
-                        <i class='bx bx-plus'></i>
+                        <a href="../setting_up/setting_notification.php"><i class='bx bx-plus'></i></a>
                     </div>
                     <ul class="task-list">
                         <li class="completed">
@@ -189,10 +244,10 @@
                             </div>
                             <i class='bx bx-dots-vertical-rounded'></i>
                         </li>
-                        <li class="not-completed">
+                        <li class="completed">
                             <div class="task-title">
-                                <i class='bx bx-x-circle'></i>
-                                <p>Play Footbal</p>
+                                <i class='bx bx-check-circle'></i>
+                                <p>Analyse Our Site</p>
                             </div>
                             <i class='bx bx-dots-vertical-rounded'></i>
                         </li>

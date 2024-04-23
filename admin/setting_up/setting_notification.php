@@ -31,7 +31,7 @@
     <div class="sidebar">
         <a href="#" class="logo">
             <i class='bx bxl-amazon'></i>
-            <div class="logo-name"><span>A</span>&nbspBookstore</div>
+            <div class="logo-name"><span></span>&nbspAdmin</div>
         </a>
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
@@ -75,7 +75,7 @@
         <div class="container-fluid">
                 <div class="row">
                         <div class="col-md-6">
-                            <h3><a style="color:black;" href="index.php"><i class='bx bxs-chevrons-left me-3' ></i></a>Thông báo</h3>
+                            <h3><a style="color:black;" href="index.php"><i class='bx bxs-cog me-3' ></i></a>Thông báo</h3>
                         </div>
                         <div class="col-md-6 text-right">
                             <button class="btn btn-success float-end" >Thêm thông báo</button>

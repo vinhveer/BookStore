@@ -93,10 +93,6 @@
                 <div class="left">
                     <h1>Account</h1>
                 </div>
-                <a href="#" class="report">
-                    <i class='bx bx-cloud-download'></i>
-                    <span>Update CSV</span>
-                </a>
             </div>
         <div class="container-fluid">
             <div class="row">

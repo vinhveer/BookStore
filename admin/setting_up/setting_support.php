@@ -43,7 +43,7 @@
             display: flex;
             align-items: center;
         }
-        h3,.bxs-chevrons-left{
+        h3,.bxs-chevrons-left,.bxs-cog{
             color: var(--dark);
         }
     </style>
@@ -54,7 +54,7 @@
     <div class="sidebar">
         <a href="#" class="logo">
             <i class='bx bxl-amazon'></i>
-            <div class="logo-name"><span>A</span>&nbspBookstore</div>
+            <div class="logo-name"><span></span>&nbspAdmin</div>
         </a>
         <ul class="side-menu">
             <li><a href="../dashboard/index.php"><i class='bx bxs-dashboard'></i>Home</a></li>
@@ -95,15 +95,14 @@
             </a>
         </nav>
         <main>
-            <div class="container-fluid mt-3 mb-5">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h3><a style="color:black;" href="index.php"><i class='bx bxs-chevrons-left me-3'></i></a>Hỗ
-                            trợ kỹ thuật</h3>
-                    </div>
-                    <div class="col-md-6 text-right">
-                    </div>
+
+
+            <div class="header">
+                <div class="left ms-4">
+                    <h1><a style="color:black;" href="index.php"><i class='bx bxs-cog me-3' ></i></a>Support</h1>
                 </div>
+            </div>
+            <div class="container-fluid">
                 <hr>
                 <div class="card mb-3">
                     <div class="card-body">
@@ -123,25 +122,30 @@
                                 $i = 0;
                                 while ($row_support = sqlsrv_fetch_array($result_support)) {?>
                                     <tr>
-                                        <td><?php $i++; echo $i; ?></td>
-                                        <td>KH00<?php echo $row_support['user_id'] ?></td>
-                                        <td><?php echo $row_support['full_name']; ?></td>
-                                        <?php $created = $row_support['created_at'];
-                                            $formatted_created = $created->format('Y-m-d H:i:s');?>
-                                        <td><?php echo $row_support['email'] ?></td>
-                                        <td><?php echo $formatted_created; ?></td>
-                                        <td>
-                                            <a href="#" class="view-details"
-                                                   data-title="<?php echo $row_support['title_support']; ?>"
-                                                   data-content="<?php echo $row_support['content_support']; ?>">xem chi tiết</a>
-                                            <?php
-                                            // Kiểm tra xem support_id có trong danh sách feedback_ids hay không
-                                            if (in_array($row_support['support_id'], $feedback_ids)) { ?>
-                                               <button class="btn btn-danger float-end">Đã phản hồi</button>
-                                            <?php } else {
-                                            ?>
-                                                <button class="btn btn-success float-end">Gửi phản hồi</button>
-                                            <?php } ?>
+                                        <div>
+                                            <td><?php $i++; echo $i; ?></td>
+                                            <td>KH00<?php echo $row_support['user_id'] ?></td>
+                                            <td><?php echo $row_support['full_name']; ?></td>
+                                            <?php $created = $row_support['created_at'];
+                                                $formatted_created = $created->format('Y-m-d H:i:s');?>
+                                            <td><?php echo $row_support['email'] ?></td>
+                                            <td><?php echo $formatted_created; ?></td>
+                                            <td>
+                                                <a href="#" class="view-details"
+                                                       data-title="<?php echo $row_support['title_support']; ?>"
+                                                       data-content="<?php echo $row_support['content_support']; ?>">xem chi tiết</a>
+                                                <?php
+                                                // Kiểm tra xem support_id có trong danh sách feedback_ids hay không
+                                                if (in_array($row_support['support_id'], $feedback_ids)) { ?>
+                                                   <form action="process.php" method="post">
+                                                    <button type="submit" class="btn btn-danger float-end" name="btn_feed">Đã phản hồi</button>
+                                                    <input type="hidden" name="support_id" value="<?php echo $row_support['support_id'];?>">
+                                                </form>
+                                                <?php } else {
+                                                ?>
+                                                    <button class="btn btn-success float-end" data-support-id="<?php echo $row_support['support_id']; ?>">Gửi phản hồi</button>
+                                                <?php } ?>
+                                        </div>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -206,22 +210,58 @@
                     <div class="mb-3">
                         <label for="selectedCustomerEmail" class="form-label">Email khách hàng:</label>
                         <input type="email" class="form-control" id="selectedCustomerEmail" readonly>
+                        <input type="hidden" id="supportId" name="supportId">
                     </div>
                     <div class="mb-3">
                         <label for="feedbackSubject" class="form-label">Tiêu đề phản hồi:</label>
-                        <input type="text" class="form-control" id="feedbackSubject" name="Tilte_feedback">
+                        <input type="text" class="form-control" id="feedbackSubject" name="Tilte_feedback" required>
                     </div>
                     <div class="mb-3">
                         <label for="feedbackContent" class="form-label">Nội dung phản hồi:</label>
-                        <textarea class="form-control" id="feedbackContent" name="Tilte_feedback"></textarea>
+                        <textarea class="form-control" id="feedbackContent" name="Content_feedback" required></textarea >
                     </div>
-                    <button type="submit" class="btn btn-primary">Gửi</button>
+                    <button type="submit" class="btn btn-primary" name="btn_send">Gửi</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
+<!-- <?php
+    if(isset($_GET['support_id'])){
+     $support_id = $_GET['support_id'];
+    $sql_feedback_info = "SELECT * FROM feedback WHERE support_id = $support_id";
+    $stmt_feedback_info = sqlsrv_query($connect,$sql_feedback_info);
+    $row_feedback_info = sqlsrv_fetch_array($stmt_feedback_info, SQLSRV_FETCH_ASSOC);
+
+?>-->
+<div id="feedbackInfoModal" class="modal fade" tabindex="-1">
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Thông tin phản hồi</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="mb-3">
+                    <label for="feedbackTitle" class="form-label">Tiêu đề phản hồi:</label>
+                    <input type="text" class="form-control" id="feedbackTitle" value="<?php echo $row_feedback_info['title_feedback']; ?>" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="feedbackContent" class="form-label">Nội dung phản hồi:</label>
+                    <textarea class="form-control" id="feedbackContent" readonly><?php echo $row_feedback_info['content_feedback']; ?></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="feedbackDateTime" class="form-label">Thời gian phản hồi:</label>
+                    <input type="text" class="form-control" id="feedbackDateTime" value="<?php echo $row_feedback_info['date_time_feedback']; ?>" readonly>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<!-- <?php }?> -->
     <script src="index.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -255,21 +295,46 @@
     });
 
 
-        document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
     const feedbackButtons = document.querySelectorAll('.btn.btn-success');
 
     feedbackButtons.forEach(button => {
         button.addEventListener('click', function (event) {
             event.preventDefault();
-            const row = event.target.closest('tr');
-            const selectedCustomerEmail = row.cells[3].innerText;
+            const supportId = button.getAttribute('data-support-id');
+            const selectedCustomerEmail = button.closest('tr').cells[3].innerText;
 
             document.getElementById('selectedCustomerEmail').value = selectedCustomerEmail;
+            document.getElementById('supportId').value = supportId; // Thêm dòng này để gửi support_id vào form
             $('#feedbackModal').modal('show');
+        });
+        });
+    });
+    $('#feedbackModal').on('hidden.bs.modal', function () {
+        document.getElementById('feedbackForm').reset(); // Reset form
+    });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const feedbackButtons = document.querySelectorAll('.btn.btn-danger');
+
+    feedbackButtons.forEach(button => {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+            const supportId = button.closest('tr').querySelector('[name="support_id"]').value;
+
+            // Chuyển hướng qua process.php để xử lý dữ liệu
+            window.location.href = `process.php?support_id=${supportId}`;
         });
     });
 });
+document.addEventListener("DOMContentLoaded", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const supportId = urlParams.get('support_id');
 
+    if (supportId) {
+        $('#feedbackInfoModal').modal('show');
+    }
+});
 
     </script>
 

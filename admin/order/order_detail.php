@@ -248,6 +248,7 @@
                                                 $totalPrice += $row['TotalPrice'];
                                             }
                                             echo $totalPrice . "000";
+
                                             ?>
                                         </div>
                                     </div>
@@ -283,8 +284,9 @@
                     </div>
                     <?php if($select == 1) { ?>
                     <div class="mb-3">
-                        <label for="customer" class="form-label">Mã Khách hàng:</label>
-                        <input type="text" class="form-control" id="customer" name="customer" value="<?php echo $row_order_detail['customer_id'] ?>" readonly>
+                        <label for="customer_name" class="form-label">Tên Khách hàng:</label>
+                        <input type="hidden" class="form-control" id="customer" name="customer" value="<?php echo $row_order_detail['customer_id'] ?>" readonly>
+                        <input type="text" class="form-control" id="customer_name" name="customer_name" value="<?php echo $row_order_detail['full_name'] ?>" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="Status" class="form-label">Trạng thái:</label>
