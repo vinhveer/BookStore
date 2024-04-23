@@ -107,12 +107,12 @@
                                     $stmt = sqlsrv_query($conn, $sql, $params);
 
                                     // Hiển thị dữ liệu tương ứng
-                                    if ($stmt !== false) {
+                                    if ($stmt != false) {
                                         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                                             echo "<tr>";
                                             echo "<td>" . $row['product_name'] . "</td>";
                                             echo "<td>" . $row['product_price'] . "</td>";
-                                            echo "<td>" . $row['quantity'] * $row['product_price'] . "</td>";
+                                            echo "<td>" . $row['quantity'] * $row['product_price'] .".000". "</td>";
                                             echo "</tr>";
                                         }
                                     } else {
@@ -125,7 +125,7 @@
                                     $stmt_discount = sqlsrv_query($conn, $sql_discount, $params_discount);
                                     if ($stmt_discount !== false) {
                                         $row_discount = sqlsrv_fetch_array($stmt_discount, SQLSRV_FETCH_ASSOC);
-                                        $discount = $row_discount['discount'];
+                                        $discount = (int)$row_discount['discount'];
                                     } else {
                                         $discount = "Error querying discount: " . sqlsrv_errors();
                                     }
@@ -150,7 +150,7 @@
                     </table>
                     <!-- Total Sales -->
                     <div class="total-sale">
-                        <h4>Discount: <?php echo $discount; ?></h4>
+                        <h4>Discount: <?php echo $discount; ?>%</h4>
                         <h2>Total Sales: <?php echo $total_amount_on; ?></h2>
                     </div>
                 </div>
