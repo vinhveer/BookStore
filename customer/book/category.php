@@ -75,11 +75,34 @@
         </div>
     </nav>
 
-    <div class="container">
-        <h2>Genre</h2>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui esse quaerat, molestiae aut incidunt
-            praesentium modi quia libero suscipit nostrum minima corporis optio cum, veniam nesciunt voluptas, quod quae
-            quasi? </p>
+    <div class="container mb-2">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Recommends</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#" style="background-color: #24292e; color: white;">Categories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Prominent authors</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link">In recent years</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link">Language</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link">Publisher</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container-fluid heading">
+        <h1>Category</h1>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quos libero culpa, id explicabo sunt, accusantium
+            atque tenetur nulla neque odio distinctio iusto optio laudantium ipsam. Ipsam reprehenderit iste similique
+            excepturi?</p>
     </div>
 
     <?php
