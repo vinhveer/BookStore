@@ -66,7 +66,7 @@ BEGIN
 END;
 
 --
-ALTER PROCEDURE [dbo].[GetUserInformation_admin]
+CREATE PROCEDURE [dbo].[GetUserInformation_admin]
 @startFrom INT
 AS
 BEGIN
@@ -102,7 +102,7 @@ BEGIN
     FETCH NEXT @pageSize ROWS ONLY;
 END;
 
-ALTER PROCEDURE [dbo].[GetUserInformation_customer]
+CREATE PROCEDURE [dbo].[GetUserInformation_customer]
 @startFrom INT
 AS
 BEGIN
@@ -138,7 +138,7 @@ BEGIN
     FETCH NEXT @pageSize ROWS ONLY;
 END;
 
-ALTER PROCEDURE [dbo].[GetUserInformation_employee]
+CREATE PROCEDURE [dbo].[GetUserInformation_employee]
 @startFrom INT
 AS
 BEGIN
@@ -174,7 +174,7 @@ BEGIN
     FETCH NEXT @pageSize ROWS ONLY;
 END;
 
-ALTER PROCEDURE [dbo].[GetUserInformation_manager]
+CREATE PROCEDURE [dbo].[GetUserInformation_manager]
 @startFrom INT
 AS
 BEGIN
@@ -211,7 +211,7 @@ BEGIN
 END;
 
 
-ALTER PROCEDURE [dbo].[GetUserInformation_warehouse]
+CREATE PROCEDURE [dbo].[GetUserInformation_warehouse]
 @startFrom INT
 AS
 BEGIN
