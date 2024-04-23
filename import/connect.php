@@ -1,16 +1,8 @@
 <?php
-<<<<<<< HEAD
-
-=======
->>>>>>> ngan
 $servername = "DESKTOP-ARM6I0A\SQLEXPRESS";
 $database = "BookStore";
 $uid = "sa";
 $pass = "12345";
-<<<<<<< HEAD
-
-=======
->>>>>>> ngan
 
 $connection = [
     "Database" => $database,
@@ -26,9 +18,5 @@ if (!$connect) {
     echo "";
 }
 ?>
-<<<<<<< HEAD
-=======
 
 session_start();
-
->>>>>>> ngan
