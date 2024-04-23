@@ -147,11 +147,11 @@
             </div>
         </main>
         <?php
-                    } else {
-                        header("Location: ../login/login.php");
-                        exit();
-                    }
-                    ?>
+        } else {
+            header("Location: ../login/login.php");
+            exit();
+        }
+        ?>
 </body>
 
 </html>

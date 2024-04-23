@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book</title>
+    <title>Home</title>
 
-    <?php include '../../import/libary.php'; ?>
-    <?php include '../../import/connect.php'; ?>
+    <?php
+    include '../../import/libary.php';
+    include '../../import/connect.php';
+    ?>
 
     <link rel="stylesheet" href="css/book.css">
 </head>
@@ -16,7 +18,7 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm fixed-top">
         <div class="container">
             <a class="navbar-brand align-items-center" href="index.php">
-                <img src="..\..\assets\images\logo\light_theme_logo.png" class="logo">
+                <img src="..\..\..\assets\images\logo\light_theme_logo.png" class="logo">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -26,13 +28,13 @@
             <div class="collapse navbar-collapse align-items-center" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="../index.php">Home</a>
+                        <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="../book.php">Book</a>
+                        <a class="nav-link" href="book/book.php">Book</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../stationery.php">Stationery</a>
+                        <a class="nav-link" href="stationery/stationery.php">Stationery</a>
                     </li>
                 </ul>
                 <form class="d-flex me-auto search align-items-center" role="search">
@@ -101,46 +103,21 @@
         </div>
     </nav>
 
-    <div class="container mb-2">
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="book.php"
-                    style="background-color: #24292e; color: white;">Recommends</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="category.php">Categories</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Prominent authors</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link">In recent years</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link">Language</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link">Publisher</a>
-            </li>
-        </ul>
-    </div>
-    <div class="container-fluid heading">
-        <h1>Book</h1>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quos libero culpa, id explicabo sunt, accusantium
-            atque tenetur nulla neque odio distinctio iusto optio laudantium ipsam. Ipsam reprehenderit iste similique
-            excepturi?</p>
-    </div>
-
     <?php
-    $sql_items = "SELECT * FROM list_item";
+    if (isset($_GET['list_item_id'])) {
+        $sql_items = "SELECT * FROM list_item WHERE id = " . $_GET['list_item_id'];
+    }
     $result_items = sqlsrv_query($conn, $sql_items);
 
     while ($row = sqlsrv_fetch_array($result_items, SQLSRV_FETCH_ASSOC)) {
         if ($row['type_item'] == 'b') {
             include "feature_book.php";
+        } else {
+            include "feature_stationery.php";
         }
     }
     ?>
+
 </body>
 
 </html>

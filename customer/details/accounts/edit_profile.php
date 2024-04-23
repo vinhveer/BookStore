@@ -85,99 +85,97 @@
                                 href="authenciation.php">Authenciation</a></li>
                     </ul>
                 </div>
-
-                <div class="col-md-9">
-                    <section id="personal-info">
-                        <div class="container mb-4">
-                            <div class="row align-items-center">
-                                <div class="col-md-6">
-                                    <h4 style="margin-bottom: 0px">Edit profile information</h4>
-                                </div>
-                                <div class="col-md-6">
-                                    <button class="btn btn-primary float-end">Save</button>
-                                </div>
+                
+                <form class="col-md-9" action="process.php" method="POST" enctype="multipart/form-data">
+                    <div class="container mb-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h4 style="margin-bottom: 0px">Edit profile information</h4>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-primary float-end" type="submit">Save</button>
                             </div>
                         </div>
-                        <form class="container">
-                            <div class="row header">
-                                <div class="col-md-2">
-                                    <img src="../../../../<?php echo $row_user['image_user'] ?>" alt="" srcset=""
-                                        class="avatar_header" style="width: 100px">
-                                </div>
-                                <div class="col-md-10">
-                                    <h5>Upload your avatar if you need change</h5>
-                                    <input type="file" name="avatar_image" class="form-control">
-                                </div>
-                                <div class="mt-5 mb-5">
-                                    <form action="" class="form-control">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label for="first_name" class="form-label">First name</label>
-                                                <input type="text" class="form-control" id="first_name"
-                                                    value="<?php echo $row_user['first_name'] ?>">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="last_name" class="form-label">Middle name</label>
-                                                <input type="text" class="form-control" id="middle_name"
-                                                    value="<?php echo $row_user['middle_name'] ?>">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="last_name" class="form-label">Last name</label>
-                                                <input type="text" class="form-control" id="last_name"
-                                                    value="<?php echo $row_user['last_name'] ?>">
-                                            </div>
-                                        </div>
-                                        <div class="row mt-3">
-                                            <div class="col-md-6">
-                                                <label for="email" class="form-label">Email</label>
-                                                <input type="email" class="form-control" id="email"
-                                                    value="<?php echo $row_user['email'] ?>">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="phone" class="form-label">Phone</label>
-                                                <input type="text" class="form-control" id="phone"
-                                                    value="<?php echo $row_user['phone'] ?>">
-                                            </div>
-                                        </div>
-                                        <div class="row mt-3">
-                                            <div class="col-md-6">
-                                                <label for="dob" class="form-label">Date of Birth</label>
-                                                <input type="date" class="form-control" id="dob"
-                                                    value="<?php echo $row_user['date_of_birth']->format('Y-m-d'); ?>">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="gender" class="form-label">Gender</label>
-                                                <select class="form-select" id="gender">
-                                                    <option value="1" <?php if ($row_user['gender'] == 'male')
-                                                        echo 'selected'; ?>>Male</option>
-                                                    <option value="2" <?php if ($row_user['gender'] == 'female')
-                                                        echo 'selected'; ?>>Female</option>
-                                                    <option value="3" <?php if ($row_user['gender'] == 'other')
-                                                        echo 'selected'; ?>>Other</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-3">
-                                            <div class="col-md-12">
-                                                <label for="address" class="form-label">Address</label>
-                                                <textarea class="form-control"
-                                                    id="address"><?php echo $row_user['address'] ?></textarea>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                    </div>
+                    <div class="container">
+                        <div class="row header">
+                            <div class="col-md-2">
+                                <img src="../../../../<?php echo $row_user['image_user'] ?>" alt="" srcset=""
+                                    class="avatar_header" style="width: 100px">
                             </div>
-                        </form>
-                    </section>
-                </div>
+                            <div class="col-md-10">
+                                <h5>Upload your avatar if you need change</h5>
+                                <input type="file" name="avatar_image" class="form-control">
+                            </div>
+                            <div class="mt-5 mb-5">
+                                <form action="" class="form-control">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="first_name" class="form-label">First name</label>
+                                            <input type="text" class="form-control" id="first_name" name="first_name"
+                                                value="<?php echo $row_user['first_name'] ?>">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="last_name" class="form-label">Middle name</label>
+                                            <input type="text" class="form-control" id="middle_name" name="middle_name"
+                                                value="<?php echo $row_user['middle_name'] ?>">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="last_name" class="form-label">Last name</label>
+                                            <input type="text" class="form-control" id="last_name" name="last_name"
+                                                value="<?php echo $row_user['last_name'] ?>">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="email" name="email"
+                                                value="<?php echo $row_user['email'] ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="phone" class="form-label">Phone</label>
+                                            <input type="text" class="form-control" id="phone" name="phone"
+                                                value="<?php echo $row_user['phone'] ?>">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label for="dob" class="form-label">Date of Birth</label>
+                                            <input type="date" class="form-control" id="dob" name="dob"
+                                                value="<?php echo $row_user['date_of_birth']->format('Y-m-d'); ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="gender" class="form-label">Gender</label>
+                                            <select class="form-select" id="gender" name="gender">
+                                                <option value="1" <?php if ($row_user['gender'] == 'male')
+                                                    echo 'selected'; ?>>Male</option>
+                                                <option value="2" <?php if ($row_user['gender'] == 'female')
+                                                    echo 'selected'; ?>>Female</option>
+                                                <option value="3" <?php if ($row_user['gender'] == 'other')
+                                                    echo 'selected'; ?>>Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <label for="address" class="form-label">Address</label>
+                                            <textarea class="form-control"
+                                                id="address" name="address"><?php echo $row_user['address'] ?></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </main>
         <?php
-        } else {
-            header("Location: ../login/login.php");
-            exit();
-        }
-        ?>
+                    } else {
+                        header("Location: ../login/login.php");
+                        exit();
+                    }
+                    ?>
 </body>
 
 </html>

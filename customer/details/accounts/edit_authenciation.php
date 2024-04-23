@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings - Account</title>
 
-    <?php 
+    <?php
     include '../../../import/libary.php';
     include '../../../import/connect.php';
     ?>
@@ -92,15 +92,15 @@
                 </ul>
             </div>
 
-            <div class="col-md-9">
+            <form class="col-md-9" action="process.php" method="POST">
                 <section id="personal-info">
                     <div class="container mb-4">
                         <div class="row align-items-center">
                             <div class="col-md-6">
-                                <h4 style="margin-bottom: 0px">Edit authenciation</h4>
+                                <h4 style="margin-bottom: 0px">Edit authentication</h4>
                             </div>
                             <div class="col-md-6">
-                                <button class="btn btn-primary float-end">Save</button>
+                                <button class="btn btn-primary float-end" type="submit" name="update_auth">Save</button>
                             </div>
                         </div>
                     </div>
@@ -115,23 +115,49 @@
 
                         $row_auth = sqlsrv_fetch_array($result_auth, SQLSRV_FETCH_ASSOC);
                         ?>
-                        <form action="">
+                        <div class="form">
                             <div class="mt-3">
                                 <label for="username" class="form-label">Username</label>
                                 <input type="text" name="username" id="username" class="form-control"
-                                    placeholder="@<?php echo $row_auth['username']?>">
+                                    placeholder="@<?php echo $row_auth['username'] ?>">
+                                <small id="usernameError" class="text-danger"></small>
                             </div>
                             <div class="mt-3">
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" name="password" id="password" class="form-control"
                                     placeholder="Enter new password">
+                                <small id="passwordError" class="text-danger"></small>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </section>
-            </div>
+            </form>
         </div>
     </main>
+
+    <script>
+        document.getElementById('username').addEventListener('input', function () {
+            var username = this.value;
+            var usernameError = document.getElementById('usernameError');
+            if (username.length < 4) {
+                usernameError.textContent = 'Username must be at least 4 characters.';
+            } else if (/^[A-Za-z]$/.test(username)) {
+                usernameError.textContent = 'Username must contain at least one non-alphabetic character.';
+            } else {
+                usernameError.textContent = '';
+            }
+        });
+
+        document.getElementById('password').addEventListener('input', function () {
+            var password = this.value;
+            var passwordError = document.getElementById('passwordError');
+            if (/^[A-Za-z]*$/.test(password)) {
+                passwordError.textContent = 'Password must contain at least one non-alphabetic character.';
+            } else {
+                passwordError.textContent = '';
+            }
+        });
+    </script>
 
 </body>
 
