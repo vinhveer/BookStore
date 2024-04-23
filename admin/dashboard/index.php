@@ -58,7 +58,9 @@
     ORDER BY
         oo.order_date_on DESC;";
     $result_order_online = sqlsrv_query($connect,$sql_order_online);
-
+    $sql_notification = "SELECT TOP 3 notif_title, notif_content,notif_date
+    FROM notiffication ORDER BY notif_date DESC ";
+    $result_notification = sqlsrv_query($connect,$sql_notification);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,11 +120,11 @@
             </form>
             <input type="checkbox" id="theme-toggle" hidden>
             <label for="theme-toggle" class="theme-toggle"></label>
-            <a href="#" class="notif">
+            <a href="new.php" class="notif">
                 <i class='bx bx-bell'></i>
             </a>
             <a href="#" class="profile">
-                <img src="images/logo.jpg">
+                <img src="../../assets/images/logo/image.png">
             </a>
         </nav>
 
@@ -180,7 +182,7 @@
                         <i class='bx bx-receipt'></i>
                         <h3>Recent Orders</h3>
                         <i class='bx bx-filter'></i>
-                        <i class='bx bx-search'></i>
+                        <a href="../order/order_list.php"><i class='bx bx-search'></i></a>
                     </div>
                     <table>
                         <thead>
@@ -224,34 +226,23 @@
                 <!-- Reminders -->
                 <div class="reminders">
                     <div class="header">
-                        <i class='bx bx-note'></i>
+                        <a href="../setting_up/setting_notification.php"><i class='bx bx-note'></i></a>
                         <h3>Notifications</h3>
                         <i class='bx bx-filter'></i>
                         <a href="../setting_up/setting_notification.php"><i class='bx bx-plus'></i></a>
                     </div>
-                    <ul class="task-list">
-                        <li class="completed">
-                            <div class="task-title">
-                                <i class='bx bx-check-circle'></i>
-                                <p>Start Our Meeting</p>
-                            </div>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
-                        <li class="completed">
-                            <div class="task-title">
-                                <i class='bx bx-check-circle'></i>
-                                <p>Analyse Our Site</p>
-                            </div>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
-                        <li class="completed">
-                            <div class="task-title">
-                                <i class='bx bx-check-circle'></i>
-                                <p>Analyse Our Site</p>
-                            </div>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
-                    </ul>
+                        <ul class="task-list">
+                        <?php
+                        while ($row_notification = sqlsrv_fetch_array($result_notification)) {?>
+                            <li class="completed">
+                                <div class="task-title">
+                                    <i class='bx bx-check-circle'></i>
+                                    <p><?php echo $row_notification['notif_title'] ;?></p>
+                                </div>
+                                <a href="../setting_up/setting_notification.php"><i class='bx bx-dots-vertical-rounded'></i></a>
+                            </li>
+                            <?php }?>
+                        </ul>
                 </div>
             </div>
     </main>

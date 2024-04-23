@@ -1,4 +1,11 @@
-
+<?php
+    include_once '../../import/connect.php';
+    $sql_notification = "SELECT  notif_id,
+    notif_title,
+    notif_content,
+    notif_date FROM notiffication ORDER BY notif_date DESC ";
+    $result_notification = sqlsrv_query($connect,$sql_notification);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,7 +66,7 @@
             </form>
             <input type="checkbox" id="theme-toggle" hidden>
             <label for="theme-toggle" class="theme-toggle"></label>
-            <a href="#" class="notif">
+            <a href="new.php" class="notif">
                 <i class='bx bx-bell'></i>
                 <!-- <span class="count">12</span> -->
             </a>
@@ -73,48 +80,68 @@
     <div class="container mt-4 mb-4">
         <div class="row">
             <div class="col-md-6">
-                <h3>Tin Tức Hệ Thống</h3>
+                <h3>Thông báo Hệ Thống</h3>
             </div>
         </div>
     </div>
     <div class="row">
-            <!-- Tin tức 1 -->
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Tiêu đề tin tức 1</h5>
-                        <p class="card-text">Mô tả ngắn gọn về tin tức này...</p>
-                        <a href="#" class="btn btn-primary">Xem thêm</a>
+            <?php
+            $count = 0; // Biến đếm số lượng thông báo
+            while ($row = sqlsrv_fetch_array($result_notification)) {
+                // Bắt đầu một dòng mới sau khi hiển thị 3 thông báo
+                if ($count % 3 == 0 && $count != 0) {
+                    echo '</div><div class="row">';
+                }
+            ?>
+                <div class="col-md-4"> <!-- Sử dụng col-md-4 để hiển thị 3 thông báo trên mỗi dòng -->
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $row['notif_title']; ?></h5>
+                            <button class="btn btn-primary view-more-btn" data-title="<?php echo $row['notif_title']; ?>"
+                                data-content="<?php echo $row['notif_content']; ?>">Xem thêm</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- Tin tức 2 -->
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Tiêu đề tin tức 2</h5>
-                        <p class="card-text">Mô tả ngắn gọn về tin tức này...</p>
-                        <a href="#" class="btn btn-primary">Xem thêm</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Tin tức 3 -->
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Tiêu đề tin tức 3</h5>
-                        <p class="card-text">Mô tả ngắn gọn về tin tức này...</p>
-                        <a href="#" class="btn btn-primary">Xem thêm</a>
-                    </div>
-                </div>
-            </div>
+            <?php
+                $count++; // Tăng biến đếm lên sau mỗi lần hiển thị thông báo
+            }
+            ?>
         </div>
+    </div>
     </div>
     </main>
     </div>
+    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5 id="notificationTitle"></h5>
+                <p id="notificationContent"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
     <script src="index.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        $('.view-more-btn').click(function () {
+            var title = $(this).data('title');
+            var content = $(this).data('content');
+            $('#notificationTitle').text(title);
+            $('#notificationContent').text(content);
+            $('#notificationModal').modal('show');
+        });
+    });
+</script>
 </body>
 </html>

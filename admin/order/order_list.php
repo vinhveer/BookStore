@@ -125,7 +125,7 @@
             </form>
             <input type="checkbox" id="theme-toggle" hidden>
             <label for="theme-toggle" class="theme-toggle"></label>
-            <a href="#" class="notif">
+            <a href="../dashboard/new.php" class="notif">
                 <i class='bx bx-bell'></i>
                 <!-- <span class="count">12</span> -->
             </a>
