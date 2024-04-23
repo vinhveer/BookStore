@@ -23,7 +23,14 @@
 			when LEN(u.middle_name)> 0 then
 				 CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name)
 			else CONCAT(u.last_name,' ', u.first_name)
-		end AS full_name
+		end AS full_name,
+        case
+			when LEN(ue.middle_name)> 0 then
+				 CONCAT(ue.last_name, ' ', ue.middle_name, ' ', ue.first_name)
+			else CONCAT(ue.last_name,' ', ue.first_name)
+		end AS employee_name,
+        o.delivery_status,
+        o.employee_id
         FROM orders_online o
         JOIN order_details_on od ON o.order_id = od.order_id
         JOIN products p ON od.product_id = p.product_id
@@ -31,6 +38,8 @@
         LEFT JOIN others_products op ON p.product_id = op.product_id
         JOIN customers c ON o.customer_id = c.customer_id
         JOIN users u ON c.user_id = u.user_id
+        JOIN employees AS e ON o.employee_id = e.employee_id
+        JOIN users AS ue ON e.user_id = ue.user_id
         where o.order_id=$order_id";
         $result_order_detail = sqlsrv_query($conn,$sql_order_detail);
         $row_order_detail = sqlsrv_fetch_array($result_order_detail);
@@ -182,6 +191,18 @@
                                                     </li>
                                                     <li class="list-group-item list-group-item-action list-group-item-light">
                                                     <div class="d-flex align-items-center">
+                                                        <strong style="margin-right: 50px">Tên Nhân Viên:</strong>
+                                                        <p style="margin-bottom: 0px"><?php echo $row_order_detail['employee_name'] ?></p>
+                                                    </div>
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-action list-group-item-light">
+                                                    <div class="d-flex align-items-center">
+                                                        <strong style="margin-right: 50px">Trạng thái giao hàng:</strong>
+                                                        <p style="margin-bottom: 0px"><?php echo $row_order_detail['delivery_status'] ?></p>
+                                                    </div>
+                                                    </li>
+                                                    <li class="list-group-item list-group-item-action list-group-item-light">
+                                                    <div class="d-flex align-items-center">
                                                         <strong style="margin-right: 50px">Trạng Thái:</strong>
                                                         <p style="margin-bottom: 0px"><?php echo $row_order_detail['Status'] ?></p>
                                                     </div>
@@ -284,21 +305,54 @@
                     </div>
                     <?php if($select == 1) { ?>
                     <div class="mb-3">
-                        <label for="customer_name" class="form-label">Tên Khách hàng:</label>
-                        <input type="hidden" class="form-control" id="customer" name="customer" value="<?php echo $row_order_detail['customer_id'] ?>" readonly>
-                        <input type="text" class="form-control" id="customer_name" name="customer_name" value="<?php echo $row_order_detail['full_name'] ?>" readonly>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="customer_name" class="form-label">Tên Khách hàng ban đầu :</label>
+                                <input type="text" class="form-control" id="customer_name" name="customer_name" value="<?php echo $row_order_detail['full_name'] ?>" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="customer" class="form-label">Mã khách hàng cần đổi :</label>
+                                <input type="number" class="form-control" id="customer" name="customer" value="<?php echo $row_order_detail['customer_id'] ?>">
+                            </div>
+                        </div>
                     </div>
                     <div class="mb-3">
-                        <label for="Status" class="form-label">Trạng thái:</label>
-                        <select class="form-select" id="Status" name="Status" required>
-                            <option value="" disabled selected>Chọn trạng thái</option>
-                            <option value="Confirmed" <?php echo ($row_order_detail['Status'] == 'Confirmed') ? 'selected' : ''; ?>>Confirmed</option>
-                            <option value="Pending" <?php echo ($row_order_detail['Status'] == 'Pending') ? 'selected' : ''; ?>>Pending</option>
-                            <option value="Unpaid" <?php echo ($row_order_detail['Status'] == 'Unpaid') ? 'selected' : ''; ?>>Unpaid</option>
-                            <option value="Completed" <?php echo ($row_order_detail['Status'] == 'Completed') ? 'selected' : ''; ?>>Completed</option>
-                            <option value="Deleted" <?php echo ($row_order_detail['Status'] == 'Deleted') ? 'selected' : ''; ?>>Deleted</option>
-                            <option value="Shipped" <?php echo ($row_order_detail['Status'] == 'Shipped') ? 'selected' : ''; ?>>Shipped</option>
-                        </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="employee_name" class="form-label">Tên nhân viên ban đầu :</label>
+                                <input type="text" class="form-control" id="employee_name" name="employee_name" value="<?php echo $row_order_detail['employee_name'] ?>" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="employee" class="form-label">Mã nhân viên cần đổi :</label>
+                                <input type="number" class="form-control" id="employee" name="employee" value="<?php echo $row_order_detail['employee_id'];?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="Status" class="form-label">Trạng thái:</label>
+                                <select class="form-select" id="Status" name="Status" required>
+                                    <option value="" disabled selected>Chọn trạng thái</option>
+                                    <option value="Confirmed" <?php echo ($row_order_detail['Status'] == 'Confirmed') ? 'selected' : ''; ?>>Confirmed</option>
+                                    <option value="Pending" <?php echo ($row_order_detail['Status'] == 'Pending') ? 'selected' : ''; ?>>Pending</option>
+                                    <option value="Unpaid" <?php echo ($row_order_detail['Status'] == 'Unpaid') ? 'selected' : ''; ?>>Unpaid</option>
+                                    <option value="Completed" <?php echo ($row_order_detail['Status'] == 'Completed') ? 'selected' : ''; ?>>Completed</option>
+                                    <option value="Deleted" <?php echo ($row_order_detail['Status'] == 'Deleted') ? 'selected' : ''; ?>>Deleted</option>
+                                    <option value="Shipped" <?php echo ($row_order_detail['Status'] == 'Shipped') ? 'selected' : ''; ?>>Shipped</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Status" class="form-label">Trạng thái giao hàng:</label>
+                                <select class="form-select" id="Status" name="delivery_status" required>
+                                    <option value="" disabled selected>Chọn trạng thái</option>
+                                    <option value="Delivered" <?php echo ($row_order_detail['delivery_status'] == 'Delivered') ? 'selected' : ''; ?>>Delivered</option>
+                                    <option value="Scheduled" <?php echo ($row_order_detail['delivery_status'] == 'Scheduled') ? 'selected' : ''; ?>>Scheduled</option>
+                                    <option value="Failed" <?php echo ($row_order_detail['delivery_status'] == 'Failed') ? 'selected' : ''; ?>>Failed</option>
+                                    <option value="In Transit" <?php echo ($row_order_detail['delivery_status'] == 'In Transit') ? 'selected' : ''; ?>>In Transit</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <?php } ?>
                 </div>

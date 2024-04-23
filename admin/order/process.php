@@ -55,12 +55,16 @@
           if($select == 1){
                $customer = $_POST['customer'];
                $status = $_POST['Status'];
+               $delivery_status = $_POST['delivery_status'];
+               $employee_id = $_POST['employee'];
                $sql_update_order = "UPDATE orders_online SET
                     order_date_on = '$date_order',
                     customer_id = '$customer',
                     status_on = '$status',
                     note_on = N'$note',
-                    total_amount_on = '$total'
+                    total_amount_on = '$total',
+                    delivery_status = '$delivery_status',
+                    employee_id = '$employee_id'
                     where order_id = $order_id;";
 
           }

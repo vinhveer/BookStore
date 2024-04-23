@@ -5,15 +5,22 @@
         $keyword = strtolower(trim($tukhoa));
         $select_order = $_GET['select'];
         if($select_order == 1){
-            $sql_order = "SELECT oo.order_id, oo.order_date_on,
+            $sql_order = "SELECT oo.order_id, oo.order_date_on,oo.delivery_status,
         case
 			when LEN(u.middle_name)> 0 then
 				 CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name)
 			else CONCAT(u.last_name,' ', u.first_name)
-		end AS full_name, oo.status_on,oo.note_on
+		end AS full_name,
+        case
+			when LEN(ue.middle_name)> 0 then
+				 CONCAT(ue.last_name, ' ', ue.middle_name, ' ', ue.first_name)
+			else CONCAT(ue.last_name,' ', ue.first_name)
+		end AS employee_name, oo.status_on,oo.note_on
             FROM orders_online AS oo
             JOIN customers AS c ON oo.customer_id = c.customer_id
             JOIN users AS u ON c.user_id = u.user_id
+            JOIN employees AS e ON oo.employee_id = e.employee_id
+            JOIN users AS ue ON e.user_id = ue.user_id
             WHERE LOWER(CONCAT('DH00', CAST(order_id AS NVARCHAR(MAX)))) LIKE '%' + '$keyword' + '%';";
             $result_order = sqlsrv_query($conn, $sql_order);
         }
@@ -28,15 +35,23 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['sbm_select_order'])) {
         $select_order=$_POST['order'];
         if($select_order == 1){
-            $sql_order = "SELECT oo.order_id, oo.order_date_on,
+            $sql_order = "SELECT oo.order_id, oo.order_date_on,oo.delivery_status,
         case
 			when LEN(u.middle_name)> 0 then
 				 CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name)
 			else CONCAT(u.last_name,' ', u.first_name)
-		end AS full_name, oo.status_on,oo.note_on
+		end AS full_name,
+        case
+			when LEN(ue.middle_name)> 0 then
+				 CONCAT(ue.last_name, ' ', ue.middle_name, ' ', ue.first_name)
+			else CONCAT(ue.last_name,' ', ue.first_name)
+		end AS employee_name,
+        oo.status_on,oo.note_on
             FROM orders_online AS oo
             JOIN customers AS c ON oo.customer_id = c.customer_id
-            JOIN users AS u ON c.user_id = u.user_id;";
+            JOIN users AS u ON c.user_id = u.user_id
+            JOIN employees AS e ON oo.employee_id = e.employee_id
+            JOIN users AS ue ON e.user_id = ue.user_id;";
             $result_order = sqlsrv_query($conn, $sql_order);
         }
         if($select_order == 0){
@@ -47,15 +62,22 @@
     else{
         $select_order = (isset($_GET['select']))?$_GET['select']:1;
         if($select_order == 1){
-            $sql_order = "SELECT oo.order_id, oo.order_date_on,
+            $sql_order = "SELECT oo.order_id, oo.order_date_on,oo.delivery_status,
         case
 			when LEN(u.middle_name)> 0 then
 				 CONCAT(u.last_name, ' ', u.middle_name, ' ', u.first_name)
 			else CONCAT(u.last_name,' ', u.first_name)
-		end AS full_name, oo.status_on,oo.note_on
+		end AS full_name,
+        case
+			when LEN(ue.middle_name)> 0 then
+				 CONCAT(ue.last_name, ' ', ue.middle_name, ' ', ue.first_name)
+			else CONCAT(ue.last_name,' ', ue.first_name)
+		end AS employee_name, oo.status_on,oo.note_on
             FROM orders_online AS oo
             JOIN customers AS c ON oo.customer_id = c.customer_id
-            JOIN users AS u ON c.user_id = u.user_id;";
+            JOIN users AS u ON c.user_id = u.user_id
+            JOIN employees AS e ON oo.employee_id = e.employee_id
+            JOIN users AS ue ON e.user_id = ue.user_id;";
             $result_order = sqlsrv_query($conn, $sql_order);
         }
         if($select_order == 0){
@@ -198,6 +220,7 @@
                                         <th scope="col">Ngày đặt</th>
                                         <?php if($select_order == 1) { ?>
                                             <th scope="col">Khách hàng</th>
+                                            <th scope="col">Nhân viên</th>
                                             <th scope="col">Trạng thái</th>
                                             <th scope="col">Ghi chú</th>
                                         <?php } else { ?>
@@ -222,6 +245,7 @@
                                         <td><?php echo  $formatted_date; ?></td>
                                         <?php if($select_order == 1) { ?>
                                             <td><?php echo $row_order['full_name']; ?></td>
+                                            <td><?php echo $row_order['employee_name']; ?></td>
                                             <td><?php echo $row_order['status_on']; ?></td>
                                             <td><?php echo $row_order['note_on']; ?></td>
                                         <?php } else { ?>
