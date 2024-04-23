@@ -142,7 +142,7 @@
     <div id="deleteConfirmationModal" class="modal fade" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-            <form id="deleteConfirmationForm" action="process.php" method="POST">
+            <form id="deleteConfirmationForm" action="process.php?delete=1" method="POST">
             <input type="hidden" id="deleteNotificationId" name="notif_id">
                     <div class="modal-header">
                         <h5 class="modal-title">Xác nhận xóa</h5>
@@ -151,7 +151,7 @@
                     <div class="modal-body">
                         <p>Bạn có chắc chắn muốn xóa thông báo này?</p>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn btn-danger" id="confirmDeleteBtn" name="sbm_delete_noti">Xác nhận</button>
+                        <button type="button" class="btn btn-danger" id="confirmDeleteBtn" name="sbm_delete_notif">Xác nhận</button>
                     </div>
                 </form>
             </div>
@@ -166,17 +166,17 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="editNotificationForm" action ="process.php" method="POST">
+                    <form id="editNotificationForm" action ="process.php?edit=1" method="POST">
                     <input type="hidden" id="editNotificationId" name="notif_id">
                         <div class="mb-3">
                             <label for="editNotificationTitle" class="form-label">Tiêu đề:</label>
-                            <input type="text" class="form-control" id="editNotificationTitle" required>
+                            <input type="text" class="form-control" id="editNotificationTitle" required name="title_notif">
                         </div>
                         <div class="mb-3">
                             <label for="editNotificationContent" class="form-label">Nội dung:</label>
-                            <textarea class="form-control" id="editNotificationContent" required></textarea>
+                            <textarea class="form-control" id="editNotificationContent" required name ="content_notif"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary" id="confirmEditBtn"  name="sbm_edit_noti">Lưu thay đổi</button>
+                        <button type="submit" class="btn btn-primary" id="confirmEditBtn"  name="sbm_edit_notif">Lưu thay đổi</button>
                     </form>
                 </div>
             </div>
@@ -191,16 +191,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="addNotificationForm" action ="process.php" method="POST">
+                    <form id="addNotificationForm" action ="process.php?add=1" method="POST">
                         <div class="mb-3">
                             <label for="newNotificationTitle" class="form-label">Tiêu đề:</label>
-                            <input type="text" class="form-control" id="newNotificationTitle" required>
+                            <input type="text" class="form-control" id="newNotificationTitle" required name="title_notif">
                         </div>
                         <div class="mb-3">
                             <label for="newNotificationContent" class="form-label">Nội dung:</label>
-                            <textarea class="form-control" id="newNotificationContent" required></textarea>
+                            <textarea class="form-control" id="newNotificationContent" required name ="content_notif"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary" name="sbm_add_noti">Thêm</button>
+                        <button type="submit" class="btn btn-primary" name="sbm_add_notif">Thêm</button>
                     </form>
                 </div>
             </div>
