@@ -6,7 +6,7 @@
         $content_feedback = $_POST['Content_feedback'];
         $sql_feedback = "INSERT INTO feedback(title_feedback, content_feedback, date_time_feedback, support_id)
         VALUES (N'$title_feedback',N'$content_feedback',GETDATE(),'$support_id')";
-        $query_feedback = sqlsrv_query($connect,$sql_feedback);
+        $query_feedback = sqlsrv_query($conn,$sql_feedback);
         header ("location:setting_support.php");
     }
     if ( isset($_GET["support_id"])) {

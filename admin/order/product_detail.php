@@ -36,7 +36,7 @@
     LEFT JOIN brands br ON op.others_product_brand_id = br.brand_id
     WHERE
         p.product_id = $product_id";
-    $result_product_detail = sqlsrv_query($connect,$sql_product_detail);
+    $result_product_detail = sqlsrv_query($conn,$sql_product_detail);
     $row_product_detail = sqlsrv_fetch_array($result_product_detail);
 ?>
 <!DOCTYPE html>

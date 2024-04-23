@@ -14,7 +14,7 @@
     <div class="sidebar">
         <a href="#" class="logo">
             <i class='bx bxl-amazon'></i>
-            <div class="logo-name"><span>A</span>Warehouse</div>
+            <div class="logo-name"><span></span>Employee</div>
         </a>
         <ul class="side-menu">
             <li><a href="orders.php"><i class='bx bx-store-alt'></i>Orders</a></li>
@@ -22,7 +22,7 @@
             <li><a href="salary.php"><i class='bx bx-coin-stack' ></i>Salary</a></li>
             <li class="active"><a href="revenue.php"><i class='bx bxs-bar-chart-alt-2'></i></i>Revenue</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Message</a></li>
-           
+
             <li><a href="#"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
         <ul class="side-menu">
@@ -88,7 +88,7 @@
                                 <a href="revenue.php">By Date</a>
                                 <a href="revenue_month.php">By Month</a>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                     <table>
                         <thead>
@@ -101,43 +101,41 @@
                         <tbody>
                             <?php
                             // Kết nối đến cơ sở dữ liệu
-                            $serverName = "TN";
-                            $connectionInfo = array("Database"=>"BookStore");
-                            $conn = sqlsrv_connect($serverName, $connectionInfo);
+                            include_once '../import/connect.php';
 
                             // Kiểm tra kết nối
                             if (!$conn) {
                                 echo "Kết nối đến CSDL thất bại: " . sqlsrv_errors();
                             } else {
                                 // Chuẩn bị câu truy vấn SQL
-                                $sql = "SELECT 
+                                $sql = "SELECT
                                             YEAR(Ngay) AS Year,
                                             SUM(TongSoHoaDon) AS TongSoHoaDon,
                                             SUM(ThuNhap) AS TongThuNhap
                                         FROM (
-                                            SELECT 
+                                            SELECT
                                                 order_date_off AS Ngay,
                                                 COUNT(*) AS TongSoHoaDon,
                                                 SUM(total_amount_off) AS ThuNhap
-                                            FROM 
+                                            FROM
                                                 orders_offline
-                                            GROUP BY 
+                                            GROUP BY
                                                 YEAR(order_date_off), order_date_off
 
                                             UNION ALL
 
-                                            SELECT 
+                                            SELECT
                                                 order_date_on AS Ngay,
                                                 COUNT(*) AS TongSoHoaDon,
                                                 SUM(total_amount_on) AS ThuNhap
-                                            FROM 
+                                            FROM
                                                 orders_online
-                                            WHERE 
-                                                delivery_status = 'Delivered' 
-                                            GROUP BY 
+                                            WHERE
+                                                delivery_status = 'Delivered'
+                                            GROUP BY
                                                 YEAR(order_date_on), order_date_on
                                         ) AS T
-                                        GROUP BY 
+                                        GROUP BY
                                             YEAR(Ngay)";
 
                                 // Thực hiện truy vấn và lặp qua kết quả

@@ -1,7 +1,7 @@
 <?php
     include_once '../../import/connect.php';
     $sql_notif="SELECT * FROM notiffication";
-    $result_notif = sqlsrv_query($connect,$sql_notif);
+    $result_notif = sqlsrv_query($conn,$sql_notif);
 ?>
 <!DOCTYPE html>
 <html lang="en">

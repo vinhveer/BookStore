@@ -94,7 +94,7 @@
                 INNER JOIN
                     user_accounts ua on ua.user_role_id = ur.user_role_id
                 WHERE r.role_id=2;";
-                    $result_account_admin = sqlsrv_query($connect, $sql_account_admin);
+                    $result_account_admin = sqlsrv_query($conn, $sql_account_admin);
                 ?>
                    <div class="card">
                         <div class="card-body">

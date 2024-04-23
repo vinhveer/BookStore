@@ -6,7 +6,7 @@
     FROM user_roles ur
 	INNER JOIN user_accounts ua on ua.user_role_id = ur.user_role_id
     where ur.user_id=$user_id";
-    $result_user_edit = sqlsrv_query($connect, $sql_user_edit);
+    $result_user_edit = sqlsrv_query($conn, $sql_user_edit);
     $row_user_edit = sqlsrv_fetch_array($result_user_edit,SQLSRV_FETCH_ASSOC);
 ?>
 <!DOCTYPE html>

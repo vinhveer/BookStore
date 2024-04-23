@@ -40,7 +40,7 @@
         $username = $_POST['username'];
         $password = $_POST['password'];
         $sql_check_username = "SELECT * FROM user_accounts WHERE username='$username'";
-        $result_check_username = sqlsrv_query($connect, $sql_check_username);
+        $result_check_username = sqlsrv_query($conn, $sql_check_username);
         if ($row_result = sqlsrv_fetch_array($result_check_username) > 0) {
 
             $role = ($_GET['role_value']!=NULL)?$_GET['role_value']:"";
@@ -54,35 +54,35 @@
                         $first_name, $middle_name, $last_name,
                         $birth, $gender, $email, $address,
                         $phone, $image, $username, $password);
-                    $insert_result = sqlsrv_query($connect, $sql_new, $params);
+                    $insert_result = sqlsrv_query($conn, $sql_new, $params);
                 } else if ($_SESSION['role'] == "2") {
                     $sql_new = "EXEC InsertNewUser_admin ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
                     $params = array(
                         $first_name, $middle_name, $last_name,
                         $birth, $gender, $email, $address,
                         $phone, $image, $username, $password);
-                    $insert_result = sqlsrv_query($connect, $sql_new, $params);
+                    $insert_result = sqlsrv_query($conn, $sql_new, $params);
                 } else if ($_SESSION['role'] == "3") {
                     $sql_new = "EXEC InsertNewUser_employee ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
                     $params = array(
                         $first_name, $middle_name, $last_name,
                         $birth, $gender, $email, $address,
                         $phone, $image, $username, $password);
-                    $insert_result = sqlsrv_query($connect, $sql_new, $params);
+                    $insert_result = sqlsrv_query($conn, $sql_new, $params);
                 } else if ($_SESSION['role'] == "4") {
                     $sql_new = "EXEC InsertNewUser_warehouse ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
                     $params = array(
                         $first_name, $middle_name, $last_name,
                         $birth, $gender, $email, $address,
                         $phone, $image, $username, $password);
-                    $insert_result = sqlsrv_query($connect, $sql_new, $params);
+                    $insert_result = sqlsrv_query($conn, $sql_new, $params);
                 } else if ($_SESSION['role'] == "5") {
                     $sql_new = "EXEC InsertNewUser_manager ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
                     $params = array(
                         $first_name, $middle_name, $last_name,
                         $birth, $gender, $email, $address,
                         $phone, $image, $username, $password);
-                    $insert_result = sqlsrv_query($connect, $sql_new, $params);
+                    $insert_result = sqlsrv_query($conn, $sql_new, $params);
                 } else {
                     echo "Lỗi role không tồn tại: " . sqlsrv_errors($dbconnect);
                 }
@@ -92,35 +92,35 @@
                         $first_name, $middle_name, $last_name,
                         $birth, $gender, $email, $address,
                         $phone, $image, $username, $password);
-                    $insert_result = sqlsrv_query($connect, $sql_new, $params);
+                    $insert_result = sqlsrv_query($conn, $sql_new, $params);
             }else if($_GET['role_value'] == 2){
                 $sql_new = "EXEC InsertNewUser_admin ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
                     $params = array(
                         $first_name, $middle_name, $last_name,
                         $birth, $gender, $email, $address,
                         $phone, $image, $username, $password);
-                    $insert_result = sqlsrv_query($connect, $sql_new, $params);
+                    $insert_result = sqlsrv_query($conn, $sql_new, $params);
             }else if($_GET['role_value'] == 3){
                 $sql_new = "EXEC InsertNewUser_employee ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
                     $params = array(
                         $first_name, $middle_name, $last_name,
                         $birth, $gender, $email, $address,
                         $phone, $image, $username, $password);
-                    $insert_result = sqlsrv_query($connect, $sql_new, $params);
+                    $insert_result = sqlsrv_query($conn, $sql_new, $params);
             }else if($_GET['role_value'] == 4){
                 $sql_new = "EXEC InsertNewUser_warehouse ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
                     $params = array(
                         $first_name, $middle_name, $last_name,
                         $birth, $gender, $email, $address,
                         $phone, $image, $username, $password);
-                    $insert_result = sqlsrv_query($connect, $sql_new, $params);
+                    $insert_result = sqlsrv_query($conn, $sql_new, $params);
             }else if($_GET['role_value'] == 5){
                 $sql_new = "EXEC InsertNewUser_manager ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
                     $params = array(
                         $first_name, $middle_name, $last_name,
                         $birth, $gender, $email, $address,
                         $phone, $image, $username, $password);
-                    $insert_result = sqlsrv_query($connect, $sql_new, $params);
+                    $insert_result = sqlsrv_query($conn, $sql_new, $params);
             }else {
                 echo "Lỗi role không tồn tại: " . sqlsrv_errors($dbconnect);
             }
@@ -177,7 +177,7 @@
         INNER JOIN roles r ON ur.role_id = r.role_id
         INNER JOIN user_accounts ua on ua.user_role_id = ur.user_role_id
         where u.user_id=$user_id";
-        $query_update = sqlsrv_query($connect, $sql_update);
+        $query_update = sqlsrv_query($conn, $sql_update);
         $row_update = sqlsrv_fetch_array($query_update);
         $first_name = $_POST['first_name'];
         $middle_name = $_POST['middle_name'];
@@ -213,7 +213,7 @@
             email = '$email',
             image_user = '$image'
         WHERE user_id = $user_id;";
-        $query_update_user = sqlsrv_query($connect, $sql_edit_user);
+        $query_update_user = sqlsrv_query($conn, $sql_edit_user);
         if ($query_update_user === false) {
             die( print_r( sqlsrv_errors(), true));
         } else {
@@ -224,8 +224,8 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_user"])) {
         $user_id = $_GET['user_id'];
         $sql_delete = "DELETE FROM users where user_id = $user_id";
-        $query = sqlsrv_query($connect, $sql_delete);
-        // sqlsrv_close($connect);
+        $query = sqlsrv_query($conn, $sql_delete);
+        // sqlsrv_close($conn);
         $delete = $_GET['delete'];
             if ($delete == 1) header ('location: account_group.php');
             else if($delete == 2) header ('location: ../setting_up/setting_confi.php');
@@ -237,7 +237,7 @@
         $show = $_GET['show'];
         $role_id = $_POST['role_id'];
         $sql_role_id = "UPDATE user_roles SET role_id = '$role_id' Where user_id=$user_id";
-        $result_role = sqlsrv_query($connect, $sql_role_id);
+        $result_role = sqlsrv_query($conn, $sql_role_id);
         if ($result_role === false) {
             die( print_r( sqlsrv_errors(), true));
         }else{
@@ -253,7 +253,7 @@
         SET username = '$username',
             password = '$password'
         WHERE user_role_id IN (SELECT user_role_id FROM user_roles WHERE user_id = $user_id);";
-        $result_update_account = sqlsrv_query($connect, $sql_upadte_account);
+        $result_update_account = sqlsrv_query($conn, $sql_upadte_account);
         if ($result_update_account === false) {
             die( print_r( sqlsrv_errors(), true));
         }else{

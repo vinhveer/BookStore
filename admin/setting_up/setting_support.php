@@ -16,10 +16,10 @@
         user_roles ur ON u.user_id = ur.user_id
     WHERE  ur.role_id <> 2;
 ";
-    $result_support = sqlsrv_query($connect,$sql_support);
+    $result_support = sqlsrv_query($conn,$sql_support);
 
     $sql_feedback_ids = "SELECT support_id FROM feedback";
-    $result_feedback_ids = sqlsrv_query($connect, $sql_feedback_ids);
+    $result_feedback_ids = sqlsrv_query($conn, $sql_feedback_ids);
     $feedback_ids = array();
     while ($row = sqlsrv_fetch_array($result_feedback_ids)) {
         $feedback_ids[] = $row['support_id'];
@@ -231,7 +231,7 @@
     if(isset($_GET['support_id'])){
      $support_id = $_GET['support_id'];
     $sql_feedback_info = "SELECT * FROM feedback WHERE support_id = $support_id";
-    $stmt_feedback_info = sqlsrv_query($connect,$sql_feedback_info);
+    $stmt_feedback_info = sqlsrv_query($conn,$sql_feedback_info);
     $row_feedback_info = sqlsrv_fetch_array($stmt_feedback_info, SQLSRV_FETCH_ASSOC);
 
 ?>-->

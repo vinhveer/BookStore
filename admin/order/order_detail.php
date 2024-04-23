@@ -32,7 +32,7 @@
         JOIN customers c ON o.customer_id = c.customer_id
         JOIN users u ON c.user_id = u.user_id
         where o.order_id=$order_id";
-        $result_order_detail = sqlsrv_query($connect,$sql_order_detail);
+        $result_order_detail = sqlsrv_query($conn,$sql_order_detail);
         $row_order_detail = sqlsrv_fetch_array($result_order_detail);
     }else{
         $sql_order_detail = "SELECT
@@ -55,7 +55,7 @@
         LEFT JOIN books b ON p.product_id = b.product_id
         LEFT JOIN others_products op ON p.product_id = op.product_id
         where o.order_id=$order_id";
-        $result_order_detail = sqlsrv_query($connect,$sql_order_detail);
+        $result_order_detail = sqlsrv_query($conn,$sql_order_detail);
         $row_order_detail = sqlsrv_fetch_array($result_order_detail);
     }
 ?>
@@ -211,7 +211,7 @@
                         <tbody>
                         <?php
                             sqlsrv_free_stmt($result_order_detail);
-                            $result_order_detail = sqlsrv_query($connect,$sql_order_detail);
+                            $result_order_detail = sqlsrv_query($conn,$sql_order_detail);
                             if ($result_order_detail) {
                                 while ($row = sqlsrv_fetch_array($result_order_detail)) {
                             ?>
@@ -243,7 +243,7 @@
                                             <?php
                                             $totalPrice = 0;
                                             sqlsrv_free_stmt($result_order_detail);
-                                            $result_order_detail = sqlsrv_query($connect,$sql_order_detail);
+                                            $result_order_detail = sqlsrv_query($conn,$sql_order_detail);
                                             while ($row = sqlsrv_fetch_array($result_order_detail)) {
                                                 $totalPrice += $row['TotalPrice'];
                                             }

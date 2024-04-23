@@ -10,7 +10,7 @@
             SELECT quantity
         FROM order_details_off odf
     ) AS all_orders;";
-    $result_product_sold = sqlsrv_query($connect,$sql_product_sold);
+    $result_product_sold = sqlsrv_query($conn,$sql_product_sold);
     $row_product_sold = sqlsrv_fetch_array($result_product_sold);
 
     $sql_order_count = "SELECT COUNT(*) AS total_orders
@@ -21,12 +21,12 @@
             SELECT order_id FROM orders_offline
     ) AS all_orders;
     ";
-    $result_order_count = sqlsrv_query($connect,$sql_order_count);
+    $result_order_count = sqlsrv_query($conn,$sql_order_count);
     $row_order_count = sqlsrv_fetch_array($result_order_count);
 
     $sql_account_count = "SELECT COUNT(*) AS total_accounts
     FROM user_accounts;";
-    $result_account_count = sqlsrv_query($connect,$sql_account_count);
+    $result_account_count = sqlsrv_query($conn,$sql_account_count);
     $row_account_count = sqlsrv_fetch_array($result_account_count);
 
     $sql_total_revenue = "SELECT SUM(total_amount) AS total_revenue
@@ -37,7 +37,7 @@
         SELECT total_amount_off AS total_amount
         FROM orders_offline
     ) AS all_orders;";
-    $result_total_revenue = sqlsrv_query($connect,$sql_total_revenue);
+    $result_total_revenue = sqlsrv_query($conn,$sql_total_revenue);
     $row_total_revenue = sqlsrv_fetch_array($result_total_revenue);
 
     $sql_order_online = "SELECT TOP 3
@@ -57,10 +57,10 @@
         users u ON c.user_id = u.user_id
     ORDER BY
         oo.order_date_on DESC;";
-    $result_order_online = sqlsrv_query($connect,$sql_order_online);
+    $result_order_online = sqlsrv_query($conn,$sql_order_online);
     $sql_notification = "SELECT TOP 3 notif_title, notif_content,notif_date
     FROM notiffication ORDER BY notif_date DESC ";
-    $result_notification = sqlsrv_query($connect,$sql_notification);
+    $result_notification = sqlsrv_query($conn,$sql_notification);
 ?>
 <!DOCTYPE html>
 <html lang="en">

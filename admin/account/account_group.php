@@ -121,14 +121,14 @@
                                 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem'])) {
                             $tukhoa = $_POST['tukhoa'];
                             $sql_account_customer  ="SearchAccount_customer N'$tukhoa'";
-                            $result_account_customer = sqlsrv_query($connect, $sql_account_customer );
+                            $result_account_customer = sqlsrv_query($conn, $sql_account_customer );
                             } else {
                                 $recordsPerPage = 5;
                                 $sql_count = "SELECT COUNT(*) AS total_records FROM users u
                                 INNER JOIN user_roles ur ON u.user_id = ur.user_id
                                 INNER JOIN roles r ON ur.role_id = r.role_id
                                 WHERE r.role_id=1";
-                                $result_count = sqlsrv_query($connect, $sql_count);
+                                $result_count = sqlsrv_query($conn, $sql_count);
                                 $row_count = sqlsrv_fetch_array($result_count);
                                 $totalRecords = $row_count['total_records'];
                                 $totalPages = ceil($totalRecords / $recordsPerPage);
@@ -138,7 +138,7 @@
                                 $currentPage = $_GET['page'];
                             }
                             $sql_account_customer = "GetUserInformation_customer $currentPage";
-                            $result_account_customer = sqlsrv_query($connect, $sql_account_customer);
+                            $result_account_customer = sqlsrv_query($conn, $sql_account_customer);
                         }?>
                         <div class="card">
                             <div class="card-body">
@@ -227,14 +227,14 @@
                 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem1'])) {
                     $tukhoa = $_POST['tukhoa'];
                     $sql_account_admin  ="SearchAccount_admin N'$tukhoa'";
-                    $result_account_admin = sqlsrv_query($connect, $sql_account_admin );
+                    $result_account_admin = sqlsrv_query($conn, $sql_account_admin );
                 } else {
                     $recordsPerPage = 5;
                     $sql_count = "SELECT COUNT(*) AS total_records FROM users u
                     INNER JOIN user_roles ur ON u.user_id = ur.user_id
                     INNER JOIN roles r ON ur.role_id = r.role_id
                     WHERE r.role_id=2";
-                    $result_count = sqlsrv_query($connect, $sql_count);
+                    $result_count = sqlsrv_query($conn, $sql_count);
                     $row_count = sqlsrv_fetch_array($result_count);
                     $totalRecords = $row_count['total_records'];
                     $totalPages = ceil($totalRecords / $recordsPerPage);
@@ -244,7 +244,7 @@
                     $currentPage = $_GET['page'];
                 }
                 $sql_account_admin = "GetUserInformation_admin $currentPage";
-                $result_account_admin = sqlsrv_query($connect, $sql_account_admin);
+                $result_account_admin = sqlsrv_query($conn, $sql_account_admin);
                 }?>
                    <div class="card">
                         <div class="card-body">
@@ -332,14 +332,14 @@
                 <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem2'])) {
                     $tukhoa = $_POST['tukhoa'];
                     $sql_account_manager  ="SearchAccount_manager N'$tukhoa'";
-                    $result_account_manager = sqlsrv_query($connect, $sql_account_manager );
+                    $result_account_manager = sqlsrv_query($conn, $sql_account_manager );
                 } else {
                     $recordsPerPage = 5;
                     $sql_count = "SELECT COUNT(*) AS total_records FROM users u
                     INNER JOIN user_roles ur ON u.user_id = ur.user_id
                     INNER JOIN roles r ON ur.role_id = r.role_id
                     WHERE r.role_id=5";
-                    $result_count = sqlsrv_query($connect, $sql_count);
+                    $result_count = sqlsrv_query($conn, $sql_count);
                     $row_count = sqlsrv_fetch_array($result_count);
                     $totalRecords = $row_count['total_records'];
                     $totalPages = ceil($totalRecords / $recordsPerPage);
@@ -349,7 +349,7 @@
                     $currentPage = $_GET['page'];
                 }
                 $sql_account_manager = "GetUserInformation_manager $currentPage";
-                $result_account_manager = sqlsrv_query($connect, $sql_account_manager);
+                $result_account_manager = sqlsrv_query($conn, $sql_account_manager);
                 }?>
                     <div class="card">
                         <div class="card-body">
@@ -438,14 +438,14 @@
                 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem3'])) {
                     $tukhoa = $_POST['tukhoa'];
                     $sql_account_employee  ="SearchAccount_employee N'$tukhoa'";
-                    $result_account_employee = sqlsrv_query($connect, $sql_account_employee );
+                    $result_account_employee = sqlsrv_query($conn, $sql_account_employee );
                 } else {
                     $recordsPerPage = 5;
                     $sql_count = "SELECT COUNT(*) AS total_records FROM users u
                     INNER JOIN user_roles ur ON u.user_id = ur.user_id
                     INNER JOIN roles r ON ur.role_id = r.role_id
                     WHERE r.role_id=3";
-                    $result_count = sqlsrv_query($connect, $sql_count);
+                    $result_count = sqlsrv_query($conn, $sql_count);
                     $row_count = sqlsrv_fetch_array($result_count);
                     $totalRecords = $row_count['total_records'];
                     $totalPages = ceil($totalRecords / $recordsPerPage);
@@ -455,7 +455,7 @@
                     $currentPage = $_GET['page'];
                 }
                 $sql_account_employee = "GetUserInformation_employee $currentPage";
-                $result_account_employee = sqlsrv_query($connect, $sql_account_employee);
+                $result_account_employee = sqlsrv_query($conn, $sql_account_employee);
                 }
                 ?>
                    <div class ="card">
@@ -544,14 +544,14 @@
                 <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem4'])) {
                     $tukhoa = $_POST['tukhoa'];
                     $sql_account_warehouse  ="SearchAccount_warehouse N'$tukhoa'";
-                    $result_account_warehouse = sqlsrv_query($connect, $sql_account_warehouse );
+                    $result_account_warehouse = sqlsrv_query($conn, $sql_account_warehouse );
                 } else {
                     $recordsPerPage = 5;
                     $sql_count = "SELECT COUNT(*) AS total_records FROM users u
                     INNER JOIN user_roles ur ON u.user_id = ur.user_id
                     INNER JOIN roles r ON ur.role_id = r.role_id
                     WHERE r.role_id=4";
-                    $result_count = sqlsrv_query($connect, $sql_count);
+                    $result_count = sqlsrv_query($conn, $sql_count);
                     $row_count = sqlsrv_fetch_array($result_count);
                     $totalRecords = $row_count['total_records'];
                     $totalPages = ceil($totalRecords / $recordsPerPage);
@@ -561,7 +561,7 @@
                         $currentPage = $_GET['page'];
                     }
                 $sql_account_warehouse = "GetUserInformation_warehouse $currentPage";
-                $result_account_warehouse = sqlsrv_query($connect, $sql_account_warehouse);
+                $result_account_warehouse = sqlsrv_query($conn, $sql_account_warehouse);
                 }?>
                     <div class="card">
                         <div class="card-body">

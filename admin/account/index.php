@@ -4,11 +4,11 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem'])) {
         $tukhoa = $_POST['tukhoa'];
         $sql_account ="SearchUsers N'$tukhoa'";
-        $result_account = sqlsrv_query($connect, $sql_account);
+        $result_account = sqlsrv_query($conn, $sql_account);
     } else {
         $recordsPerPage = 8;
         $sql_count = "SELECT COUNT(*) AS total_records FROM users";
-        $result_count = sqlsrv_query($connect, $sql_count);
+        $result_count = sqlsrv_query($conn, $sql_count);
         $row_count = sqlsrv_fetch_array($result_count);
         $totalRecords = $row_count['total_records'];
         $totalPages = ceil($totalRecords / $recordsPerPage);
@@ -18,7 +18,7 @@
             $currentPage = $_GET['page'];
         }
         $sql_account = "EXEC GetUserInformation_no $currentPage";
-        $result_account = sqlsrv_query($connect, $sql_account);
+        $result_account = sqlsrv_query($conn, $sql_account);
 }
 
 ?>

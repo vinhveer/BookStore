@@ -8,7 +8,7 @@
                 (SELECT COUNT(*) FROM orders_online WHERE status_on = 'Shipped') AS shipped_orders,
                 (SELECT COUNT(*) FROM orders_online WHERE status_on = 'Completed') AS completed_orders,
                 (SELECT COUNT(*) FROM orders_offline) AS offline_orders";
-    $result_order_index = sqlsrv_query($connect, $sql_order_index);
+    $result_order_index = sqlsrv_query($conn, $sql_order_index);
     $row = sqlsrv_fetch_array($result_order_index);
 ?>
 <!DOCTYPE html>

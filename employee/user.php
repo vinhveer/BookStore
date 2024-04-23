@@ -14,7 +14,7 @@
     <div class="sidebar">
         <a href="#" class="logo">
             <i class='bx bxl-amazon'></i>
-            <div class="logo-name"><span>A</span>Warehouse</div>
+            <div class="logo-name"><span></span>Employee</div>
         </a>
         <ul class="side-menu">
             <li><a href="orders.php"><i class='bx bx-store-alt'></i>Orders</a></li>
@@ -22,7 +22,7 @@
             <li><a href="salary.php"><i class='bx bx-coin-stack' ></i>Salary</a></li>
             <li><a href="revenue.php"><i class='bx bxs-bar-chart-alt-2'></i></i>Revenue</a></li>
             <li><a href="#"><i class='bx bx-message-square-dots'></i>Message</a></li>
-           
+
             <li><a href="#"><i class='bx bx-cog'></i>Settings</a></li>
         </ul>
         <ul class="side-menu">
@@ -98,9 +98,8 @@
                         <tbody>
                             <?php
                             // Kết nối CSDL
-                        $serverName = "TN";
-                        $connectionInfo = array("Database"=>"BookStore");
-                        $conn = sqlsrv_connect($serverName, $connectionInfo);
+                            include_once '../import/connect.php';
+
 
                         // Kiểm tra kết nối
                         if (!$conn) {
@@ -109,10 +108,10 @@
                             // Xử lý tìm kiếm
                             if (isset($_GET['search']) && !empty($_GET['search'])) {
                                 $search_id = $_GET['search'];
-                                $sql = "SELECT p.product_id, p.product_price, 
-                                            CASE 
-                                                WHEN b.book_name IS NOT NULL THEN b.book_name 
-                                                ELSE op.others_product_name 
+                                $sql = "SELECT p.product_id, p.product_price,
+                                            CASE
+                                                WHEN b.book_name IS NOT NULL THEN b.book_name
+                                                ELSE op.others_product_name
                                             END AS product_name
                                         FROM products p
                                         LEFT JOIN books b ON p.product_id = b.product_id
@@ -121,10 +120,10 @@
                                 $params = array($search_id);
                             } else {
                                 // Mặc định hiển thị tất cả sản phẩm
-                                $sql = "SELECT p.product_id, p.product_price, 
-                                            CASE 
-                                                WHEN b.book_name IS NOT NULL THEN b.book_name 
-                                                ELSE op.others_product_name 
+                                $sql = "SELECT p.product_id, p.product_price,
+                                            CASE
+                                                WHEN b.book_name IS NOT NULL THEN b.book_name
+                                                ELSE op.others_product_name
                                             END AS product_name
                                         FROM products p
                                         LEFT JOIN books b ON p.product_id = b.product_id
@@ -201,8 +200,3 @@
     <script src="user.js"></script>
 </body>
 </html>
-
-
-
-
-

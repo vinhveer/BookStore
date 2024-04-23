@@ -91,7 +91,7 @@
                     INNER JOIN roles r ON ur.role_id = r.role_id
                     INNER JOIN user_accounts ua on ua.user_role_id = ur.user_role_id
                     WHERE u.user_id =$user_id";
-                    $result_account_info = sqlsrv_query($connect, $sql_info_account);
+                    $result_account_info = sqlsrv_query($conn, $sql_info_account);
                     $row_account_info = sqlsrv_fetch_array($result_account_info);
                 ?>
                 <table class="table table-striped table-bordered">
@@ -132,7 +132,7 @@
                                     CASE WHEN gender = 0 THEN N'Nữ' ELSE N'Nam' END AS gender_name,
                                     CONVERT(VARCHAR, date_of_birth, 103) AS DOB, -- Định dạng ngày sinh dưới dạng dd/mm/yyyy
                                     address,phone,email,image_user FROM users where user_id=$user_id;";
-                    $result_user_info = sqlsrv_query($connect, $sql_info_user);
+                    $result_user_info = sqlsrv_query($conn, $sql_info_user);
                     $row_user_info = sqlsrv_fetch_array($result_user_info); ?>
                         <div class="col-md-12">
                             <div class="card">

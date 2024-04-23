@@ -4,7 +4,7 @@
     notif_title,
     notif_content,
     notif_date FROM notiffication ORDER BY notif_date DESC ";
-    $result_notification = sqlsrv_query($connect,$sql_notification);
+    $result_notification = sqlsrv_query($conn,$sql_notification);
 ?>
 <!DOCTYPE html>
 <html lang="en">

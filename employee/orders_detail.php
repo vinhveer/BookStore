@@ -17,7 +17,7 @@
     <div class="sidebar">
         <a href="#" class="logo">
             <i class='bx bxl-amazon'></i>
-            <div class="logo-name"><span>A</span>Warehouse</div>
+            <div class="logo-name"><span></span>Employee</div>
         </a>
         <ul class="side-menu">
             <li><a href="orders.php"><i class='bx bx-store-alt'></i>Orders</a></li>
@@ -95,9 +95,7 @@
                             <!-- PHP query to retrieve order details -->
                             <?php
                                 // Kết nối CSDL
-                                $serverName = "TN";
-                                $connectionInfo = array("Database"=>"BookStore");
-                                $conn = sqlsrv_connect($serverName, $connectionInfo);
+                                include_once '../import/connect.php';
 
                                 // Lấy id từ URL
                                 if(isset($_GET['id'])) {
@@ -163,8 +161,3 @@
 </body>
 
 </html>
-
-
-
-
-

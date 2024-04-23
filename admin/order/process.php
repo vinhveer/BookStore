@@ -5,11 +5,11 @@
           $select = $_POST['select'];
           if($select == 1){
                $sql_delete_order = "DELETE FROM orders_online where order_id = $order_id";
-               $query_order = sqlsrv_query($connect, $sql_delete_order);
+               $query_order = sqlsrv_query($conn, $sql_delete_order);
           }
           if($select == 0){
                $sql_delete_order = "DELETE FROM orders_offline where order_id = $order_id";
-               $query_order = sqlsrv_query($connect, $sql_delete_order);
+               $query_order = sqlsrv_query($conn, $sql_delete_order);
           }
           header ("location: order_list.php?select=$select");
      }
@@ -19,11 +19,11 @@
           $product_id = $_POST['product_id'];
           if($select == 1){
                $sql_delete_product = "DELETE FROM order_details_on where product_id = $product_id";
-               $query_order = sqlsrv_query($connect, $sql_delete_product);
+               $query_order = sqlsrv_query($conn, $sql_delete_product);
           }
           if($select == 0){
                $sql_delete_product = "DELETE FROM order_details_off where product_id = $product_id";
-               $query_order = sqlsrv_query($connect, $sql_delete_product);
+               $query_order = sqlsrv_query($conn, $sql_delete_product);
           }
           header ("location: order_detail.php?order_id=$order_id&select=$select");
      }
@@ -43,7 +43,7 @@
                $sql_update_pro = "UPDATE products SET product_price='$price_unit' where product_id = $product_id;
                UPDATE order_details_on SET quantity='$quantity',discount='$discount' where product_id = $product_id;";
           }
-          $query_product = sqlsrv_query($connect, $sql_update_pro);
+          $query_product = sqlsrv_query($conn, $sql_update_pro);
           header ("location: order_detail.php?order_id=$order_id&select=$select");
      }
      if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["btn_edit_order"])) {
@@ -72,7 +72,7 @@
                     where order_id = $order_id;
                ";
           }
-          $query_update_oder = sqlsrv_query($connect, $sql_update_order);
+          $query_update_oder = sqlsrv_query($conn, $sql_update_order);
           header ("location: order_detail.php?order_id=$order_id&select=$select");
      }
 ?>

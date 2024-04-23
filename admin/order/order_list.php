@@ -15,13 +15,13 @@
             JOIN customers AS c ON oo.customer_id = c.customer_id
             JOIN users AS u ON c.user_id = u.user_id
             WHERE LOWER(CONCAT('DH00', CAST(order_id AS NVARCHAR(MAX)))) LIKE '%' + '$keyword' + '%';";
-            $result_order = sqlsrv_query($connect, $sql_order);
+            $result_order = sqlsrv_query($conn, $sql_order);
         }
         if($select_order == 0){
             $sql_order = "SELECT *
             FROM orders_offline
             WHERE LOWER(CONCAT('DH00', CAST(order_id AS NVARCHAR(MAX)))) LIKE '%' + '$keyword' + '%';";
-            $result_order = sqlsrv_query($connect, $sql_order);
+            $result_order = sqlsrv_query($conn, $sql_order);
         }
     }
     else{
@@ -37,11 +37,11 @@
             FROM orders_online AS oo
             JOIN customers AS c ON oo.customer_id = c.customer_id
             JOIN users AS u ON c.user_id = u.user_id;";
-            $result_order = sqlsrv_query($connect, $sql_order);
+            $result_order = sqlsrv_query($conn, $sql_order);
         }
         if($select_order == 0){
             $sql_order = "SELECT * FROM orders_offline";
-            $result_order = sqlsrv_query($connect, $sql_order);
+            $result_order = sqlsrv_query($conn, $sql_order);
         }
     }
     else{
@@ -56,11 +56,11 @@
             FROM orders_online AS oo
             JOIN customers AS c ON oo.customer_id = c.customer_id
             JOIN users AS u ON c.user_id = u.user_id;";
-            $result_order = sqlsrv_query($connect, $sql_order);
+            $result_order = sqlsrv_query($conn, $sql_order);
         }
         if($select_order == 0){
             $sql_order = "SELECT * FROM orders_offline";
-            $result_order = sqlsrv_query($connect, $sql_order);
+            $result_order = sqlsrv_query($conn, $sql_order);
         }
     }
 }

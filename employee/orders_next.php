@@ -14,7 +14,7 @@
     <div class="sidebar">
         <a href="#" class="logo">
             <i class='bx bxl-amazon'></i>
-            <div class="logo-name"><span>A</span>Warehouse</div>
+            <div class="logo-name"><span></span>Employee</div>
         </a>
         <ul class="side-menu">
             <li class="active"><a href="orders.php"><i class='bx bx-store-alt'></i>Orders</a></li>
@@ -89,7 +89,7 @@
                             <div class="dropdown-content">
                                 <a href="orders.php">Not accepted</a>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                     <table>
                         <thead>
@@ -102,11 +102,7 @@
                         <tbody>
                             <?php
                             // Kết nối CSDL
-                            $serverName = "TN";
-                            $connectionInfo = array("Database"=>"BookStore");
-                            $conn = sqlsrv_connect($serverName, $connectionInfo);
-
-                            // Kiểm tra kết nối
+                            include_once '../import/connect.php';                            // Kiểm tra kết nối
                             if ($conn) {
                                 // Xử lý tìm kiếm
                                 if (isset($_GET['search']) && !empty($_GET['search'])) {

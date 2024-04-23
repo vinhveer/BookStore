@@ -3,7 +3,7 @@
     $show = $_GET['show'];
     $user_id = $_GET['user_id'];
     $sql_edit = "SELECT * FROM users where user_id=$user_id";
-    $result_account_edit = sqlsrv_query($connect, $sql_edit);
+    $result_account_edit = sqlsrv_query($conn, $sql_edit);
     $row_account_edit = sqlsrv_fetch_array($result_account_edit,SQLSRV_FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
