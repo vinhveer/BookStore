@@ -34,14 +34,19 @@
 </head>
 
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
+    <?php
+    session_start();
+    session_destroy(); // Xóa session khi người dùng rời khỏi trang
+    ?>
 
     <main class="form-signin m-auto">
         <form>
             <img class="mb-4" src="../assets/images/logo/light_theme_logo.png" alt="" width="100px">
             <h1 class="h3 mb-3 fw-normal">Goodbye, Tri.</h1>
 
-            <p>Resign in now?</p>
-            <a class="btn w-100 py-2" href="sign_in">Sign in</a>
+            <p>You have been signed out successfully.</p>
+            <a class="btn w-100 py-2" href="sign_in.php">Sign in Again</a>
+            <p class="py-2">New to us? <a href="register.php">Register here.</a></p>  
             <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>
         </form>
     </main>
