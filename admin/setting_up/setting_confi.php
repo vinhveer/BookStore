@@ -70,11 +70,11 @@
             </a>
         </nav>
         <main>
-        <div class="container mt-3 mb-3">
-            <h3><a style="color:black;" href="index.php"><i class='bx bxs-cog me-3' ></i></i></a>Quản trị hệ thống</h3>
+            <div class="container mt-3 mb-3">
+                <h3><a style="color:black;" href="index.php"><i class='bx bxs-cog me-3' ></i></i></a>System Administration</h3>
                 <div class="row mb-3">
                     <div class="text-right">
-                        <a  href ="../account/account_group_add.php?role_id=2" class="btn btn-primary float-end"><i class='bx bx-plus-circle bx-sm' ></i>Thêm tài khoản mới</a>
+                        <a  href ="../account/account_group_add.php?role_id=2" class="btn btn-primary float-end"><i class='bx bx-plus-circle bx-sm' ></i>Add new account</a>
                     </div>
                 </div>
                 <?php
@@ -96,20 +96,20 @@
                 WHERE r.role_id=2;";
                     $result_account_admin = sqlsrv_query($conn, $sql_account_admin);
                 ?>
-                   <div class="card">
-                        <div class="card-body">
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">STT</th>
-                                        <th scope="col">Tên người dùng</th>
-                                        <th scope="col">Tên tài khoản</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Password</th>
-                                        <th scope="col">Thao tác</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No.</th>
+                                    <th scope="col">User Name</th>
+                                    <th scope="col">Account Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Password</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 <?php
                                 $i = 0;
                                 while ($row_account_admin = sqlsrv_fetch_array($result_account_admin)) {?>
@@ -120,32 +120,32 @@
                                         <td><?php echo $row_account_admin['email'] ?></td>
                                         <td><?php echo $row_account_admin['password'] ?></td>
                                         <td>
-                                        <a href="../account/account_user_edit.php?user_id=<?php echo $row_account_admin['user_id']; ?>&edit=3" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
-                                        <button type="button" class="btn btn-sm btn-danger me-2" data-postid="<?php echo $row_account_admin['user_id']; ?>&delete=2" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
+                                            <a href="../account/account_user_edit.php?user_id=<?php echo $row_account_admin['user_id']; ?>&edit=3" class="btn btn-sm btn-warning"><i class='bx bx-edit bx-sm'></i>Edit</a>
+                                            <button type="button" class="btn btn-sm btn-danger me-2" data-postid="<?php echo $row_account_admin['user_id']; ?>&delete=2" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class='bx bx-sm bx-trash me-1'></i>Delete</button>
+                                        </td>
                                     </tr>
                                 <?php } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                   </div>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-        </div>
-    </main>
+            </div>
+        </main>
     </div>
     <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteUserModalLabel">Xác nhận xóa tài khoản</h5>
+                    <h5 class="modal-title" id="deleteUserModalLabel">Confirm Account Deletion</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Bạn có chắc chắn muốn xóa tài khoản này?</p>
+                    <p>Are you sure you want to delete this account?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <form id="deletePostForm" action="" method="post">
-                        <button type="submit" class="btn btn-danger" name="delete_user">Xóa</button>
+                        <button type="submit" class="btn btn-danger" name="delete_user">Delete</button>
                     </form>
                 </div>
             </div>

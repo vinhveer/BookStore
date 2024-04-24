@@ -78,10 +78,10 @@
                         $show = $_GET['show'];
                         $user_id = $_GET['user_id'];
                         ?>
-                        <h3><a href="<?php echo ($show == 1)?'account_group.php':'index.php'; ?>"><i class="bi bi-arrow-left-circle me-3"></i></a> Thông tin người dùng</h3>
+                        <h3><a href="<?php echo ($show == 1)?'account_group.php':'index.php'; ?>"><i class="bi bi-arrow-left-circle me-3"></i></a> User Information</h3>
                     </div>
                         <div class="col-md-6 text-right">
-                            <a href="account_edit.php?user_id=<?php echo $user_id; ?>&show=<?php echo $show;?>" class="btn btn-success float-end"><i class='bx bx-sm bx-edit-alt me-1'></i>Sửa đổi thông tin</a>
+                            <a href="account_edit.php?user_id=<?php echo $user_id; ?>&show=<?php echo $show;?>" class="btn btn-success float-end"><i class='bx bx-sm bx-edit-alt me-1'></i>Edit Information</a>
                         </div>
                     </div>
                 </div>
@@ -97,10 +97,10 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col">Tên tài khoản</th>
-                            <th scope="col">Passwword</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Password</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Vai trò</th>
+                            <th scope="col">Role</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -119,18 +119,18 @@
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#thongtin">Thông tin</a>
+                        <a class="nav-link active" data-toggle="tab" href="#thongtin">Information</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#phanquyen">Phân quyền</a>
+                        <a class="nav-link" data-toggle="tab" href="#phanquyen">Permissions</a>
                     </li>
                 </ul>
                 <div class="tab-content mt-4">
                     <div class="tab-pane fade show active" id="thongtin">
                     <?php
                     $sql_info_user = "SELECT last_name + ' ' + middle_name + ' ' + first_name AS full_name,
-                                    CASE WHEN gender = 0 THEN N'Nữ' ELSE N'Nam' END AS gender_name,
-                                    CONVERT(VARCHAR, date_of_birth, 103) AS DOB, -- Định dạng ngày sinh dưới dạng dd/mm/yyyy
+                                    CASE WHEN gender = 0 THEN N'Female' ELSE N'Male' END AS gender_name,
+                                    CONVERT(VARCHAR, date_of_birth, 103) AS DOB, -- Format date of birth as dd/mm/yyyy
                                     address,phone,email,image_user FROM users where user_id=$user_id;";
                     $result_user_info = sqlsrv_query($conn, $sql_info_user);
                     $row_user_info = sqlsrv_fetch_array($result_user_info); ?>
@@ -143,7 +143,7 @@
                                                 style="width: 200px; height: 200px;">
                                         </div>
                                         <div class="col-md-8">
-                                            <h4>Thông tin cá nhân</h4>
+                                            <h4>Personal Information</h4>
                                             <hr class="info-divider">
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item list-group-item-action list-group-item-light">
@@ -194,18 +194,18 @@
                                 <div class="card">
                                     <form action="process.php?user_id=<?php echo $user_id;?>&show=<?php echo $show?>" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate id="accountForm">
                                         <div class="card-body">
-                                        <h4 class="card-title me-5">Quyền tài khoản</h4>
+                                        <h4 class="card-title me-5">Account Permissions</h4>
                                             <div class="mb-3">
                                                 <div class="d-flex">
-                                                    <span class="col-md-4">Chon vai trò: </span>
+                                                    <span class="col-md-4">Choose role: </span>
                                                         <div class="col-md-5">
                                                             <select class="form-select" id="selectRole" name="role_id">
                                                                 <option disabled selected> Choose role</option>
                                                                 <option value="2" <?php echo ($row_account_info['role_id'] == '2') ? 'selected' : ''; ?>>Admin</option>
-                                                                <option value="1" <?php echo ($row_account_info['role_id'] == '1') ? 'selected' : ''; ?>>customer</option>
-                                                                <option value="3" <?php echo ($row_account_info['role_id'] == '3') ? 'selected' : ''; ?>>emloyee</option>
-                                                                <option value="5" <?php echo ($row_account_info['role_id'] == '5') ? 'selected' : ''; ?>>manager</option>
-                                                                <option value="4" <?php echo ($row_account_info['role_id'] == '4') ? 'selected' : ''; ?>>warehouse</option>
+                                                                <option value="1" <?php echo ($row_account_info['role_id'] == '1') ? 'selected' : ''; ?>>Customer</option>
+                                                                <option value="3" <?php echo ($row_account_info['role_id'] == '3') ? 'selected' : ''; ?>>Employee</option>
+                                                                <option value="5" <?php echo ($row_account_info['role_id'] == '5') ? 'selected' : ''; ?>>Manager</option>
+                                                                <option value="4" <?php echo ($row_account_info['role_id'] == '4') ? 'selected' : ''; ?>>Warehouse</option>
                                                             </select>
                                                         </div>
                                                 </div>
@@ -213,41 +213,41 @@
                                             <div class = "row">
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label class="form-check-label"><b>Cửa hàng của bạn:</b></label>
+                                                        <label class="form-check-label"><b>Your Store:</b></label>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value=""
                                                                 id="permission1" checked disabled>
-                                                            <label class="form-check-label" for="permission1">Trang chủ</label>
+                                                            <label class="form-check-label" for="permission1">Homepage</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value=""
                                                                 id="permission2" checked disabled>
-                                                            <label class="form-check-label" for="permission2">Sản phẩm, danh mục</label>
+                                                            <label class="form-check-label" for="permission2">Products, Categories</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value=""
                                                                 id="permission3" checked disabled>
-                                                            <label class="form-check-label" for="permission3">Đơn hàng</label>
+                                                            <label class="form-check-label" for="permission3">Orders</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value=""
                                                                 id="permission4" checked disabled>
-                                                            <label class="form-check-label" for="permission4">Khuyến mãi</label>
+                                                            <label class="form-check-label" for="permission4">Promotions</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value=""
                                                                 id="permission5" checked disabled>
-                                                            <label class="form-check-label" for="permission5">Thông báo</label>
+                                                            <label class="form-check-label" for="permission5">Notifications</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label class="form-check-label"><b>Nội dung:</b></label>
+                                                        <label class="form-check-label"><b>Content:</b></label>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value=""
                                                                 id="permission6" checked disabled>
-                                                            <label class="form-check-label" for="permission6">Blog và trang nội dung</label>
+                                                            <label class="form-check-label" for="permission6">Blogs and Content pages</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value=""
@@ -257,21 +257,21 @@
 
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label class="form-check-label"><b>Cấu hình: </b></label>
+                                                        <label class="form-check-label"><b>Configuration: </b></label>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value=""
                                                                 id="permission8" checked disabled>
-                                                            <label class="form-check-label" for="permission8">Thông tin</label>
+                                                            <label class="form-check-label" for="permission8">Information</label>
                                                         </div>
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value=""
                                                                 id="permission9" checked disabled>
-                                                            <label class="form-check-label" for="permission9" checked disabled>Cấu hình hệ thống</label>
+                                                            <label class="form-check-label" for="permission9" checked disabled>System Configuration</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary" name ="sbm_role">Lưu</button>
+                                            <button type="submit" class="btn btn-primary" name ="sbm_role">Save</button>
                                         </div>
                                     </form>
                                 </div>

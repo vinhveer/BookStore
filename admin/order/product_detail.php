@@ -8,7 +8,7 @@
         WHEN b.product_id IS NOT NULL THEN 'Book'
         ELSE 'Stationery'
     END AS product_type,
-	p.product_price,
+    p.product_price,
     p.product_image,
     p.product_status,
     COALESCE(b.product_id, op.product_id) AS product_id,
@@ -110,10 +110,10 @@
     <main>
     <div class="container-fluid mb-4">
         <div class="header">
-                <h3><a style="color:black;" href="order_detail.php?order_id=<?php echo $order_id;?>&select=<?php echo $select;?>"><i class='bx bxs-chevrons-left me-3' ></i></a>Thông tin sản phẩm</h3>
+                <h3><a style="color:black;" href="order_detail.php?order_id=<?php echo $order_id;?>&select=<?php echo $select;?>"><i class='bx bxs-chevrons-left me-3' ></i></a>Product Information</h3>
                 <a href="#" class="report">
                     <i class='bx bx-cloud-download'></i>
-                    <span>Xuất báo cáo</span>
+                    <span>Export Report</span>
                 </a>
             </div>
         </div>
@@ -126,24 +126,24 @@
                                 style="width: 200px; height: 300px;">
                     </div>
                     <div class="col-md-8">
-                    <h4>Chi tiết sản phẩm</h4>
+                    <h4>Product Details</h4>
                     <hr class="info-divider">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item list-group-item-action list-group-item-light">
                             <div class="d-flex align-items-center">
-                                <strong style="margin-right: 75px">Loại Sản Phẩm</strong>
+                                <strong style="margin-right: 75px">Product Type</strong>
                                 <p style="margin-bottom: 0px"><?php echo $row_product_detail['product_type'];?></p>
                             </div>
                         </li>
                         <li class="list-group-item list-group-item-action list-group-item-light">
                             <div class="d-flex align-items-center">
-                                <strong style="margin-right: 75px">Mã Sản Phẩm</strong>
+                                <strong style="margin-right: 75px">Product Code</strong>
                                 <p style="margin-bottom: 0px">DH00<?php echo $product_id?></p>
                             </div>
                         </li>
                         <li class="list-group-item list-group-item-action list-group-item-light">
                             <div class="d-flex align-items-center">
-                                <strong style="margin-right: 95px">Tên Sản Phẩm:</strong>
+                                <strong style="margin-right: 95px">Product Name:</strong>
                                     <p style="margin-bottom: 0px"><?php echo $row_product_detail['product_name'];?></p>
                             </div>
                         </li>
@@ -151,37 +151,37 @@
                         <?php if($row_product_detail['product_type']=='Book'){ ?>
                             <li class="list-group-item list-group-item-action list-group-item-light">
                                 <div class="d-flex align-items-center">
-                                    <strong style="margin-right: 50px">Ngôn ngữ:</strong>
+                                    <strong style="margin-right: 50px">Language:</strong>
                                     <p style="margin-bottom: 0px"><?php echo $row_product_detail['language'];?></p>
                                 </div>
                             </li>
                             <li class="list-group-item list-group-item-action list-group-item-light">
                                 <div class="d-flex align-items-center">
-                                    <strong style="margin-right: 50px">Loại sách:</strong>
+                                    <strong style="margin-right: 50px">Category:</strong>
                                     <p style="margin-bottom: 0px"><?php echo $row_product_detail['category_name'];?></p>
                                 </div>
                             </li>
                             <li class="list-group-item list-group-item-action list-group-item-light">
                                 <div class="d-flex align-items-center">
-                                    <strong style="margin-right: 50px">Nhà xuất bản:</strong>
+                                    <strong style="margin-right: 50px">Publisher:</strong>
                                     <p style="margin-bottom: 0px"><?php echo $row_product_detail['publisher_name'];?></p>
                                 </div>
                             </li>
                             <li class="list-group-item list-group-item-action list-group-item-light">
                                 <div class="d-flex align-items-center">
-                                    <strong style="margin-right: 50px">Năm xuất bản:</strong>
+                                    <strong style="margin-right: 50px">Publication Year:</strong>
                                     <p style="margin-bottom: 0px"><?php echo $row_product_detail['publication_year'];?></p>
                                 </div>
                             </li>
                             <li class="list-group-item list-group-item-action list-group-item-light">
                                 <div class="d-flex align-items-center">
-                                    <strong style="margin-right: 50px">Định dạng sách:</strong>
+                                    <strong style="margin-right: 50px">Book Format:</strong>
                                     <p style="margin-bottom: 0px"><?php echo $row_product_detail['book_format'];?></p>
                                 </div>
                             </li>
                             <li class="list-group-item list-group-item-action list-group-item-light">
                                 <div class="d-flex align-items-center">
-                                    <strong style="margin-right: 50px">Kích thước sách:</strong>
+                                    <strong style="margin-right: 50px">Book Size:</strong>
                                     <p style="margin-bottom: 0px"><?php echo $row_product_detail['packaging_size'];?></p>
                                 </div>
                             </li>
@@ -194,50 +194,50 @@
                         <?php }else { ?>
                             <li class="list-group-item list-group-item-action list-group-item-light">
                                 <div class="d-flex align-items-center">
-                                    <strong style="margin-right: 50px">Thương hiệu:</strong>
+                                    <strong style="margin-right: 50px">Brand:</strong>
                                     <p style="margin-bottom: 0px"><?php echo $row_product_detail['brand_name'];?></p>
                                 </div>
                             </li>
                             <li class="list-group-item list-group-item-action list-group-item-light">
                                 <div class="d-flex align-items-center">
-                                    <strong style="margin-right: 50px">Màu sản phẩm:</strong>
+                                    <strong style="margin-right: 50px">Product Color:</strong>
                                     <p style="margin-bottom: 0px"><?php echo $row_product_detail['color'];?></p>
                                 </div>
                             </li>
                             <li class="list-group-item list-group-item-action list-group-item-light">
                                 <div class="d-flex align-items-center">
-                                    <strong style="margin-right: 50px">Chất liệu:</strong>
+                                    <strong style="margin-right: 50px">Material:</strong>
                                     <p style="margin-bottom: 0px"><?php echo $row_product_detail['material'];?></p>
                                 </div>
                             </li>
                             <li class="list-group-item list-group-item-action list-group-item-light">
                                 <div class="d-flex align-items-center">
-                                    <strong style="margin-right: 50px">Trọng lượng:</strong>
+                                    <strong style="margin-right: 50px">Weight:</strong>
                                     <p style="margin-bottom: 0px"><?php echo $row_product_detail['weight'];?></p>
                                 </div>
                             </li>
                             <li class="list-group-item list-group-item-action list-group-item-light">
                                 <div class="d-flex align-items-center">
-                                    <strong style="margin-right: 50px">Kích thước:</strong>
+                                    <strong style="margin-right: 50px">Size:</strong>
                                     <p style="margin-bottom: 0px"><?php echo $row_product_detail['packaging_size'];?></p>
                                 </div>
                             </li>
                         <?php }?>
                             <li class="list-group-item list-group-item-action list-group-item-light">
                                 <div class="d-flex align-items-center">
-                                    <strong style="margin-right: 50px">Mô tả sản phẩm:</strong>
+                                    <strong style="margin-right: 50px">Product Description:</strong>
                                     <p style="margin-bottom: 0px"><?php echo $row_product_detail['product_description'];?></p>
                                 </div>
                             </li>
                             <li class="list-group-item list-group-item-action list-group-item-light">
                                 <div class="d-flex align-items-center">
-                                    <strong style="margin-right: 50px">Trạng thái:</strong>
+                                    <strong style="margin-right: 50px">Status:</strong>
                                     <p style="margin-bottom: 0px"><?php echo $row_product_detail['product_status'];?></p>
                             </div>
                             </li>
                             <li class="list-group-item list-group-item-action list-group-item-light">
                                 <div class="d-flex align-items-center">
-                                    <strong style="margin-right: 50px">Giá sẩn phẩm</strong>
+                                    <strong style="margin-right: 50px">Product Price</strong>
                                     <p style="margin-bottom: 0px"><?php echo $row_product_detail['product_price'];?></p>
                                 </div>
                             </li>

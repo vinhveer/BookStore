@@ -1,8 +1,8 @@
 <?php
     include_once '../../import/connect.php';
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem'])) {
-        $tukhoa = $_POST['tukhoa'];
-        $keyword = strtolower(trim($tukhoa));
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {
+        $keyword = $_POST['keyword'];
+        $keyword = strtolower(trim($keyword));
         $select_order = $_GET['select'];
         if($select_order == 1){
             $sql_order = "SELECT oo.order_id, oo.order_date_on,oo.delivery_status,
@@ -160,27 +160,27 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-5">
-                <h3><a style="color:black;" href="index.php"><i class='bx bxs-chevrons-left me-3' ></i></a>Danh sách hóa đơn</h3>
+                <h3><a style="color:black;" href="index.php"><i class='bx bxs-chevrons-left me-3' ></i></a>List of orders</h3>
             </div>
             <div class="col-md-4">
                 <form class="d-flex" action="order_list.php?select=<?php echo $select_order?>" method="POST">
-                        <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm"
-                        name="tukhoa" value="">
-                    <button class="btn btn-outline-primary" type="submit" name="timkiem" value="find">Tìm</button>
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                        name="keyword" value="">
+                    <button class="btn btn-outline-primary" type="submit" name="search" value="find">Search</button>
                     </form>
-                    <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem'])) { ?>
+                    <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) { ?>
                     <div class="row mt-3">
                         <div class="col">
                             <?php
-                            $tukhoa = $_POST['tukhoa'];
-                            echo "<p>Tìm kiếm với từ khóa: '<strong>$tukhoa</strong>'</p>";
+                            $keyword = $_POST['keyword'];
+                            echo "<p>Search with keyword: '<strong>$keyword</strong>'</p>";
                             ?>
                         </div>
                     </div>
                 <?php } ?>
             </div>
             <div class="col-md-3 text-right">
-                <button class="btn btn-primary float-end">Xuất Excel</button>
+                <button class="btn btn-primary float-end">Export to Excel</button>
             </div>
         </div>
     </div>
@@ -192,20 +192,20 @@
                 <form  action="order_list.php" method="post">
                    <div class="row">
                         <div class="col-md-5">
-                            <h5 class="card-title">Bảng liệt kê đơn hàng</h5>
+                            <h5 class="card-title">Order listing table</h5>
                         </div>
                             <div class="col-md-7 text-end">
                                 <div class=" row d-flex">
                                     <div class="col-md-6"></div>
-                                   <div class ="col-md-4 text-end ">
+                                   <div class ="col-md-3 text-end ">
                                         <select class="form-select" id="order" name="order" required>
-                                            <option value="" disabled selected>Chọn loại đơn hàng</option>
-                                            <option value="1" <?php echo ($select_order == '1') ? 'selected' : ''; ?>>Đơn hàng online</option>
-                                            <option value="0"<?php echo ($select_order == '0') ? 'selected' : ''; ?>>Đơn hàng offline</option>
+                                            <option value="" disabled selected>Select order type</option>
+                                            <option value="1" <?php echo ($select_order == '1') ? 'selected' : ''; ?>>Online orders</option>
+                                            <option value="0"<?php echo ($select_order == '0') ? 'selected' : ''; ?>>Offline orders</option>
                                         </select>
                                    </div>
-                                    <div class="col-md-2">
-                                        <button type="submit" class="btn btn-outline-success" name="sbm_select_order">Lọc đơn</button>
+                                    <div class="col-md-3">
+                                        <button type="submit" class="btn btn-outline-success" name="sbm_select_order">Filter orders</button>
                                     </div>
                                 </div>
                             </div>
@@ -216,17 +216,17 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Mã đơn hàng</th>
-                                        <th scope="col">Ngày đặt</th>
+                                        <th scope="col">Order ID</th>
+                                        <th scope="col">Order Date</th>
                                         <?php if($select_order == 1) { ?>
-                                            <th scope="col">Khách hàng</th>
-                                            <th scope="col">Nhân viên</th>
-                                            <th scope="col">Trạng thái</th>
-                                            <th scope="col">Ghi chú</th>
+                                            <th scope="col">Customer</th>
+                                            <th scope="col">Employee</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Note</th>
                                         <?php } else { ?>
-                                            <th scope="col">Ghi chú</th>
+                                            <th scope="col">Note</th>
                                         <?php } ?>
-                                        <th scope="col">Thao tác</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -237,7 +237,7 @@
                                     ?>
                                     <tr>
                                         <th scope="row"><?php echo $i ?></th>
-                                        <td>DH00<?php echo $row_order['order_id']; ?></td>
+                                        <td>OD00<?php echo $row_order['order_id']; ?></td>
                                         <?php
                                         if($select_order == 1) $order_date = $row_order['order_date_on'];
                                         else $order_date = $row_order['order_date_off'];
@@ -254,11 +254,11 @@
                                         <td>
                                        <div class="d-flex">
                                             <?php if($select_order == 1) { ?>
-                                                <a href="order_detail.php?order_id=<?php echo $row_order['order_id']; ?>&select=1" class="btn btn-sm btn-info me-2">Xem</a>
-                                                <button class="btn btn-sm btn-danger delete-btn me-2" data-order-id="<?php echo $row_order['order_id']; ?>">Xóa</button>
+                                                <a href="order_detail.php?order_id=<?php echo $row_order['order_id']; ?>&select=1" class="btn btn-sm btn-info me-2">View</a>
+                                                <button class="btn btn-sm btn-danger delete-btn me-2" data-order-id="<?php echo $row_order['order_id']; ?>">Delete</button>
                                             <?php } else { ?>
-                                                <a href="order_detail.php?order_id=<?php echo $row_order['order_id']; ?>&select=0" class="btn btn-sm btn-info me-2">Xem</a>
-                                                <button class="btn btn-sm btn-danger delete-btn me-2" data-order-id="<?php echo $row_order['order_id']; ?>">Xóa</button>
+                                                <a href="order_detail.php?order_id=<?php echo $row_order['order_id']; ?>&select=0" class="btn btn-sm btn-info me-2">View</a>
+                                                <button class="btn btn-sm btn-danger delete-btn me-2" data-order-id="<?php echo $row_order['order_id']; ?>">Delete</button>
                                             <?php } ?>
                                        </div>
                                         </td>
@@ -276,18 +276,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteConfirmationModalLabel">Xác nhận xóa đơn hàng</h5>
+                <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Delete Order</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Bạn có chắc chắn muốn xóa đơn hàng này không?
+                Are you sure you want to delete this order?
             </div>
             <div class="modal-footer">
                 <form id="deleteForm" action="process.php" method="POST">
                     <input type="hidden" name="order_id" id="order_id_input">
                     <input type="hidden" name="select" id="" value="<?php echo $select_order;?>">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-danger" name="btn_delete">Xóa</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger" name="btn_delete">Delete</button>
                 </form>
             </div>
         </div>

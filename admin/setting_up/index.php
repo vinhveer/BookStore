@@ -15,7 +15,7 @@
             display: flex;
             align-items: center;
         }
-        h1,.syb{
+        h1,.sub{
             color: var(--dark);
         }
     </style>
@@ -70,7 +70,7 @@
     <main>
     <div class="header ms-3">
                 <div class="left">
-                    <h1>Setting</h1>
+                    <h1>Settings</h1>
                 </div>
                 <a href="#" class="report">
                     <i class='bx bx-cloud-download'></i>
@@ -82,15 +82,15 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4><i class="fas fa-list me-2"></i>Tính năng</h4>
+                        <h4><i class="fas fa-list me-2"></i>Features</h4>
                         <hr class="info-divider">
                         <div class="row mt-2">
                             <div class="col-md-6">
                                 <a href="setting_confi.php" class="nav-link">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h5 class="card-title"><i class="fas fa-cogs me-1"></i>Cấu hình tài khoản admin </h5>
-                                            <p>Xem và chỉnh sửa thông tin tài khoản admin</p>
+                                            <h5 class="card-title"><i class="fas fa-cogs me-1"></i>Admin Account Configuration</h5>
+                                            <p>View and edit admin account information</p>
                                         </div>
                                     </div>
                                 </a>
@@ -99,8 +99,8 @@
                                 <a href="setting_info.php" class="nav-link">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h5 class="card-title"><i class="fas fa-info-circle me-1"></i>Thông tin và Liên hệ</h5>
-                                            <p>Quản lý thông tin hệ thống phần mềm, chi tiết liên hệ</p>
+                                            <h5 class="card-title"><i class="fas fa-info-circle me-1"></i>Information and Contact</h5>
+                                            <p>Manage software system information, contact details</p>
                                         </div>
                                     </div>
                                 </a>
@@ -111,8 +111,8 @@
                                 <a href="setting_notification.php" class="nav-link">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h5 class="card-title"><i class="fas fa-bell me-1"></i>Thông báo</h5>
-                                            <p>Quản lý thông báo hệ thống và khách hàng</p>
+                                            <h5 class="card-title"><i class="fas fa-bell me-1"></i>Notifications</h5>
+                                            <p>Manage system and customer notifications</p>
                                         </div>
                                     </div>
                                 </a>
@@ -121,8 +121,8 @@
                                 <a href="setting_support.php" class="nav-link">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h5 class="card-title"><i class="fas fa-tools me-1"> </i>Hỗ trợ kĩ thuật</h5>
-                                            <p>Hỗ trợ trao đổi thông tin khách hàng</p>
+                                            <h5 class="card-title"><i class="fas fa-tools me-1"> </i>Technical Support</h5>
+                                            <p>Support for exchanging customer information</p>
                                         </div>
                                     </div>
                                 </a>

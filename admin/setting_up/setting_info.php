@@ -68,12 +68,12 @@
         </nav>
         <main>
         <div class="container mt-3 mb-3">
-        <h3><a style="color:black;" href="index.php"><i class='bx bxs-cog me-3' ></i></a>Thông tin hệ thống</h3>
+        <h3><a style="color:black;" href="index.php"><i class='bx bxs-cog me-3' ></i></a>System Information</h3>
         <div class="row mt-4">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        Thông tin hệ thống
+                        System Information
                     </div>
                     <div class="card-body">
                         <p>Name: Bookstore management software system</p>
@@ -85,11 +85,11 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        Liên hệ
+                        Contact
                     </div>
                     <div class="card-body">
-                        <p>Thông tin liên hệ</p>
-                        <p>Điện thoại: 0123 456 789</p>
+                        <p>Contact Information</p>
+                        <p>Phone: 0123 456 789</p>
                         <p>Email: contact@company.com</p>
                     </div>
                 </div>

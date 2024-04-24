@@ -82,42 +82,42 @@ session_start();
 
         <main>
             <div class="container mt-5">
-                <h3>Thông tin tài khoản</h3>
-                <p class="info">Hoàn thành các thông tin sau:</p>
+                <h3>Account Information</h3>
+                <p class="info">Complete the following information:</p>
                 <hr class="my-4">
                 <form id="accountInfoForm" action="process.php?role_value=<?php echo isset($_GET['role'])?$_GET['role']:""; ?>" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="username" class="form-label">Tên tài khoản</label>
+                            <label for="username" class="form-label">Username</label>
                             <div class="input-group">
                                 <span class="input-group-text">@</span>
-                                <input type="text" class="form-control" id="username" name="username" pattern="[a-zA-Z0-9_]+" title="Tên tài khoản không hợp lệ. Chỉ chấp nhận chữ, số và gạch dưới." required>
+                                <input type="text" class="form-control" id="username" name="username" pattern="[a-zA-Z0-9_]+" title="Invalid username. Only accept letters, numbers, and underscores." required>
                                 <div class="invalid-feedback">
-                                    Tên tài khoản không hợp lệ. Chỉ chấp nhận chữ, số và gạch dưới.
+                                    Invalid username. Only accept letters, numbers, and underscores.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="password" class="form-label">Mật khẩu</label>
+                            <label for="password" class="form-label">Password</label>
                             <div class="input-group">
                                 <input type="password" class="form-control" id="password" name="password" required>
                                 <span class="input-group-text" id="password-toggle"><i class="bx bxs-hide"></i></span>
                                 <div class="invalid-feedback">
-                                    Mật khẩu không được trống.
+                                    Password cannot be empty.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="confirm_password" class="form-label">Xác nhận mật khẩu</label>
+                            <label for="confirm_password" class="form-label">Confirm Password</label>
                             <div class="input-group">
                                 <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
                                 <span class="input-group-text" id="confirm-password-toggle"><i class="bx bxs-hide"></i></span>
                                 <div class="invalid-feedback">
-                                    Vui lòng xác nhận mật khẩu.
+                                    Please confirm your password.
                                 </div>
                             </div>
                         </div>
@@ -128,7 +128,7 @@ session_start();
                     </div>
                     <hr class="my-4">
                     <div class="text-end">
-                        <button type="submit" class="btn btn-primary" name="sbm_account_add">Hoàn tất việc tạo tài khoản</button>
+                        <button type="submit" class="btn btn-primary" name="sbm_account_add">Complete Account Creation</button>
                     </div>
                 </form>
             </div>
@@ -173,10 +173,10 @@ session_start();
 
                 // Check if passwords match
                 if (passwordInput.value !== confirmPasswordInput.value) {
-                    confirmPasswordInput.setCustomValidity("Mật khẩu không khớp.");
+                    confirmPasswordInput.setCustomValidity("Passwords do not match.");
                     var confirmPasswordFeedback = confirmPasswordInput.nextElementSibling;
-                    confirmPasswordFeedback.textContent = "Mật khẩu không khớp."
-                    event.preventDefault(); // Ngăn chặn gửi form nếu mật khẩu không khớp
+                    confirmPasswordFeedback.textContent = "Passwords do not match."
+                    event.preventDefault(); // Prevent form submission if passwords don't match
                 } else {
                     confirmPasswordInput.setCustomValidity('');
                 }
@@ -187,12 +187,12 @@ session_start();
 
     </script>
     <script>
-    // Kiểm tra nếu biến session hoặc query string tồn tại và có giá trị là true
+    // Check if session variable or query string exists and has a value of true
     <?php if (isset($_SESSION['username_exists']) && $_SESSION['username_exists']) : ?>
-        document.getElementById('log').innerHTML = 'Tài khoản đã tồn tại.';
+        document.getElementById('log').innerHTML = 'Account already exists.';
     <?php endif; ?>
 
-    // Xóa biến session sau khi đã sử dụng (nếu bạn sử dụng biến session)
+    // Clear session variable after use (if you're using session variable)
     <?php unset($_SESSION['username_exists']); ?>
 </script>
 

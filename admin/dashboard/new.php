@@ -17,7 +17,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
-    <title>Amazon Warehouse</title>
+    <title>Amazon Bookstore</title>
     <style>
         .action-buttons .btn.btn-info  {
             display: flex;
@@ -80,30 +80,30 @@
     <div class="container mt-4 mb-4">
         <div class="row">
             <div class="col-md-6">
-                <h3>Thông báo Hệ Thống</h3>
+                <h3>System Notifications</h3>
             </div>
         </div>
     </div>
     <div class="row">
             <?php
-            $count = 0; // Biến đếm số lượng thông báo
+            $count = 0; // Count the number of notifications
             while ($row = sqlsrv_fetch_array($result_notification)) {
-                // Bắt đầu một dòng mới sau khi hiển thị 3 thông báo
+                // Start a new row after displaying 3 notifications
                 if ($count % 3 == 0 && $count != 0) {
                     echo '</div><div class="row">';
                 }
             ?>
-                <div class="col-md-4"> <!-- Sử dụng col-md-4 để hiển thị 3 thông báo trên mỗi dòng -->
+                <div class="col-md-4"> <!-- Use col-md-4 to display 3 notifications per row -->
                     <div class="card mb-2">
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $row['notif_title']; ?></h5>
                             <button class="btn btn-primary view-more-btn" data-title="<?php echo $row['notif_title']; ?>"
-                                data-content="<?php echo $row['notif_content']; ?>">Xem thêm</button>
+                                data-content="<?php echo $row['notif_content']; ?>">View More</button>
                         </div>
                     </div>
                 </div>
             <?php
-                $count++; // Tăng biến đếm lên sau mỗi lần hiển thị thông báo
+                $count++; // Increase the count after displaying each notification
             }
             ?>
         </div>
@@ -115,7 +115,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Notification</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -123,7 +123,7 @@
                 <p id="notificationContent"></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

@@ -71,24 +71,24 @@
     <div class="container fluid">
         <div class="row mb-3">
             <div class="col-md-6">
-                <h3><a href="index.php"><i class="bi bi-arrow-left-circle me-3"></i></a>Nhóm Tài khoản</h3>
+                <h3><a href="index.php"><i class="bi bi-arrow-left-circle me-3"></i></a>Account Groups</h3>
             </div>
         </div>
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#khachhang" data-toggle="tab">Khách hàng</a>
+                    <a class="nav-link active" href="#khachhang" data-toggle="tab">Customer</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#qtrihethong" data-toggle="tab">Quản trị hệ thống</a>
+                    <a class="nav-link" href="#qtrihethong" data-toggle="tab">Admin</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#nhanvienquanli" data-toggle="tab">Nhân viên quản lí</a>
+                    <a class="nav-link" href="#nhanvienquanli" data-toggle="tab">Manager</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#nhanvientieptan" data-toggle="tab">Nhân viên cửa hàng</a>
+                    <a class="nav-link" href="#nhanvientieptan" data-toggle="tab">Employee</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#quanlikho" data-toggle="tab">Quản lí kho</a>
+                    <a class="nav-link" href="#quanlikho" data-toggle="tab">Warehouse</a>
                 </li>
             </ul>
 
@@ -98,23 +98,23 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                     <form class="d-flex" action="account_group.php" method="POST">
-                            <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm"
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                             name="tukhoa" value="">
-                        <button class="btn btn-outline-primary" type="submit" name="timkiem" value="find">Tìm</button>
+                        <button class="btn btn-outline-primary" type="submit" name="timkiem" value="find">Search</button>
                         </form>
                         <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem'])) { ?>
                         <div class="row mt-3">
                             <div class="col">
                                 <?php
                                 $tukhoa = $_POST['tukhoa'];
-                                echo "<p>&nbspTìm kiếm với từ khóa: '<strong>$tukhoa</strong>'</p>";
+                                echo "<p>&nbspSearch with keyword: '<strong>$tukhoa</strong>'</p>";
                                 ?>
                             </div>
                         </div>
                         <?php } ?>
                     </div>
                     <div class="col-md-6 text-right">
-                        <a  href ="account_group_add.php?role_id=1" class="btn btn-primary float-end"><i class='bx bx-plus-circle bx-sm' ></i>Thêm tài khoản mới</a>
+                        <a  href ="account_group_add.php?role_id=1" class="btn btn-primary float-end"><i class='bx bx-plus-circle bx-sm' ></i>Add account</a>
                     </div>
                     </div>
                         <?php
@@ -146,11 +146,11 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">STT</th>
-                                            <th scope="col">Tên người dùng</th>
-                                            <th scope="col">Tên tài khoản</th>
+                                            <th scope="col">User Name</th>
+                                            <th scope="col">Account Name</th>
                                             <th scope="col">Email</th>
                                             <th scope="col">Password</th>
-                                            <th scope="col">Thao tác</th>
+                                            <th scope="col">Operation</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -204,23 +204,23 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                     <form class="d-flex" action="account_group.php" method="POST">
-                            <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm"
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                             name="tukhoa" value="">
-                        <button class="btn btn-outline-primary" type="submit" name="timkiem1" value="find">Tìm</button>
+                        <button class="btn btn-outline-primary" type="submit" name="timkiem1" value="find">Search</button>
                         </form>
                         <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem1'])) { ?>
                         <div class="row mt-3">
                             <div class="col">
                                 <?php
                                 $tukhoa = $_POST['tukhoa'];
-                                echo "<p>&nbspTìm kiếm với từ khóa: '<strong>$tukhoa</strong>'</p>";
+                                echo "<p>&nbspSearch with keyword: '<strong>$tukhoa</strong>'</p>";
                                 ?>
                             </div>
                         </div>
                         <?php } ?>
                     </div>
                     <div class="col-md-6 text-right">
-                        <a  href ="account_group_add.php?role_id=2" class="btn btn-primary float-end"><i class='bx bx-plus-circle bx-sm' ></i>Thêm tài khoản mới</a>
+                        <a  href ="account_group_add.php?role_id=2" class="btn btn-primary float-end"><i class='bx bx-plus-circle bx-sm' ></i>Add Account</a>
                     </div>
                 </div>
                 <?php
@@ -252,11 +252,11 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">STT</th>
-                                        <th scope="col">Tên người dùng</th>
-                                        <th scope="col">Tên tài khoản</th>
+                                        <th scope="col">User Name</th>
+                                        <th scope="col">Account Name</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Password</th>
-                                        <th scope="col">Thao tác</th>
+                                        <th scope="col">Operation</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -310,23 +310,23 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                     <form class="d-flex" action="account_group.php" method="POST">
-                            <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm"
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                             name="tukhoa" value="">
-                        <button class="btn btn-outline-primary" type="submit" name="timkiem2" value="find">Tìm</button>
+                        <button class="btn btn-outline-primary" type="submit" name="timkiem2" value="find">Search</button>
                         </form>
                         <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem2'])) { ?>
                         <div class="row mt-3">
                             <div class="col">
                                 <?php
                                 $tukhoa = $_POST['tukhoa'];
-                                echo "<p>&nbspTìm kiếm với từ khóa: '<strong>$tukhoa</strong>'</p>";
+                                echo "<p>&nbspSearch with keyword: '<strong>$tukhoa</strong>'</p>";
                                 ?>
                             </div>
                         </div>
                         <?php } ?>
                     </div>
                     <div class="col-md-6 text-right">
-                        <a  href ="account_group_add.php?role_id=5" class="btn btn-primary float-end"><i class='bx bx-plus-circle bx-sm' ></i>Thêm tài khoản mới</a>
+                        <a  href ="account_group_add.php?role_id=5" class="btn btn-primary float-end"><i class='bx bx-plus-circle bx-sm' ></i>Add Account</a>
                     </div>
                 </div>
                 <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem2'])) {
@@ -357,11 +357,11 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">STT</th>
-                                        <th scope="col">Tên người dùng</th>
-                                        <th scope="col">Tên tài khoản</th>
+                                        <th scope="col">User Name</th>
+                                        <th scope="col">Account Name</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Password</th>
-                                        <th scope="col">Thao tác</th>
+                                        <th scope="col">Operation</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -415,23 +415,23 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                     <form class="d-flex" action="account_group.php" method="POST">
-                            <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm"
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                             name="tukhoa" value="">
-                        <button class="btn btn-outline-primary" type="submit" name="timkiem3" value="find">Tìm</button>
+                        <button class="btn btn-outline-primary" type="submit" name="timkiem3" value="find">Search</button>
                         </form>
                         <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem3'])) { ?>
                         <div class="row mt-3">
                             <div class="col">
                                 <?php
                                 $tukhoa = $_POST['tukhoa'];
-                                echo "<p>&nbspTìm kiếm với từ khóa: '<strong>$tukhoa</strong>'</p>";
+                                echo "<p>&nbspSearch with keyword: '<strong>$tukhoa</strong>'</p>";
                                 ?>
                             </div>
                         </div>
                         <?php } ?>
                     </div>
                     <div class="col-md-6 text-right">
-                        <a  href ="account_group_add.php?role_id=3" class="btn btn-primary float-end"><i class='bx bx-plus-circle bx-sm' ></i>Thêm tài khoản mới</a>
+                        <a  href ="account_group_add.php?role_id=3" class="btn btn-primary float-end"><i class='bx bx-plus-circle bx-sm' ></i>Add Account</a>
                     </div>
                 </div>
                 <?php
@@ -464,11 +464,11 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">STT</th>
-                                        <th scope="col">Tên người dùng</th>
-                                        <th scope="col">Tên tài khoản</th>
+                                        <th scope="col">User Name</th>
+                                        <th scope="col">Account Name</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Password</th>
-                                        <th scope="col">Thao tác</th>
+                                        <th scope="col">Operation</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -522,23 +522,23 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                     <form class="d-flex" action="account_group.php" method="POST">
-                            <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm"
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                             name="tukhoa" value="">
-                        <button class="btn btn-outline-primary" type="submit" name="timkiem4" value="find">Tìm</button>
+                        <button class="btn btn-outline-primary" type="submit" name="timkiem4" value="find">Search</button>
                         </form>
                         <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem4'])) { ?>
                         <div class="row mt-3">
                             <div class="col">
                                 <?php
                                 $tukhoa = $_POST['tukhoa'];
-                                echo "<p>&nbspTìm kiếm với từ khóa: '<strong>$tukhoa</strong>'</p>";
+                                echo "<p>&nbspSearch with keyword: '<strong>$tukhoa</strong>'</p>";
                                 ?>
                             </div>
                         </div>
                         <?php } ?>
                     </div>
                     <div class="col-md-6 text-right">
-                        <a  href ="account_group_add.php?role_id=4" class="btn btn-primary float-end"><i class='bx bx-plus-circle bx-sm' ></i>Thêm tài khoản mới</a>
+                        <a  href ="account_group_add.php?role_id=4" class="btn btn-primary float-end"><i class='bx bx-plus-circle bx-sm' ></i>Add Account</a>
                     </div>
                 </div>
                 <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem4'])) {
@@ -569,11 +569,11 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">STT</th>
-                                        <th scope="col">Tên người dùng</th>
-                                        <th scope="col">Tên tài khoản</th>
+                                        <th scope="col">User Name</th>
+                                        <th scope="col">Account Name</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Password</th>
-                                        <th scope="col">Thao tác</th>
+                                        <th scope="col">Operation</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -663,7 +663,7 @@
             $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
         }
 
-        // Xử lý sự kiện khi submit form tìm kiếm
+        // Xử lý sự kiện khi submit form Search
         $('form').on('submit', function(){
             var tabId = $('.nav-tabs .active').attr("href"); // Lấy id của tab-pane hiện tại
             localStorage.setItem('activeTab', tabId); // Lưu id của tab-pane vào localStorage

@@ -111,10 +111,10 @@
                                 <tr>
                                     <th scope="col">STT</th>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Tên khách hàng</th>
+                                    <th scope="col">Customer Name</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Thời gian</th>
-                                    <th>Thao tác</th>
+                                    <th scope="col">Time</th>
+                                    <th>Operation</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -131,21 +131,26 @@
                                             <td><?php echo $row_support['email'] ?></td>
                                             <td><?php echo $formatted_created; ?></td>
                                             <td>
-                                                <a href="#" class="view-details"
-                                                       data-title="<?php echo $row_support['title_support']; ?>"
-                                                       data-content="<?php echo $row_support['content_support']; ?>">xem chi tiết</a>
-                                                <?php
-                                                // Kiểm tra xem support_id có trong danh sách feedback_ids hay không
-                                                if (in_array($row_support['support_id'], $feedback_ids)) { ?>
-                                                   <form action="process.php" method="post">
-                                                    <button type="submit" class="btn btn-danger float-end" name="btn_feed">Đã phản hồi</button>
-                                                    <input type="hidden" name="support_id" value="<?php echo $row_support['support_id'];?>">
-                                                </form>
-                                                <?php } else {
-                                                ?>
-                                                    <button class="btn btn-success float-end" data-support-id="<?php echo $row_support['support_id']; ?>">Gửi phản hồi</button>
-                                                <?php } ?>
-                                        </div>
+                                                <div class="d-flex row">
+                                                    <div class = "col-md-6">
+                                                        <a href="#" class="view-details"
+                                                               data-title="<?php echo $row_support['title_support']; ?>"
+                                                               data-content="<?php echo $row_support['content_support']; ?>">View Details</a>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <?php
+                                                        // Kiểm tra xem support_id có trong danh sách feedback_ids hay không
+                                                        if (in_array($row_support['support_id'], $feedback_ids)) { ?>
+                                                           <form action="process.php" method="post">
+                                                            <button type="submit" class="btn btn-danger float-end" name="btn_feed">Feedback Sent</button>
+                                                            <input type="hidden" name="support_id" value="<?php echo $row_support['support_id'];?>">
+                                                        </form>
+                                                        <?php } else {
+                                                        ?>
+                                                            <button class="btn btn-success float-end" data-support-id="<?php echo $row_support['support_id']; ?>">Send Feedback</button>
+                                                        <?php } ?>
+                                                    </div>
+                                                </div>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -163,17 +168,17 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Chi tiết đánh giá</h5>
+                    <h5 class="modal-title">Comment Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
-                            <label for="customerID" class="form-label">Tên Khách hàng:</label>
+                            <label for="customerID" class="form-label">Customer ID:</label>
                             <input type="text" class="form-control" id="customerID" readonly>
                         </div>
                         <div class="mb-3">
-                            <label for="customerName" class="form-label">Tên Khách hàng:</label>
+                            <label for="customerName" class="form-label">Customer Name:</label>
                             <input type="text" class="form-control" id="customerName" readonly>
                         </div>
                         <div class="mb-3">
@@ -181,15 +186,15 @@
                             <input type="email" class="form-control" id="customerEmail" readonly>
                         </div>
                         <div class="mb-3">
-                            <label for="reviewTime" class="form-label">Thời gian yêu cầu:</label>
+                            <label for="reviewTime" class="form-label">Review Time:</label>
                             <input type="text" class="form-control" id="reviewTime" readonly>
                         </div>
                         <div class="mb-3">
-                            <label for="reviewTittle" class="form-label">Tiêu đề:</label>
+                            <label for="reviewTittle" class="form-label">Title:</label>
                             <input type="text" class="form-control" id="reviewTittle" readonly>
                         </div>
                         <div class="mb-3">
-                            <label for="reviewContent" class="form-label">Nội dung thắc mắc:</label>
+                            <label for="reviewContent" class="form-label">Content:</label>
                             <textarea class="form-control" id="reviewContent" readonly></textarea>
                         </div>
                     </form>
@@ -202,25 +207,25 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Gửi phản hồi</h5>
+                <h5 class="modal-title">Send Feedback</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="feedbackForm" action="process.php" method="post">
                     <div class="mb-3">
-                        <label for="selectedCustomerEmail" class="form-label">Email khách hàng:</label>
+                        <label for="selectedCustomerEmail" class="form-label">Customer Email:</label>
                         <input type="email" class="form-control" id="selectedCustomerEmail" readonly>
                         <input type="hidden" id="supportId" name="supportId">
                     </div>
                     <div class="mb-3">
-                        <label for="feedbackSubject" class="form-label">Tiêu đề phản hồi:</label>
+                        <label for="feedbackSubject" class="form-label">Feedback Subject:</label>
                         <input type="text" class="form-control" id="feedbackSubject" name="Tilte_feedback" required>
                     </div>
                     <div class="mb-3">
-                        <label for="feedbackContent" class="form-label">Nội dung phản hồi:</label>
+                        <label for="feedbackContent" class="form-label">Feedback Content:</label>
                         <textarea class="form-control" id="feedbackContent" name="Content_feedback" required></textarea >
                     </div>
-                    <button type="submit" class="btn btn-primary" name="btn_send">Gửi</button>
+                    <button type="submit" class="btn btn-primary" name="btn_send">Sebd</button>
                 </form>
             </div>
         </div>
@@ -239,21 +244,21 @@
 <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Thông tin phản hồi</h5>
+            <h5 class="modal-title">Feedback Information</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <form>
                 <div class="mb-3">
-                    <label for="feedbackTitle" class="form-label">Tiêu đề phản hồi:</label>
+                    <label for="feedbackTitle" class="form-label">Feedback Title:</label>
                     <input type="text" class="form-control" id="feedbackTitle" value="<?php echo $row_feedback_info['title_feedback']; ?>" readonly>
                 </div>
                 <div class="mb-3">
-                    <label for="feedbackContent" class="form-label">Nội dung phản hồi:</label>
+                    <label for="feedbackContent" class="form-label">Feedback Content:</label>
                     <textarea class="form-control" id="feedbackContent" readonly><?php echo $row_feedback_info['content_feedback']; ?></textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="feedbackDateTime" class="form-label">Thời gian phản hồi:</label>
+                    <label for="feedbackDateTime" class="form-label">Feedback Time:</label>
                     <input type="text" class="form-control" id="feedbackDateTime" value="<?php echo $row_feedback_info['date_time_feedback']; ?>" readonly>
                 </div>
             </form>

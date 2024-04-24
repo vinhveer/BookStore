@@ -144,7 +144,7 @@
             </div>
                 <div class="col-md-6">
                     <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#editOrderModal">
-                        <i class='bx bx-sm bx-edit-alt me-1'></i>Chỉnh sửa thông tin
+                        <i class='bx bx-sm bx-edit-alt me-1'></i>Edit Information
                     </button>
                 </div>
                 </div>
@@ -159,18 +159,18 @@
                                                 style="width: 200px; height: 200px;">
                                         </div>
                                         <div class="col-md-8">
-                                            <h4>Chi tiết hóa đơn</h4>
+                                            <h4>Order Details</h4>
                                             <hr class="info-divider">
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item list-group-item-action list-group-item-light">
                                                     <div class="d-flex align-items-center">
-                                                        <strong style="margin-right: 75px">Mã Hóa Đơn:</strong>
+                                                        <strong style="margin-right: 75px">Order ID:</strong>
                                                         <p style="margin-bottom: 0px">DH00<?php echo $row_order_detail['OrderID']; ?></p>
                                                     </div>
                                                 </li>
                                                 <li class="list-group-item list-group-item-action list-group-item-light">
                                                     <div class="d-flex align-items-center">
-                                                        <strong style="margin-right: 95px">Ngày đặt đơn:</strong>
+                                                        <strong style="margin-right: 95px">Order Date:</strong>
                                                         <?php $order_date_detail = $row_order_detail['OrderDate'];
                                                                 $formatted_date_detail = $order_date_detail->format('Y-m-d'); ?>
                                                         <p style="margin-bottom: 0px"><?php echo $formatted_date_detail; ?></p>
@@ -178,32 +178,32 @@
                                                 </li>
                                                 <li class="list-group-item list-group-item-action list-group-item-light">
                                                     <div class="d-flex align-items-center">
-                                                        <strong style="margin-right: 50px">Ghi chú:</strong>
+                                                        <strong style="margin-right: 50px">Note:</strong>
                                                         <p style="margin-bottom: 0px"><?php echo $row_order_detail['Note'] ?></p>
                                                     </div>
                                                 </li>
                                                 <?php if($select == 1) { ?>
                                                     <li class="list-group-item list-group-item-action list-group-item-light">
                                                     <div class="d-flex align-items-center">
-                                                        <strong style="margin-right: 50px">Tên Khách Hàng:</strong>
+                                                        <strong style="margin-right: 50px">Customer Name:</strong>
                                                         <p style="margin-bottom: 0px"><?php echo $row_order_detail['full_name'] ?></p>
                                                     </div>
                                                     </li>
                                                     <li class="list-group-item list-group-item-action list-group-item-light">
                                                     <div class="d-flex align-items-center">
-                                                        <strong style="margin-right: 50px">Tên Nhân Viên:</strong>
+                                                        <strong style="margin-right: 50px">Employee Name:</strong>
                                                         <p style="margin-bottom: 0px"><?php echo $row_order_detail['employee_name'] ?></p>
                                                     </div>
                                                     </li>
                                                     <li class="list-group-item list-group-item-action list-group-item-light">
                                                     <div class="d-flex align-items-center">
-                                                        <strong style="margin-right: 50px">Trạng thái giao hàng:</strong>
+                                                        <strong style="margin-right: 50px">Delivery Status:</strong>
                                                         <p style="margin-bottom: 0px"><?php echo $row_order_detail['delivery_status'] ?></p>
                                                     </div>
                                                     </li>
                                                     <li class="list-group-item list-group-item-action list-group-item-light">
                                                     <div class="d-flex align-items-center">
-                                                        <strong style="margin-right: 50px">Trạng Thái:</strong>
+                                                        <strong style="margin-right: 50px">Payment Status:</strong>
                                                         <p style="margin-bottom: 0px"><?php echo $row_order_detail['Status'] ?></p>
                                                     </div>
                                                     </li>
@@ -221,12 +221,12 @@
                         <thead>
                             <tr>
                                 <th scope="col">Product ID</th>
-                                <th scope="col">Tên Sản Phẩm</th>
-                                <th scope="col">Số lượng</th>
-                                <th scope="col">Đơn giá</th>
-                                <th scope="col">Khuyến mãi</th>
-                                <th scope="col">Thành Tiền</th>
-                                <th scope="col">Thao tác</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Unit price</th>
+                                <th scope="col">Discount</th>
+                                <th scope="col">Into money</th>
+                                <th scope="col">Operation</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -258,7 +258,7 @@
                                 <td colspan="8">
                                     <div class="row">
                                         <div class="col-md-5 me-4">
-                                            <strong>Tổng giá:</strong>
+                                            <strong>Total price:</strong>
                                         </div>
                                         <div class="col-md-5 text-end ms-3">
                                             <?php
@@ -285,7 +285,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editOrderModalLabel">Chỉnh sửa thông tin đơn hàng</h5>
+                <h5 class="modal-title" id="editOrderModalLabel">Edit order infomation</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="editOrderForm" action="process.php" method="POST">
@@ -295,23 +295,23 @@
                     <input type="hidden" name="total" value="<?php echo $totalPrice; ?>">
                     <!-- Ngày đặt hàng -->
                     <div class="mb-3">
-                        <label for="order_date" class="form-label">Ngày đặt hàng:</label>
+                        <label for="order_date" class="form-label">Order date:</label>
                         <input type="date" class="form-control" id="order_date" name="order_date" value="<?php echo $formatted_date_detail ?>">
                     </div>
                     <!-- Ghi chú -->
                     <div class="mb-3">
-                        <label for="note" class="form-label">Ghi chú:</label>
+                        <label for="note" class="form-label">Note:</label>
                         <textarea class="form-control" id="note" name="note" rows="3"><?php echo $row_order_detail['Note'] ?></textarea>
                     </div>
                     <?php if($select == 1) { ?>
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="customer_name" class="form-label">Tên Khách hàng ban đầu :</label>
+                                <label for="customer_name" class="form-label">Customer Name :</label>
                                 <input type="text" class="form-control" id="customer_name" name="customer_name" value="<?php echo $row_order_detail['full_name'] ?>" readonly>
                             </div>
                             <div class="col-md-6">
-                                <label for="customer" class="form-label">Mã khách hàng cần đổi :</label>
+                                <label for="customer" class="form-label">Customer ID :</label>
                                 <input type="number" class="form-control" id="customer" name="customer" value="<?php echo $row_order_detail['customer_id'] ?>">
                             </div>
                         </div>
@@ -319,11 +319,11 @@
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="employee_name" class="form-label">Tên nhân viên ban đầu :</label>
+                                <label for="employee_name" class="form-label">Employee Name :</label>
                                 <input type="text" class="form-control" id="employee_name" name="employee_name" value="<?php echo $row_order_detail['employee_name'] ?>" readonly>
                             </div>
                             <div class="col-md-6">
-                                <label for="employee" class="form-label">Mã nhân viên cần đổi :</label>
+                                <label for="employee" class="form-label">Employee ID :</label>
                                 <input type="number" class="form-control" id="employee" name="employee" value="<?php echo $row_order_detail['employee_id'];?>">
                             </div>
                         </div>
@@ -331,9 +331,9 @@
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="Status" class="form-label">Trạng thái:</label>
+                                <label for="Status" class="form-label">Payment Status :</label>
                                 <select class="form-select" id="Status" name="Status" required>
-                                    <option value="" disabled selected>Chọn trạng thái</option>
+                                    <option value="" disabled selected>Choose Status</option>
                                     <option value="Confirmed" <?php echo ($row_order_detail['Status'] == 'Confirmed') ? 'selected' : ''; ?>>Confirmed</option>
                                     <option value="Pending" <?php echo ($row_order_detail['Status'] == 'Pending') ? 'selected' : ''; ?>>Pending</option>
                                     <option value="Unpaid" <?php echo ($row_order_detail['Status'] == 'Unpaid') ? 'selected' : ''; ?>>Unpaid</option>
@@ -343,9 +343,9 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="Status" class="form-label">Trạng thái giao hàng:</label>
+                                <label for="Status" class="form-label">Delivery Status:</label>
                                 <select class="form-select" id="Status" name="delivery_status" required>
-                                    <option value="" disabled selected>Chọn trạng thái</option>
+                                    <option value="" disabled selected>Choose Status</option>
                                     <option value="Delivered" <?php echo ($row_order_detail['delivery_status'] == 'Delivered') ? 'selected' : ''; ?>>Delivered</option>
                                     <option value="Scheduled" <?php echo ($row_order_detail['delivery_status'] == 'Scheduled') ? 'selected' : ''; ?>>Scheduled</option>
                                     <option value="Failed" <?php echo ($row_order_detail['delivery_status'] == 'Failed') ? 'selected' : ''; ?>>Failed</option>
@@ -357,8 +357,8 @@
                     <?php } ?>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-primary" name="btn_edit_order">Lưu thay đổi</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="btn_edit_order">Save</button>
                 </div>
             </form>
         </div>
@@ -369,7 +369,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editProductModalLabel">Chỉnh sửa thông tin sản phẩm</h5>
+                <h5 class="modal-title" id="editProductModalLabel">Edit product infomation</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="editProductForm" action="process.php?" method="POST">
@@ -379,23 +379,23 @@
                     <input type="hidden" name="select" value="<?php echo $select;?>">
                     <!-- Quantity -->
                     <div class="mb-3">
-                        <label for="edit_quantity" class="form-label">Số lượng:</label>
+                        <label for="edit_quantity" class="form-label">Quantity:</label>
                         <input type="text" class="form-control" id="edit_quantity" name="edit_quantity">
                     </div>
                     <!-- Price Per Unit -->
                     <div class="mb-3">
-                        <label for="edit_price_per_unit" class="form-label">Đơn giá:</label>
+                        <label for="edit_price_per_unit" class="form-label">Price:</label>
                         <input type="text" class="form-control" id="edit_price_per_unit" name="edit_price_unit">
                     </div>
                     <!-- Discount -->
                     <div class="mb-3">
-                        <label for="edit_discount" class="form-label">Khuyến mãi (%):</label>
+                        <label for="edit_discount" class="form-label">Discount (%):</label>
                         <input type="text" class="form-control" id="edit_discount" name="edit_discount">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="submit" class="btn btn-primary" name="btn_edit_product">Lưu thay đổi</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="btn_edit_product">Save</button>
                 </div>
             </form>
         </div>
@@ -405,19 +405,19 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteProductModalLabel">Xác nhận xóa sản phẩm</h5>
+                <h5 class="modal-title" id="deleteProductModalLabel">Confirm product deletion</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="deleteProductForm" action="process.php" method="POST">
                 <div class="modal-body">
-                    <p>Bạn có chắc chắn muốn xóa sản phẩm này khỏi đơn hàng?</p>
+                    <p>Are you sure you want to remove this product from your order?</p>
                     <input type="hidden" name="product_id" id="delete_product_id">
                     <input type="hidden" name="order_id" value="<?php echo $order_id; ?>">
                     <input type="hidden" name="select" value="<?php echo $select;?>">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                    <button type="submit" class="btn btn-danger" name="btn_delete_product">Xác nhận xóa</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger" name="btn_delete_product">Confirm</button>
                 </div>
             </form>
         </div>

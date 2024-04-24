@@ -72,11 +72,11 @@
             <!-- Header -->
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <h3><a href="index.php"><i class="bi bi-arrow-left-circle me-3"></i></a>Tạo tài khoản mới</h3>
+                    <h3><a href="index.php"><i class="bi bi-arrow-left-circle me-3"></i></a>Create New Account</h3>
                 </div>
                 <div class="col-md-6">
                     <div class="d-flex justify-content-end">
-                        <button class="btn btn-primary me-2">Tải lên từ Excel</button>
+                        <button class="btn btn-primary me-2">Upload from Excel</button>
                     </div>
                 </div>
             </div>
@@ -85,67 +85,67 @@
             <form action="process.php" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate id="accountForm">
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="firstName" class="form-label">Tên</label>
-                        <input type="text" class="form-control" id="firstName" name="first_name" required placeholder="Nhập Tên">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstName" name="first_name" required placeholder="Enter First Name">
                         <div class="invalid-feedback">
-                            Tên không được trống.
+                            First Name cannot be empty.
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <label for="middle_name" class="form-label">Tên đệm</label>
-                        <input type="text" class="form-control" id="middle_name" name="middle_name" placeholder="Nhập tên đệm (có thể bỏ trống)">
+                        <label for="middle_name" class="form-label">Middle Name</label>
+                        <input type="text" class="form-control" id="middle_name" name="middle_name" placeholder="Enter Middle Name (optional)">
                     </div>
                     <div class="col-md-4">
-                        <label for="lastName" class="form-label">Họ</label>
-                        <input type="text" class="form-control" id="lastName" name="last_name" required placeholder="Nhập họ">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" name="last_name" required placeholder="Enter Last Name">
                         <div class="invalid-feedback">
-                            Họ không được trống.
+                            Last Name cannot be empty.
                         </div>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="dob" class="form-label">Ngày sinh</label>
+                        <label for="dob" class="form-label">Date of Birth</label>
                         <input type="date" class="form-control" id="dob" name="date_of_birth" required>
                     </div>
                     <div class="col-md-4">
-                        <label for="gender" class="form-label">Giới tính</label>
+                        <label for="gender" class="form-label">Gender</label>
                         <select class="form-select" id="gender" name="gender" required>
-                            <option value="" disabled selected>Chọn giới tính</option>
-                            <option value="1">Nam</option>
-                            <option value="0">Nữ</option>
+                            <option value="" disabled selected>Select Gender</option>
+                            <option value="1">Male</option>
+                            <option value="0">Female</option>
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label for="phone" class="form-label">Số điện thoại</label>
-                        <input type="tel" class="form-control" id="phone" name="phone" required placeholder="Nhập Số điện thoại">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" required placeholder="Enter Phone Number">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required placeholder="Nhập email">
+                        <input type="email" class="form-control" id="email" name="email" required placeholder="Enter Email">
                     </div>
                     <div class="col-md-6">
-                        <label for="address" class="form-label">Địa chỉ</label>
-                        <input type="text" class="form-control" id="address" name="address" required placeholder="Nhập địa chỉ">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address" name="address" required placeholder="Enter Address">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <label for="image_user" class="form-label">Ảnh chân dung</label>
+                        <label for="image_user" class="form-label">Profile Picture</label>
                         <input type="file" class="form-control" id="image_user" name="image_user" required>
                         <div class="invalid-feedback">
-                            Vui lòng chọn ảnh chân dung.
+                            Please choose a profile picture.
                         </div>
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary" name="sbm_add">Tạo Tài Khoản</button>
+                    <button type="submit" class="btn btn-primary" name="sbm_add">Create Account</button>
                 </div>
             </form>
         </div>

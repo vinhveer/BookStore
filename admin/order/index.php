@@ -22,7 +22,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <title>Home Admin</title>
+    <title>Admin Home</title>
     <style>
         .action-buttons .btn.btn-info  {
             display: flex;
@@ -87,11 +87,11 @@
                 <div class="d-flex">
                     <a href="order_list.php" class="report">
                     <i class='bx bx-calendar' ></i>
-                        <span>Xem chi tiết đơn hàng</span>
+                        <span>Order detail</span>
                     </a>
                     <a href="#" class="report">
                         <i class='bx bx-cloud-download'></i>
-                        <span>Xuất báo cáo</span>
+                        <span>Export report</span>
                     </a>
                 </div>
             </div>
@@ -100,28 +100,28 @@
         <div class="row">
             <div class="card col-md-5 me-1 ms-4">
                 <div class="card-body">
-                            <h5 class="card-title">Thống kê</h5>
+                            <h5 class="card-title">Statistical</h5>
                                         <hr>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <h5 class="card-title">Đã thực hiện <?php echo $row['confirmed_orders']; ?></h5>
-                                                        <!-- Thêm icon vào đây -->
-                                                        <p class="card-text border"><i class='bx bxs-info-circle'></i></i> Chưa thực hiện: <?php echo $row['pending_orders']; ?></p>
-                                                        <p class="card-text border"><i class='bx bxs-check-circle'></i> Đã thực hiện: <?php echo $row['confirmed_orders']; ?></p>
-                                                        <p class="card-text border"><i class='bx bxs-x-circle'></i> Đã hủy: <?php echo $row['deleted_orders']; ?></p>
+                                                        <h5 class="card-title">Implemented:<?php echo $row['confirmed_orders']; ?></h5>
+                                                        <!-- Add icons here -->
+                                                        <p class="card-text border"><i class='bx bxs-info-circle'></i></i> Not implemented: <?php echo $row['pending_orders']; ?></p>
+                                                        <p class="card-text border"><i class='bx bxs-check-circle'></i> Implemented: <?php echo $row['confirmed_orders']; ?></p>
+                                                        <p class="card-text border"><i class='bx bxs-x-circle'></i> Cancelled: <?php echo $row['deleted_orders']; ?></p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <h5 class="card-title">Đã thanh toán: <?php echo $row['completed_orders']; ?></h5>
-                                                        <!-- Thêm icon vào đây -->
-                                                        <p class="card-text border"><i class='bx bxs-info-circle'></i></i> Chưa thanh toán: <?php echo $row['unpaid_orders']; ?></p>
-                                                        <p class="card-text border"><i class='bx bxs-compass' ></i></i> Đang giao hàng: <?php echo $row['shipped_orders']; ?></p>
-                                                        <p class="card-text border"><i class='bx bxs-check-circle'></i> Đã thanh toán: <?php echo $row['completed_orders']+$row['offline_orders']; ?></p>
+                                                        <h5 class="card-title">Paid: <?php echo $row['completed_orders']+$row['offline_orders']; ?></h5>
+                                                        <!-- Add icons here -->
+                                                        <p class="card-text border"><i class='bx bxs-info-circle'></i></i> Unpaid: <?php echo $row['unpaid_orders']; ?></p>
+                                                        <p class="card-text border"><i class='bx bxs-compass' ></i></i> Being shipped: <?php echo $row['shipped_orders']; ?></p>
+                                                        <p class="card-text border"><i class='bx bxs-check-circle'></i> Paid: <?php echo $row['completed_orders']+$row['offline_orders']; ?></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -130,9 +130,9 @@
                     </div>
                     <div class="card col-md-6 ms-5">
                             <div class="card-body">
-                            <h5 class="card-title">Biểu đồ đơn hàng</h5>
+                            <h5 class="card-title">Order chart</h5>
                             <hr>
-                                <!-- Nội dung biểu đồ -->
+                                <!-- Chart content -->
                             <canvas id="orderChart" width="200" height="100"></canvas>
                         </div>
                     </div>
@@ -144,7 +144,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-    // Lấy dữ liệu từ PHP và gán vào biến JavaScript
+    // Get data from PHP and assign to JavaScript variables
     var completed_orders = <?php echo $row['completed_orders']+$row['offline_orders']; ?>;
     var unpaid_orders = <?php echo $row['unpaid_orders']; ?>;
     var deleted_orders = <?php echo $row['deleted_orders']; ?>;
@@ -152,14 +152,14 @@
     var pending_orders = <?php echo $row['pending_orders']; ?>;
     var confirmed_orders = <?php echo $row['confirmed_orders']; ?>;
 
-    // Lấy thẻ canvas
+    // Get the canvas element
     var ctx = document.getElementById('orderChart').getContext('2d');
 
-    // Dữ liệu từ PHP cho biểu đồ
+    // Data from PHP for the chart
     var data = {
-        labels: ['Đã thanh toán', 'Chưa thanh toán', 'Đã hủy', 'Đang giao hàng','Chưa thực hiện','Đã thực hiện'],
+        labels: ['Paid', 'Unpaid', 'Cancelled', 'Being shipped','Not implemented','Implemented'],
         datasets: [{
-            label: 'Thống kê đơn hàng',
+            label: 'Order statistics',
             data: [completed_orders, unpaid_orders, deleted_orders, shipped_orders, pending_orders, confirmed_orders],
             backgroundColor: [
                 'rgba(54, 162, 235, 0.2)',
@@ -181,7 +181,7 @@
         }]
     };
 
-    // Tạo biểu đồ
+    // Create the chart
     var orderChart = new Chart(ctx, {
         type: 'bar',
         data: data,
