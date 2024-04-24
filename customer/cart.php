@@ -32,10 +32,10 @@
                         <a class="nav-link" aria-current="page" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="book.php">Book</a>
+                        <a class="nav-link" href="book/book.php">Book</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="stationery.php">Stationery</a>
+                        <a class="nav-link" href="stationery/stationery.php">Stationery</a>
                     </li>
                 </ul>
 
@@ -72,8 +72,7 @@
                                         <p><?php echo $row_user['email'] ?></p>
                                     </div>
                                 </li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle"></i>Profile</a></li>
-                                <li><a class="dropdown-item" href="details/settings.php"><i
+                                <li><a class="dropdown-item" href="details/accounts/profile.php"><i
                                             class="bi bi-gear"></i>Setting</a></li>
                                 <li><a class="dropdown-item" href="../login/sign_out.php"><i
                                             class="bi bi-box-arrow-right"></i>Logout</a></li>
@@ -106,8 +105,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-check float-end">
-                        <input class="form-check-input" type="checkbox" id="select-all">
-                        <label class="form-check-label" for="select-all">Select All</label>
+                        <input class="form-check-input" type="checkbox" id="select-all" onclick="calculateTotal()">
+                        <label class="form-check-label" for="select-all">Select all</label>
                         <span class="checkmark"></span>
                     </div>
                 </div>
@@ -117,7 +116,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p class="sum_product">0đ - 0 Product</p>
+                    <p id="sum_product"></p>
                 </div>
                 <div class="col-md-6 text-end">
                     <button type="submit" class="btn btn-primary btn-purchase" name="buy_now"><i
@@ -132,7 +131,7 @@
         </div>
         <div class="container mt-2">
             <?php
-            $sql = "SELECT pr.product_id ,bo.book_name, bo.book_publication_year, pr.product_price, pr.product_image, au.author_name 
+            $sql = "SELECT ca.quantity, pr.product_id, bo.book_name, bo.book_publication_year, pr.product_price, pr.product_image, au.author_name 
             FROM books bo
             INNER JOIN products pr ON bo.product_id = pr.product_id
             INNER JOIN carts ca ON ca.product_id = bo.product_id
@@ -141,58 +140,144 @@
             WHERE user_id = " . $_SESSION['user_id'];
 
             $result_book = sqlsrv_query($conn, $sql);
-            ?>
-            <div class="row">
-                <?php
-                $index = 0;
-                while ($row_book = sqlsrv_fetch_array($result_book, SQLSRV_FETCH_ASSOC)) {
-                    ?>
-                    <div class="col-md-2">
-                        <div class="card">
-                            <img src="<?php echo $row_book['product_image']; ?>" class="card-img-top-book"
-                                alt="<?php echo $row_book['book_name']; ?>">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <?php
-                                    $title = $row_book['book_name'];
-                                    if (strlen($title) > 40) {
-                                        $title = substr($title, 0, 35) . "...";
-                                    }
-                                    echo $title;
-                                    ?>
-                                </h5>
-                            </div>
-                            <div class="card-footer">
-                                <div class="card-text">
-                                    <p class="author"><?php echo $row_book['author_name']; ?></p>
-                                    <p class="year"><?php echo $row_book['book_publication_year']; ?></p>
+
+            if ($result_book === false || sqlsrv_has_rows($result_book) === false) {
+                echo "Chưa thêm sản phẩm";
+            } else {
+                ?>
+                <div class="row">
+                    <?php
+                    $index = 0;
+                    while ($row_book = sqlsrv_fetch_array($result_book)) {
+                        ?>
+                        <div class="col-md-2">
+                            <div class="card">
+                                <img src="<?php echo $row_book['product_image']; ?>" class="card-img-top-book"
+                                    alt="<?php echo $row_book['book_name']; ?>">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <?php
+                                        $title = $row_book['book_name'];
+                                        if (strlen($title) > 40) {
+                                            $title = substr($title, 0, 35) . "...";
+                                        }
+                                        echo $title;
+                                        ?>
+                                    </h5>
                                 </div>
-                                <p class="card-text">
-                                    <strong>
-                                        <?php echo $row_book['product_price']; ?>đ
-                                    </strong>
-                                </p>
-                                <?php $index++; ?>
-                                <div class="form-check-product">
-                                    <input class="form-check-input" type="checkbox" id="choose-product<?php echo $index; ?>" name="books[]" value="<?php echo $row_book['product_id']; ?>">
-                                    <label class="form-check-label" for="choose-product<?php echo $index; ?>">Chọn mua</label>
+                                <div class="card-footer">
+                                    <div class="card-text">
+                                        <p class="quantity"><?php echo $row_book['quantity']; ?></p>
+                                        <p class="author"><?php echo $row_book['author_name']; ?></p>
+                                        <p class="year"><?php echo $row_book['book_publication_year']; ?></p>
+                                    </div>
+                                    <p class="card-text">
+                                        <strong>
+                                            <?php echo $row_book['product_price']; ?>đ
+                                        </strong>
+                                    </p>
+                                    <?php $index++; ?>
+                                    <div class="form-check-product">
+                                        <input class="form-check-input" type="checkbox" id="choose-product<?php echo $index; ?>"
+                                            name="products[]" value="<?php echo $row_book['product_id']; ?>"
+                                            onclick="calculateTotal()">
+                                        <label class="form-check-label" for="choose-product<?php echo $index; ?>">Chọn
+                                            mua</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <?php
-                }
-                ?>
-            </div>
+                        <?php
+                    }
+                    ?>
+                </div>
+                <?php
+            }
+            ?>
         </div>
 
         <div class="container mt-4">
-            <h5>Stationery</h5>
+            <h4>Stationery</h4>
         </div>
         <div class="container mt-2">
-            <p>Bạn chưa thêm vào giỏ hàng vật phẩm học tập nào</p>
+            <?php
+            $sql = "SELECT c.quantity, p.product_quantity, p.product_image, op.others_product_name, p.product_id, p.product_price FROM others_products op
+            INNER JOIN products p ON op.product_id = p.product_id
+            INNER JOIN carts c ON c.product_id = p.product_id
+            WHERE user_id = " . $_SESSION['user_id'];
+
+            $result_stationery = sqlsrv_query($conn, $sql);
+
+            if ($result_stationery === false || sqlsrv_has_rows($result_stationery) === false) {
+                echo "Chưa thêm sản phẩm";
+            } else {
+                ?>
+                <div class="row">
+                    <?php
+                    while ($row_stationery = sqlsrv_fetch_array($result_stationery)) {
+                        ?>
+                        <div class="col-md-2">
+                            <div class="card">
+                                <img src="<?php echo $row_stationery['product_image']; ?>" class="card-img-top-stationery"
+                                    alt="<?php echo $row_stationery['others_product_name']; ?>">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <?php
+                                        $title = $row_stationery['others_product_name'];
+                                        if (strlen($title) > 40) {
+                                            $title = substr($title, 0, 35) . "...";
+                                        }
+                                        echo $title;
+                                        ?>
+                                    </h5>
+                                </div>
+                                <div class="card-footer">
+                                    <p class="card-text">
+                                    <p class="quantity"><?php echo $row_stationery['quantity']; ?></p>
+                                    <strong>
+                                        <?php echo $row_stationery['product_price']; ?>đ
+                                    </strong>
+                                    </p>
+                                    <?php $index++; ?>
+                                    <div class="form-check-product">
+                                        <input class="form-check-input" type="checkbox" id="choose-product<?php echo $index; ?>"
+                                            name="products[]" value="<?php echo $row_stationery['product_id']; ?>"
+                                            onclick="calculateTotal()">
+                                        <label class="form-check-label" for="choose-product<?php echo $index; ?>">Chọn
+                                            mua</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
+                <?php
+            }
+            ?>
         </div>
     </form>
+
+    <script>
+        // Function to toggle select all checkbox based on individual checkboxes
+        function toggleSelectAll() {
+            var checkboxes = document.querySelectorAll('input[name="products[]"]');
+            var selectAllCheckbox = document.getElementById('select-all');
+            var allChecked = true;
+
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (!checkboxes[i].checked) {
+                    allChecked = false;
+                    break;
+                }
+            }
+
+            selectAllCheckbox.checked = allChecked;
+        }
+
+
+    </script>
     <?php include "footer.php" ?>
 </body>
 

@@ -105,7 +105,7 @@
         </div>
     </div>
 
-    <div class="container mt-4">
+    <form class="container mt-4" action="process.php" method="POST">
         <div class="row">
             <div class="col-md-8">
                 <h6 class="head_order">Nhập thông tin thẻ</h6>
@@ -120,29 +120,27 @@
                                     and do not collect your information
                                 </p>
                             </div>
-                            <form action="" method="post">
-                                <div class="mb-3">
-                                    <label for="card_number" class="form-label">Card Number</label>
-                                    <input type="text" class="form-control" id="card_number" name="card_number"
-                                        placeholder="xxxx-xxxx-xxxx-xxxx">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="card_name" class="form-label">Cardholder's name</label>
-                                    <input type="text" class="form-control" id="card_name" name="card_name">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="card_date" class="form-label">Ngày hết hạn thẻ</label>
-                                    <input type="text" class="form-control" id="card_date" name="card_date"
-                                        placeholder="MM/YYYY" pattern="\d{2}/\d{4}"
-                                        title="Please enter date in MM/YYYY format">
-                                </div>
+                            <div class="mb-3">
+                                <label for="card_number" class="form-label">Card Number</label>
+                                <input type="text" class="form-control" id="card_number" name="card_number"
+                                    placeholder="xxxx-xxxx-xxxx-xxxx">
+                            </div>
+                            <div class="mb-3">
+                                <label for="card_name" class="form-label">Cardholder's name</label>
+                                <input type="text" class="form-control" id="card_name" name="card_name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="card_date" class="form-label">Ngày hết hạn thẻ</label>
+                                <input type="text" class="form-control" id="card_date" name="card_date"
+                                    placeholder="MM/YYYY" pattern="\d{2}/\d{4}"
+                                    title="Please enter date in MM/YYYY format">
+                            </div>
 
-                                <div class="mb-3">
-                                    <label for="card_cvv" class="form-label">Card CVV</label>
-                                    <input type="text" class="form-control" id="card_cvv" name="card_cvv" maxlength="3">
-                                </div>
-                                <button type="submit" class="btn btn-success">Thanh toán</button>
-                            </form>
+                            <div class="mb-3">
+                                <label for="card_cvv" class="form-label">Card CVV</label>
+                                <input type="text" class="form-control" id="card_cvv" name="card_cvv" maxlength="3">
+                            </div>
+                            <button type="submit" name="card_pay" class="btn btn-success">Thanh toán</button>
                         </div>
                     </div>
                 </div>
@@ -153,13 +151,14 @@
                     <div class="card-body">
                         <img style="width: 250px" src="..\..\assets\images\momo.jpg" alt="" srcset="">
                         <div class="button">
-                            <button type="submit" class="btn btn-success">Tôi đã chuyển tiền thành công</button>
+                            <button type="submit" name="qr_pay" class="btn btn-success">Tôi đã chuyển tiền thành
+                                công</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </body>
 
 </html>

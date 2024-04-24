@@ -1,14 +1,21 @@
 <?php
-$servername = "DESKTOP-ARM6I0A\SQLEXPRESS";
+$servername = " VinhVeer\VINHVEER";
 $database = "BookStore";
-$uid = "sa";
-$pass = "12345";
+// $uid = "sa";
+// $pass = "@Cancot123";
+
+// // Use when connect with SQL Server Authentication method
+// $connection = [
+//     "Database" => $database,
+//     "Uid" => $uid,
+//     "PWD" => $pass,
+//     "CharacterSet" => "UTF-8",
+// ];
 
 
+// Use when connect with Windows Authentication method
 $connection = [
     "Database" => $database,
-    "Uid" => $uid,
-    "PWD" => $pass,
     "CharacterSet" => "UTF-8",
 ];
 

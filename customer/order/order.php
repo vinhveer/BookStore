@@ -101,14 +101,15 @@
     <?php
     $product_ids = array();
     if (isset($_GET['product_id'])) {
-            $product_ids[] = $_GET['product_id'];
+        $product_ids[] = $_GET['product_id'];
     } else if (isset($_POST["buy_now"])) {
-        $product_ids = $_POST['books'];
+        $product_ids = $_POST['products'];
         $_SESSION['product_ids'] = $product_ids;
     } else if (isset($_SESSION['product_ids'])) {
         $product_ids = $_SESSION['product_ids'];
     }
 
+    $user_id = $_SESSION['user_id'];
     ?>
 
     <div class="container mt-4">
@@ -123,11 +124,18 @@
                         COALESCE(b.book_name, op.others_product_name) AS name,
                         p.product_price AS price,
                         p.category_id,
-                        p.product_image
-                        FROM products p
-                        LEFT JOIN books b ON p.product_id = b.product_id AND p.category_id = 1
-                        LEFT JOIN others_products op ON p.product_id = op.product_id AND p.category_id <> 1
-                        WHERE p.product_id = " . $product_id;
+                        p.product_image,
+                        COALESCE(c.quantity, 0) AS quantity_in_cart
+                        FROM 
+                            products p
+                        LEFT JOIN 
+                            books b ON p.product_id = b.product_id AND p.category_id = 1
+                        LEFT JOIN 
+                            others_products op ON p.product_id = op.product_id AND p.category_id <> 1
+                        LEFT JOIN 
+                            (SELECT product_id, SUM(quantity) AS quantity FROM carts WHERE user_id = $user_id GROUP BY product_id) c ON p.product_id = c.product_id
+                        WHERE 
+                            p.product_id ="  . $product_id;
 
                         $result_product = sqlsrv_query($conn, $sql_product);
                         $row_product = sqlsrv_fetch_array($result_product, SQLSRV_FETCH_ASSOC);
@@ -153,7 +161,8 @@
                                             <button class="btn btn-secondary" type="button"
                                                 onclick="decreaseQuantity()">-</button>
                                             <input type="number" class="form-control text-center" id="quantityInput"
-                                                value="1" min="1" aria-label="Quantity" aria-live="polite" name="quantityInput">
+                                                value="<?php echo $row_product['quantity_in_cart'] ?>" min="1" aria-label="Quantity" aria-live="polite"
+                                                name="quantityInput">
                                             <button class="btn btn-secondary" type="button"
                                                 onclick="increaseQuantity()">+</button>
                                         </div>
@@ -161,7 +170,8 @@
                                 </div>
                                 <form action="process.php" method="post" class="col-md-1">
                                     <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
-                                    <button type="submit" name="delete_product" class="btn btn-danger d-flex align-items-center justify-content-center h-100 w-100">
+                                    <button type="submit" name="delete_product"
+                                        class="btn btn-danger d-flex align-items-center justify-content-center h-100 w-100">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </form>

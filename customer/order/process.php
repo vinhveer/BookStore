@@ -1,21 +1,7 @@
 <?php
 session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" || isset($_POST['delete_product'])) {
-
-    if (isset($_POST['product_id'])) {
-        $product_id = $_POST['product_id'];
-        if (isset($_SESSION['product_ids'])) {
-            $index = array_search($product_id, $_SESSION['product_ids']);
-            if ($index !== false) {
-                unset($_SESSION['product_ids'][$index]);
-                $_SESSION['product_ids'] = array_values($_SESSION['product_ids']);
-            }
-        }
-    }
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" || isset($_POST['delete_product'])) {
+if (isset($_POST['delete_product'])) {
     if (isset($_POST["product_id"])) {
         $product_id = $_POST["product_id"];
 
@@ -34,8 +20,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || isset($_POST['delete_product'])) {
         header("Location: order.php");
         exit();
     }
-} else {
-    header("Location: order.php");
+}
+
+if (isset($_POST['card_pay']))
+{
+    $product_id = $_POST[''];
+    $user_id = $_SESSION['user_id'];
+    $total = $_POST['total'];
+    $quantity = $_POST['quantity'];
+    
+    header("Location: successfully.php");
+    exit();
+}
+
+if (isset($_POST['qr_pay']))
+{
+    header("Location: successfully.php");
     exit();
 }
 

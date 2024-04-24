@@ -59,8 +59,12 @@ h6 {
     padding-right: 8px;
 }
 
-.card img {
+.card-img-top-book {
     height: 250px;
+}
+
+.card-img-top-stationery {
+    height: auto;
 }
 
 .card-title {
