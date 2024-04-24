@@ -79,4 +79,22 @@
           $query_update_oder = sqlsrv_query($conn, $sql_update_order);
           header ("location: order_detail.php?order_id=$order_id&select=$select");
      }
+
+     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["btn_add_product"])) {
+          $order_id = $_GET['order_id'];
+          $product_id = $_POST['product_id'];
+          $quantity = $_POST['quantity'];
+          $discount = $_POST['discount'];
+          $select = $_POST['select'];
+          if($select == 1){
+               $sql_add_product = "INSERT INTO order_details_on (order_id, product_id, quantity, discount)
+                                   VALUES ($order_id,$product_id,$quantity,$discount)";
+          }
+          if($select == 0){
+               $sql_add_product = "INSERT INTO order_details_off (order_id, product_id, quantity, discount)
+                                   VALUES ($order_id,$product_id,$quantity,$discount)";
+          }
+          $query_add_pro = sqlsrv_query($conn, $sql_add_product);
+          header ("location: order_detail.php?order_id=$order_id&select=$select");
+     }
 ?>

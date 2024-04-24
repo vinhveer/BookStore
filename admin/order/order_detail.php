@@ -226,7 +226,7 @@
                                 <th scope="col">Unit price</th>
                                 <th scope="col">Discount</th>
                                 <th scope="col">Into money</th>
-                                <th scope="col">Operation</th>
+                                <th scope="col">Operation <button style="border: none;" id="addProductBtn"><i class='bx bx-plus'></i></button></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -423,6 +423,41 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="addProductForm" action="process.php?order_id=<?php echo $order_id; ?>&select=<?php echo $select;?>" method="POST">
+                <div class="modal-body">
+                    <input type="hidden" name="order_id" value="<?php echo $order_id ?>">
+                    <input type="hidden" name="select" value="<?php echo $select;?>">
+                    <!-- Product ID -->
+                    <div class="mb-3">
+                        <label for="product_id" class="form-label">Product ID:</label>
+                        <input type="text" class="form-control" id="product_id" name="product_id">
+                    </div>
+                    <!-- Quantity -->
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Quantity:</label>
+                        <input type="text" class="form-control" id="quantity" name="quantity">
+                    </div>
+                    <!-- Discount -->
+                    <div class="mb-3">
+                        <label for="discount" class="form-label">Discount (%):</label>
+                        <input type="text" class="form-control" id="discount" name="discount">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="btn_add_product">Add Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
     <script src="index.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -467,6 +502,10 @@
 
         // Show the delete modal
         $('#deleteProductModal').modal('show');
+    });
+    // Show add product form
+    $(document).on("click", "#addProductBtn", function () {
+        $('#addProductModal').modal('show');
     });
 
 </script>
