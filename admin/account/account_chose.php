@@ -78,33 +78,33 @@
     <main>
     <form action="process.php" class="form-group" method="post">
         <div class="container mt-4">
-            <h3 class="text-center mb-5">Chọn vai trò người dùng</h3>
+            <h3 class="text-center mb-5">Choose User Role</h3>
         </div>
         <div class="container mb-4">
             <div class="row mt-4">
                 <div class="col-md-4 d-flex justify-content-center align-content-center">
                     <button type="submit" class="card mb-3" name="sbm" value="1">
-                        <img src="..\..\assets\images\avatar\cus.png" alt="Khách hàng">
+                        <img src="..\..\assets\images\avatar\cus.png" alt="Customer">
                         <div class="container mt-4 mb-4">
-                            <h5 class="text-center">Khách hàng</h5>
+                            <h5 class="text-center">Customer</h5>
                         </div>
                     </button>
                 </div>
 
                 <div class="col-md-4 d-flex justify-content-center align-content-center">
                     <button type="submit" class="card mb-3" name="sbm" value="2">
-                        <img src="..\..\assets\images\avatar\admin1.png" alt="Quản trị viên">
+                        <img src="..\..\assets\images\avatar\admin1.png" alt="Administrator">
                         <div class="container mt-4 mb-4">
-                            <h5 class="text-center">Quản trị viên</h5>
+                            <h5 class="text-center">Administrator</h5>
                         </div>
                     </button>
                 </div>
 
                 <div class="col-md-4 d-flex justify-content-center align-content-center">
                     <button type="submit" class="card mb-3" name="sbm" value="5">
-                        <img src="..\..\assets\images\avatar\manager.jpg" alt="Quản lý nhân viên">
+                        <img src="..\..\assets\images\avatar\manager.jpg" alt="Employee Manager">
                         <div class="container mt-4 mb-4">
-                            <h5 class="text-center">Quản lý nhân viên</h5>
+                            <h5 class="text-center">Employee Manager</h5>
                         </div>
                     </button>
                 </div>
@@ -113,18 +113,18 @@
             <div class="row mt-4">
                 <div class="col-md-6 d-flex justify-content-center align-content-center">
                     <button type="submit" class="card mb-3" name="sbm" value="3">
-                        <img src="..\..\assets\images\avatar\nhanvien1.png" alt="Nhân viên">
+                        <img src="..\..\assets\images\avatar\nhanvien1.png" alt="Employee">
                         <div class="container mt-4 mb-4">
-                            <h5 class="text-center">Nhân viên</h5>
+                            <h5 class="text-center">Employee</h5>
                         </div>
                     </button>
                 </div>
 
                 <div class="col-md-6 d-flex justify-content-center align-content-center">
                     <button type="submit" class="card mb-3" name="sbm" value="4">
-                        <img src="..\..\assets\images\avatar\ware.png" alt="Quản lý kho">
+                        <img src="..\..\assets\images\avatar\ware.png" alt="Warehouse Manager">
                         <div class="container mt-4 mb-4">
-                            <h5 class="text-center">Quản lý kho</h5>
+                            <h5 class="text-center">Warehouse Manager</h5>
                         </div>
                     </button>
                 </div>

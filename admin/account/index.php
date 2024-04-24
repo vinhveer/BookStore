@@ -1,9 +1,9 @@
 <?php
     include_once '../../import/connect.php';
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem'])) {
-        $tukhoa = $_POST['tukhoa'];
-        $sql_account ="SearchUsers N'$tukhoa'";
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {
+        $keyword = $_POST['keyword'];
+        $sql_account ="SearchUsers N'$keyword'";
         $result_account = sqlsrv_query($conn, $sql_account);
     } else {
         $recordsPerPage = 8;
@@ -19,7 +19,7 @@
         }
         $sql_account = "EXEC GetUserInformation_no $currentPage";
         $result_account = sqlsrv_query($conn, $sql_account);
-}
+    }
 
 ?>
 
@@ -98,24 +98,24 @@
             <div class="row">
                 <div class="col-md-4">
                     <form class="d-flex" action="index.php" method="POST">
-                        <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Tìm kiếm"
-                        name="tukhoa" value="">
-                    <button class="btn btn-outline-primary" type="submit" name="timkiem" value="find">Tìm</button>
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                        name="keyword" value="">
+                    <button class="btn btn-outline-primary" type="submit" name="search" value="find">Search</button>
                     </form>
-                    <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['timkiem'])) { ?>
+                    <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) { ?>
                     <div class="row mt-3">
                         <div class="col">
                             <?php
-                            $tukhoa = $_POST['tukhoa'];
-                            echo "<p>Tìm kiếm với từ khóa: '<strong>$tukhoa</strong>'</p>";
+                            $keyword = $_POST['keyword'];
+                            echo "<p>Search keyword: '<strong>$keyword</strong>'</p>";
                             ?>
                         </div>
                     </div>
                     <?php } ?>
                 </div>
                 <div class="col-md-8 text-right">
-                    <a href="account_add.php" class="btn btn-primary float-end"><i class='bx bxs-user-plus' ></i>Thêm tài khoản mới</a>
-                    <a href="account_group.php" class="btn btn-primary float-end me-2"><i class='bx bxs-user-detail' ></i>Nhóm Tài khoản</a>
+                    <a href="account_add.php" class="btn btn-primary float-end"><i class='bx bxs-user-plus' ></i>Add New Account</a>
+                    <a href="account_group.php" class="btn btn-primary float-end me-2"><i class='bx bxs-user-detail' ></i>Account Groups</a>
                 </div>
             </div>
         </div>
@@ -125,12 +125,12 @@
                     <table class="table table-striped table-bordered" >
                         <thead >
                             <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Tên người dùng</th>
-                                <th scope="col">Tên tài khoản</th>
+                                <th scope="col">ID</th>
+                                <th scope="col">Full Name</th>
+                                <th scope="col">Username</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Vai trò</th>
-                                <th scope="col">Thao tác</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -160,24 +160,24 @@
                             <div class="pagination">
                                     <?php
                                     if ($totalPages > 1) {
-                                        // Hiển thị ô đầu tiên
+                                        // Display first page link
                                         echo '<a href="index.php?page=1">1</a>';
-                                        // Nếu trang hiện tại lớn hơn 3, hiển thị dấu ... ở đầu
+                                        // If current page is greater than 3, display ... at the beginning
                                         if ($currentPage > 3) {
                                             echo '<span>...</span>';
                                         }
 
-                                        // Hiển thị các ô trung tâm
+                                        // Display middle pages
                                         for ($i = max(2, $currentPage - 1); $i <= min($currentPage + 1, $totalPages - 1); $i++) {
                                             echo "<a href='index.php?page=$i'>$i</a>";
                                         }
 
-                                        // Nếu trang hiện tại là trang cuối cùng hoặc gần cuối cùng, không hiển thị dấu ... ở cuối
+                                        // If current page is the last or near the last page, do not display ... at the end
                                         if ($currentPage < $totalPages - 2) {
                                             echo '<span>...</span>';
                                         }
 
-                                        // Hiển thị ô cuối cùng
+                                        // Display last page link
                                         echo "<a href='index.php?page=$totalPages'>$totalPages</a>";
                                     }
                                     ?>
@@ -193,16 +193,16 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteUserModalLabel">Xác nhận xóa tài khoản</h5>
+                    <h5 class="modal-title" id="deleteUserModalLabel">Confirm Account Deletion</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Bạn có chắc chắn muốn xóa tài khoản này?</p>
+                    <p>Are you sure you want to delete this account?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <form id="deletePostForm" action="" method="post">
-                        <button type="submit" class="btn btn-danger" name="delete_user">Xóa</button>
+                        <button type="submit" class="btn btn-danger" name="delete_user">Delete</button>
                     </form>
                 </div>
             </div>
