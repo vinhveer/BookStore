@@ -119,20 +119,24 @@
                                         WHERE p.product_id = ?";
                                 $params = array($search_id);
                             } else {
+                                $recordsPerPage = 12;
+                                $sql_count = "SELECT COUNT(*) AS total_product FROM products";
+                                $result_count = sqlsrv_query($conn, $sql_count);
+                                $row_count = sqlsrv_fetch_array($result_count);
+                                $totalRecords = $row_count['total_product'];
+                                $totalPages = ceil($totalRecords / $recordsPerPage);
+                                if (!isset($_GET['page'])) {
+                                    $currentPage = 1;
+                                } else {
+                                    $currentPage = $_GET['page'];
+                                }
                                 // Mặc định hiển thị tất cả sản phẩm
-                                $sql = "SELECT p.product_id, p.product_price,
-                                            CASE
-                                                WHEN b.book_name IS NOT NULL THEN b.book_name
-                                                ELSE op.others_product_name
-                                            END AS product_name
-                                        FROM products p
-                                        LEFT JOIN books b ON p.product_id = b.product_id
-                                        LEFT JOIN others_products op ON p.product_id = op.product_id";
+                                $sql = "EXEC GetProductInformation $currentPage";
                                 $params = array();
                             }
 
                             // Thực hiện câu truy vấn
-                            $stmt = sqlsrv_query($conn, $sql, $params);
+                            $stmt = sqlsrv_query($conn, $sql,$params);
 
                             // Kiểm tra và hiển thị kết quả
                             if ($stmt === false) {
@@ -150,6 +154,34 @@
                             ?>
                         </tbody>
                     </table>
+                    <div aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <div class="pagination">
+                                    <?php
+                                    if (!isset($_GET['search']) && empty($_GET['search'])) {
+                                        if ($totalPages > 1) {
+                                        // Hiển thị ô đầu tiên
+                                        echo '<a href="user.php?page=1">1</a>';
+                                        // Nếu trang hiện tại lớn hơn 3, hiển thị dấu ... ở đầu
+                                        if ($currentPage > 3) {
+                                            echo '<span>...</span>';
+                                        }
+
+                                        // Hiển thị các ô trung tâm
+                                        for ($i = max(2, $currentPage - 1); $i <= min($currentPage + 1, $totalPages - 1); $i++) {
+                                            echo "<a href='user.php?page=$i'>$i</a>";
+                                        }
+                                        // Nếu trang hiện tại là trang cuối cùng hoặc gần cuối cùng, không hiển thị dấu ... ở cuối
+                                        if ($currentPage < $totalPages - 2) {
+                                            echo '<span>...</span>';
+                                        }
+                                        // Hiển thị ô cuối cùng
+                                        echo "<a href='user.php?page=$totalPages'>$totalPages</a>";
+                                    }}
+                                    ?>
+                            </div>
+                        </ul>
+                    </div>
                 </div>
 
                 <!-- Reminders -->
