@@ -27,14 +27,6 @@ function SetLoginSession($conn, $username_email, $password)
         $_SESSION['last_name'] = $row['last_name'];
         $_SESSION['email'] = $row['email'];
         $_SESSION['image_user'] = $row['image_user'];
-
-        // // Check if "Remember me" is set
-        // if (isset($_POST['remember_me']) && $_POST['remember_me'] == 'on') {
-        //     // Set cookie
-        //     $cookie_name = 'user_credentials';
-        //     $cookie_value = base64_encode($username_email . ':' . $password);
-        //     setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 30 days expiration
-        // }
     }
 }
 
@@ -87,7 +79,7 @@ if (isset($_POST['login']))
 
         default:
             header('Location: sign_in.php');
-            break;
+            exit;
     }  
 }
 
